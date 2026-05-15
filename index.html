@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính giá Công Cụ Bản Quyền</title>
+  <meta name="description" content="So sánh và tính chi phí 22+ công cụ bản quyền phổ biến. Xem giá cá nhân, team, doanh nghiệp theo USD và VND thực tế.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark">
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <a class="logo" href="/">
+        <div class="logo-icon">💎</div>
+        Tính giá <span>Tool BQ</span>
+      </a>
+      <nav>
+        <a href="#combos">Combo Stack</a>
+        <a href="#apps">Tất cả app</a>
+      </nav>
+      <div class="header-right">
+        <span class="rate-badge" id="rate-badge">Đang tải tỉ giá...</span>
+        <div class="currency-toggle">
+          <button id="btn-usd" class="active">USD</button>
+          <button id="btn-vnd">VND</button>
+        </div>
+        <button class="theme-btn" id="theme-btn" title="Đổi giao diện">☀️</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">✅ Sử dụng miễn phí — Không cần đăng ký</div>
+      <h1>Ai bảo bản quyền<br><span>đắt?</span></h1>
+      <p>Tính thử xem — so sánh giá 22+ app phổ biến theo USD & VND thực tế. Tính luôn lương còn lại sau khi trả tool.</p>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="search" placeholder="Tìm app... Figma, ChatGPT, Notion..." autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-num">22+</span><span class="stat-label">App bản quyền</span></div>
+      <div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Lĩnh vực</span></div>
+      <div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Combo Stack</span></div>
+      <div class="stat-item"><span class="stat-num">Live</span><span class="stat-label">Tỉ giá tự động</span></div>
+    </div>
+  </section>
+
+  <!-- COMBOS SECTION -->
+  <section class="section" id="combos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">🚀 Bộ tool theo nghề</div>
+        <h2 class="section-title">Bạn làm nghề gì —<br><span>chọn ngay bộ tool</span></h2>
+        <p class="section-desc">Không biết cần tool gì? Chọn nghề của bạn. Giá tính tự động theo tỉ giá thực tế.</p>
+      </div>
+      <div class="combo-grid" id="combo-grid"></div>
+    </div>
+  </section>
+
+
+  <!-- SALARY SECTION -->
+  <section class="section salary-page-section" id="salary-section">
+    <div class="container">
+      <div class="salary-page-wrap">
+        <div class="salary-page-left">
+          <div class="section-badge">🧮 Tính lương thực nhận</div>
+          <h2 class="section-title">Bỏ bao nhiêu % lương<br>cho <span>công cụ</span>?</h2>
+          <p class="section-desc">Nhập lương của bạn — hệ thống tự tính sau khi trừ chi phí tool đã chọn. Chọn thêm tool bên dưới để cập nhật.</p>
+        </div>
+        <div class="salary-page-right">
+          <div class="salary-page-card">
+            <div class="page-salary-inputs">
+              <input type="number" id="page-salary-input" placeholder="Nhập lương của bạn..." min="0">
+              <select id="page-salary-currency">
+                <option value="VND">VND</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div id="page-salary-result">
+              <div class="salary-hint">← Chọn app bên dưới để bắt đầu tính</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL APPS SECTION -->
+  <section class="section" id="apps" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 28px;">
+        <div class="section-badge">📦 Toàn bộ app</div>
+        <h2 class="section-title">So sánh <span>từng app</span></h2>
+        <p class="section-desc">Click vào app để xem đầy đủ bảng giá các tier</p>
+      </div>
+      <div class="controls-section">
+        <div class="controls-row">
+          <div class="filter-tabs" id="filter-tabs"></div>
+          <div class="plan-tabs">
+            <button class="plan-btn active" data-plan="individual">Cá nhân</button>
+            <button class="plan-btn" data-plan="team">Team</button>
+            <button class="plan-btn" data-plan="enterprise">Doanh nghiệp</button>
+          </div>
+        </div>
+      </div>
+      <div class="app-grid" id="app-grid"></div>
+    </div>
+  </section>
+
+  <!-- CALC BAR -->
+  <div class="calc-bar" id="calc-bar">
+    <div class="container">
+      <div class="calc-info">
+        <span class="calc-count" id="calc-count">Đã chọn <strong>0</strong> app</span>
+        <span class="calc-total-num" id="calc-total">$0</span>
+        <span class="calc-period">/tháng</span>
+      </div>
+      <button class="calc-reset" id="calc-reset">Bỏ chọn</button>
+      <button class="calc-open-btn" id="calc-open-btn">Xem chi tiết →</button>
+    </div>
+  </div>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- DRAWER -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-header" id="drawer-header"></div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-action">
+      <button class="drawer-add-btn" id="drawer-add-btn">Thêm vào giỏ</button>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h2>Chi tiết chi phí</h2>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

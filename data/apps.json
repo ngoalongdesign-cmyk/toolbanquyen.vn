@@ -1,0 +1,635 @@
+{
+  "categories": [
+    { "id": "design", "label": "Design", "icon": "🎨" },
+    { "id": "ai", "label": "AI", "icon": "🤖" },
+    { "id": "productivity", "label": "Productivity", "icon": "⚡" },
+    { "id": "development", "label": "Development", "icon": "💻" },
+    { "id": "marketing", "label": "Marketing", "icon": "📣" },
+    { "id": "video", "label": "Video", "icon": "🎬" }
+  ],
+  "combos": [
+    {
+      "id": "designer-stack",
+      "name": "Designer Stack",
+      "icon": "🎨",
+      "color": "#a259ff",
+      "description": "Bộ công cụ thiết kế chuyên nghiệp — từ UI/UX đến content visual",
+      "apps": ["figma", "canva", "adobe-cc", "capcut"]
+    },
+    {
+      "id": "ai-creator-stack",
+      "name": "AI Creator Stack",
+      "icon": "🤖",
+      "color": "#22c55e",
+      "description": "Tất cả AI tools để làm việc nhanh gấp 10x — viết, ảnh, code",
+      "apps": ["chatgpt", "claude", "midjourney", "cursor"]
+    },
+    {
+      "id": "developer-stack",
+      "name": "Developer Stack",
+      "icon": "💻",
+      "color": "#3b82f6",
+      "description": "Tools lập trình từ code đến deploy — đủ cho một developer hoàn chỉnh",
+      "apps": ["cursor", "github", "linear", "vercel"]
+    },
+    {
+      "id": "marketer-stack",
+      "name": "Marketer Stack",
+      "icon": "📣",
+      "color": "#f59e0b",
+      "description": "Bộ công cụ marketing đầy đủ — SEO, email, social, analytics",
+      "apps": ["semrush", "mailchimp", "buffer", "canva"]
+    },
+    {
+      "id": "content-creator-stack",
+      "name": "Content Creator Stack",
+      "icon": "🎬",
+      "color": "#ef4444",
+      "description": "Quay, dựng, edit video chuyên nghiệp — Youtuber, TikToker",
+      "apps": ["capcut", "descript", "canva", "chatgpt"]
+    },
+    {
+      "id": "startup-stack",
+      "name": "Startup Stack",
+      "icon": "🚀",
+      "color": "#06b6d4",
+      "description": "Bộ tool tối thiểu để một startup vận hành trơn tru từ ngày đầu",
+      "apps": ["notion", "slack", "figma", "vercel"]
+    }
+  ],
+  "apps": [
+    {
+      "id": "figma",
+      "name": "Figma",
+      "category": "design",
+      "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+      "description": "Thiết kế UI/UX cộng tác thời gian thực",
+      "url": "https://figma.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Starter", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["3 file", "Cộng tác cơ bản"] },
+            { "name": "Professional", "monthly": 15, "yearly": 144, "label": "Phổ biến nhất", "features": ["File không giới hạn", "Version history", "Custom fonts"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Organization", "monthly": 45, "yearly": 432, "per_seat": true, "label": "Per seat/tháng", "features": ["Shared libraries", "Analytics", "SSO"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Advanced security", "Dedicated support"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "adobe-cc",
+      "name": "Adobe Creative Cloud",
+      "category": "design",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Adobe_Creative_Cloud_rainbow_icon.svg/512px-Adobe_Creative_Cloud_rainbow_icon.svg.png",
+      "description": "Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere...",
+      "url": "https://adobe.com/creativecloud",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Single App", "monthly": 29.99, "yearly": 299.88, "label": "1 app duy nhất", "features": ["1 ứng dụng tuỳ chọn", "100GB cloud"] },
+            { "name": "All Apps", "monthly": 59.99, "yearly": 599.88, "label": "Phổ biến nhất", "features": ["20+ ứng dụng", "100GB cloud", "Adobe Fonts"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Teams", "monthly": 89.99, "yearly": 899.88, "per_seat": true, "label": "Per seat/tháng", "features": ["Admin console", "Team libraries", "Priority support"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom licensing", "Advanced compliance"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "canva",
+      "name": "Canva Pro",
+      "category": "design",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Canva_Logo.svg/512px-Canva_Logo.svg.png",
+      "description": "Thiết kế graphic dễ dàng cho mọi người",
+      "url": "https://canva.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Template cơ bản", "5GB storage"] },
+            { "name": "Pro", "monthly": 15, "yearly": 120, "label": "Phổ biến nhất", "features": ["Premium templates", "100GB storage", "Brand Kit", "AI tools"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Teams", "monthly": 30, "yearly": 300, "per_seat": false, "label": "Tối đa 5 người", "features": ["Brand controls", "Approval workflows", "Team reports"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Unlimited users", "SSO", "Advanced security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "sketch",
+      "name": "Sketch",
+      "category": "design",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Sketch_Logo.svg/512px-Sketch_Logo.svg.png",
+      "description": "Công cụ thiết kế UI/UX dành riêng cho macOS",
+      "url": "https://sketch.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Standard", "monthly": 12, "yearly": 99, "label": "Phổ biến nhất", "features": ["Unlimited documents", "Mac + Web editor"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 20, "yearly": 199, "per_seat": true, "label": "Per seat/tháng", "features": ["Team libraries", "Admin", "SSO"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom onboarding", "SLA"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT Plus",
+      "category": "ai",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png",
+      "description": "AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter",
+      "url": "https://chat.openai.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["GPT-4o mini", "Giới hạn message"] },
+            { "name": "Plus", "monthly": 20, "yearly": 240, "label": "Phổ biến nhất", "features": ["GPT-4o ưu tiên", "DALL·E", "Advanced data analysis"] },
+            { "name": "Pro", "monthly": 200, "yearly": 2400, "label": "Nặng nhất", "features": ["o1 pro không giới hạn", "Extended thinking"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Team", "monthly": 30, "yearly": 360, "per_seat": true, "label": "Per seat/tháng", "features": ["Admin console", "Data privacy", "Tối thiểu 2 người"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Advanced security", "Custom models"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "claude",
+      "name": "Claude Pro",
+      "category": "ai",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Claude_AI_logo.svg/512px-Claude_AI_logo.svg.png",
+      "description": "AI assistant của Anthropic — phân tích sâu, viết lách, code",
+      "url": "https://claude.ai",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Claude Haiku", "Giới hạn message"] },
+            { "name": "Pro", "monthly": 20, "yearly": 240, "label": "Phổ biến nhất", "features": ["Claude Opus 4", "Priority access", "Projects"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Team", "monthly": 25, "yearly": 300, "per_seat": true, "label": "Per seat/tháng", "features": ["Shared projects", "Admin", "Tối thiểu 5 người"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Audit logs", "Custom integrations"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "midjourney",
+      "name": "Midjourney",
+      "category": "ai",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Midjourney_Emblem.png/512px-Midjourney_Emblem.png",
+      "description": "Tạo ảnh AI chất lượng cao nhất hiện nay",
+      "url": "https://midjourney.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Basic", "monthly": 10, "yearly": 96, "label": "Nhẹ nhất", "features": ["~200 ảnh/tháng", "3 fast jobs"] },
+            { "name": "Standard", "monthly": 30, "yearly": 288, "label": "Phổ biến nhất", "features": ["15h fast GPU", "Unlimited relax", "Stealth mode"] },
+            { "name": "Pro", "monthly": 60, "yearly": 576, "label": "Pro", "features": ["30h fast GPU", "Stealth mode", "Max concurrent"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Mega", "monthly": 120, "yearly": 1152, "label": "Mega plan", "features": ["60h fast GPU", "Unlimited relax", "Tất cả features"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom licensing", "API access"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "category": "ai",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
+      "description": "AI coding assistant tích hợp trực tiếp vào IDE",
+      "url": "https://github.com/features/copilot",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["2000 completions/tháng", "50 chat/ngày"] },
+            { "name": "Pro", "monthly": 10, "yearly": 100, "label": "Phổ biến nhất", "features": ["Không giới hạn completions", "Claude + GPT-4o"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 19, "yearly": 228, "per_seat": true, "label": "Per seat/tháng", "features": ["Policy management", "Audit logs"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": 39, "yearly": 468, "per_seat": true, "label": "Per seat/tháng", "features": ["Fine-tuned models", "Advanced security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "category": "ai",
+      "logo": "https://www.cursor.com/brand/icon.svg",
+      "description": "Code editor AI-first — viết, debug, refactor bằng AI",
+      "url": "https://cursor.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Hobby", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["2000 completions", "50 slow premium"] },
+            { "name": "Pro", "monthly": 20, "yearly": 192, "label": "Phổ biến nhất", "features": ["500 fast premium", "Unlimited completions", "Claude + GPT-4o"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 40, "yearly": 384, "per_seat": true, "label": "Per seat/tháng", "features": ["Centralized billing", "Admin", "SSO"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom models", "Advanced security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "category": "productivity",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/512px-Notion-logo.svg.png",
+      "description": "All-in-one workspace: note, wiki, database, project",
+      "url": "https://notion.so",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Blocks không giới hạn", "10 guest"] },
+            { "name": "Plus", "monthly": 16, "yearly": 96, "label": "Phổ biến nhất", "features": ["Unlimited uploads", "30 day history", "Unlimited guests"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 18, "yearly": 216, "per_seat": true, "label": "Per seat/tháng", "features": ["SAML SSO", "90 day history", "Advanced permissions"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Audit log", "Customer success", "Advanced security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "category": "productivity",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Slack_icon_2019.svg/512px-Slack_icon_2019.svg.png",
+      "description": "Nền tảng giao tiếp team số 1 cho doanh nghiệp",
+      "url": "https://slack.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["90 ngày message history", "10 app integrations"] },
+            { "name": "Pro", "monthly": 7.25, "yearly": 87, "label": "Phổ biến nhất", "features": ["Unlimited history", "Unlimited apps", "Huddles"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business+", "monthly": 12.5, "yearly": 150, "per_seat": true, "label": "Per seat/tháng", "features": ["SSO", "Data exports", "99.99% uptime SLA"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise Grid", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Multi-workspace", "DLP", "eDiscovery"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "zoom",
+      "name": "Zoom",
+      "category": "productivity",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Zoom_Logo_2022.svg/512px-Zoom_Logo_2022.svg.png",
+      "description": "Video conferencing hàng đầu thế giới",
+      "url": "https://zoom.us",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Basic", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Meeting 40 phút", "100 người tham gia"] },
+            { "name": "Pro", "monthly": 15.99, "yearly": 149.9, "label": "Phổ biến nhất", "features": ["Meeting không giới hạn", "5GB cloud recording"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 19.99, "yearly": 199.9, "per_seat": true, "label": "Per seat/tháng", "features": ["300 người tham gia", "Managed domains", "Branded emails"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["1000 người tham gia", "Unlimited cloud"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "loom",
+      "name": "Loom",
+      "category": "productivity",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Loom_logo_%282021%29.svg/512px-Loom_logo_%282021%29.svg.png",
+      "description": "Quay màn hình + giải thích bằng video nhanh",
+      "url": "https://loom.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Starter", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["25 video/người", "5 phút/video"] },
+            { "name": "Business", "monthly": 12.5, "yearly": 150, "label": "Phổ biến nhất", "features": ["Video không giới hạn", "Custom branding", "CTA buttons"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 12.5, "yearly": 150, "per_seat": true, "label": "Per seat/tháng", "features": ["Team workspace", "Analytics", "Priority support"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Advanced analytics"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "category": "development",
+      "logo": "https://linear.app/favicon.ico",
+      "description": "Project management cho software team — đẹp & nhanh",
+      "url": "https://linear.app",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["250 issue", "3 thành viên"] },
+            { "name": "Basic", "monthly": 8, "yearly": 80, "label": "Phổ biến nhất", "features": ["Issue không giới hạn", "Cycles", "Roadmaps"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Plus", "monthly": 16, "yearly": 144, "per_seat": true, "label": "Per seat/tháng", "features": ["Advanced roadmaps", "SLA tracking", "Priority support"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Audit logs", "Custom security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "category": "development",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
+      "description": "Nền tảng lưu trữ code & cộng tác developer số 1",
+      "url": "https://github.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Public & private repos", "Actions 2000 phút"] },
+            { "name": "Pro", "monthly": 4, "yearly": 48, "label": "Phổ biến nhất", "features": ["Actions 3000 phút", "Advanced Insights", "Protected branches"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Team", "monthly": 4, "yearly": 48, "per_seat": true, "label": "Per seat/tháng", "features": ["Actions 3000 phút", "Code owners", "Required reviewers"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": 21, "yearly": 252, "per_seat": true, "label": "Per seat/tháng", "features": ["SAML SSO", "Advanced security", "GitHub Advanced Security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "category": "development",
+      "logo": "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+      "description": "Deploy web app nhanh nhất — CI/CD tự động, Edge Network",
+      "url": "https://vercel.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Hobby", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["100GB bandwidth", "Serverless functions", "Analytics cơ bản"] },
+            { "name": "Pro", "monthly": 20, "yearly": 240, "label": "Phổ biến nhất", "features": ["1TB bandwidth", "Advanced analytics", "Preview deployments"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Pro", "monthly": 20, "yearly": 240, "per_seat": true, "label": "Per seat/tháng", "features": ["Team dashboard", "Roles & permissions", "Audit logs"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Dedicated support", "SLA", "Custom security"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "mailchimp",
+      "name": "Mailchimp",
+      "category": "marketing",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Mailchimp_2019_logo.svg/512px-Mailchimp_2019_logo.svg.png",
+      "description": "Email marketing & automation phổ biến nhất thế giới",
+      "url": "https://mailchimp.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["1000 contacts", "500 email/tháng"] },
+            { "name": "Essentials", "monthly": 13, "yearly": 130, "label": "Phổ biến nhất", "features": ["500 contacts", "5000 email/tháng", "A/B testing"] },
+            { "name": "Standard", "monthly": 20, "yearly": 200, "label": "Nâng cao", "features": ["500 contacts", "6000 email/tháng", "Automation"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Premium", "monthly": 350, "yearly": 3500, "label": "Premium", "features": ["Unlimited contacts", "Phone support", "Custom reports"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom pricing", "Dedicated support"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "buffer",
+      "name": "Buffer",
+      "category": "marketing",
+      "logo": "https://buffer.com/favicon.ico",
+      "description": "Lên lịch đăng bài mạng xã hội — đơn giản & hiệu quả",
+      "url": "https://buffer.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["3 kênh", "10 bài/kênh"] },
+            { "name": "Essentials", "monthly": 6, "yearly": 60, "label": "Phổ biến nhất", "features": ["1 kênh", "Bài không giới hạn", "Analytics"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Team", "monthly": 12, "yearly": 120, "per_seat": true, "label": "Per seat/tháng", "features": ["Unlimited kênh", "Team collaboration", "Draft approval"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Agency", "monthly": 120, "yearly": 1200, "label": "Agency", "features": ["Custom channels", "White label", "Priority support"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "semrush",
+      "name": "Semrush",
+      "category": "marketing",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/SEMrush_logo.svg/512px-SEMrush_logo.svg.png",
+      "description": "SEO & competitor analysis tool mạnh nhất thế giới",
+      "url": "https://semrush.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Pro", "monthly": 139.95, "yearly": 1399.5, "label": "Phổ biến nhất", "features": ["5 projects", "500 keywords", "10K results/report"] },
+            { "name": "Guru", "monthly": 249.95, "yearly": 2499.5, "label": "Nâng cao", "features": ["15 projects", "1500 keywords", "Historical data"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 499.95, "yearly": 4999.5, "label": "Business", "features": ["40 projects", "5000 keywords", "API access"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom limits", "Dedicated manager"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "capcut",
+      "name": "CapCut Pro",
+      "category": "video",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Icon_of_CapCut.svg/512px-Icon_of_CapCut.svg.png",
+      "description": "Chỉnh sửa video AI dễ dùng — phổ biến nhất Việt Nam",
+      "url": "https://capcut.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Basic templates", "Export 1080p"] },
+            { "name": "Pro", "monthly": 9.99, "yearly": 89.99, "label": "Phổ biến nhất", "features": ["AI tools không giới hạn", "4K export", "Premium templates"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Pro for Teams", "monthly": 19.99, "yearly": 179.99, "label": "Teams", "features": ["Brand kit", "Team workspace", "Collaboration"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom features", "Dedicated support"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "premiere",
+      "name": "Adobe Premiere Pro",
+      "category": "video",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/512px-Adobe_Premiere_Pro_CC_icon.svg.png",
+      "description": "Phần mềm dựng phim chuyên nghiệp số 1 thế giới",
+      "url": "https://adobe.com/products/premiere",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Single App", "monthly": 37.99, "yearly": 299.88, "label": "Phổ biến nhất", "features": ["Premiere Pro", "100GB cloud", "Motion Graphics"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Teams", "monthly": 89.99, "yearly": 899.88, "per_seat": true, "label": "Per seat/tháng", "features": ["All Adobe apps", "Admin console", "Shared libraries"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom deployment", "Advanced compliance"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "descript",
+      "name": "Descript",
+      "category": "video",
+      "logo": "https://www.descript.com/favicon.ico",
+      "description": "Edit video bằng cách edit text — AI-powered, cực kỳ thông minh",
+      "url": "https://descript.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["1 giờ transcription/tháng", "Basic editing"] },
+            { "name": "Creator", "monthly": 24, "yearly": 192, "label": "Phổ biến nhất", "features": ["10 giờ transcription", "Overdub", "Screen recording"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 40, "yearly": 336, "per_seat": true, "label": "Per seat/tháng", "features": ["30 giờ transcription", "Team workspace", "Priority support"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom storage", "SSO", "SLA"] }
+          ]
+        }
+      }
+    }
+  ]
+}
