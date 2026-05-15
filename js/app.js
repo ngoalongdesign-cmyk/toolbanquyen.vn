@@ -9,6 +9,19 @@ const STATE = {
   drawerApp: null, drawerPlan: 'individual', drawerTier: null,
 };
 
+// ── Skills data ───────────────────────────────────────────────
+const SKILLS = [
+  { id: 'design',    icon: '🎨', label: 'Thiết kế đồ họa', apps: ['figma', 'canva', 'adobe-cc', 'sketch', 'miro'] },
+  { id: 'video',     icon: '🎬', label: 'Edit video',       apps: ['capcut', 'premiere', 'descript', 'runway'] },
+  { id: 'code',      icon: '💻', label: 'Lập trình / Code', apps: ['cursor', 'github', 'github-copilot', 'vercel', 'linear'] },
+  { id: 'marketing', icon: '📢', label: 'Marketing & SEO',  apps: ['semrush', 'ahrefs', 'mailchimp', 'buffer', 'canva'] },
+  { id: 'content',   icon: '✍️', label: 'Viết content',     apps: ['notion', 'grammarly', 'chatgpt', 'claude'] },
+  { id: 'team',      icon: '📋', label: 'Quản lý team',     apps: ['asana', 'notion', 'slack', 'miro', 'zoom', 'loom'] },
+  { id: 'ai',        icon: '🤖', label: 'AI & Automation',  apps: ['chatgpt', 'claude', 'midjourney', 'github-copilot', 'runway'] },
+  { id: 'web',       icon: '🌐', label: 'Web / No-code',    apps: ['webflow', 'framer', 'figma', 'vercel'] },
+];
+const STATE_SKILLS = new Set();
+
 // ── Init ──────────────────────────────────────────────────────
 async function init() {
   loadTheme();
@@ -16,6 +29,7 @@ async function init() {
   renderCombos();
   renderCategories();
   renderApps();
+  renderSkillPicker();
   bindEvents();
 }
 
@@ -91,6 +105,16 @@ function getLogoHTML(app, cls = 'app-logo', fallbackCls = 'app-logo-fallback') {
   return `<img class="${cls}" src="${src}" alt="${app.name}"
     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
     <div class="${fallbackCls}" style="display:none">${app.name.charAt(0)}</div>`;
+}
+
+// ── Salary feedback ───────────────────────────────────────────
+function getSalaryFeedback(pct) {
+  const p = parseFloat(pct);
+  if (p < 5)  return { icon: '💚', text: 'Rất hợp lý',    color: 'var(--accent)', note: 'Chi phí tool đang ở mức lý tưởng.' };
+  if (p < 10) return { icon: '✅', text: 'Hợp lý',        color: 'var(--accent)', note: 'Bạn đang kiểm soát chi phí tốt.' };
+  if (p < 20) return { icon: '⚠️', text: 'Hơi cao',       color: 'var(--amber)',  note: 'Cân nhắc bỏ bớt tool ít dùng.' };
+  if (p < 30) return { icon: '🔴', text: 'Cao',           color: 'var(--red)',    note: 'Nên chọn plan thấp hơn hoặc bỏ bớt tool.' };
+  return              { icon: '❌', text: 'Không hợp lý', color: 'var(--red)',    note: 'Tool đang ăn quá nhiều lương — hãy tối ưu lại.' };
 }
 
 // ── Best tier for current plan ────────────────────────────────
@@ -423,12 +447,14 @@ function updatePageSalary() {
   const costVND = total.vnd;
   const netVND = Math.max(0, grossVND - costVND);
   const pct = ((costVND / grossVND) * 100).toFixed(1);
+  const fb = getSalaryFeedback(pct);
   result.innerHTML = `
     <div class="salary-result-card">
       <div class="salary-result-row"><span class="lbl">Lương gross</span><span class="val">${fmtVND(Math.round(grossVND))}</span></div>
       <div class="salary-result-row cost"><span class="lbl">Chi phí app / tháng</span><span class="val">- ${fmtVND(Math.round(costVND))}</span></div>
       <div class="salary-result-row hi"><span class="lbl">Còn lại</span><span class="val">${fmtVND(Math.round(netVND))}</span></div>
       <div class="salary-result-row"><span class="lbl">App chiếm % lương</span><span class="val" style="color:var(--accent)">${pct}%</span></div>
+      <div class="salary-result-row"><span class="lbl">Đánh giá</span><span class="val" style="color:${fb.color};font-weight:600">${fb.icon} ${fb.text}<small style="display:block;color:var(--text-2);font-size:10px;font-weight:400;margin-top:1px">${fb.note}</small></span></div>
     </div>`;
 }
 
@@ -482,6 +508,7 @@ function renderModalBody() {
         <div class="result-row cost"><span class="label">Chi phí app / tháng</span><span class="value" id="res-cost">—</span></div>
         <div class="result-row highlight"><span class="label">Còn lại</span><span class="value" id="res-net">—</span></div>
         <div class="result-row"><span class="label">App chiếm % lương</span><span class="value" id="res-pct">—</span></div>
+        <div class="result-row"><span class="label">Đánh giá</span><span class="value" id="res-feedback"></span></div>
       </div>
     </div>`;
 
@@ -530,6 +557,95 @@ function calcSalary() {
   document.getElementById('res-cost').textContent = `- ${fmtVND(Math.round(costVND))}`;
   document.getElementById('res-net').textContent = fmtVND(Math.round(netVND));
   document.getElementById('res-pct').textContent = `${pct}%`;
+  const fb = getSalaryFeedback(pct);
+  const fbEl = document.getElementById('res-feedback');
+  if (fbEl) fbEl.innerHTML = `<span style="color:${fb.color};font-weight:600">${fb.icon} ${fb.text}</span><small style="display:block;color:var(--text-2);font-weight:400;font-size:10px;margin-top:1px">${fb.note}</small>`;
+}
+
+// ── Skills Picker ─────────────────────────────────────────────
+function renderSkillPicker() {
+  const container = document.getElementById('skill-chips');
+  if (!container) return;
+  container.innerHTML = SKILLS.map(s => `
+    <button class="skill-chip${STATE_SKILLS.has(s.id) ? ' active' : ''}" data-skill="${s.id}" onclick="toggleSkill('${s.id}')">
+      ${s.icon} ${s.label}
+    </button>`).join('');
+}
+
+function toggleSkill(skillId) {
+  if (STATE_SKILLS.has(skillId)) STATE_SKILLS.delete(skillId);
+  else STATE_SKILLS.add(skillId);
+  renderSkillPicker();
+  renderSkillResult();
+}
+
+function renderSkillResult() {
+  const result = document.getElementById('skill-result');
+  if (!result) return;
+  if (STATE_SKILLS.size === 0) { result.innerHTML = ''; return; }
+
+  // Union of all app IDs from selected skills, deduped
+  const appIds = new Set();
+  STATE_SKILLS.forEach(skillId => {
+    const skill = SKILLS.find(s => s.id === skillId);
+    if (skill) skill.apps.forEach(id => appIds.add(id));
+  });
+  const apps = [...appIds].map(id => STATE.apps.find(a => a.id === id)).filter(Boolean);
+  if (!apps.length) { result.innerHTML = ''; return; }
+
+  const total = apps.reduce((sum, app) => {
+    const t = getBestTier(app);
+    return sum + (t && t.monthly > 0 ? t.monthly : 0);
+  }, 0);
+
+  result.innerHTML = `
+    <div class="skill-result-wrap">
+      <div class="skill-result-header">
+        <div class="skill-result-meta">
+          <div class="skill-result-title">Bộ tool gợi ý — <span>${apps.length} app</span></div>
+          <div class="skill-result-cost">Tổng tháng (cá nhân): <strong>${fmtPrice(total)}</strong></div>
+        </div>
+        <button class="skill-add-all-btn" id="skill-add-all">+ Thêm tất cả vào giỏ</button>
+      </div>
+      <div class="skill-apps-grid">
+        ${apps.map(app => {
+          const t = getBestTier(app);
+          const price = !t ? '—' : t.monthly === 0 ? 'Miễn phí' : fmtPrice(t.monthly) + '/th';
+          const sel = STATE.selected.has(app.id);
+          return `<div class="skill-app-item${sel ? ' selected' : ''}" data-app-id="${app.id}">
+            ${getLogoHTML(app, 'skill-app-logo', 'skill-app-logo-fallback')}
+            <div class="skill-app-info">
+              <div class="skill-app-name">${app.name}</div>
+              <div class="skill-app-price">${price}</div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  // Bind app item clicks
+  result.querySelectorAll('.skill-app-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const app = STATE.apps.find(a => a.id === el.dataset.appId);
+      if (app) openDrawer(app);
+    });
+  });
+
+  // Bind add-all button
+  const addAllBtn = document.getElementById('skill-add-all');
+  if (addAllBtn) {
+    addAllBtn.addEventListener('click', () => {
+      apps.forEach(app => {
+        const t = getBestTier(app);
+        if (t && t.monthly > 0 && !STATE.selected.has(app.id)) {
+          STATE.selected.set(app.id, { app, tier: t, plan: STATE.plan });
+        }
+      });
+      renderApps();
+      updateCalcBar();
+      renderSkillResult(); // refresh selected state
+    });
+  }
 }
 
 // ── Bind Events ───────────────────────────────────────────────
