@@ -31,6 +31,7 @@ async function init() {
   renderApps();
   renderSkillPicker();
   bindEvents();
+  initScrollReveal();
 }
 
 // ── Data ──────────────────────────────────────────────────────
@@ -181,7 +182,7 @@ function renderCategories() {
   el.innerHTML = '';
   const allBtn = mkTabBtn('all', 'Tất cả', true);
   el.appendChild(allBtn);
-  STATE.categories.forEach(cat => el.appendChild(mkTabBtn(cat.id, `${cat.icon} ${cat.label}`, false)));
+  STATE.categories.forEach(cat => el.appendChild(mkTabBtn(cat.id, cat.label, false)));
 }
 function mkTabBtn(id, label, active) {
   const b = document.createElement('button');
@@ -568,7 +569,7 @@ function renderSkillPicker() {
   if (!container) return;
   container.innerHTML = SKILLS.map(s => `
     <button class="skill-chip${STATE_SKILLS.has(s.id) ? ' active' : ''}" data-skill="${s.id}" onclick="toggleSkill('${s.id}')">
-      ${s.icon} ${s.label}
+      ${s.label}
     </button>`).join('');
 }
 
@@ -648,11 +649,30 @@ function renderSkillResult() {
   }
 }
 
+// ── Scroll Reveal ─────────────────────────────────────────────
+function initScrollReveal() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+  els.forEach(el => io.observe(el));
+}
+
 // ── Bind Events ───────────────────────────────────────────────
 function bindEvents() {
   const searchEl = document.getElementById('search');
   if (searchEl) {
-    const doSearch = e => { STATE.search = e.target.value; renderApps(); };
+    const doSearch = e => {
+      if (STATE.search === e.target.value) return; // skip modifier keys (Ctrl, Shift…)
+      STATE.search = e.target.value;
+      renderApps();
+    };
     searchEl.addEventListener('input', doSearch);
     searchEl.addEventListener('keyup', doSearch);
   }
