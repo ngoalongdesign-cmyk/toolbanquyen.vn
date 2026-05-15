@@ -44,7 +44,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
-        <input type="text" id="search" placeholder="" autocomplete="off" spellcheck="false">
+        <input type="text" id="search" placeholder="Gõ tìm app của bạn..." autocomplete="off" spellcheck="false">
       </div>
     </div>
     <div class="stats-row">
@@ -55,48 +55,8 @@
     </div>
   </section>
 
-  <!-- COMBOS SECTION -->
-  <section class="section" id="combos">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">🚀 Bộ tool theo nghề</div>
-        <h2 class="section-title">Bạn làm nghề gì<br><span>Chọn bộ tool đầy đủ theo lĩnh vực của bạn</span></h2>
-        <p class="section-desc">Combo chọn sẵn đáp ứng đầy đủ nhu cầu của bạn. Giá tính tự động theo tỉ giá thực tế. Đã khấu trừ chi phí VAT.</p>
-      </div>
-      <div class="combo-grid" id="combo-grid"></div>
-    </div>
-  </section>
-
-
-  <!-- SALARY SECTION -->
-  <section class="section salary-page-section" id="salary-section">
-    <div class="container">
-      <div class="salary-page-wrap">
-        <div class="salary-page-left">
-          <div class="section-badge">🧮 Tính lương thực nhận</div>
-          <h2 class="section-title">Bỏ bao nhiêu % lương<br>cho <span>công cụ</span>?</h2>
-          <p class="section-desc">Nhập lương của bạn — hệ thống tự tính sau khi trừ chi phí tool đã chọn. Chọn thêm tool bên dưới để cập nhật.</p>
-        </div>
-        <div class="salary-page-right">
-          <div class="salary-page-card">
-            <div class="page-salary-inputs">
-              <input type="text" inputmode="numeric" id="page-salary-input" placeholder="Nhập lương của bạn...">
-              <select id="page-salary-currency">
-                <option value="VND">VND</option>
-                <option value="USD">USD</option>
-              </select>
-            </div>
-            <div id="page-salary-result">
-              <div class="salary-hint">← Chọn app bên dưới để bắt đầu tính</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ALL APPS SECTION -->
-  <section class="section" id="apps" style="padding-top: 0;">
+  <section class="section" id="apps">
     <div class="container">
       <div class="section-header" style="margin-bottom: 28px;">
         <div class="section-badge">📦 Toàn bộ app</div>
@@ -114,6 +74,45 @@
         </div>
       </div>
       <div class="app-grid" id="app-grid"></div>
+    </div>
+  </section>
+
+  <!-- COMBOS SECTION -->
+  <section class="section" id="combos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">🚀 Bộ tool theo nghề</div>
+        <h2 class="section-title">Bạn làm nghề gì<br><span>Chọn bộ tool đầy đủ theo lĩnh vực của bạn</span></h2>
+        <p class="section-desc">Combo chọn sẵn đáp ứng đầy đủ nhu cầu của bạn. Giá tính tự động theo tỉ giá thực tế. Đã khấu trừ chi phí VAT.</p>
+      </div>
+      <div class="combo-grid" id="combo-grid"></div>
+    </div>
+  </section>
+
+  <!-- SALARY SECTION -->
+  <section class="section salary-page-section" id="salary-section">
+    <div class="container">
+      <div class="salary-page-wrap">
+        <div class="salary-page-left">
+          <div class="section-badge">🧮 Tính lương thực nhận</div>
+          <h2 class="section-title">Bỏ bao nhiêu % lương<br>cho <span>công cụ</span>?</h2>
+          <p class="section-desc">Nhập lương của bạn — hệ thống tự tính sau khi trừ chi phí tool đã chọn. Chọn app phía trên để cập nhật.</p>
+        </div>
+        <div class="salary-page-right">
+          <div class="salary-page-card">
+            <div class="page-salary-inputs">
+              <input type="text" inputmode="numeric" id="page-salary-input" placeholder="Nhập lương của bạn...">
+              <select id="page-salary-currency">
+                <option value="VND">VND</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div id="page-salary-result">
+              <div class="salary-hint">Chọn app phía trên để bắt đầu tính</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

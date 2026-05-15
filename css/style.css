@@ -331,6 +331,7 @@ nav a:hover{color:var(--text);background:var(--border)}
   .hero h1{font-size:32px;letter-spacing:-1.2px}
   .stats-row{flex-wrap:wrap}
   .stat-item{flex:1 1 45%;border-right:none;border-bottom:1px solid var(--border)}
+  .stat-item:nth-child(odd){border-right:1px solid var(--border)}
   .app-grid{grid-template-columns:1fr 1fr}
   .combo-grid{grid-template-columns:1fr}
   .drawer{width:100%;border-left:none;border-top:1px solid var(--border)}

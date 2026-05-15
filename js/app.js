@@ -83,7 +83,12 @@ function fmtPrice(usd) {
   return fmtVND(Math.round(usd * STATE.rate));
 }
 function getLogoHTML(app, cls = 'app-logo', fallbackCls = 'app-logo-fallback') {
-  return `<img class="${cls}" src="${app.logo}" alt="${app.name}"
+  let domain = '';
+  try { domain = new URL(app.url).hostname; } catch {}
+  const src = domain
+    ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128`
+    : app.logo;
+  return `<img class="${cls}" src="${src}" alt="${app.name}"
     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
     <div class="${fallbackCls}" style="display:none">${app.name.charAt(0)}</div>`;
 }
@@ -408,7 +413,7 @@ function updatePageSalary() {
   const raw = parseFloat(input.dataset.rawValue || input.value.replace(/\D/g, '')) || 0;
   if (!raw || raw <= 0 || STATE.selected.size === 0) {
     result.innerHTML = STATE.selected.size === 0
-      ? '<div class="salary-hint">← Chọn app bên dưới để bắt đầu tính</div>'
+      ? '<div class="salary-hint">Chọn app phía trên để bắt đầu tính</div>'
       : '<div class="salary-hint">Nhập lương để xem kết quả</div>';
     return;
   }
@@ -469,7 +474,7 @@ function renderModalBody() {
     <div class="salary-section">
       <h3>🧮 Lương còn lại sau khi trả app</h3>
       <div class="salary-inputs">
-        <input type="number" id="salary-input" placeholder="Nhập lương của bạn..." min="0">
+        <input type="text" inputmode="numeric" id="salary-input" placeholder="Nhập lương..." autocomplete="off">
         <select id="salary-currency"><option value="VND">VND</option><option value="USD">USD</option></select>
       </div>
       <div class="salary-result-box" id="salary-result-box">
@@ -480,7 +485,13 @@ function renderModalBody() {
       </div>
     </div>`;
 
-  document.getElementById('salary-input').addEventListener('input', calcSalary);
+  const salEl = document.getElementById('salary-input');
+  salEl.addEventListener('input', function() {
+    const raw = this.value.replace(/\D/g, '');
+    this.dataset.rawValue = raw;
+    this.value = raw ? parseInt(raw, 10).toLocaleString('vi-VN') : '';
+    calcSalary();
+  });
   document.getElementById('salary-currency').addEventListener('change', calcSalary);
 }
 
@@ -489,11 +500,23 @@ function removeItem(id) {
   updateCardSelected(id, false);
   updateCalcBar();
   if (STATE.selected.size === 0) { closeModal(); return; }
+  const salIn = document.getElementById('salary-input');
+  const salCur = document.getElementById('salary-currency');
+  const savedRaw = salIn ? (salIn.dataset.rawValue || '') : '';
+  const savedCur = salCur ? salCur.value : 'VND';
   renderModalBody();
+  if (savedRaw) {
+    const newIn = document.getElementById('salary-input');
+    const newCur = document.getElementById('salary-currency');
+    if (newIn) { newIn.dataset.rawValue = savedRaw; newIn.value = parseInt(savedRaw, 10).toLocaleString('vi-VN'); }
+    if (newCur) newCur.value = savedCur;
+    calcSalary();
+  }
 }
 
 function calcSalary() {
-  const val = parseFloat(document.getElementById('salary-input').value);
+  const salInput = document.getElementById('salary-input');
+  const val = parseFloat(salInput ? (salInput.dataset.rawValue || salInput.value.replace(/\D/g, '')) : 0);
   const cur = document.getElementById('salary-currency').value;
   const box = document.getElementById('salary-result-box');
   if (!val || val <= 0) { box.classList.remove('show'); return; }
