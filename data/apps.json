@@ -62,7 +62,7 @@
       "id": "figma",
       "name": "Figma",
       "category": "design",
-      "logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+      "logo": "https://logo.clearbit.com/figma.com",
       "description": "Thiết kế UI/UX cộng tác thời gian thực",
       "url": "https://figma.com",
       "pricing": {
@@ -88,7 +88,7 @@
       "id": "adobe-cc",
       "name": "Adobe Creative Cloud",
       "category": "design",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Adobe_Creative_Cloud_rainbow_icon.svg/512px-Adobe_Creative_Cloud_rainbow_icon.svg.png",
+      "logo": "https://logo.clearbit.com/adobe.com",
       "description": "Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere...",
       "url": "https://adobe.com/creativecloud",
       "pricing": {
@@ -114,7 +114,7 @@
       "id": "canva",
       "name": "Canva Pro",
       "category": "design",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Canva_Logo.svg/512px-Canva_Logo.svg.png",
+      "logo": "https://logo.clearbit.com/canva.com",
       "description": "Thiết kế graphic dễ dàng cho mọi người",
       "url": "https://canva.com",
       "pricing": {
@@ -140,7 +140,7 @@
       "id": "sketch",
       "name": "Sketch",
       "category": "design",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Sketch_Logo.svg/512px-Sketch_Logo.svg.png",
+      "logo": "https://logo.clearbit.com/sketch.com",
       "description": "Công cụ thiết kế UI/UX dành riêng cho macOS",
       "url": "https://sketch.com",
       "pricing": {
@@ -162,10 +162,63 @@
       }
     },
     {
+      "id": "miro",
+      "name": "Miro",
+      "category": "design",
+      "logo": "https://logo.clearbit.com/miro.com",
+      "description": "Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop",
+      "url": "https://miro.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["3 boards", "Unlimited members"] },
+            { "name": "Starter", "monthly": 10, "yearly": 96, "label": "Phổ biến nhất", "features": ["Boards không giới hạn", "Private boards", "Video chat"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 20, "yearly": 192, "per_seat": true, "label": "Per seat/tháng", "features": ["Advanced security", "SSO", "Custom templates"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom storage", "Advanced analytics", "SLA"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "framer",
+      "name": "Framer",
+      "category": "design",
+      "logo": "https://logo.clearbit.com/framer.com",
+      "description": "Thiết kế & publish website chuyên nghiệp với animation",
+      "url": "https://framer.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["1 project", "framer.website domain"] },
+            { "name": "Mini", "monthly": 5, "yearly": 60, "label": "Starter", "features": ["Custom domain", "1000 visitors/tháng"] },
+            { "name": "Basic", "monthly": 15, "yearly": 180, "label": "Phổ biến nhất", "features": ["Custom domain", "10000 visitors", "CMS"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Pro", "monthly": 30, "yearly": 360, "label": "Pro", "features": ["Unlimited visitors", "Password protection", "Analytics"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Custom SLA", "Priority support"] }
+          ]
+        }
+      }
+    },
+    {
       "id": "chatgpt",
       "name": "ChatGPT Plus",
       "category": "ai",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png",
+      "logo": "https://logo.clearbit.com/openai.com",
       "description": "AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter",
       "url": "https://chat.openai.com",
       "pricing": {
@@ -192,7 +245,7 @@
       "id": "claude",
       "name": "Claude Pro",
       "category": "ai",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Claude_AI_logo.svg/512px-Claude_AI_logo.svg.png",
+      "logo": "https://logo.clearbit.com/anthropic.com",
       "description": "AI assistant của Anthropic — phân tích sâu, viết lách, code",
       "url": "https://claude.ai",
       "pricing": {
@@ -218,7 +271,7 @@
       "id": "midjourney",
       "name": "Midjourney",
       "category": "ai",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Midjourney_Emblem.png/512px-Midjourney_Emblem.png",
+      "logo": "https://logo.clearbit.com/midjourney.com",
       "description": "Tạo ảnh AI chất lượng cao nhất hiện nay",
       "url": "https://midjourney.com",
       "pricing": {
@@ -245,7 +298,7 @@
       "id": "github-copilot",
       "name": "GitHub Copilot",
       "category": "ai",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
+      "logo": "https://logo.clearbit.com/github.com",
       "description": "AI coding assistant tích hợp trực tiếp vào IDE",
       "url": "https://github.com/features/copilot",
       "pricing": {
@@ -271,7 +324,7 @@
       "id": "cursor",
       "name": "Cursor",
       "category": "ai",
-      "logo": "https://www.cursor.com/brand/icon.svg",
+      "logo": "https://logo.clearbit.com/cursor.com",
       "description": "Code editor AI-first — viết, debug, refactor bằng AI",
       "url": "https://cursor.com",
       "pricing": {
@@ -294,10 +347,36 @@
       }
     },
     {
+      "id": "grammarly",
+      "name": "Grammarly",
+      "category": "ai",
+      "logo": "https://logo.clearbit.com/grammarly.com",
+      "description": "AI writing assistant — kiểm tra ngữ pháp, tone, viết chuẩn hơn",
+      "url": "https://grammarly.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Kiểm tra cơ bản", "Tone detection"] },
+            { "name": "Premium", "monthly": 30, "yearly": 144, "label": "Phổ biến nhất", "features": ["Full grammar check", "Style suggestions", "Plagiarism detection"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 15, "yearly": 180, "per_seat": true, "label": "Per seat/tháng", "features": ["Style guide", "Team analytics", "Admin dashboard"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Advanced security", "Dedicated support"] }
+          ]
+        }
+      }
+    },
+    {
       "id": "notion",
       "name": "Notion",
       "category": "productivity",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/512px-Notion-logo.svg.png",
+      "logo": "https://logo.clearbit.com/notion.so",
       "description": "All-in-one workspace: note, wiki, database, project",
       "url": "https://notion.so",
       "pricing": {
@@ -323,7 +402,7 @@
       "id": "slack",
       "name": "Slack",
       "category": "productivity",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Slack_icon_2019.svg/512px-Slack_icon_2019.svg.png",
+      "logo": "https://logo.clearbit.com/slack.com",
       "description": "Nền tảng giao tiếp team số 1 cho doanh nghiệp",
       "url": "https://slack.com",
       "pricing": {
@@ -349,7 +428,7 @@
       "id": "zoom",
       "name": "Zoom",
       "category": "productivity",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Zoom_Logo_2022.svg/512px-Zoom_Logo_2022.svg.png",
+      "logo": "https://logo.clearbit.com/zoom.us",
       "description": "Video conferencing hàng đầu thế giới",
       "url": "https://zoom.us",
       "pricing": {
@@ -375,7 +454,7 @@
       "id": "loom",
       "name": "Loom",
       "category": "productivity",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Loom_logo_%282021%29.svg/512px-Loom_logo_%282021%29.svg.png",
+      "logo": "https://logo.clearbit.com/loom.com",
       "description": "Quay màn hình + giải thích bằng video nhanh",
       "url": "https://loom.com",
       "pricing": {
@@ -398,10 +477,62 @@
       }
     },
     {
+      "id": "asana",
+      "name": "Asana",
+      "category": "productivity",
+      "logo": "https://logo.clearbit.com/asana.com",
+      "description": "Quản lý dự án & công việc team — timeline, board, workflow",
+      "url": "https://asana.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Personal", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["Task không giới hạn", "Tối đa 10 người"] },
+            { "name": "Starter", "monthly": 13.49, "yearly": 131.88, "label": "Phổ biến nhất", "features": ["Timeline", "Workflow builder", "Reporting"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Advanced", "monthly": 30.49, "yearly": 299.88, "per_seat": true, "label": "Per seat/tháng", "features": ["Portfolio", "Workload", "Custom fields"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Advanced security", "Custom roles"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1password",
+      "name": "1Password",
+      "category": "productivity",
+      "logo": "https://logo.clearbit.com/1password.com",
+      "description": "Password manager bảo mật nhất — quản lý mật khẩu & bí mật",
+      "url": "https://1password.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Individual", "monthly": 2.99, "yearly": 35.88, "label": "Phổ biến nhất", "features": ["Unlimited passwords", "1GB storage", "Travel mode"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Teams Starter", "monthly": 19.95, "yearly": 239.4, "label": "Tối đa 10 người", "features": ["10 người dùng", "5GB shared storage", "Admin controls"] },
+            { "name": "Business", "monthly": 7.99, "yearly": 95.88, "per_seat": true, "label": "Per seat/tháng", "features": ["Unlimited users", "Advanced reports", "Custom groups"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Dedicated manager", "Custom security", "SSO"] }
+          ]
+        }
+      }
+    },
+    {
       "id": "linear",
       "name": "Linear",
       "category": "development",
-      "logo": "https://linear.app/favicon.ico",
+      "logo": "https://logo.clearbit.com/linear.app",
       "description": "Project management cho software team — đẹp & nhanh",
       "url": "https://linear.app",
       "pricing": {
@@ -427,7 +558,7 @@
       "id": "github",
       "name": "GitHub",
       "category": "development",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/512px-GitHub_Invertocat_Logo.svg.png",
+      "logo": "https://logo.clearbit.com/github.com",
       "description": "Nền tảng lưu trữ code & cộng tác developer số 1",
       "url": "https://github.com",
       "pricing": {
@@ -453,7 +584,7 @@
       "id": "vercel",
       "name": "Vercel",
       "category": "development",
-      "logo": "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+      "logo": "https://logo.clearbit.com/vercel.com",
       "description": "Deploy web app nhanh nhất — CI/CD tự động, Edge Network",
       "url": "https://vercel.com",
       "pricing": {
@@ -476,10 +607,37 @@
       }
     },
     {
+      "id": "webflow",
+      "name": "Webflow",
+      "category": "development",
+      "logo": "https://logo.clearbit.com/webflow.com",
+      "description": "Thiết kế & publish web không code — visual development",
+      "url": "https://webflow.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["2 projects", "webflow.io subdomain"] },
+            { "name": "Basic", "monthly": 14, "yearly": 168, "label": "Phổ biến nhất", "features": ["Custom domain", "500 pages", "SSL"] },
+            { "name": "CMS", "monthly": 23, "yearly": 276, "label": "Nâng cao", "features": ["2000 CMS items", "3 content editors"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Business", "monthly": 39, "yearly": 468, "label": "Business", "features": ["10000 CMS items", "10 editors", "Advanced SEO"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["SSO", "Advanced security", "SLA"] }
+          ]
+        }
+      }
+    },
+    {
       "id": "mailchimp",
       "name": "Mailchimp",
       "category": "marketing",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Mailchimp_2019_logo.svg/512px-Mailchimp_2019_logo.svg.png",
+      "logo": "https://logo.clearbit.com/mailchimp.com",
       "description": "Email marketing & automation phổ biến nhất thế giới",
       "url": "https://mailchimp.com",
       "pricing": {
@@ -506,7 +664,7 @@
       "id": "buffer",
       "name": "Buffer",
       "category": "marketing",
-      "logo": "https://buffer.com/favicon.ico",
+      "logo": "https://logo.clearbit.com/buffer.com",
       "description": "Lên lịch đăng bài mạng xã hội — đơn giản & hiệu quả",
       "url": "https://buffer.com",
       "pricing": {
@@ -532,7 +690,7 @@
       "id": "semrush",
       "name": "Semrush",
       "category": "marketing",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/SEMrush_logo.svg/512px-SEMrush_logo.svg.png",
+      "logo": "https://logo.clearbit.com/semrush.com",
       "description": "SEO & competitor analysis tool mạnh nhất thế giới",
       "url": "https://semrush.com",
       "pricing": {
@@ -555,10 +713,36 @@
       }
     },
     {
+      "id": "ahrefs",
+      "name": "Ahrefs",
+      "category": "marketing",
+      "logo": "https://logo.clearbit.com/ahrefs.com",
+      "description": "SEO toolset chuyên sâu — backlink, keyword research, competitor",
+      "url": "https://ahrefs.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Lite", "monthly": 129, "yearly": 1290, "label": "Phổ biến nhất", "features": ["5 projects", "6 months history", "1 user"] },
+            { "name": "Standard", "monthly": 249, "yearly": 2490, "label": "Nâng cao", "features": ["20 projects", "2 years history", "Rank tracker"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Advanced", "monthly": 449, "yearly": 4490, "label": "Advanced", "features": ["50 projects", "5 years history", "5 users"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": 14990, "yearly": 149900, "label": "Enterprise", "features": ["Custom limits", "API access", "Priority support"] }
+          ]
+        }
+      }
+    },
+    {
       "id": "capcut",
       "name": "CapCut Pro",
       "category": "video",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Icon_of_CapCut.svg/512px-Icon_of_CapCut.svg.png",
+      "logo": "https://logo.clearbit.com/capcut.com",
       "description": "Chỉnh sửa video AI dễ dùng — phổ biến nhất Việt Nam",
       "url": "https://capcut.com",
       "pricing": {
@@ -584,7 +768,7 @@
       "id": "premiere",
       "name": "Adobe Premiere Pro",
       "category": "video",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/512px-Adobe_Premiere_Pro_CC_icon.svg.png",
+      "logo": "https://logo.clearbit.com/adobe.com",
       "description": "Phần mềm dựng phim chuyên nghiệp số 1 thế giới",
       "url": "https://adobe.com/products/premiere",
       "pricing": {
@@ -609,7 +793,7 @@
       "id": "descript",
       "name": "Descript",
       "category": "video",
-      "logo": "https://www.descript.com/favicon.ico",
+      "logo": "https://logo.clearbit.com/descript.com",
       "description": "Edit video bằng cách edit text — AI-powered, cực kỳ thông minh",
       "url": "https://descript.com",
       "pricing": {
@@ -627,6 +811,33 @@
         "enterprise": {
           "tiers": [
             { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom storage", "SSO", "SLA"] }
+          ]
+        }
+      }
+    },
+    {
+      "id": "runway",
+      "name": "Runway",
+      "category": "video",
+      "logo": "https://logo.clearbit.com/runwayml.com",
+      "description": "AI video generation & editing — tạo video từ text, image",
+      "url": "https://runwayml.com",
+      "pricing": {
+        "individual": {
+          "tiers": [
+            { "name": "Free", "monthly": 0, "yearly": 0, "label": "Miễn phí", "features": ["125 credits", "720p export"] },
+            { "name": "Standard", "monthly": 15, "yearly": 144, "label": "Phổ biến nhất", "features": ["625 credits/tháng", "1080p export", "No watermark"] },
+            { "name": "Pro", "monthly": 35, "yearly": 336, "label": "Pro", "features": ["2250 credits/tháng", "4K export", "Custom AI training"] }
+          ]
+        },
+        "team": {
+          "tiers": [
+            { "name": "Unlimited", "monthly": 95, "yearly": 912, "per_seat": true, "label": "Per seat/tháng", "features": ["Unlimited generations", "Team workspace"] }
+          ]
+        },
+        "enterprise": {
+          "tiers": [
+            { "name": "Enterprise", "monthly": null, "contact_sales": true, "label": "Liên hệ", "features": ["Custom models", "API access", "SLA"] }
           ]
         }
       }

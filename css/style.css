@@ -121,7 +121,7 @@ nav a:hover{color:var(--text);background:var(--border)}
 .search-wrap{max-width:540px;margin:0 auto;position:relative}
 .search-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text-3);pointer-events:none;flex-shrink:0}
 #search{width:100%;padding:14px 20px 14px 48px;font-size:15px;font-family:var(--font);background:var(--input-bg);color:var(--text);border:1.5px solid var(--border);border-radius:var(--radius);outline:none;transition:all var(--transition);box-shadow:var(--shadow)}
-#search:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+#search:focus{border-color:rgba(34,197,94,0.5);box-shadow:0 0 0 2px rgba(34,197,94,0.08)}
 #search::placeholder{color:var(--text-3)}
 
 /* STATS ROW */
