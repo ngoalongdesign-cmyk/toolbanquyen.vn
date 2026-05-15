@@ -30,7 +30,7 @@ body{
   --modal-bg:#0a1410;
   --drawer-bg:#080f0a;
   --shadow:0 4px 24px rgba(0,0,0,0.6);
-  --grid-line:rgba(34,197,94,0.05);
+  --grid-line:rgba(34,197,94,0.02);
 }
 
 /* LIGHT */
@@ -50,7 +50,7 @@ body.light{
   --modal-bg:#f0faf2;
   --drawer-bg:#f5fdf7;
   --shadow:0 4px 24px rgba(0,0,0,0.10);
-  --grid-line:rgba(34,197,94,0.09);
+  --grid-line:rgba(34,197,94,0.04);
 }
 
 html{scroll-behavior:smooth}
@@ -345,7 +345,7 @@ nav a:hover{color:var(--text);background:var(--border)}
 /* SALARY PAGE SECTION */
 .salary-page-section{padding-top:0;padding-bottom:80px}
 .salary-page-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:40px;position:relative;overflow:hidden}
-.salary-page-wrap::before{content:'🧮';position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:120px;opacity:0.04;pointer-events:none;line-height:1}
+.salary-page-wrap::before{display:none}
 .salary-page-left .section-badge{margin-bottom:12px}
 .salary-page-left .section-title{text-align:left;font-size:clamp(22px,3vw,32px)}
 .salary-page-left .section-desc{text-align:left;margin:10px 0 0}

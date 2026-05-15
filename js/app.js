@@ -399,6 +399,34 @@ function calcTotal() {
   return { usd: parseFloat(usd.toFixed(2)), vnd: Math.round(usd * STATE.rate) };
 }
 
+// ── Page Salary ───────────────────────────────────────────────
+function updatePageSalary() {
+  const input = document.getElementById('page-salary-input');
+  const curSel = document.getElementById('page-salary-currency');
+  const result = document.getElementById('page-salary-result');
+  if (!input || !result) return;
+  const raw = parseFloat(input.dataset.rawValue || input.value.replace(/\D/g, '')) || 0;
+  if (!raw || raw <= 0 || STATE.selected.size === 0) {
+    result.innerHTML = STATE.selected.size === 0
+      ? '<div class="salary-hint">← Chọn app bên dưới để bắt đầu tính</div>'
+      : '<div class="salary-hint">Nhập lương để xem kết quả</div>';
+    return;
+  }
+  const cur = curSel ? curSel.value : 'VND';
+  const total = calcTotal();
+  const grossVND = cur === 'VND' ? raw : raw * STATE.rate;
+  const costVND = total.vnd;
+  const netVND = Math.max(0, grossVND - costVND);
+  const pct = ((costVND / grossVND) * 100).toFixed(1);
+  result.innerHTML = `
+    <div class="salary-result-card">
+      <div class="salary-result-row"><span class="lbl">Lương gross</span><span class="val">${fmtVND(Math.round(grossVND))}</span></div>
+      <div class="salary-result-row cost"><span class="lbl">Chi phí app / tháng</span><span class="val">- ${fmtVND(Math.round(costVND))}</span></div>
+      <div class="salary-result-row hi"><span class="lbl">Còn lại</span><span class="val">${fmtVND(Math.round(netVND))}</span></div>
+      <div class="salary-result-row"><span class="lbl">App chiếm % lương</span><span class="val" style="color:var(--accent)">${pct}%</span></div>
+    </div>`;
+}
+
 // ── Modal ─────────────────────────────────────────────────────
 function openModal() {
   document.getElementById('modal-overlay').classList.add('open');
@@ -483,7 +511,12 @@ function calcSalary() {
 
 // ── Bind Events ───────────────────────────────────────────────
 function bindEvents() {
-  document.getElementById('search').addEventListener('input', e => { STATE.search = e.target.value; renderApps(); });
+  const searchEl = document.getElementById('search');
+  if (searchEl) {
+    const doSearch = e => { STATE.search = e.target.value; renderApps(); };
+    searchEl.addEventListener('input', doSearch);
+    searchEl.addEventListener('keyup', doSearch);
+  }
   document.getElementById('btn-usd').addEventListener('click', () => setCurrency('USD'));
   document.getElementById('btn-vnd').addEventListener('click', () => setCurrency('VND'));
   document.querySelectorAll('.plan-btn').forEach(btn => btn.addEventListener('click', () => {
@@ -503,7 +536,14 @@ function bindEvents() {
   document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
   const pageSalIn = document.getElementById('page-salary-input');
   const pageSalCur = document.getElementById('page-salary-currency');
-  if (pageSalIn) pageSalIn.addEventListener('input', updatePageSalary);
+  if (pageSalIn) {
+    pageSalIn.addEventListener('input', function() {
+      const raw = this.value.replace(/\D/g, '');
+      this.dataset.rawValue = raw;
+      this.value = raw ? parseInt(raw, 10).toLocaleString('vi-VN') : '';
+      updatePageSalary();
+    });
+  }
   if (pageSalCur) pageSalCur.addEventListener('change', updatePageSalary);
   document.getElementById('drawer-overlay').addEventListener('click', closeDrawer);
 }
