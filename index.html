@@ -178,7 +178,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent 75%);
   opacity: .25; pointer-events: none; z-index: 0;
 }
-.hero-inner { position: relative; z-index: 1; text-align: center; padding-top: 32px; }
+.hero-inner {
+  position: relative; z-index: 1; text-align: center; padding-top: 32px;
+  perspective: 1600px; perspective-origin: 50% 35%;
+}
 .hero-pill {
   display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px;
   border: 1px solid var(--border); border-radius: 999px; background: var(--accent-soft);
@@ -281,15 +284,17 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .hero-arcs circle { fill:var(--accent);opacity:0.5;filter:drop-shadow(0 0 4px rgba(34,197,94,0.6)); }
 @keyframes arcDash { to { stroke-dashoffset:-200; } }
 
-/* ─── Floating cards (hero) — 6 cards với chính phụ depth ─────────── */
+/* ─── Floating cards (hero) — 6 cards với 3D tilt + ghost depth ───── */
 .float-card {
+  --rotY: 0deg; --rotZ: 0deg; --fc-scale: 1;
   position: absolute; z-index: 2; display: flex; align-items: center; gap: 11px;
   padding: 11px 15px 11px 11px;
   background: linear-gradient(180deg,rgba(15,26,18,.92),rgba(11,20,16,.85));
   border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(12px);
   box-shadow: 0 16px 40px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.02) inset;
-  animation: float 7s ease-in-out infinite;
-  transition: transform .3s ease, border-color .25s, box-shadow .3s;
+  animation: floatTilt 7s ease-in-out infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 [data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.97),rgba(246,251,247,.92)); box-shadow: 0 16px 40px -18px rgba(20,60,30,.32); }
 
@@ -341,11 +346,34 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .fc-bl  { top:620px; left:50px;   animation-delay:4.8s; }  /* sub */
 .fc-br  { top:600px; right:-20px; animation-delay:6.0s; }  /* main */
 
-@keyframes float {
-  0%,100% { transform: translateY(0) scale(var(--fc-scale,1)); }
-  50%     { transform: translateY(-8px) scale(var(--fc-scale,1)); }
+@keyframes floatTilt {
+  0%,100% { transform: translateY(0)   rotateY(var(--rotY)) rotateZ(var(--rotZ)) scale(var(--fc-scale)); }
+  50%     { transform: translateY(-8px) rotateY(var(--rotY)) rotateZ(var(--rotZ)) scale(var(--fc-scale)); }
 }
 .float-card.is-sub { --fc-scale:0.95; }
+
+/* 3D tilt per position — cards "face" the title in the center */
+.fc-tl { --rotY: 16deg;  --rotZ: -2deg; }
+.fc-tr { --rotY: -16deg; --rotZ: 2deg;  }
+.fc-ml { --rotY: 20deg;  --rotZ: -1deg; }
+.fc-mr { --rotY: -20deg; --rotZ: 1deg;  }
+.fc-bl { --rotY: 14deg;  --rotZ: -2deg; }
+.fc-br { --rotY: -18deg; --rotZ: 2deg;  }
+
+/* GHOST cards — blurred partial cards visible at far edges (depth atmosphere) */
+.float-card.is-ghost {
+  opacity: 0.32;
+  filter: blur(2.5px) saturate(0.55);
+  z-index: 0;
+  pointer-events: none;
+  --fc-scale: 0.82;
+  animation-duration: 9s;
+}
+.fc-ghost-l1 { left: -180px; top: 230px;  --rotY: 24deg;  --rotZ: -3deg; animation-delay: 0.7s; }
+.fc-ghost-l2 { left: -200px; top: 540px;  --rotY: 22deg;  --rotZ: -2deg; animation-delay: 3.2s; }
+.fc-ghost-r1 { right: -180px; top: 220px; --rotY: -24deg; --rotZ: 3deg;  animation-delay: 1.8s; }
+.fc-ghost-r2 { right: -200px; top: 560px; --rotY: -22deg; --rotZ: 2deg;  animation-delay: 4.5s; }
+@media (max-width:1380px) { .float-card.is-ghost { display: none; } }
 
 .fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box; }
 .fc-body { display:flex;flex-direction:column;gap:2px;min-width:0; }
@@ -916,6 +944,48 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <circle cx="1160" cy="500" r="3"/>
       <circle cx="1180" cy="800" r="3"/>
     </svg>
+
+    <!-- GHOST cards: blurred partial cards tạo depth atmosphere phía sau -->
+    <div class="float-card is-ghost fc-ghost-l1" aria-hidden="true">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/notion.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">Notion Plus</div>
+        <div class="fc-price">$10<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
+    <div class="float-card is-ghost fc-ghost-l2" aria-hidden="true">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/canva.svg" alt="" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">Canva Pro</div>
+        <div class="fc-price">$15<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
+    <div class="float-card is-ghost fc-ghost-r1" aria-hidden="true">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/google-gemini.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">Gemini Advanced</div>
+        <div class="fc-price">$19.99<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
+    <div class="float-card is-ghost fc-ghost-r2" aria-hidden="true">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/capcut-3.svg" alt="" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">CapCut Pro</div>
+        <div class="fc-price">$10<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
 
     <!-- POPULAR cards: với badge + green glow -->
     <div class="float-card is-main is-popular fc-tl">
