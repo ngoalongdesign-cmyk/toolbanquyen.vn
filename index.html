@@ -834,7 +834,19 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   max-width:1240px;margin:0 auto;padding:14px 28px;
   display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
 }
-.cart-info { display:flex;align-items:center;gap:14px;flex-wrap:wrap; }
+.cart-info {
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  cursor:pointer;border-radius:10px;padding:6px 10px;margin:-6px -10px;
+  transition:background .15s ease;
+}
+.cart-info:hover { background:var(--bg-elev); }
+.cart-info:focus-visible { outline:2px solid var(--accent);outline-offset:2px; }
+.cart-info-chev {
+  width:18px;height:18px;color:var(--text-2);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+  margin-left:-4px;
+}
+.cart-info[aria-expanded="true"] .cart-info-chev { transform:rotate(180deg);color:var(--accent); }
 .cart-count-badge {
   display:inline-flex;align-items:center;justify-content:center;
   width:26px;height:26px;border-radius:8px;background:var(--accent);color:#08120c;font-size:13px;font-weight:700;
@@ -851,6 +863,82 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 .btn-cart-clear:hover { color:var(--text);background:var(--bg-elev); }
 .btn-cart-detail { height:36px;padding:0 18px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:#08120c;transition:background .15s; }
 .btn-cart-detail:hover { background:var(--accent-2); }
+
+/* ─── Cart popover (danh sách app đã chọn) ────────────────────────────── */
+.cart-popover {
+  position:absolute;bottom:100%;left:0;right:0;
+  pointer-events:none;opacity:0;transform:translateY(8px);
+  transition:opacity .22s ease, transform .22s cubic-bezier(.2,.8,.2,1);
+  padding:0 0 12px;
+}
+.cart-popover.is-open { pointer-events:all;opacity:1;transform:translateY(0); }
+.cart-popover-inner {
+  max-width:1240px;margin:0 auto;background:var(--card);
+  border:1px solid var(--border);border-radius:16px;
+  box-shadow:0 -8px 32px -12px rgba(0,0,0,.35), 0 24px 60px -24px rgba(0,0,0,.5);
+  overflow:hidden;
+}
+[data-theme="light"] .cart-popover-inner { box-shadow:0 -4px 16px -8px rgba(20,60,30,.10), 0 18px 40px -18px rgba(20,60,30,.22); }
+.cart-popover-head {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-bottom:1px solid var(--border-2);
+}
+.cart-popover-title { font-size:13px;font-weight:600;color:var(--text-2);letter-spacing:.02em;text-transform:uppercase; }
+.cart-popover-close {
+  width:28px;height:28px;border-radius:8px;color:var(--text-2);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;transition:all .15s;
+}
+.cart-popover-close:hover { background:var(--bg-elev);color:var(--text); }
+.cart-popover-list { max-height:42vh;overflow-y:auto;padding:6px 0; }
+.cart-popover-list::-webkit-scrollbar { width:6px; }
+.cart-popover-list::-webkit-scrollbar-thumb { background:var(--border);border-radius:3px; }
+.cart-popover-item {
+  display:flex;align-items:center;gap:12px;
+  padding:10px 20px;cursor:pointer;
+  transition:background .12s ease;
+  border-bottom:1px solid var(--border-2);
+}
+.cart-popover-item:last-child { border-bottom:0; }
+.cart-popover-item:hover { background:var(--bg-elev); }
+.cpi-mark {
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;
+  overflow:hidden;
+}
+.cpi-mark img { width:60%;height:60%;object-fit:contain; }
+.cpi-info { flex:1;min-width:0; }
+.cpi-name { font-size:14px;font-weight:600;color:var(--text);letter-spacing:-0.005em;line-height:1.3; }
+.cpi-tier { font-size:12px;color:var(--text-2);margin-top:2px; }
+.cpi-price {
+  font-size:14px;font-weight:700;color:var(--accent);
+  font-variant-numeric:tabular-nums;letter-spacing:-0.015em;
+  margin-left:8px;flex-shrink:0;
+}
+.cpi-price.is-free { color:var(--accent); }
+.cpi-price.is-contact { color:var(--text-3);font-weight:500;font-size:12px; }
+.cpi-remove {
+  width:30px;height:30px;border-radius:8px;color:var(--text-3);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;margin-left:4px;
+  transition:all .15s ease;
+}
+.cpi-remove:hover { background:rgba(239,68,68,.10);color:#ef4444; }
+.cart-popover-foot {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-top:1px solid var(--border-2);background:var(--bg-elev);
+}
+.cart-popover-foot-label { font-size:13px;color:var(--text-2);font-weight:500; }
+.cart-popover-foot-total {
+  font-size:18px;font-weight:800;letter-spacing:-0.02em;color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.cart-popover-foot-total .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
+@media (max-width:720px){
+  .cart-popover-inner { border-radius:14px;margin:0 12px; }
+  .cart-popover-list { max-height:55vh; }
+}
 
 /* ─── Modal ──────────────────────────────────────────────────────── */
 .modal-overlay {
@@ -1190,15 +1278,29 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <!-- ─── Cart bar ──────────────────────────────────────────────────────── -->
 <div id="cart-bar" class="cart-bar">
   <div class="cart-bar-inner">
-    <div class="cart-info">
+    <div class="cart-info" id="cart-info-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="cart-popover" title="Click để xem danh sách app">
       <span class="cart-count-badge" id="cart-count-badge">0</span>
       <span class="cart-info-text">app đang tính</span>
       <span class="cart-price-total" id="cart-price-total">$0<span class="per">/tháng</span></span>
       <span class="cart-pct-badge" id="cart-pct-badge"></span>
+      <svg class="cart-info-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div class="cart-btns">
       <button class="btn-cart-clear" id="btn-cart-clear">Xóa danh sách</button>
       <button class="btn-cart-detail" id="btn-cart-detail">Xem kết quả tính ↓</button>
+    </div>
+  </div>
+  <div class="cart-popover" id="cart-popover" aria-hidden="true">
+    <div class="cart-popover-inner">
+      <div class="cart-popover-head">
+        <span class="cart-popover-title">Danh sách app đã chọn</span>
+        <button class="cart-popover-close" id="cart-popover-close" aria-label="Đóng">✕</button>
+      </div>
+      <div class="cart-popover-list" id="cart-popover-list"></div>
+      <div class="cart-popover-foot">
+        <span class="cart-popover-foot-label">Tổng cộng</span>
+        <span class="cart-popover-foot-total" id="cart-popover-total">$0<span class="per">/tháng</span></span>
+      </div>
     </div>
   </div>
 </div>
@@ -2110,6 +2212,65 @@ function renderCartBar(){
   }
 }
 
+/* ── CART POPOVER (danh sách app đã chọn) ──────────────────────────────── */
+function renderCartPopover(){
+  var pop=document.getElementById('cart-popover');
+  var listEl=document.getElementById('cart-popover-list');
+  var totalEl=document.getElementById('cart-popover-total');
+  var toggle=document.getElementById('cart-info-toggle');
+  if(!pop||!listEl) return;
+  // Auto-close popover khi cart trống
+  if(S.cart.length===0){
+    pop.classList.remove('is-open');
+    if(toggle) toggle.setAttribute('aria-expanded','false');
+    listEl.innerHTML='';
+    return;
+  }
+  listEl.innerHTML=S.cart.map(function(id){
+    var app=getApp(id);if(!app) return '';
+    var tIdx=activeTierIdx(app);
+    var tier=app.tiers[tIdx];
+    var priceHtml=fmtTierPrice(tier);
+    var priceCls='cpi-price';
+    if(tier && tier.price===0) priceCls+=' is-free';
+    if(tier && tier.price===null) priceCls+=' is-contact';
+    var perLabel=(tier && tier.price>0)?(tier.perUser?'<span class="per">/người·th</span>':'<span class="per">/tháng</span>'):'';
+    var iconBg=app.logo&&app.logo.indexOf('icons/')===0?'#fff':app.color;
+    var markHtml=app.logo
+      ?'<div class="cpi-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
+      :'<div class="cpi-mark" style="background:'+app.color+'">'+app.initials+'</div>';
+    var tierLabel=tier?tier.label:'';
+    return '<div class="cart-popover-item" data-id="'+app.id+'">'+
+      markHtml+
+      '<div class="cpi-info"><div class="cpi-name">'+app.name+'</div><div class="cpi-tier">'+tierLabel+'</div></div>'+
+      '<div class="'+priceCls+'">'+priceHtml+perLabel+'</div>'+
+      '<button class="cpi-remove" data-remove="'+app.id+'" aria-label="Bỏ '+app.name+'" title="Bỏ khỏi danh sách">✕</button>'+
+      '</div>';
+  }).join('');
+  // Tổng
+  var total=cartTotal();
+  if(totalEl) totalEl.innerHTML=fmtTotal(total)+'<span class="per">/tháng</span>';
+  // Click row → mở modal + đóng popover
+  listEl.querySelectorAll('.cart-popover-item').forEach(function(row){
+    row.addEventListener('click',function(){
+      var p=document.getElementById('cart-popover');
+      var t=document.getElementById('cart-info-toggle');
+      if(p) p.classList.remove('is-open');
+      if(t) t.setAttribute('aria-expanded','false');
+      openModal(row.dataset.id);
+    });
+  });
+  // Click X → remove (stopPropagation tránh trigger row click)
+  listEl.querySelectorAll('.cpi-remove').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var id=btn.dataset.remove;
+      var idx=S.cart.indexOf(id);
+      if(idx!==-1){ S.cart.splice(idx,1); delete S.cartTiers[id]; renderAll(); }
+    });
+  });
+}
+
 /* ── MODAL ─────────────────────────────────────────────────────────────── */
 function openModal(appId){
   var app=getApp(appId);
@@ -2212,7 +2373,7 @@ function selectModalPlan(idx){
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
-function renderAll(){renderApps();renderProfessions();renderCartBar();renderSalary();renderRecommendations();}
+function renderAll(){renderApps();renderProfessions();renderCartBar();renderCartPopover();renderSalary();renderRecommendations();}
 
 /* ── EXCHANGE RATE ─────────────────────────────────────────────────────── */
 function fetchRate(){
@@ -2272,6 +2433,43 @@ document.getElementById('btn-cart-detail').addEventListener('click',function(){
 document.getElementById('modal-close').addEventListener('click',closeModal);
 document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
+/* ── Cart popover toggle ───────────────────────────────────────────────── */
+(function(){
+  var toggle=document.getElementById('cart-info-toggle');
+  var pop=document.getElementById('cart-popover');
+  var closeBtn=document.getElementById('cart-popover-close');
+  if(!toggle||!pop) return;
+  function openPop(){
+    if(S.cart.length===0) return;
+    pop.classList.add('is-open');
+    toggle.setAttribute('aria-expanded','true');
+    pop.setAttribute('aria-hidden','false');
+  }
+  function closePop(){
+    pop.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded','false');
+    pop.setAttribute('aria-hidden','true');
+  }
+  toggle.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(pop.classList.contains('is-open')) closePop(); else openPop();
+  });
+  toggle.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle.click(); }
+  });
+  if(closeBtn) closeBtn.addEventListener('click',function(e){ e.stopPropagation(); closePop(); });
+  // Click outside popover → close
+  document.addEventListener('click',function(e){
+    if(!pop.classList.contains('is-open')) return;
+    if(pop.contains(e.target) || toggle.contains(e.target)) return;
+    closePop();
+  });
+  // Escape → close
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && pop.classList.contains('is-open')) closePop();
+  });
+})();
+
 /* Tweaks */
 var tw=document.getElementById('tweaks');
 document.querySelectorAll('#tweaks .tw-row').forEach(function(row){
@@ -2303,12 +2501,43 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   var heroCur=document.getElementById('salary-cur-hero');
   if(!heroIn) return;
   function update(){ renderSalary(); renderCartBar(); renderRecommendations(); }
-  heroIn.addEventListener('input', update);
-  if (heroCur) heroCur.addEventListener('change', update);
-  // Format on blur (VND grouping)
-  heroIn.addEventListener('blur', function(){
-    var raw=String(this.value||'').replace(/[^0-9]/g,'');
-    if(raw && heroCur && heroCur.value==='VND') this.value=parseFloat(raw).toLocaleString('vi-VN');
+
+  // Format helper — USD: "1,234,567" (en-US), VND: "1.234.567" (vi-VN)
+  function formatSalary(){
+    var oldVal = heroIn.value;
+    var raw = String(oldVal || '').replace(/[^0-9]/g, '');
+    if(!raw){ heroIn.value=''; return; }
+    var num = parseFloat(raw);
+    if(isNaN(num)) return;
+    var locale = (heroCur && heroCur.value === 'USD') ? 'en-US' : 'vi-VN';
+    var newVal = num.toLocaleString(locale);
+    if(newVal === oldVal) return;
+    // Preserve cursor position by counting digits before cursor
+    var oldCursor = heroIn.selectionStart || oldVal.length;
+    var digitsBefore = 0;
+    for(var i=0; i<oldCursor && i<oldVal.length; i++){
+      if(/\d/.test(oldVal[i])) digitsBefore++;
+    }
+    heroIn.value = newVal;
+    // Place cursor after same number of digits in new value
+    var newCursor = newVal.length;
+    var seen = 0;
+    for(var j=0; j<newVal.length; j++){
+      if(/\d/.test(newVal[j])){
+        seen++;
+        if(seen >= digitsBefore){ newCursor = j+1; break; }
+      }
+    }
+    try { heroIn.setSelectionRange(newCursor, newCursor); } catch(e){}
+  }
+
+  heroIn.addEventListener('input', function(){
+    formatSalary();
+    update();
+  });
+  if (heroCur) heroCur.addEventListener('change', function(){
+    formatSalary();   // Reformat existing value with new locale
+    update();
   });
 })();
 
