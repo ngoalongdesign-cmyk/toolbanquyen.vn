@@ -343,7 +343,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position:relative;background:var(--card);border:1px solid var(--border-2);
   border-radius:var(--radius);padding:22px;
   transition:border-color .18s,transform .18s;box-shadow:var(--shadow);cursor:pointer;
+  display:flex;flex-direction:column;
 }
+.card p { flex:1; }
+.card-foot { margin-top:auto; }
 .card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
 .card.in-cart { border-color:var(--accent); }
 .card-top { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
@@ -485,48 +488,68 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ─── Modal ──────────────────────────────────────────────────────── */
 .modal-overlay {
-  position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;padding:24px;
-  opacity:0;pointer-events:none;transition:opacity .2s;
+  position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.65);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity .22s ease;
 }
 .modal-overlay.is-open { opacity:1;pointer-events:all; }
 .modal-panel {
-  width:100%;max-width:540px;background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:28px;box-shadow:0 40px 100px -30px rgba(0,0,0,.8);
-  transform:translateY(20px) scale(.97);transition:transform .25s cubic-bezier(.2,.8,.2,1);
-  position:relative;max-height:90vh;overflow-y:auto;
+  width:100%;max-width:560px;background:var(--card);border:1px solid var(--border);
+  border-radius:22px;padding:0;box-shadow:0 48px 120px -24px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.03);
+  transform:translateY(52px) scale(.93);opacity:0;
+  transition:transform .42s cubic-bezier(.16,1,.3,1),opacity .3s ease;
+  position:relative;max-height:92vh;overflow-y:auto;overflow-x:hidden;
 }
-.modal-overlay.is-open .modal-panel { transform:translateY(0) scale(1); }
-.modal-close { position:absolute;top:16px;right:16px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text-2);font-size:18px;transition:all .15s; }
-.modal-close:hover { background:var(--bg-elev);color:var(--text); }
-.modal-app-top { display:flex;align-items:center;gap:14px;margin-bottom:18px; }
+.modal-overlay.is-open .modal-panel { transform:translateY(0) scale(1);opacity:1; }
+.modal-close {
+  position:absolute;top:14px;right:14px;width:32px;height:32px;z-index:2;
+  display:flex;align-items:center;justify-content:center;border-radius:8px;
+  color:var(--text-2);font-size:16px;transition:all .15s;background:var(--bg-elev);
+}
+.modal-close:hover { background:var(--border);color:var(--text); }
+
+/* Modal header band */
+.modal-header { padding:24px 24px 20px;border-bottom:1px solid var(--border-2);display:flex;align-items:center;gap:14px; }
 .modal-app-mark { width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;flex:0 0 52px;overflow:hidden; }
 .modal-app-mark img { width:100%;height:100%;object-fit:contain;border-radius:13px;padding:6px;box-sizing:border-box; }
-.modal-app-name { font-size:20px;font-weight:700;letter-spacing:-0.015em; }
-.modal-app-cat { font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:3px; }
-.modal-desc { font-size:14px;color:var(--text-2);line-height:1.6;margin-bottom:22px; }
-.modal-tiers-title { font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px; }
-.modal-tiers { display:flex;flex-direction:column;gap:8px;margin-bottom:22px; }
-.tier-row {
-  display:flex;align-items:center;justify-content:space-between;padding:14px 16px;
-  border:1px solid var(--border-2);border-radius:12px;background:var(--bg-elev);cursor:pointer;transition:border-color .15s;
+.modal-app-name { font-size:19px;font-weight:700;letter-spacing:-0.015em;margin-bottom:3px; }
+.modal-app-cat { font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;font-weight:600; }
+.modal-body { padding:20px 24px 24px; }
+.modal-desc { font-size:13.5px;color:var(--text-2);line-height:1.65;margin-bottom:20px; }
+
+/* Plan cards grid */
+.modal-plans { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px; }
+@media (max-width:480px) { .modal-plans { grid-template-columns:1fr; } }
+.plan-card {
+  border:1.5px solid var(--border-2);border-radius:14px;padding:14px 12px;
+  cursor:pointer;transition:border-color .18s,background .18s,transform .2s;
+  position:relative;display:flex;flex-direction:column;gap:8px;
 }
-.tier-row:hover { border-color:var(--border); }
-.tier-row.is-selected { border-color:var(--accent);background:var(--accent-soft-2); }
-.tier-row-left { display:flex;align-items:center;gap:10px; }
-.tier-radio { width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border);flex:0 0 16px;display:flex;align-items:center;justify-content:center;transition:all .15s; }
-.tier-row.is-selected .tier-radio { border-color:var(--accent);background:var(--accent); }
-.tier-row.is-selected .tier-radio::after { content:'';width:6px;height:6px;border-radius:50%;background:#08120c; }
-.tier-label { font-size:14px;font-weight:600; }
-.tier-price { font-size:16px;font-weight:700;font-variant-numeric:tabular-nums; }
-.tier-price .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
-.modal-add-btn { width:100%;height:46px;border-radius:12px;font-size:15px;font-weight:700;background:var(--accent);color:#08120c;transition:background .15s; }
-.modal-add-btn:hover { background:var(--accent-2); }
+.plan-card:hover { border-color:var(--border);transform:translateY(-2px); }
+.plan-card.is-active { border-color:var(--accent);background:var(--accent-soft); }
+.plan-popular-tag { position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#08120c;font-size:9px;font-weight:800;
+  padding:2px 8px;border-radius:999px;letter-spacing:0.06em;white-space:nowrap; }
+.plan-type { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-3); }
+.plan-name-label { font-size:13px;font-weight:600;color:var(--text);line-height:1.2; }
+.plan-price-big { font-size:24px;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;line-height:1;color:var(--text); }
+.plan-price-big .per { font-size:11px;font-weight:500;color:var(--text-3);margin-left:1px; }
+.plan-price-big.free { color:var(--accent);font-size:18px; }
+.plan-price-big.contact { color:var(--text-3);font-size:14px;font-weight:600; }
+.plan-feats { list-style:none;padding:0;margin:6px 0 0;display:flex;flex-direction:column;gap:4px; }
+.plan-feats li { font-size:11px;color:var(--text-2);display:flex;align-items:flex-start;gap:5px;line-height:1.4; }
+.plan-feats li::before { content:'✓';color:var(--accent);font-size:10px;flex:0 0 auto;margin-top:1px;font-weight:700; }
+
+/* CTA */
+.modal-add-btn { width:100%;height:48px;border-radius:12px;font-size:15px;font-weight:700;background:var(--accent);color:#08120c;transition:all .18s;margin-bottom:10px; }
+.modal-add-btn:hover { background:var(--accent-2);transform:translateY(-1px); }
 .modal-add-btn.remove { background:var(--bg-elev);color:var(--text);border:1px solid var(--border); }
-.modal-add-btn.remove:hover { background:rgba(239,68,68,.12);color:#ef4444;border-color:rgba(239,68,68,.3); }
-.modal-cart-summary { margin-top:16px;padding:14px;background:var(--bg-elev);border-radius:12px;font-size:13px; }
-.modal-cart-summary .mc-title { font-weight:700;margin-bottom:10px;color:var(--text-2); }
-.modal-cart-item { display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border-2); }
+.modal-add-btn.remove:hover { background:rgba(239,68,68,.1);color:#ef4444;border-color:rgba(239,68,68,.3);transform:none; }
+.modal-ext-link { display:block;text-align:center;font-size:12.5px;color:var(--text-3);padding:6px;transition:color .15s; }
+.modal-ext-link:hover { color:var(--accent); }
+.modal-cart-summary { margin-top:14px;padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border-2);border-radius:12px;font-size:13px; }
+.modal-cart-summary .mc-title { font-weight:600;margin-bottom:8px;color:var(--text-2);font-size:12px; }
+.modal-cart-item { display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border-2); }
 .modal-cart-item:last-child { border-bottom:0; }
 .modal-cart-total { display:flex;justify-content:space-between;align-items:center;padding-top:10px;font-weight:700;font-size:15px; }
 
@@ -841,14 +864,22 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 /* ── DATA ──────────────────────────────────────────────────────────────── */
 var APPS = [
   {id:'figma',name:'Figma',cat:'Design',color:'#F24E1E',initials:'F',popular:true,
-   logo:'icons/figma-color.svg',
+   logo:'icons/figma-color.svg',url:'https://figma.com/pricing',
    desc:'Thiết kế UI/UX cộng tác thời gian thực, prototyping, design system toàn diện.',
-   tiers:{personal:{label:'Professional',price:15},team:{label:'Organization',price:45},enterprise:{label:'Enterprise',price:75}}},
+   tiers:{
+     personal:{label:'Professional',price:15,popular:true,features:['File & project không giới hạn','Version history 30 ngày','Custom fonts & variables','Dev Mode (inspect code)']},
+     team:{label:'Organization',price:45,features:['Shared component libraries','Team analytics','SSO & guest access','Advanced prototyping']},
+     enterprise:{label:'Enterprise',price:75,features:['Advanced security audit','Dedicated success manager','Custom MSA','SSO + SCIM provisioning']}
+   }},
   {id:'adobe-cc',name:'Adobe Creative Cloud',cat:'Design',color:'#CC0000',initials:'Ac',popular:false,
-   logo:'icons/adobe-creative-cloud-cc.svg',
+   logo:'icons/adobe-creative-cloud-cc.svg',url:'https://www.adobe.com/creativecloud/plans.html',
    includes:['photoshop','illustrator','indesign','after effects','premiere pro','lightroom','xd','audition','animate','dreamweaver','acrobat','character animator'],
    desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
-   tiers:{personal:{label:'Single App',price:29.99},team:{label:'All Apps',price:59.99},enterprise:{label:'Enterprise',price:89.99}}},
+   tiers:{
+     personal:{label:'Single App',price:29.99,features:['1 app Adobe tuỳ chọn','100GB cloud storage','Adobe Fonts đầy đủ','Portfolio website']},
+     team:{label:'All Apps',price:59.99,popular:true,features:['20+ app Creative Cloud','100GB/người dùng','Adobe Express Premium','Stock & Fonts không giới hạn']},
+     enterprise:{label:'Enterprise',price:89.99,features:['Admin console tập trung','VIP licensing','Advanced compliance','Global admin & support']}
+   }},
   {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
    logo:'icons/canva.svg',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
@@ -866,13 +897,21 @@ var APPS = [
    desc:'Thiết kế và publish website chuyên nghiệp với animation phức tạp, không cần code.',
    tiers:{personal:{label:'Mini',price:5},team:{label:'Basic',price:15},enterprise:{label:'Pro',price:30}}},
   {id:'chatgpt',name:'ChatGPT Plus',cat:'AI',color:'#10a37f',initials:'G',popular:true,
-   logo:'icons/chatgpt-6.svg',
+   logo:'icons/chatgpt-6.svg',url:'https://openai.com/chatgpt/pricing',
    desc:'AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter, voice.',
-   tiers:{personal:{label:'Plus',price:20},team:{label:'Team',price:30},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Plus',price:20,popular:true,features:['GPT-4o full access','DALL·E 3 image generation','Code Interpreter & analysis','Web browsing realtime']},
+     team:{label:'Team',price:30,features:['Shared workspace','Admin console','Higher rate limits','Data không dùng để train']},
+     enterprise:{label:'Enterprise',price:null,features:['Unlimited messages','SOC2 & HIPAA compliant','Custom system prompts','Priority SLA & support']}
+   }},
   {id:'claude',name:'Claude Pro',cat:'AI',color:'#C25C3A',initials:'Cl',popular:true,
-   logo:'icons/claude-logo.svg',
+   logo:'icons/claude-logo.svg',url:'https://claude.ai',
    desc:'AI assistant của Anthropic — phân tích sâu, viết lách, code, xử lý file dài.',
-   tiers:{personal:{label:'Pro',price:20},team:{label:'Team',price:30},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:20,popular:true,features:['Claude 3.5 Sonnet + Opus','5x usage so với free','Projects workspace','Priority access lúc cao điểm']},
+     team:{label:'Team',price:30,features:['Shared projects','Admin controls','Higher rate limits','Team workspace & billing']},
+     enterprise:{label:'Enterprise',price:null,features:['Unlimited usage','SSO + SCIM','Audit logs','Custom agreements & SLA']}
+   }},
   {id:'midjourney',name:'Midjourney',cat:'AI',color:'#2D2D44',initials:'MJ',popular:true,
    logo:'icons/Midjourney--Streamline-Svg-Logos.svg',
    desc:'Tạo ảnh AI chất lượng cao nhất — concept art, branding, minh hoạ sáng tạo.',
@@ -882,9 +921,13 @@ var APPS = [
    desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time.',
    tiers:{personal:{label:'Pro',price:20},team:{label:'Enterprise',price:null},enterprise:{label:'Enterprise',price:null}}},
   {id:'cursor',name:'Cursor',cat:'Development',color:'#7C3AED',initials:'Cu',popular:true,
-   logo:'icons/cursor.svg',
+   logo:'icons/cursor.svg',url:'https://cursor.com/pricing',
    desc:'IDE tích hợp AI — autocomplete thông minh, chat với codebase, refactor tự động.',
-   tiers:{personal:{label:'Pro',price:20},team:{label:'Business',price:40},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:20,popular:true,features:['500 fast requests/tháng','GPT-4o + Claude 3.5 access','Chat với toàn bộ codebase','Unlimited slow requests']},
+     team:{label:'Business',price:40,features:['Team admin dashboard','Invoice billing','Priority support','Usage analytics']},
+     enterprise:{label:'Enterprise',price:null,features:['SSO + audit logs','Custom model selection','SLA guarantee','Dedicated support']}
+   }},
   {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#181717',initials:'GH',popular:true,
    logo:'icons/copilot-color.svg',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
@@ -898,9 +941,13 @@ var APPS = [
    desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management.',
    tiers:{personal:{label:'Pro',price:10},team:{label:'Teams',price:15},enterprise:{label:'Enterprise',price:null}}},
   {id:'notion',name:'Notion',cat:'Productivity',color:'#333',initials:'N',popular:true,
-   logo:'icons/notion.svg',
+   logo:'icons/notion.svg',url:'https://notion.so/pricing',
    desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
-   tiers:{personal:{label:'Plus',price:10},team:{label:'Business',price:18},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Plus',price:10,popular:true,features:['Unlimited pages & blocks','Version history 30 ngày','Guests tối đa 10 người','API access đầy đủ']},
+     team:{label:'Business',price:18,features:['Unlimited guests','Advanced permissions','Workspace analytics','Bulk PDF export']},
+     enterprise:{label:'Enterprise',price:null,features:['SSO + SCIM provisioning','Audit log','Customer success manager','SAML 2.0']}
+   }},
   {id:'linear',name:'Linear',cat:'Productivity',color:'#5E6AD2',initials:'Li',popular:false,
    logo:'icons/linear.svg',
    desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
@@ -1207,50 +1254,63 @@ function buildModal(app){
   var inCart=S.cart.indexOf(app.id)!==-1;
   var planKeys=['personal','team','enterprise'];
   var planLabels={personal:'Cá nhân',team:'Team',enterprise:'Doanh nghiệp'};
-  var tiersHtml=planKeys.map(function(key){
+
+  /* Plan cards */
+  var plansHtml=planKeys.map(function(key){
     var t=app.tiers[key];
     if(!t)return '';
-    var ph;
-    if(t.price===null)ph='<span style="font-size:13px;color:var(--text-3)">Liên hệ</span>';
-    else if(t.price===0)ph='<span style="color:var(--accent);font-size:14px">Miễn phí</span>';
-    else ph='<span class="tier-price">'+fmtPrice(t.price)+'<span class="per">/th</span></span>';
-    return '<div class="tier-row'+(S.modalTier===key?' is-selected':'')+'" data-tier="'+key+'">' +
-      '<div class="tier-row-left"><div class="tier-radio"></div>' +
-      '<span class="tier-label">'+t.label+' <span style="font-size:11px;font-weight:400;color:var(--text-3)">('+planLabels[key]+')</span></span>' +
-      '</div>'+ph+'</div>';
-  }).join('');
+    var isActive=S.modalTier===key;
+    var priceHtml;
+    if(t.price===null) priceHtml='<div class="plan-price-big contact">Liên hệ</div>';
+    else if(t.price===0) priceHtml='<div class="plan-price-big free">Miễn phí</div>';
+    else priceHtml='<div class="plan-price-big">'+fmtPrice(t.price)+'<span class="per">/th</span></div>';
+    var featsHtml=t.features&&t.features.length
+      ?'<ul class="plan-feats">'+t.features.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul>':'';
+    var popularTag=t.popular?'<span class="plan-popular-tag">Phổ biến</span>':'';
+    return '<div class="plan-card'+(isActive?' is-active':'')+'" data-plan="'+key+'" onclick="selectModalPlan(\''+key+'\')">' +
+      popularTag+
+      '<div class="plan-type">'+planLabels[key]+'</div>'+
+      '<div class="plan-name-label">'+t.label+'</div>'+
+      priceHtml+featsHtml+
+    '</div>';
+  }).filter(Boolean).join('');
 
-  /* cart summary */
+  /* Cart summary */
   var cartHtml='';
   if(S.cart.length>0){
-    var items=S.cart.map(function(id){
-      var a=getApp(id);if(!a)return '';
-      var p=appPrice(a,S.plan);
-      return '<div class="modal-cart-item"><span>'+a.name+'</span><span>'+fmtPrice(p)+(p&&p>0?'/th':'')+'</span></div>';
-    }).join('');
     var tot=cartTotal();
-    cartHtml='<div class="modal-cart-summary">' +
-      '<div class="mc-title">🛒 Giỏ của bạn ('+S.cart.length+' app)</div>'+items+
-      '<div class="modal-cart-total"><span>Tổng / tháng</span><span style="color:var(--accent)">'+fmtTotal(tot)+'</span></div>' +
-    '</div>';
+    cartHtml='<div class="modal-cart-summary"><div class="mc-title">📊 Đang tính '+S.cart.length+' app — '+fmtTotal(tot)+'/tháng</div></div>';
   }
 
-  document.getElementById('modal-content').innerHTML=
-    '<div class="modal-app-top"><div class="modal-app-mark" style="background:'+(app.logo&&app.logo.indexOf('icons/')===0?'#fff':app.color)+'">'+(app.logo?'<img src="'+app.logo+'" alt="'+app.name+'" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';">':app.initials)+'</div>' +
-    '<div><div class="modal-app-name">'+app.name+'</div><div class="modal-app-cat">'+app.cat+'</div></div></div>' +
-    '<p class="modal-desc">'+app.desc+'</p>' +
-    '<div class="modal-tiers-title">Chọn gói</div>' +
-    '<div class="modal-tiers" id="modal-tiers">'+tiersHtml+'</div>' +
-    '<button class="modal-add-btn'+(inCart?' remove':'')+'" id="modal-add-btn">'+(inCart?'✕ Bỏ khỏi danh sách':'✓ Chọn để tính chi phí')+'</button>' +
-    cartHtml;
+  /* Icon */
+  var iconBg=app.logo&&app.logo.indexOf('icons/')===0?'#fff':app.color;
+  var iconHtml=app.logo
+    ?'<img src="'+app.logo+'" alt="" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"/>'
+    :app.initials;
 
-  document.querySelectorAll('.tier-row').forEach(function(row){
-    row.addEventListener('click',function(){S.modalTier=row.dataset.tier;buildModal(app);});
-  });
+  document.getElementById('modal-content').innerHTML=
+    '<div class="modal-header">'+
+      '<div class="modal-app-mark" style="background:'+iconBg+'">'+iconHtml+'</div>'+
+      '<div><div class="modal-app-name">'+app.name+'</div><div class="modal-app-cat">'+app.cat+'</div></div>'+
+    '</div>'+
+    '<div class="modal-body">'+
+      '<p class="modal-desc">'+app.desc+'</p>'+
+      '<div class="modal-plans">'+plansHtml+'</div>'+
+      '<button class="modal-add-btn'+(inCart?' remove':'')+'" id="modal-add-btn">'+
+        (inCart?'✕ Bỏ khỏi danh sách':'✓ Chọn để tính chi phí')+
+      '</button>'+
+      (app.url?'<a class="modal-ext-link" href="'+app.url+'" target="_blank" rel="noopener">Xem trang chính thức →</a>':'')+
+      cartHtml+
+    '</div>';
+
   document.getElementById('modal-add-btn').addEventListener('click',function(){
-    toggleCart(app.id);
-    buildModal(app);
+    toggleCart(app.id);buildModal(app);
   });
+}
+function selectModalPlan(key){
+  S.modalTier=key;
+  var app=getApp(S.modalApp);
+  if(app)buildModal(app);
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
