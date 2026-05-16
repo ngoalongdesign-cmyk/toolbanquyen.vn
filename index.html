@@ -1,542 +1,567 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!doctype html>
+<html lang="vi" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tính giá Tool BQ — toolbanquyen.vn</title>
-  <meta name="description" content="So sánh và tính chi phí 30+ công cụ bản quyền phổ biến. Xem giá cá nhân, team, doanh nghiệp theo USD và VND thực tế.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-  <!-- Base design system: app cards, drawer, modal, calc bar, salary, skills -->
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="So sánh và tính chi phí 25+ công cụ bản quyền phổ biến. Xem giá cá nhân, team, doanh nghiệp theo USD và VND thực tế."/>
+<title>Tính giá Tool BQ — toolbanquyen.vn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ─── Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --accent: #22c55e;
+  --accent-2: #16a34a;
+  --accent-soft: rgba(34,197,94,.12);
+  --accent-soft-2: rgba(34,197,94,.06);
+  --bg: #080f0a;
+  --bg-elev: #0b1410;
+  --card: #0f1a12;
+  --card-2: #0c1610;
+  --border: #1c2e1f;
+  --border-2: #15241a;
+  --text: #e8f5ea;
+  --text-2: #6b9e70;
+  --text-3: #4a7050;
+  --header-bg: rgba(8,15,10,.82);
+  --shadow: 0 1px 0 rgba(255,255,255,.02) inset, 0 24px 64px -24px rgba(0,0,0,.6);
+  --radius: 14px;
+}
+[data-theme="light"] {
+  --bg: #f0faf2;
+  --bg-elev: #ffffff;
+  --card: #ffffff;
+  --card-2: #f6fbf7;
+  --border: #d6ebda;
+  --border-2: #e6f1e9;
+  --text: #0d1a10;
+  --text-2: #5a7d5f;
+  --text-3: #8aa890;
+  --header-bg: rgba(240,250,242,.82);
+  --accent-soft: rgba(22,163,74,.10);
+  --accent-soft-2: rgba(22,163,74,.04);
+  --shadow: 0 1px 0 rgba(0,0,0,.02) inset, 0 24px 60px -28px rgba(20,60,30,.18);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg); color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11','ss01','ss03';
+  letter-spacing: -0.005em; line-height: 1.5;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(34,197,94,.06), transparent 60%),
+    radial-gradient(900px 500px at 0% 30%, rgba(34,197,94,.04), transparent 60%);
+  z-index: 0;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 
-  <style>
-  /* ═══════════════════════════════════════════════════════════════
-     VISUAL LAYER — Header & Hero redesign (sits on top of style.css)
-     Không đụng đến: app-card, drawer, modal, calc-bar, skill-chip
-  ══════════════════════════════════════════════════════════════════ */
+/* ─── Header ─────────────────────────────────────────────────────── */
+.header {
+  position: sticky; top: 0; z-index: 50; height: 64px;
+  background: var(--header-bg);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid var(--border-2);
+}
+.header-inner {
+  height: 100%; max-width: 1240px; margin: 0 auto; padding: 0 28px;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand img { height: 30px; display: block; }
+.brand .wordmark { display: flex; align-items: baseline; gap: 6px; }
+.brand .wordmark .name { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+.brand .wordmark .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); display: inline-block; transform: translateY(-2px); }
+.brand .wordmark .tld { color: var(--text-2); font-weight: 500; font-size: 13px; }
+.nav { justify-self: center; display: flex; align-items: center; gap: 4px; }
+.nav a {
+  position: relative; padding: 8px 14px;
+  font-size: 14px; font-weight: 500; color: var(--text-2); transition: color .18s ease;
+}
+.nav a::after {
+  content: ''; position: absolute; left: 14px; right: 14px; bottom: 4px;
+  height: 1.5px; background: var(--accent); border-radius: 1px;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1);
+}
+.nav a:hover { color: var(--text); }
+.nav a:hover::after { transform: scaleX(1); }
+.nav a.is-active { color: var(--text); }
+.nav a.is-active::after { transform: scaleX(1); }
+.right { display: flex; align-items: center; gap: 10px; }
+.rate {
+  display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px;
+  border: 1px solid var(--border); border-radius: 999px;
+  font-size: 12.5px; color: var(--text-2); font-variant-numeric: tabular-nums;
+}
+.rate .pulse {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(34,197,94,.5); animation: pulse 2s ease-out infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,.45); }
+  70% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+.rate strong { color: var(--text); font-weight: 600; }
+.seg {
+  display: inline-flex; align-items: center; height: 34px; padding: 3px;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--card-2);
+}
+.seg button {
+  height: 28px; padding: 0 12px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--text-2); letter-spacing: 0.02em; transition: all .18s ease;
+}
+.seg button.is-on { background: var(--accent); color: #08120c; }
+.icon-btn {
+  width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--text-2); transition: color .18s, border-color .18s;
+}
+.icon-btn:hover { color: var(--text); border-color: color-mix(in oklab, var(--border) 60%, var(--accent)); }
+.icon-btn svg { width: 16px; height: 16px; }
+[data-theme="dark"] .icon-btn .sun { display: block; }
+[data-theme="dark"] .icon-btn .moon { display: none; }
+[data-theme="light"] .icon-btn .sun { display: none; }
+[data-theme="light"] .icon-btn .moon { display: block; }
+@media (max-width: 880px) {
+  .header-inner { grid-template-columns: auto 1fr auto; gap: 16px; padding: 0 16px; }
+  .nav { display: none; } .rate { display: none; }
+}
 
-  /* ── Additional tokens ─────────────────────────────────────── */
-  :root {
-    --accent-soft: rgba(34,197,94,.12);
-    --accent-soft-2: rgba(34,197,94,.06);
-    --bg-elev: #0b1410;
-    --card-2: #0c1610;
-    --border-2: #15241a;
-    --text-3: #4a7050;
-    --shadow-card: 0 1px 0 rgba(255,255,255,.02) inset, 0 24px 64px -24px rgba(0,0,0,.6);
-    --r: 14px;
-  }
-  body.light {
-    --accent-soft: rgba(22,163,74,.10);
-    --accent-soft-2: rgba(22,163,74,.04);
-    --bg-elev: #ffffff;
-    --card-2: #f6fbf7;
-    --border-2: #e6f1e9;
-    --text-3: #8aa890;
-  }
+/* ─── Layout ─────────────────────────────────────────────────────── */
+.container { max-width: 1240px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
-  /* ── Subtle grid backdrop ──────────────────────────────────── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    pointer-events: none;
-    background-image:
-      radial-gradient(1200px 600px at 80% -10%, rgba(34,197,94,.05), transparent 60%),
-      radial-gradient(900px 500px at 0% 30%, rgba(34,197,94,.03), transparent 60%);
-    z-index: 0;
-  }
+/* ─── Hero ───────────────────────────────────────────────────────── */
+.hero { position: relative; padding: 80px 0 0; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; left: 50%; top: 0; width: 900px; height: 900px;
+  transform: translate(-50%, -55%);
+  background: radial-gradient(circle, rgba(34,197,94,.08), rgba(34,197,94,.02) 40%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.hero::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(34,197,94,.18) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent 75%);
+  opacity: .25; pointer-events: none; z-index: 0;
+}
+.hero-inner { position: relative; z-index: 1; text-align: center; padding-top: 32px; }
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--accent-soft);
+  color: var(--accent); font-size: 12.5px; font-weight: 600; margin-bottom: 32px;
+}
+.hero-title { font-size: clamp(48px,7.5vw,96px); line-height: 0.98; font-weight: 800; letter-spacing: -0.04em; margin: 0 0 24px; text-wrap: balance; }
+.hero-title .em {
+  color: var(--accent); font-style: normal;
+  background: linear-gradient(180deg,#34d075 0%,var(--accent) 65%,#16a34a 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-lede { font-size: 16px; line-height: 1.65; color: var(--text-2); max-width: 580px; margin: 0 auto 40px; text-wrap: pretty; }
+.hero-lede strong { color: var(--text); font-weight: 600; }
+.hero-search {
+  display: flex; align-items: center; gap: 10px; max-width: 560px; margin: 0 auto;
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 6px 8px 6px 16px; transition: border-color .18s, box-shadow .18s;
+}
+.hero-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.hero-search svg { width: 18px; height: 18px; color: var(--text-3); flex: 0 0 18px; }
+.hero-search input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+  color: var(--text); font: inherit; font-size: 15px; padding: 12px 0;
+}
+.hero-search input::placeholder { color: var(--text-3); }
+.hero-search kbd {
+  font-family: 'JetBrains Mono',ui-monospace,monospace; font-size: 11px; font-weight: 600;
+  color: var(--text-2); background: var(--bg-elev); border: 1px solid var(--border-2); border-radius: 6px; padding: 4px 8px;
+}
+.hero-stats {
+  margin: 56px auto 0; display: grid; grid-template-columns: repeat(4,1fr);
+  max-width: 1080px; background: var(--card); border: 1px solid var(--border-2);
+  border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+}
+.stat {
+  padding: 32px 24px; text-align: center; position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.stat + .stat::before {
+  content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: var(--border-2);
+}
+.stat-icon {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  background: var(--accent-soft); border-radius: 12px; color: var(--accent); margin-bottom: 4px;
+}
+.stat-icon svg { width: 22px; height: 22px; }
+.stat-num {
+  font-size: 38px; font-weight: 800; letter-spacing: -0.035em; color: var(--text);
+  line-height: 1; font-variant-numeric: tabular-nums; display: inline-flex; align-items: baseline; gap: 6px;
+}
+.stat-num .unit { font-size: 17px; font-weight: 700; color: var(--text-2); }
+.stat-num .plus { font-size: 26px; font-weight: 700; color: var(--accent); }
+.stat-num.live { display: inline-flex; align-items: center; gap: 10px; font-size: 32px; color: var(--accent); }
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-out infinite; }
+.stat-label { font-size: 12.5px; font-weight: 500; color: var(--text-2); line-height: 1.45; }
+@media (max-width: 880px) {
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .hero-stats .stat:nth-child(3)::before, .hero-stats .stat:nth-child(4)::before { content: none; }
+  .hero-stats .stat:nth-child(3), .hero-stats .stat:nth-child(4) { border-top: 1px solid var(--border-2); }
+  .stat-num { font-size: 30px; }
+}
 
-  /* ── HEADER — new layout ───────────────────────────────────── */
-  header {
-    position: sticky !important;
-    top: 0; z-index: 50;
-    height: 64px !important;
-    background: var(--header-bg) !important;
-    backdrop-filter: saturate(1.4) blur(14px) !important;
-    -webkit-backdrop-filter: saturate(1.4) blur(14px) !important;
-    border-bottom: 1px solid var(--border-2) !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-  }
-  header .container {
-    height: 100%;
-    display: grid !important;
-    grid-template-columns: auto 1fr auto !important;
-    align-items: center !important;
-    gap: 32px !important;
-  }
+/* ─── Floating cards ─────────────────────────────────────────────── */
+.float-card {
+  position: absolute; z-index: 2; display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px 12px 12px; min-width: 220px;
+  background: linear-gradient(180deg,rgba(15,26,18,.92),rgba(11,20,16,.85));
+  border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.02) inset;
+  animation: float 6s ease-in-out infinite;
+}
+[data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.95),rgba(246,251,247,.9)); box-shadow: 0 16px 40px -20px rgba(20,60,30,.25); }
+.fc-tl { top:60px; left:-10px; animation-delay:0s; }
+.fc-tr { top:80px; right:-10px; animation-delay:1.4s; }
+.fc-ml { top:280px; left:-30px; animation-delay:2.8s; }
+.fc-mr { top:300px; right:-30px; animation-delay:4.2s; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 40px; }
+.fc-body { display:flex;flex-direction:column;gap:2px; }
+.fc-name { font-size:11.5px;color:var(--text-2);font-weight:500; }
+.fc-price { font-size:17px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums; }
+.fc-price span { font-size:11px;font-weight:500;color:var(--text-3);margin-left:2px; }
+.fc-delta { display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:var(--accent);margin-top:2px; }
+@media (max-width:1180px) { .fc-tl{left:10px} .fc-tr{right:10px} .fc-ml,.fc-mr{display:none} }
+@media (max-width:880px) { .float-card{display:none} }
 
-  /* Logo area */
-  .brand-link {
-    display: flex; align-items: center;
-    text-decoration: none;
-  }
-  .brand-link .logo-dark { display: block; height: 30px; }
-  .brand-link .logo-light { display: none; height: 30px; }
-  body.light .brand-link .logo-dark { display: none; }
-  body.light .brand-link .logo-light { display: block; }
+/* ─── Social proof ───────────────────────────────────────────────── */
+.proof {
+  margin: 32px auto 0; display: flex; align-items: center; justify-content: center;
+  gap: 24px; flex-wrap: wrap; max-width: 980px;
+}
+.proof-avatars { display: inline-flex; align-items: center; }
+.proof-avatars .av {
+  width:32px;height:32px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;
+  display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;
+}
+.proof-avatars .av:first-child { margin-left:0; }
+.proof-avatars .av.count { background:var(--accent);color:#08120c;font-size:11px;font-weight:700;padding:0 8px;width:auto;min-width:38px;border-radius:999px; }
+.proof-text { font-size:13.5px;color:var(--text-2); }
+.proof-text strong { color:var(--text);font-weight:600; }
+.proof-checks { display:inline-flex;align-items:center;gap:18px;flex-wrap:wrap; }
+.proof-checks span { display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:var(--text-2); }
+.proof-checks svg { color:var(--accent); }
+@media (max-width:760px) { .proof{gap:14px;justify-content:center} .proof-text,.proof-checks{width:100%;text-align:center;justify-content:center} }
 
-  /* Nav — center column */
-  .header-nav {
-    justify-self: center;
-    display: flex; align-items: center; gap: 4px;
-  }
-  .header-nav a {
-    position: relative;
-    padding: 8px 14px;
-    font-size: 14px; font-weight: 500;
-    color: var(--text-2);
-    text-decoration: none;
-    transition: color .18s ease;
-    letter-spacing: 0;
-  }
-  .header-nav a::after {
-    content: '';
-    position: absolute;
-    left: 14px; right: 14px; bottom: 4px;
-    height: 1.5px; background: var(--accent); border-radius: 1px;
-    transform: scaleX(0); transform-origin: left center;
-    transition: transform .25s cubic-bezier(.2,.7,.2,1);
-  }
-  .header-nav a:hover { color: var(--text); }
-  .header-nav a:hover::after { transform: scaleX(1); }
+/* ─── Sections ───────────────────────────────────────────────────── */
+.hero + .sec { padding-top: 88px; }
+.sec { padding: 96px 0 24px; position: relative; }
+.sec + .sec { padding-top: 56px; }
+.sec-head { margin-bottom: 36px; }
 
-  /* Header right cluster */
-  .header-right-new {
-    display: flex; align-items: center; gap: 10px;
-  }
+.head-center { text-align: center; max-width: 760px; margin: 0 auto; }
+.head-center .kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 22px;
+}
+.head-center .kicker::before, .head-center .kicker::after { content:''; width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent); }
+.head-center h1 { font-size:clamp(40px,5.6vw,64px);line-height:1.04;font-weight:800;letter-spacing:-0.035em;margin:0 0 16px; }
+.head-center h1 .em { color:var(--accent);font-style:normal; }
+.head-center .lede { font-size:16px;color:var(--text-2);max-width:540px;margin:0 auto; }
 
-  /* Rate badge — pill style */
-  .rate-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    height: 34px; padding: 0 12px;
-    border: 1px solid var(--border); border-radius: 999px;
-    font-size: 12.5px; color: var(--text-2);
-    font-variant-numeric: tabular-nums;
-  }
-  .rate-pill .live-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(34,197,94,.5);
-    animation: pulse-dot 2s ease-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%   { box-shadow: 0 0 0 0 rgba(34,197,94,.45); }
-    70%  { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
-    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
-  }
-  .rate-pill strong { color: var(--text); font-weight: 600; }
+.head-left { display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px; }
+.head-left .left-block { display:flex;flex-direction:column;gap:12px;max-width:640px; }
+.head-left .eyebrow { display:inline-flex;align-items:center;gap:12px;font-size:11.5px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent); }
+.head-left .eyebrow::before { content:'';width:24px;height:2px;background:var(--accent);border-radius:1px; }
+.head-left h2 { font-size:clamp(30px,3.4vw,44px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0; }
+.head-left h2 .em { color:var(--accent);font-style:normal; }
+.head-left .lede { font-size:15px;color:var(--text-2);margin:4px 0 0;max-width:520px; }
+.head-left .meta { font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:var(--text-3);white-space:nowrap; }
 
-  /* Currency toggle — segmented */
-  .seg-toggle {
-    display: inline-flex; align-items: center;
-    height: 34px; padding: 3px;
-    border: 1px solid var(--border); border-radius: 999px;
-    background: var(--card-2);
-  }
-  .seg-toggle button {
-    height: 28px; padding: 0 12px; border-radius: 999px;
-    font: inherit; font-size: 12px; font-weight: 600;
-    color: var(--text-2); background: none; border: 0; cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: all .18s ease;
-  }
-  .seg-toggle button.active {
-    background: var(--accent); color: #08120c;
-  }
+.head-compact { display:flex;align-items:baseline;gap:18px;justify-content:space-between;border-top:1px solid var(--border-2);padding-top:24px; }
+.head-compact h3 { font-size:22px;font-weight:700;letter-spacing:-0.015em;margin:0; }
+.head-compact .meta { font-size:13px;color:var(--text-2); }
+.head-compact .em { color:var(--accent); }
 
-  /* Theme button — icon style */
-  .theme-icon {
-    width: 34px; height: 34px;
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 999px; border: 1px solid var(--border);
-    background: none; cursor: pointer; font-size: 16px;
-    color: var(--text-2);
-    transition: color .18s ease, border-color .18s ease;
-  }
-  .theme-icon:hover { color: var(--text); border-color: var(--accent-hover); }
+/* ─── Tabs ───────────────────────────────────────────────────────── */
+.tabs-wrap { display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px;border-bottom:1px solid var(--border-2); }
+.tabs { display:flex;flex-wrap:wrap;gap:0; }
+.tab {
+  position:relative;display:inline-flex;align-items:center;gap:8px;
+  padding:12px 16px;font-size:13.5px;font-weight:500;color:var(--text-2);transition:color .15s;
+}
+.tab svg { width:14px;height:14px;opacity:.75; }
+.tab::after {
+  content:'';position:absolute;left:16px;right:16px;bottom:-1px;
+  height:2px;background:var(--accent);border-radius:2px 2px 0 0;
+  transform:scaleX(0);transform-origin:center;transition:transform .22s cubic-bezier(.2,.7,.2,1);
+}
+.tab:hover { color:var(--text); }
+.tab.is-on { color:var(--text); }
+.tab.is-on::after { transform:scaleX(1); }
+.tab.is-on svg { opacity:1;color:var(--accent); }
+.tab .count { font-size:11px;padding:2px 6px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600; }
+.plan-row { display:flex;justify-content:flex-end;margin-top:14px; }
+.plan-seg { display:inline-flex;padding:3px;border:1px solid var(--border);border-radius:999px;background:var(--card-2); }
+.plan-seg button { height:30px;padding:0 16px;font-size:12.5px;font-weight:600;color:var(--text-2);border-radius:999px;transition:all .18s; }
+.plan-seg button.is-on { background:var(--accent);color:#08120c; }
 
-  @media (max-width: 880px) {
-    header .container { grid-template-columns: 1fr auto !important; gap: 16px !important; }
-    .header-nav { display: none; }
-    .rate-pill   { display: none; }
-  }
+/* ─── App cards ──────────────────────────────────────────────────── */
+.grid-apps { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px; }
+@media (max-width:1100px) { .grid-apps { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:820px)  { .grid-apps { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:520px)  { .grid-apps { grid-template-columns:1fr; } }
 
-  /* ── HERO ──────────────────────────────────────────────────── */
-  .hero-v2 {
-    position: relative;
-    padding: 80px 0 0;
-    overflow: hidden;
-  }
-  /* Radial glow behind hero */
-  .hero-v2::before {
-    content: '';
-    position: absolute; left: 50%; top: 0;
-    width: 900px; height: 900px;
-    transform: translate(-50%, -55%);
-    background: radial-gradient(circle, rgba(34,197,94,.07), rgba(34,197,94,.02) 40%, transparent 65%);
-    pointer-events: none; z-index: 0;
-  }
-  /* Dot grid overlay */
-  .hero-v2::after {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: radial-gradient(rgba(34,197,94,.16) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent 75%);
-    opacity: .22; pointer-events: none; z-index: 0;
-  }
-  .hero-inner-v2 {
-    position: relative; z-index: 1;
-    text-align: center;
-    padding-top: 32px; padding-bottom: 0;
-  }
+.card {
+  position:relative;background:var(--card);border:1px solid var(--border-2);
+  border-radius:var(--radius);padding:18px;
+  transition:border-color .18s,transform .18s;box-shadow:var(--shadow);cursor:pointer;
+}
+.card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
+.card.in-cart { border-color:var(--accent); }
+.card-top { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
+.app-mark { width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex:0 0 40px;color:#fff; }
+.app-name { font-weight:600;font-size:14.5px;letter-spacing:-0.01em; }
+.app-cat { font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:2px; }
+.card p { margin:0 0 14px;font-size:13px;line-height:1.55;color:var(--text-2); }
+.card-foot { display:flex;align-items:center;justify-content:space-between;gap:10px; }
+.price { font-size:22px;font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums; }
+.price .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
+.flag { font-size:10.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:999px;letter-spacing:0.04em; }
+.flag.alt { color:var(--text-2);background:var(--card-2);border:1px solid var(--border-2); }
+.card-actions { display:flex;gap:6px;margin-top:14px; }
+.btn-add {
+  flex:1;height:34px;border-radius:8px;font-size:12.5px;font-weight:600;
+  background:var(--accent-soft);color:var(--accent);
+  border:1px solid color-mix(in oklab,var(--accent) 30%,transparent);transition:all .15s;
+}
+.btn-add:hover, .card.in-cart .btn-add { background:var(--accent);color:#08120c; }
+.btn-detail {
+  height:34px;padding:0 12px;border-radius:8px;font-size:12px;font-weight:500;
+  color:var(--text-2);border:1px solid var(--border);transition:all .15s;
+}
+.btn-detail:hover { color:var(--text);background:var(--bg-elev); }
 
-  /* Hero pill badge */
-  .hero-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    height: 32px; padding: 0 14px 0 10px;
-    border: 1px solid var(--border); border-radius: 999px;
-    background: var(--accent-soft); color: var(--accent);
-    font-size: 12.5px; font-weight: 600;
-    margin-bottom: 32px;
-  }
-  .hero-pill svg { color: var(--accent); flex: 0 0 14px; }
+/* ─── Skills chips ───────────────────────────────────────────────── */
+.chips-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px; }
+@media (max-width:900px) { .chips-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:600px) { .chips-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.chip {
+  display:inline-flex;align-items:center;gap:10px;padding:11px 14px;
+  border:1px solid var(--border);border-radius:10px;background:var(--card);
+  font-size:13.5px;font-weight:500;color:var(--text);transition:all .18s;text-align:left;width:100%;
+}
+.chip:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent)); }
+.chip .check { width:16px;height:16px;border-radius:5px;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;flex:0 0 16px;transition:all .18s; }
+.chip.is-on { border-color:var(--accent);background:var(--accent-soft); }
+.chip.is-on .check { background:var(--accent);border-color:var(--accent); }
+.chip.is-on .check::after { content:'';width:8px;height:4px;border-left:1.5px solid #08120c;border-bottom:1.5px solid #08120c;transform:rotate(-45deg) translate(1px,-1px); }
 
-  /* Hero title */
-  .hero-title {
-    font-size: clamp(48px, 7.5vw, 96px);
-    line-height: 0.98; font-weight: 800;
-    letter-spacing: -0.04em; margin: 0 0 24px;
-    text-wrap: balance;
-  }
-  .hero-title em {
-    font-style: normal; color: var(--accent);
-    background: linear-gradient(180deg, #34d075 0%, var(--accent) 65%, #16a34a 100%);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+/* ─── Salary ─────────────────────────────────────────────────────── */
+.salary {
+  margin-top:56px;background:var(--card);border:1px solid var(--border-2);
+  border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  align-items:start;position:relative;overflow:hidden;
+}
+.salary::before { content:'';position:absolute;inset:0;background:radial-gradient(600px 200px at 100% 0%,rgba(34,197,94,.06),transparent 60%);pointer-events:none; }
+@media (max-width:780px) { .salary{grid-template-columns:1fr;gap:24px;padding:24px} }
+.salary .salary-head .micro { font-size:11.5px;font-weight:600;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;margin-bottom:14px; }
+.salary .salary-head .micro::before { content:'';width:20px;height:2px;background:var(--accent);border-radius:1px; }
+.salary h3 { font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-0.022em;margin:0 0 8px; }
+.salary h3 .em { color:var(--accent); }
+.salary .salary-sub { font-size:14px;color:var(--text-2);max-width:380px; }
+.salary-form { display:flex;flex-direction:column;gap:10px;position:relative;z-index:1; }
+.field { display:flex;align-items:stretch;gap:8px;background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;padding:4px; }
+.field input { flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);padding:10px 12px;font:inherit;font-size:14.5px;font-variant-numeric:tabular-nums; }
+.field select { background:transparent;border:0;outline:0;color:var(--text);font:inherit;font-weight:600;font-size:13px;padding:0 8px 0 4px;cursor:pointer; }
+.salary-result { background:var(--bg-elev);border:1px dashed var(--border);border-radius:12px;padding:16px; }
+.salary-result .sr-row { display:flex;justify-content:space-between;align-items:center;font-size:13.5px;margin-bottom:8px; }
+.salary-result .sr-row:last-child { margin-bottom:0;padding-top:8px;border-top:1px solid var(--border-2); }
+.salary-result .sr-label { color:var(--text-2); }
+.salary-result .sr-val { font-variant-numeric:tabular-nums;font-weight:600; }
+.salary-result .sr-val.accent { color:var(--accent);font-size:16px; }
+.salary-empty { font-size:13.5px;color:var(--text-3);text-align:center;padding:16px;background:var(--bg-elev);border:1px dashed var(--border);border-radius:12px; }
 
-  /* Hero lede */
-  .hero-lede {
-    font-size: 16px; line-height: 1.65; color: var(--text-2);
-    max-width: 580px; margin: 0 auto 40px;
-    text-wrap: pretty;
-  }
-  .hero-lede strong { color: var(--text); font-weight: 600; }
+/* ─── Profession cards ───────────────────────────────────────────── */
+.prof-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px; }
+@media (max-width:900px) { .prof-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px) { .prof-grid{grid-template-columns:1fr} }
+.prof-card {
+  border:1px solid var(--border-2);border-radius:var(--radius);background:var(--card);
+  padding:22px;cursor:pointer;transition:border-color .18s,transform .18s;position:relative;overflow:hidden;
+}
+.prof-card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
+.prof-card.is-active { border-color:var(--accent); }
+.prof-card::before { content:'';position:absolute;inset:0;background:radial-gradient(300px 200px at 100% 0%,rgba(34,197,94,.04),transparent 65%);pointer-events:none; }
+.prof-icon { font-size:28px;margin-bottom:10px; }
+.prof-label { font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px; }
+.prof-desc { font-size:12.5px;color:var(--text-2);margin-bottom:14px;line-height:1.5; }
+.prof-apps-row { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px; }
+.prof-apps-row span { font-size:11px;padding:3px 8px;border-radius:6px;background:var(--card-2);border:1px solid var(--border-2);color:var(--text-2); }
+.prof-foot { display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-2);padding-top:12px; }
+.prof-total { font-size:20px;font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums; }
+.prof-total .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
+.prof-btn { font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:6px 12px;border-radius:8px;border:1px solid color-mix(in oklab,var(--accent) 25%,transparent);transition:all .15s; }
+.prof-btn:hover { background:var(--accent);color:#08120c; }
 
-  /* Search bar — redesigned */
-  .hero-search {
-    display: flex; align-items: center; gap: 10px;
-    max-width: 560px; margin: 0 auto;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 6px 8px 6px 16px;
-    transition: border-color .18s ease, box-shadow .18s ease;
-  }
-  .hero-search:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
-  }
-  .hero-search svg { width: 18px; height: 18px; color: var(--text-3); flex: 0 0 18px; }
-  .hero-search input {
-    flex: 1; min-width: 0;
-    border: 0; outline: 0; background: transparent;
-    color: var(--text); font: inherit; font-size: 15px;
-    padding: 12px 0;
-  }
-  .hero-search input::placeholder { color: var(--text-3); }
-  .hero-search kbd {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 11px; font-weight: 600; color: var(--text-2);
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 6px; padding: 4px 8px;
-  }
+/* ─── Combo ──────────────────────────────────────────────────────── */
+.combo-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px; }
+@media (max-width:880px) { .combo-grid{grid-template-columns:1fr} }
+.combo { border:1px solid var(--border-2);border-radius:var(--radius);background:var(--card);padding:22px; }
+.combo .tag { font-size:11px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase; }
+.combo h4 { font-size:19px;margin:6px 0 4px;letter-spacing:-0.015em;font-weight:700; }
+.combo .desc { font-size:13px;color:var(--text-2);margin:0 0 14px; }
+.combo .stack { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px; }
+.combo .stack span { font-size:11.5px;padding:4px 8px;border-radius:6px;background:var(--card-2);border:1px solid var(--border-2);color:var(--text-2); }
+.combo .combo-foot { display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-top:1px solid var(--border-2);padding-top:14px; }
+.combo .combo-foot .total { font-size:22px;font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums; }
+.combo .combo-foot .save { font-size:11.5px;color:var(--accent);font-weight:600; }
 
-  /* ── Floating mini pricing cards ─────────────────────────── */
-  .float-card {
-    position: absolute; z-index: 2;
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 16px 12px 12px; min-width: 220px;
-    background: linear-gradient(180deg, rgba(15,26,18,.92), rgba(11,20,16,.85));
-    border: 1px solid var(--border); border-radius: 14px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 16px 40px -20px rgba(0,0,0,.7), 0 2px 0 rgba(255,255,255,.02) inset;
-    animation: fc-float 6s ease-in-out infinite;
-    /* margin-top transition for search match rise effect */
-    transition:
-      margin-top 1.1s cubic-bezier(.12,.86,.18,1),
-      border-color .45s ease,
-      box-shadow .55s ease;
-  }
-  body.light .float-card {
-    background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(246,251,247,.9));
-    box-shadow: 0 16px 40px -20px rgba(20,60,30,.25);
-  }
-  .fc-tl { top: 60px;  left: -10px;  animation-delay: 0s; }
-  .fc-tr { top: 80px;  right: -10px; animation-delay: 1.4s; }
-  .fc-ml { top: 280px; left: -30px;  animation-delay: 2.8s; }
-  .fc-mr { top: 300px; right: -30px; animation-delay: 4.2s; }
-  @keyframes fc-float {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-6px); }
-  }
+/* ─── Cart bar ───────────────────────────────────────────────────── */
+.cart-bar {
+  position:fixed;bottom:0;left:0;right:0;z-index:60;
+  background:var(--card);border-top:1px solid var(--border);
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 -24px 60px -20px rgba(0,0,0,.4);
+}
+.cart-bar.is-visible { transform:translateY(0); }
+.cart-bar-inner {
+  max-width:1240px;margin:0 auto;padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.cart-info { display:flex;align-items:center;gap:14px;flex-wrap:wrap; }
+.cart-count-badge {
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:8px;background:var(--accent);color:#08120c;font-size:13px;font-weight:700;
+}
+.cart-info-text { font-size:14px;color:var(--text-2); }
+.cart-price-total { font-size:22px;font-weight:800;letter-spacing:-0.025em;font-variant-numeric:tabular-nums;color:var(--accent); }
+.cart-price-total .per { font-size:12px;color:var(--text-3);font-weight:500;margin-left:2px; }
+.cart-btns { display:flex;align-items:center;gap:8px; }
+.btn-cart-clear { height:36px;padding:0 16px;border-radius:8px;font-size:13px;font-weight:600;color:var(--text-2);border:1px solid var(--border);transition:all .15s; }
+.btn-cart-clear:hover { color:var(--text);background:var(--bg-elev); }
+.btn-cart-detail { height:36px;padding:0 18px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:#08120c;transition:background .15s; }
+.btn-cart-detail:hover { background:var(--accent-2); }
 
-  /* ── Search match → card trồi lên ───────────────────────── */
-  .float-card.is-match {
-    margin-top: -32px;
-    border-color: var(--accent) !important;
-    box-shadow:
-      0 0 0 3px rgba(34,197,94,.18),
-      0 24px 56px -16px rgba(34,197,94,.35),
-      0 2px 0 rgba(255,255,255,.04) inset;
-  }
-  .float-card.is-match .fc-name { color: var(--accent); }
+/* ─── Modal ──────────────────────────────────────────────────────── */
+.modal-overlay {
+  position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.modal-overlay.is-open { opacity:1;pointer-events:all; }
+.modal-panel {
+  width:100%;max-width:540px;background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:28px;box-shadow:0 40px 100px -30px rgba(0,0,0,.8);
+  transform:translateY(20px) scale(.97);transition:transform .25s cubic-bezier(.2,.8,.2,1);
+  position:relative;max-height:90vh;overflow-y:auto;
+}
+.modal-overlay.is-open .modal-panel { transform:translateY(0) scale(1); }
+.modal-close { position:absolute;top:16px;right:16px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text-2);font-size:18px;transition:all .15s; }
+.modal-close:hover { background:var(--bg-elev);color:var(--text); }
+.modal-app-top { display:flex;align-items:center;gap:14px;margin-bottom:18px; }
+.modal-app-mark { width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;flex:0 0 52px; }
+.modal-app-name { font-size:20px;font-weight:700;letter-spacing:-0.015em; }
+.modal-app-cat { font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:3px; }
+.modal-desc { font-size:14px;color:var(--text-2);line-height:1.6;margin-bottom:22px; }
+.modal-tiers-title { font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px; }
+.modal-tiers { display:flex;flex-direction:column;gap:8px;margin-bottom:22px; }
+.tier-row {
+  display:flex;align-items:center;justify-content:space-between;padding:14px 16px;
+  border:1px solid var(--border-2);border-radius:12px;background:var(--bg-elev);cursor:pointer;transition:border-color .15s;
+}
+.tier-row:hover { border-color:var(--border); }
+.tier-row.is-selected { border-color:var(--accent);background:var(--accent-soft-2); }
+.tier-row-left { display:flex;align-items:center;gap:10px; }
+.tier-radio { width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border);flex:0 0 16px;display:flex;align-items:center;justify-content:center;transition:all .15s; }
+.tier-row.is-selected .tier-radio { border-color:var(--accent);background:var(--accent); }
+.tier-row.is-selected .tier-radio::after { content:'';width:6px;height:6px;border-radius:50%;background:#08120c; }
+.tier-label { font-size:14px;font-weight:600; }
+.tier-price { font-size:16px;font-weight:700;font-variant-numeric:tabular-nums; }
+.tier-price .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
+.modal-add-btn { width:100%;height:46px;border-radius:12px;font-size:15px;font-weight:700;background:var(--accent);color:#08120c;transition:background .15s; }
+.modal-add-btn:hover { background:var(--accent-2); }
+.modal-add-btn.remove { background:var(--bg-elev);color:var(--text);border:1px solid var(--border); }
+.modal-add-btn.remove:hover { background:rgba(239,68,68,.12);color:#ef4444;border-color:rgba(239,68,68,.3); }
+.modal-cart-summary { margin-top:16px;padding:14px;background:var(--bg-elev);border-radius:12px;font-size:13px; }
+.modal-cart-summary .mc-title { font-weight:700;margin-bottom:10px;color:var(--text-2); }
+.modal-cart-item { display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border-2); }
+.modal-cart-item:last-child { border-bottom:0; }
+.modal-cart-total { display:flex;justify-content:space-between;align-items:center;padding-top:10px;font-weight:700;font-size:15px; }
 
-  .fc-icon {
-    width: 40px; height: 40px; border-radius: 9px;
-    display: flex; align-items: center; justify-content: center;
-    flex: 0 0 40px; overflow: hidden;
-  }
-  .fc-icon svg { width: 28px; height: 28px; }
-  .fc-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .fc-name { font-size: 11.5px; color: var(--text-2); font-weight: 500; transition: color .35s ease; }
-  .fc-price { font-size: 17px; font-weight: 800; letter-spacing: -0.015em; color: var(--text); font-variant-numeric: tabular-nums; }
-  .fc-price span { font-size: 11px; font-weight: 500; color: var(--text-3); margin-left: 2px; }
-  .fc-delta { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 600; color: var(--accent); margin-top: 2px; }
+/* ─── Tweaks ─────────────────────────────────────────────────────── */
+#tweaks { position:fixed;right:18px;bottom:18px;width:280px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;font-size:12.5px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);z-index:80;display:none; }
+#tweaks.is-open { display:block; }
+#tweaks h5 { font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--text-2);margin:0 0 8px;font-weight:600; }
+#tweaks .tw-row { display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap; }
+#tweaks .tw-row:last-child { margin-bottom:0; }
+#tweaks .tw-btn { flex:1;min-width:80px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--card-2);color:var(--text-2);font-size:12px;font-weight:500; }
+#tweaks .tw-btn.is-on { background:var(--accent);color:#08120c;border-color:var(--accent);font-weight:600; }
+#tweaks .tw-top { display:flex;align-items:center;justify-content:space-between;margin-bottom:12px; }
+#tweaks .tw-title { font-size:13px;font-weight:700; }
+#tweaks .tw-close { width:22px;height:22px;border-radius:6px;color:var(--text-2); }
+#tweaks .tw-close:hover { background:var(--bg-elev); }
 
-  @media (max-width: 1180px) { .fc-tl { left: 10px; } .fc-tr { right: 10px; } .fc-ml, .fc-mr { display: none; } }
-  @media (max-width: 880px)  { .float-card { display: none; } }
-
-  /* ── Proof row — checkmarks only ────────────────────────── */
-  .proof-row {
-    margin: 28px auto 0;
-    display: flex; align-items: center; justify-content: center;
-    flex-wrap: wrap; gap: 6px 20px;
-    max-width: 680px;
-  }
-  .proof-row .check-item {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12.5px; font-weight: 500; color: var(--text-2);
-  }
-  .proof-row .check-item svg { color: var(--accent); flex: 0 0 13px; }
-  @media (max-width: 600px) {
-    .proof-row { gap: 8px 14px; }
-    .proof-row .check-item { font-size: 12px; }
-  }
-
-  /* ── Stats grid ──────────────────────────────────────────── */
-  .hero-stats-grid {
-    margin: 52px auto 0;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    max-width: 1080px;
-    background: var(--card); border: 1px solid var(--border-2);
-    border-radius: 20px; overflow: hidden;
-    box-shadow: var(--shadow-card);
-  }
-  .stat-cell {
-    padding: 32px 24px; text-align: center;
-    position: relative;
-    display: flex; flex-direction: column; align-items: center; gap: 14px;
-  }
-  .stat-cell + .stat-cell::before {
-    content: ''; position: absolute;
-    left: 0; top: 22%; bottom: 22%;
-    width: 1px; background: var(--border-2);
-  }
-  .stat-cell-icon {
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--accent-soft); border-radius: 12px;
-    color: var(--accent);
-  }
-  .stat-cell-icon svg { width: 22px; height: 22px; }
-  .stat-cell-num {
-    font-size: 38px; font-weight: 800; letter-spacing: -0.035em;
-    color: var(--text); line-height: 1;
-    font-variant-numeric: tabular-nums;
-    display: inline-flex; align-items: baseline; gap: 6px;
-  }
-  .stat-cell-num .unit { font-size: 17px; font-weight: 700; color: var(--text-2); }
-  .stat-cell-num .plus { font-size: 26px; font-weight: 700; color: var(--accent); }
-  .stat-cell-num.live-num {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 32px; color: var(--accent);
-  }
-  .live-badge {
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(34,197,94,.6);
-    animation: pulse-dot 2s ease-out infinite;
-  }
-  .stat-cell-label {
-    font-size: 12.5px; font-weight: 500; color: var(--text-2); line-height: 1.45;
-  }
-  @media (max-width: 880px) {
-    .hero-stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-stats-grid .stat-cell:nth-child(3)::before,
-    .hero-stats-grid .stat-cell:nth-child(4)::before { content: none; }
-    .hero-stats-grid .stat-cell:nth-child(3),
-    .hero-stats-grid .stat-cell:nth-child(4) { border-top: 1px solid var(--border-2); }
-    .stat-cell-num { font-size: 30px; }
-  }
-
-  /* ── Section header variants ─────────────────────────────── */
-  .sec-v2 { padding: 88px 0 24px; position: relative; }
-  .sec-v2 + .sec-v2 { padding-top: 56px; }
-  .sec-head-v2 { margin-bottom: 36px; }
-
-  /* Style A — Center, kicker with lines */
-  .head-center {
-    text-align: center; max-width: 760px;
-    margin-left: auto; margin-right: auto;
-  }
-  .head-center .kicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11.5px; font-weight: 600; letter-spacing: 0.18em;
-    color: var(--accent); text-transform: uppercase; margin-bottom: 22px;
-  }
-  .head-center .kicker::before,
-  .head-center .kicker::after {
-    content: ''; width: 28px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-  .head-center h2 {
-    font-size: clamp(36px, 5vw, 58px); line-height: 1.06; font-weight: 800;
-    letter-spacing: -0.035em; margin: 0 0 16px;
-  }
-  .head-center h2 em { color: var(--accent); font-style: normal; }
-  .head-center .lede { font-size: 15px; color: var(--text-2); max-width: 540px; margin: 0 auto; }
-
-  /* Style B — Left, eyebrow with bar */
-  .head-left { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; }
-  .head-left .left-block { display: flex; flex-direction: column; gap: 12px; max-width: 640px; }
-  .head-left .eyebrow {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-size: 11.5px; font-weight: 600; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--accent);
-  }
-  .head-left .eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent); border-radius: 1px; }
-  .head-left h2 { font-size: clamp(28px, 3.2vw, 42px); line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; margin: 0; }
-  .head-left h2 em { color: var(--accent); font-style: normal; }
-  .head-left .lede { font-size: 14.5px; color: var(--text-2); margin: 4px 0 0; max-width: 520px; }
-  .head-left .meta-badge { font-size: 12px; color: var(--text-3); white-space: nowrap; font-family: 'JetBrains Mono', ui-monospace, monospace; }
-
-  /* Style C — Compact, border-top */
-  .head-compact {
-    display: flex; align-items: baseline; gap: 18px; justify-content: space-between;
-    border-top: 1px solid var(--border-2); padding-top: 24px;
-  }
-  .head-compact h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.015em; margin: 0; }
-  .head-compact .meta { font-size: 13px; color: var(--text-2); }
-  .head-compact em { color: var(--accent); font-style: normal; }
-
-  /* ── Filter tabs — underline style ──────────────────────── */
-  .filter-row {
-    border-bottom: 1px solid var(--border-2); margin-bottom: 0;
-    display: flex; align-items: center;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-  }
-  .filter-row::-webkit-scrollbar { display: none; }
-  /* Override old tab-btn styles */
-  .tab-btn {
-    position: relative !important;
-    display: inline-flex !important; align-items: center !important;
-    padding: 12px 16px !important;
-    font-size: 13.5px !important; font-weight: 500 !important;
-    color: var(--text-2) !important;
-    background: none !important; border: 0 !important;
-    border-radius: 0 !important; cursor: pointer;
-    white-space: nowrap;
-    transition: color .15s ease !important;
-  }
-  .tab-btn::after {
-    content: '' !important;
-    position: absolute !important;
-    left: 16px !important; right: 16px !important; bottom: -1px !important;
-    height: 2px !important; background: var(--accent) !important;
-    border-radius: 2px 2px 0 0 !important;
-    transform: scaleX(0) !important; transform-origin: center !important;
-    transition: transform .22s cubic-bezier(.2,.7,.2,1) !important;
-  }
-  .tab-btn:hover { color: var(--text) !important; }
-  .tab-btn.active { color: var(--text) !important; }
-  .tab-btn.active::after { transform: scaleX(1) !important; }
-
-  /* Plan tabs row */
-  .plan-row-v2 { display: flex; justify-content: flex-end; margin: 14px 0 24px; }
-  .plan-seg {
-    display: inline-flex; padding: 3px;
-    border: 1px solid var(--border); border-radius: 999px;
-    background: var(--card-2);
-  }
-  /* Override old plan-btn */
-  .plan-btn {
-    height: 30px !important; padding: 0 16px !important;
-    font-size: 12.5px !important; font-weight: 600 !important;
-    color: var(--text-2) !important;
-    background: none !important; border: 0 !important;
-    border-radius: 999px !important; cursor: pointer;
-    transition: all .18s ease !important;
-  }
-  .plan-btn.active {
-    background: var(--accent) !important;
-    color: #08120c !important;
-  }
-
-  </style>
+footer { padding:80px 0 80px;text-align:center;color:var(--text-3);font-size:12.5px; }
+footer .dot-sep { margin:0 8px;opacity:.5; }
+</style>
 </head>
-<body class="dark">
+<body>
 
-<!-- ═══ HEADER ════════════════════════════════════════════════════ -->
-<header>
-  <div class="container">
-
-    <a href="/" class="brand-link" aria-label="toolbanquyen.vn">
-      <img class="logo-dark" src="logo-dark.svg" alt="Tool BQ">
-      <img class="logo-light" src="logo-light.svg" alt="Tool BQ">
+<!-- ─── HEADER ────────────────────────────────────────────────────────── -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="brand" aria-label="toolbanquyen.vn">
+      <img src="logo.svg" alt="" id="logo"/>
+      <div class="wordmark">
+        <span class="name">toolbanquyen</span>
+        <span class="dot"></span>
+        <span class="tld">vn</span>
+      </div>
     </a>
-
-    <nav class="header-nav">
-      <a href="#apps">Tất cả app</a>
+    <nav class="nav">
+      <a href="#apps" class="is-active">Tất cả app</a>
+      <a href="#professions">Bộ tool theo nghề</a>
       <a href="#skills">Gợi ý tool</a>
-      <a href="#combos">Combo Stack</a>
     </nav>
-
-    <div class="header-right-new">
-      <div class="rate-pill">
-        <span class="live-dot"></span>
-        <span id="rate-badge">Đang tải tỉ giá...</span>
+    <div class="right">
+      <div class="rate" title="Tỉ giá tham chiếu">
+        <span class="pulse"></span>
+        <span>1 USD ≈ <strong id="rate-display">26.199 ₫</strong></span>
       </div>
-      <div class="seg-toggle">
-        <button id="btn-usd" class="active">USD</button>
-        <button id="btn-vnd">VND</button>
+      <div class="seg" id="cur-toggle" role="tablist" aria-label="Đơn vị tiền tệ">
+        <button class="is-on" data-cur="USD">USD</button>
+        <button data-cur="VND">VND</button>
       </div>
-      <button id="theme-btn" class="theme-icon" title="Đổi giao diện">☀️</button>
+      <button class="icon-btn" id="theme-toggle" title="Đổi giao diện" aria-label="Đổi giao diện">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
     </div>
-
   </div>
 </header>
 
-<!-- ═══ HERO ══════════════════════════════════════════════════════ -->
-<section class="hero-v2">
-  <div class="container hero-inner-v2">
+<main>
 
-    <!-- Floating mini pricing cards -->
-    <div class="float-card fc-tl" id="fc-ps">
+<!-- ─── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container hero-inner">
+
+    <div class="float-card fc-tl">
       <div class="fc-icon" style="background:#001e36;color:#31a8ff;">
         <svg viewBox="0 0 32 32" fill="currentColor"><rect x="2" y="2" width="28" height="28" rx="6"/><text x="16" y="22" text-anchor="middle" font-family="Inter" font-weight="800" font-size="13" fill="#001e36">Ps</text></svg>
       </div>
       <div class="fc-body">
         <div class="fc-name">Adobe Photoshop</div>
-        <div class="fc-price">560.000 ₫<span>/tháng</span></div>
-        <div class="fc-delta">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5 6 5-6"/></svg>
-          12% so với tháng trước
-        </div>
+        <div class="fc-price">$29.99<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
       </div>
     </div>
 
@@ -546,11 +571,8 @@
       </div>
       <div class="fc-body">
         <div class="fc-name">ChatGPT Plus</div>
-        <div class="fc-price">520.000 ₫<span>/tháng</span></div>
-        <div class="fc-delta">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5 6 5-6"/></svg>
-          5% so với tháng trước
-        </div>
+        <div class="fc-price">$20<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
       </div>
     </div>
 
@@ -559,267 +581,622 @@
         <svg viewBox="0 0 32 32" fill="none"><circle cx="11" cy="6" r="4" fill="#f24e1e"/><path d="M7 10h8v8H11a4 4 0 010-8z" fill="#a259ff"/><path d="M11 18h8a4 4 0 010 8 4 4 0 01-4-4v-4z" fill="#0acf83"/><circle cx="21" cy="14" r="4" fill="#1abcfe"/></svg>
       </div>
       <div class="fc-body">
-        <div class="fc-name">Figma Professional</div>
-        <div class="fc-price">360.000 ₫<span>/tháng</span></div>
-        <div class="fc-delta">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5 6 5-6"/></svg>
-          8% so với tháng trước
-        </div>
+        <div class="fc-name">Figma Pro</div>
+        <div class="fc-price">$15<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
       </div>
     </div>
 
     <div class="float-card fc-mr">
-      <div class="fc-icon" style="background:#fff;color:#000;">
-        <svg viewBox="0 0 32 32"><text x="8" y="22" font-family="Inter" font-weight="800" font-size="16" fill="#000">N</text></svg>
+      <div class="fc-icon" style="background:#7c3aed;">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="10" height="10" rx="2" fill="#fff"/><rect x="18" y="4" width="10" height="10" rx="2" fill="#fff"/><rect x="4" y="18" width="10" height="10" rx="2" fill="#fff"/><rect x="18" y="18" width="10" height="10" rx="2" fill="#fff"/></svg>
       </div>
       <div class="fc-body">
-        <div class="fc-name">Notion AI</div>
-        <div class="fc-price">280.000 ₫<span>/tháng</span></div>
-        <div class="fc-delta">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5 6 5-6"/></svg>
-          7% so với tháng trước
-        </div>
+        <div class="fc-name">Cursor Pro</div>
+        <div class="fc-price">$20<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
       </div>
     </div>
 
-    <!-- Pill badge -->
     <div class="hero-pill">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
       Sử dụng miễn phí — Không cần đăng ký
     </div>
 
-    <h1 class="hero-title">
-      Tool tính giá<br>
-      <em>app bản quyền</em>
-    </h1>
+    <h1 class="hero-title">Tool tính giá<br/><em class="em">app bản quyền</em></h1>
 
     <p class="hero-lede">
-      Bỏ tool lậu không khó — nếu bạn biết mình thực sự tốn bao nhiêu.<br>
-      So sánh <strong>30+ app bản quyền</strong> theo tỉ giá thực tế, tính luôn % lương mỗi tháng.
+      Bỏ tool lậu không khó — nếu bạn biết mình thực sự tốn bao nhiêu.<br/>
+      So sánh <strong>25+ app bản quyền</strong> theo tỉ giá thực tế, tính luôn % lương mỗi tháng.
     </p>
 
-    <!-- Search — id="search" là ID app.js cần -->
-    <div class="hero-search">
+    <form class="hero-search" onsubmit="return false;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input type="text" id="search" placeholder="Ví dụ: Photoshop, CapCut, ChatGPT…" autocomplete="off" spellcheck="false">
+      <input type="text" id="search-input" placeholder="Ví dụ: Photoshop, Cursor, ChatGPT…" aria-label="Tìm app"/>
       <kbd>⌘K</kbd>
+    </form>
+
+    <div class="proof">
+      <div class="proof-avatars">
+        <span class="av" style="background:linear-gradient(135deg,#f59e0b,#ea580c)">N</span>
+        <span class="av" style="background:linear-gradient(135deg,#ec4899,#be185d)">M</span>
+        <span class="av" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">T</span>
+        <span class="av" style="background:linear-gradient(135deg,#10b981,#047857)">A</span>
+        <span class="av" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">L</span>
+        <span class="av count">12K+</span>
+      </div>
+      <div class="proof-text">Đã được <strong>12.000+ designer, developer, marketer</strong> tin dùng</div>
+      <div class="proof-checks">
+        <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Miễn phí 100%</span>
+        <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Không quảng cáo</span>
+        <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Giá chính hãng</span>
+      </div>
     </div>
 
-    <!-- Social proof — Option A: checkmarks only -->
-    <div class="proof-row">
-      <span class="check-item">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-        Miễn phí 100%
-      </span>
-      <span class="check-item">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-        Không quảng cáo
-      </span>
-      <span class="check-item">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-        Cập nhật mỗi ngày
-      </span>
-      <span class="check-item">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-        Giá từ trang chủ chính thức
-      </span>
-    </div>
-
-    <!-- Stats -->
-    <div class="hero-stats-grid">
-      <div class="stat-cell">
-        <div class="stat-cell-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 10h20M16 15h3"/></svg>
-        </div>
-        <div class="stat-cell-num">2.4 <span class="unit">triệu</span></div>
-        <div class="stat-cell-label">Tiết kiệm trung bình / năm<br>của người dùng</div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 10h20M16 15h3"/></svg></div>
+        <div class="stat-num">2.4 <span class="unit">triệu</span></div>
+        <div class="stat-label">Tiết kiệm trung bình / năm<br/>của người dùng</div>
       </div>
-      <div class="stat-cell">
-        <div class="stat-cell-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-        </div>
-        <div class="stat-cell-num">30<span class="plus">+</span></div>
-        <div class="stat-cell-label">Phần mềm phổ biến<br>nhất thị trường</div>
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <div class="stat-num">25<span class="plus">+</span></div>
+        <div class="stat-label">Phần mềm bản quyền<br/>phổ biến nhất</div>
       </div>
-      <div class="stat-cell">
-        <div class="stat-cell-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5M3 18l9 5 9-5"/></svg>
-        </div>
-        <div class="stat-cell-num">6</div>
-        <div class="stat-cell-label">Lĩnh vực<br>đa dạng</div>
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5M3 18l9 5 9-5"/></svg></div>
+        <div class="stat-num">6</div>
+        <div class="stat-label">Lĩnh vực<br/>đa dạng</div>
       </div>
-      <div class="stat-cell">
-        <div class="stat-cell-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7M21 4v5h-5"/></svg>
-        </div>
-        <div class="stat-cell-num live-num"><span class="live-badge"></span>Live</div>
-        <div class="stat-cell-label">Tỉ giá USD/VND<br>cập nhật realtime</div>
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7M21 4v5h-5"/></svg></div>
+        <div class="stat-num live"><span class="live-dot"></span>Live</div>
+        <div class="stat-label">Tỉ giá USD/VND<br/>cập nhật tự động</div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ═══ ALL APPS ═══════════════════════════════════════════════════ -->
-<section class="section sec-v2" id="apps">
+<!-- ─── APPS ──────────────────────────────────────────────────────────── -->
+<section class="sec" id="apps">
   <div class="container">
-
-    <div class="sec-head-v2 head-center reveal">
+    <div class="sec-head head-center">
       <div class="kicker">Toàn bộ app</div>
-      <h2>So sánh <em>từng app</em><br>theo gói thật.</h2>
-      <p class="lede">Click vào app để xem đầy đủ bảng giá — cá nhân, team, doanh nghiệp.</p>
+      <h1>So sánh <em class="em">từng app</em><br/>theo gói thật.</h1>
+      <p class="lede">Click vào app để xem đầy đủ bảng giá các tier — cá nhân, team, doanh nghiệp.</p>
     </div>
-
-    <!-- Filter tabs — app.js renders .tab-btn buttons vào đây -->
-    <div class="filter-row">
-      <div id="filter-tabs"></div>
-    </div>
-
-    <!-- Plan tabs — app.js lắng nghe .plan-btn[data-plan] -->
-    <div class="plan-row-v2">
-      <div class="plan-seg">
-        <button class="plan-btn active" data-plan="individual">Cá nhân</button>
-        <button class="plan-btn" data-plan="team">Team</button>
-        <button class="plan-btn" data-plan="enterprise">Doanh nghiệp</button>
+    <div class="tabs-wrap">
+      <div class="tabs" role="tablist" id="cat-tabs">
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">25</span></button>
+        <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
+        <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
+        <button class="tab" data-cat="Productivity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Productivity</button>
+        <button class="tab" data-cat="Development"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Dev</button>
+        <button class="tab" data-cat="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-8-3 18-7-7-8-3z"/></svg>Marketing</button>
+        <button class="tab" data-cat="Video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Video</button>
       </div>
     </div>
-
-    <!-- App grid — app.js renders .app-card vào đây -->
-    <div class="app-grid" id="app-grid"></div>
-
-  </div>
-</section>
-
-<!-- ═══ COMBOS ════════════════════════════════════════════════════ -->
-<section class="section sec-v2" id="combos">
-  <div class="container">
-
-    <div class="sec-head-v2 head-compact reveal">
-      <h3>Combo Stack <em>được dùng nhiều</em></h3>
-      <div class="meta">06 combo · cập nhật 05/2026</div>
+    <div class="plan-row" style="margin-top:-8px;margin-bottom:24px;">
+      <div class="plan-seg" id="plan-seg">
+        <button class="is-on" data-plan="personal">Cá nhân</button>
+        <button data-plan="team">Team</button>
+        <button data-plan="enterprise">Doanh nghiệp</button>
+      </div>
     </div>
-
-    <!-- Combo grid — app.js renders .combo-card vào đây -->
-    <div class="combo-grid" id="combo-grid"></div>
-
+    <div class="grid-apps" id="apps-grid"></div>
   </div>
 </section>
 
-<!-- ═══ SKILLS ════════════════════════════════════════════════════ -->
-<section class="section skills-section sec-v2" id="skills">
+<!-- ─── BỘ TOOL THEO NGHỀ ─────────────────────────────────────────────── -->
+<section class="sec" id="professions">
   <div class="container">
+    <div class="sec-head head-center">
+      <div class="kicker">Bộ tool theo nghề</div>
+      <h1>Bạn làm <em class="em">nghề gì?</em></h1>
+      <p class="lede">Chọn bộ tool đầy đủ theo lĩnh vực của bạn. Giá tính tự động theo tỉ giá thực tế.</p>
+    </div>
+    <div class="prof-grid" id="prof-grid"></div>
+  </div>
+</section>
 
-    <div class="sec-head-v2 head-left reveal" style="margin-bottom:32px">
+<!-- ─── GỢI Ý THEO KỸ NĂNG ───────────────────────────────────────────── -->
+<section class="sec" id="skills">
+  <div class="container">
+    <div class="sec-head head-left">
       <div class="left-block">
         <div class="eyebrow">Gợi ý theo kỹ năng</div>
-        <h2>Bạn làm gì?<br>Nhận <em>gợi ý tool</em> phù hợp.</h2>
-        <p class="lede">Tick vào kỹ năng — hệ thống tự gợi ý bộ tool và tính tổng chi phí.</p>
+        <h2>Bạn làm gì? Chọn kỹ năng để<br/>nhận <em class="em">gợi ý tool</em>.</h2>
+        <p class="lede">Tick vào kỹ năng — hệ thống tự gợi ý bộ tool phù hợp và tính tổng chi phí.</p>
       </div>
-      <div class="meta-badge">08 skills · 30+ tools</div>
+      <div class="meta">08 skills · 25 tools</div>
     </div>
-
-    <!-- Skill chips — app.js renders .skill-chip vào đây -->
-    <div class="skill-chips" id="skill-chips"></div>
-    <div class="skill-result" id="skill-result"></div>
-
-  </div>
-</section>
-
-<!-- ═══ SALARY ════════════════════════════════════════════════════ -->
-<section class="section salary-page-section sec-v2" id="salary-section">
-  <div class="container">
-    <div class="salary-page-wrap">
-      <div class="salary-page-left">
-        <div class="section-badge">Tính lương thực nhận</div>
-        <h2 class="section-title">Bỏ bao nhiêu % lương<br>cho <span>công cụ</span>?</h2>
-        <p class="section-desc">Nhập lương — hệ thống tự tính sau khi trừ chi phí tool đã chọn. Chọn app phía trên để cập nhật.</p>
+    <div class="chips-grid" id="chips-grid"></div>
+    <div class="salary">
+      <div class="salary-head">
+        <div class="micro">Tính lương thực nhận</div>
+        <h3>Bỏ bao nhiêu % lương<br/>cho <span class="em">công cụ?</span></h3>
+        <p class="salary-sub">Nhập lương — hệ thống tự tính sau khi trừ chi phí tool đã chọn.</p>
       </div>
-      <div class="salary-page-right">
-        <div class="salary-page-card">
-          <div class="page-salary-inputs">
-            <input type="text" inputmode="numeric" id="page-salary-input" placeholder="Nhập lương của bạn...">
-            <select id="page-salary-currency">
-              <option value="VND">VND</option>
-              <option value="USD">USD</option>
-            </select>
-          </div>
-          <div id="page-salary-result">
-            <div class="salary-hint">Chọn app phía trên để bắt đầu tính</div>
-          </div>
+      <div class="salary-form">
+        <div class="field">
+          <input type="text" id="salary-input" placeholder="Nhập lương của bạn…" value="25.000.000"/>
+          <select id="salary-cur"><option value="VND">VND</option><option value="USD">USD</option></select>
         </div>
+        <div id="salary-result"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CALC BAR ══════════════════════════════════════════════════ -->
-<div class="calc-bar" id="calc-bar">
-  <div class="container">
-    <div class="calc-info">
-      <span class="calc-count" id="calc-count">Đã chọn <strong>0</strong> app</span>
-      <span class="calc-total-num" id="calc-total">$0</span>
-      <span class="calc-period">/tháng</span>
+</main>
+
+<footer>
+  toolbanquyen.vn <span class="dot-sep">·</span> tính giá tool bản quyền cho người Việt <span class="dot-sep">·</span> v3 · 05/2026
+</footer>
+
+<!-- ─── Cart bar ──────────────────────────────────────────────────────── -->
+<div id="cart-bar" class="cart-bar">
+  <div class="cart-bar-inner">
+    <div class="cart-info">
+      <span class="cart-count-badge" id="cart-count-badge">0</span>
+      <span class="cart-info-text">app đã chọn</span>
+      <span class="cart-price-total" id="cart-price-total">$0<span class="per">/tháng</span></span>
     </div>
-    <button class="calc-reset" id="calc-reset">Bỏ chọn</button>
-    <button class="calc-open-btn" id="calc-open-btn">Xem chi tiết →</button>
-  </div>
-</div>
-
-<!-- ═══ DRAWER ════════════════════════════════════════════════════ -->
-<div class="drawer-overlay" id="drawer-overlay"></div>
-<div class="drawer" id="drawer">
-  <div class="drawer-header" id="drawer-header"></div>
-  <div class="drawer-body" id="drawer-body"></div>
-  <div class="drawer-action">
-    <button class="drawer-add-btn" id="drawer-add-btn">Thêm vào giỏ</button>
-  </div>
-</div>
-
-<!-- ═══ MODAL ════════════════════════════════════════════════════ -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <h2>Chi tiết chi phí</h2>
-      <button class="modal-close" id="modal-close">✕</button>
+    <div class="cart-btns">
+      <button class="btn-cart-clear" id="btn-cart-clear">Bỏ chọn tất cả</button>
+      <button class="btn-cart-detail" id="btn-cart-detail">Xem chi tiết →</button>
     </div>
-    <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
 
-<!-- ═══ SCRIPTS ══════════════════════════════════════════════════ -->
-<script src="js/app.js"></script>
+<!-- ─── Modal ─────────────────────────────────────────────────────────── -->
+<div id="modal-overlay" class="modal-overlay" aria-hidden="true">
+  <div class="modal-panel" id="modal-panel">
+    <button class="modal-close" id="modal-close" aria-label="Đóng">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ─── Tweaks ────────────────────────────────────────────────────────── -->
+<div id="tweaks" aria-hidden="true">
+  <div class="tw-top">
+    <div class="tw-title">Tweaks</div>
+    <button class="tw-close" id="tw-close" aria-label="Đóng">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <h5>Nav indicator</h5>
+  <div class="tw-row" data-group="nav">
+    <button class="tw-btn is-on" data-val="underline">Underline</button>
+    <button class="tw-btn" data-val="pill">Pill</button>
+  </div>
+  <h5>Tab active style</h5>
+  <div class="tw-row" data-group="tab">
+    <button class="tw-btn is-on" data-val="underline">Underline</button>
+    <button class="tw-btn" data-val="soft">Soft fill</button>
+  </div>
+  <h5>Rate badge</h5>
+  <div class="tw-row" data-group="rate">
+    <button class="tw-btn is-on" data-val="show">Show</button>
+    <button class="tw-btn" data-val="hide">Hide</button>
+  </div>
+</div>
 
 <script>
-/* ─── Search → Float card highlight ────────────────────────────
-   Khi gõ "photoshop" (4+ ký tự khớp), card #fc-ps trồi lên mượt
-   thông qua margin-top transition (tách biệt với animation transform)
-──────────────────────────────────────────────────────────────── */
-(function() {
-  const input  = document.getElementById('search');
-  const psCard = document.getElementById('fc-ps');
-  if (!input || !psCard) return;
+/* ── DATA ──────────────────────────────────────────────────────────────── */
+var APPS = [
+  {id:'figma',name:'Figma',cat:'Design',color:'linear-gradient(135deg,#f24e1e,#a259ff)',initials:'F',popular:true,
+   desc:'Thiết kế UI/UX cộng tác thời gian thực, prototyping, design system toàn diện.',
+   tiers:{personal:{label:'Professional',price:15},team:{label:'Organization',price:45},enterprise:{label:'Enterprise',price:75}}},
+  {id:'adobe-cc',name:'Adobe Creative Cloud',cat:'Design',color:'linear-gradient(135deg,#ff0000,#990000)',initials:'A',popular:false,
+   desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
+   tiers:{personal:{label:'Single App',price:29.99},team:{label:'All Apps',price:59.99},enterprise:{label:'Enterprise',price:89.99}}},
+  {id:'canva',name:'Canva Pro',cat:'Design',color:'linear-gradient(135deg,#00c4cc,#7d2ae8)',initials:'C',popular:true,
+   desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
+   tiers:{personal:{label:'Pro',price:15},team:{label:'Teams (5 người)',price:30},enterprise:{label:'Enterprise',price:null}}},
+  {id:'sketch',name:'Sketch',cat:'Design',color:'linear-gradient(135deg,#f7b733,#fc4a1a)',initials:'S',popular:false,
+   desc:'Công cụ thiết kế UI/UX dành riêng cho macOS — gọn nhẹ, nhanh, plugin ecosystem mạnh.',
+   tiers:{personal:{label:'Standard',price:12},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:30}}},
+  {id:'miro',name:'Miro',cat:'Design',color:'linear-gradient(135deg,#fdd835,#fb8c00)',initials:'M',popular:true,
+   desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
+   tiers:{personal:{label:'Starter',price:10},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:null}}},
+  {id:'framer',name:'Framer',cat:'Design',color:'linear-gradient(135deg,#0055ff,#111)',initials:'Fr',popular:false,
+   desc:'Thiết kế và publish website chuyên nghiệp với animation phức tạp, không cần code.',
+   tiers:{personal:{label:'Mini',price:5},team:{label:'Basic',price:15},enterprise:{label:'Pro',price:30}}},
+  {id:'chatgpt',name:'ChatGPT Plus',cat:'AI',color:'linear-gradient(135deg,#10a37f,#0a7a5f)',initials:'G',popular:true,
+   desc:'AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter, voice.',
+   tiers:{personal:{label:'Plus',price:20},team:{label:'Team',price:30},enterprise:{label:'Enterprise',price:null}}},
+  {id:'claude',name:'Claude Pro',cat:'AI',color:'linear-gradient(135deg,#d97757,#c25c3a)',initials:'Cl',popular:true,
+   desc:'AI assistant của Anthropic — phân tích sâu, viết lách, code, xử lý file dài.',
+   tiers:{personal:{label:'Pro',price:20},team:{label:'Team',price:30},enterprise:{label:'Enterprise',price:null}}},
+  {id:'midjourney',name:'Midjourney',cat:'AI',color:'linear-gradient(135deg,#2d2d44,#1a1a2e)',initials:'MJ',popular:true,
+   desc:'Tạo ảnh AI chất lượng cao nhất — concept art, branding, minh hoạ sáng tạo.',
+   tiers:{personal:{label:'Basic',price:10},team:{label:'Standard',price:30},enterprise:{label:'Pro',price:60}}},
+  {id:'perplexity',name:'Perplexity Pro',cat:'AI',color:'linear-gradient(135deg,#20b2aa,#1a8f8a)',initials:'Px',popular:false,
+   desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time.',
+   tiers:{personal:{label:'Pro',price:20},team:{label:'Enterprise',price:null},enterprise:{label:'Enterprise',price:null}}},
+  {id:'cursor',name:'Cursor',cat:'Development',color:'linear-gradient(135deg,#7c3aed,#4f46e5)',initials:'Cu',popular:true,
+   desc:'IDE tích hợp AI — autocomplete thông minh, chat với codebase, refactor tự động.',
+   tiers:{personal:{label:'Pro',price:20},team:{label:'Business',price:40},enterprise:{label:'Enterprise',price:null}}},
+  {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'linear-gradient(135deg,#24292e,#586069)',initials:'GH',popular:true,
+   desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
+   tiers:{personal:{label:'Individual',price:10},team:{label:'Business',price:19},enterprise:{label:'Enterprise',price:39}}},
+  {id:'vercel',name:'Vercel',cat:'Development',color:'linear-gradient(135deg,#1a1a1a,#444)',initials:'Vc',popular:false,
+   desc:'Deploy và host frontend siêu nhanh — CI/CD tự động, edge network toàn cầu.',
+   tiers:{personal:{label:'Pro',price:20},team:{label:'Team',price:40},enterprise:{label:'Enterprise',price:null}}},
+  {id:'raycast',name:'Raycast Pro',cat:'Development',color:'linear-gradient(135deg,#ff6363,#d14545)',initials:'Rc',popular:false,
+   desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management.',
+   tiers:{personal:{label:'Pro',price:10},team:{label:'Teams',price:15},enterprise:{label:'Enterprise',price:null}}},
+  {id:'notion',name:'Notion',cat:'Productivity',color:'linear-gradient(135deg,#2e2e2e,#555)',initials:'N',popular:true,
+   desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
+   tiers:{personal:{label:'Plus',price:10},team:{label:'Business',price:18},enterprise:{label:'Enterprise',price:null}}},
+  {id:'linear',name:'Linear',cat:'Productivity',color:'linear-gradient(135deg,#5e6ad2,#3f4ba8)',initials:'Li',popular:false,
+   desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
+   tiers:{personal:{label:'Basic',price:8},team:{label:'Business',price:16},enterprise:{label:'Enterprise',price:null}}},
+  {id:'clickup',name:'ClickUp',cat:'Productivity',color:'linear-gradient(135deg,#7b68ee,#5753d7)',initials:'CU',popular:false,
+   desc:'Project management đa năng — task, doc, time tracking, OKR trong một app.',
+   tiers:{personal:{label:'Unlimited',price:10},team:{label:'Business',price:19},enterprise:{label:'Enterprise',price:null}}},
+  {id:'buffer',name:'Buffer',cat:'Marketing',color:'linear-gradient(135deg,#2d9cdb,#1a7bbf)',initials:'Bu',popular:false,
+   desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
+   tiers:{personal:{label:'Essentials',price:6},team:{label:'Team',price:12},enterprise:{label:'Agency',price:120}}},
+  {id:'ahrefs',name:'Ahrefs',cat:'Marketing',color:'linear-gradient(135deg,#ff8c42,#e05c00)',initials:'Ah',popular:false,
+   desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor.',
+   tiers:{personal:{label:'Lite',price:129},team:{label:'Standard',price:249},enterprise:{label:'Advanced',price:449}}},
+  {id:'semrush',name:'Semrush',cat:'Marketing',color:'linear-gradient(135deg,#ff642d,#c73d00)',initials:'Se',popular:false,
+   desc:'Marketing platform — SEO, PPC, social media, content, competitor analysis.',
+   tiers:{personal:{label:'Pro',price:140},team:{label:'Guru',price:250},enterprise:{label:'Business',price:500}}},
+  {id:'capcut',name:'CapCut Pro',cat:'Video',color:'linear-gradient(135deg,#1a1a1a,#454545)',initials:'CC',popular:true,
+   desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
+   tiers:{personal:{label:'Pro',price:10},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:null}}},
+  {id:'premiere',name:'Adobe Premiere',cat:'Video',color:'linear-gradient(135deg,#9999ff,#5555dd)',initials:'Pr',popular:false,
+   desc:'Edit video chuyên nghiệp — Hollywood-grade, tích hợp After Effects, Audition.',
+   tiers:{personal:{label:'Single App',price:29.99},team:{label:'All Apps',price:59.99},enterprise:{label:'Enterprise',price:89.99}}},
+  {id:'descript',name:'Descript',cat:'Video',color:'linear-gradient(135deg,#4a154b,#6e1f6f)',initials:'Ds',popular:false,
+   desc:'Edit video bằng text — AI transcript, remove filler words, screen recorder.',
+   tiers:{personal:{label:'Hobbyist',price:12},team:{label:'Creator',price:24},enterprise:{label:'Business',price:40}}},
+  {id:'runway',name:'Runway ML',cat:'Video',color:'linear-gradient(135deg,#0d1117,#2d3748)',initials:'Rw',popular:false,
+   desc:'AI video generation & editing — Gen-3, inpainting, motion tracking, VFX.',
+   tiers:{personal:{label:'Standard',price:15},team:{label:'Pro',price:35},enterprise:{label:'Unlimited',price:95}}},
+  {id:'davinci',name:'DaVinci Resolve',cat:'Video',color:'linear-gradient(135deg,#c0392b,#922b21)',initials:'DV',popular:false,
+   desc:'Professional color grading và post-production — tiêu chuẩn Hollywood.',
+   tiers:{personal:{label:'Studio',price:0},team:{label:'Studio (lifetime)',price:null},enterprise:{label:'Dongle',price:null}}}
+];
 
-  let activeCard = null;
-  const cardMap = { 'photoshop': 'fc-ps' };
+var PROFESSIONS = [
+  {id:'uxdesigner',label:'UI/UX Designer',icon:'🎨',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer']},
+  {id:'developer',label:'Developer',icon:'💻',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion']},
+  {id:'creator',label:'Content Creator',icon:'🎬',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion']},
+  {id:'marketer',label:'Marketer / SEO',icon:'📣',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs']},
+  {id:'freelancer',label:'Freelance Designer',icon:'✏️',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude']},
+  {id:'founder',label:'Founder / Team Lead',icon:'🚀',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel']}
+];
 
-  input.addEventListener('input', function() {
-    const val = this.value.toLowerCase().trim();
-    let matched = null;
-    if (val.length >= 4) {
-      for (const [kw, id] of Object.entries(cardMap)) {
-        if (kw.startsWith(val) || kw.includes(val)) {
-          matched = document.getElementById(id);
-          break;
-        }
-      }
-    }
-    if (activeCard && activeCard !== matched) activeCard.classList.remove('is-match');
-    if (matched) { matched.classList.add('is-match'); activeCard = matched; }
-    else activeCard = null;
+var SKILLS = [
+  {id:'design',label:'Thiết kế đồ họa',apps:['figma','adobe-cc','canva','sketch','midjourney']},
+  {id:'video',label:'Edit video',apps:['capcut','premiere','descript','runway']},
+  {id:'code',label:'Lập trình / Code',apps:['cursor','github-copilot','vercel','linear']},
+  {id:'marketing',label:'Marketing & SEO',apps:['buffer','ahrefs','semrush','canva']},
+  {id:'writing',label:'Viết content',apps:['claude','chatgpt','notion','perplexity']},
+  {id:'management',label:'Quản lý team',apps:['notion','linear','clickup','miro']},
+  {id:'ai',label:'AI & Automation',apps:['chatgpt','claude','midjourney','cursor','perplexity']},
+  {id:'nocode',label:'Web / No-code',apps:['framer','notion','vercel','canva']}
+];
+
+/* ── STATE ─────────────────────────────────────────────────────────────── */
+var S = {
+  cart:[],currency:'USD',rate:26199,
+  filter:'all',plan:'personal',search:'',
+  selectedSkills:[],modalApp:null,modalTier:'personal'
+};
+
+/* ── HELPERS ───────────────────────────────────────────────────────────── */
+function getApp(id){return APPS.find(function(a){return a.id===id});}
+function appPrice(app,plan){var t=app.tiers[plan];if(!t||t.price===null)return null;return t.price;}
+function fmtUSD(n){return n%1===0?'$'+n:'$'+n.toFixed(2);}
+function fmtVND(n){return n.toLocaleString('vi-VN')+' ₫';}
+function fmtPrice(usd){
+  if(usd===null)return '<span style="font-size:13px;color:var(--text-3)">Liên hệ</span>';
+  if(usd===0)return '<span style="color:var(--accent);font-size:14px">Miễn phí</span>';
+  if(S.currency==='VND')return fmtVND(Math.round(usd*S.rate));
+  return fmtUSD(usd);
+}
+function fmtTotal(usd){
+  if(S.currency==='VND')return fmtVND(Math.round(usd*S.rate));
+  return fmtUSD(usd);
+}
+function cartTotal(){return S.cart.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a,S.plan)||0):s;},0);}
+
+/* ── RENDER APPS ───────────────────────────────────────────────────────── */
+function renderApps(){
+  var q=S.search.trim().toLowerCase();
+  var list=APPS.filter(function(a){
+    if(S.filter!=='all'&&a.cat!==S.filter)return false;
+    if(q&&a.name.toLowerCase().indexOf(q)===-1&&a.cat.toLowerCase().indexOf(q)===-1)return false;
+    return true;
   });
-})();
+  document.getElementById('count-badge').textContent=list.length;
+  document.getElementById('apps-grid').innerHTML=list.map(function(app){
+    var p=appPrice(app,S.plan);
+    var inCart=S.cart.indexOf(app.id)!==-1;
+    return '<article class="card'+(inCart?' in-cart':'')+'" data-id="'+app.id+'">' +
+      '<div class="card-top"><div class="app-mark" style="background:'+app.color+'">'+app.initials+'</div>' +
+      '<div><div class="app-name">'+app.name+'</div><div class="app-cat">'+app.cat+'</div></div></div>' +
+      '<p>'+app.desc+'</p>' +
+      '<div class="card-foot"><div class="price">'+fmtPrice(p)+(p!==null&&p!==0?'<span class="per">/th</span>':'')+'</div>' +
+      (app.popular?'<span class="flag">Phổ biến</span>':'<span class="flag alt">'+(app.tiers[S.plan]?app.tiers[S.plan].label:'')+'</span>') +
+      '</div>' +
+      '<div class="card-actions">' +
+      '<button class="btn-add" data-id="'+app.id+'">'+(inCart?'✓ Đã thêm':'+ Thêm vào giỏ')+'</button>' +
+      '<button class="btn-detail" data-id="'+app.id+'">Chi tiết</button>' +
+      '</div></article>';
+  }).join('');
+  document.querySelectorAll('#apps-grid .btn-add').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();toggleCart(b.dataset.id);});
+  });
+  document.querySelectorAll('#apps-grid .btn-detail').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();openModal(b.dataset.id);});
+  });
+  document.querySelectorAll('#apps-grid .card').forEach(function(c){
+    c.addEventListener('click',function(){openModal(c.dataset.id);});
+  });
+}
+
+/* ── RENDER PROFESSIONS ────────────────────────────────────────────────── */
+function renderProfessions(){
+  document.getElementById('prof-grid').innerHTML=PROFESSIONS.map(function(prof){
+    var total=prof.apps.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a,S.plan)||0):s;},0);
+    var names=prof.apps.map(function(id){var a=getApp(id);return a?'<span>'+a.name+'</span>':'';});
+    return '<div class="prof-card" data-prof="'+prof.id+'">' +
+      '<div class="prof-icon">'+prof.icon+'</div>' +
+      '<div class="prof-label">'+prof.label+'</div>' +
+      '<div class="prof-desc">'+prof.desc+'</div>' +
+      '<div class="prof-apps-row">'+names.join('')+'</div>' +
+      '<div class="prof-foot"><div class="prof-total">'+fmtTotal(total)+'<span class="per">/tháng</span></div>' +
+      '<button class="prof-btn" data-prof="'+prof.id+'">Chọn bộ này</button>' +
+      '</div></div>';
+  }).join('');
+  document.querySelectorAll('.prof-btn').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();selectProf(b.dataset.prof);});
+  });
+  document.querySelectorAll('.prof-card').forEach(function(c){
+    c.addEventListener('click',function(){selectProf(c.dataset.prof);});
+  });
+}
+function selectProf(profId){
+  var prof=PROFESSIONS.find(function(p){return p.id===profId;});
+  if(!prof)return;
+  S.cart=prof.apps.slice();
+  document.querySelectorAll('.prof-card').forEach(function(c){c.classList.toggle('is-active',c.dataset.prof===profId);});
+  renderAll();
+  document.getElementById('apps').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── RENDER CHIPS ──────────────────────────────────────────────────────── */
+function renderChips(){
+  document.getElementById('chips-grid').innerHTML=SKILLS.map(function(sk){
+    var on=S.selectedSkills.indexOf(sk.id)!==-1;
+    return '<button class="chip'+(on?' is-on':'')+'" data-skill="'+sk.id+'">' +
+      '<span class="check"></span><span class="chip-label">'+sk.label+'</span></button>';
+  }).join('');
+  document.querySelectorAll('#chips-grid .chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      var id=chip.dataset.skill;
+      var idx=S.selectedSkills.indexOf(id);
+      var sk=SKILLS.find(function(s){return s.id===id;});
+      if(idx===-1){
+        S.selectedSkills.push(id);
+        if(sk)sk.apps.forEach(function(aid){if(S.cart.indexOf(aid)===-1)S.cart.push(aid);});
+      } else {
+        S.selectedSkills.splice(idx,1);
+      }
+      renderAll();
+    });
+  });
+}
+
+/* ── SALARY CALC ───────────────────────────────────────────────────────── */
+function renderSalary(){
+  var el=document.getElementById('salary-result');
+  if(S.cart.length===0){el.innerHTML='<div class="salary-empty">Chọn app ở trên để bắt đầu tính 👆</div>';return;}
+  var raw=document.getElementById('salary-input').value.replace(/[^0-9]/g,'');
+  var sal=parseFloat(raw);
+  if(!sal||isNaN(sal)){el.innerHTML='<div class="salary-empty">Nhập lương của bạn để bắt đầu</div>';return;}
+  var salCur=document.getElementById('salary-cur').value;
+  var totalUSD=cartTotal();
+  var toolCostInSal=salCur==='VND'?Math.round(totalUSD*S.rate):totalUSD;
+  var remaining=Math.max(0,sal-toolCostInSal);
+  var pct=((toolCostInSal/sal)*100).toFixed(1);
+  var fmt=function(n){return salCur==='VND'?fmtVND(n):'$'+n.toFixed(0);};
+  el.innerHTML='<div class="salary-result">' +
+    '<div class="sr-row"><span class="sr-label">Lương của bạn</span><span class="sr-val">'+fmt(sal)+'</span></div>' +
+    '<div class="sr-row"><span class="sr-label">Chi phí tool ('+S.cart.length+' app)</span><span class="sr-val">'+fmt(toolCostInSal)+'</span></div>' +
+    '<div class="sr-row"><span class="sr-label">Còn lại sau tool</span><span class="sr-val accent">'+fmt(remaining)+' <span style="font-size:12px;color:var(--text-2);font-weight:500">('+pct+'% lương)</span></span></div>' +
+  '</div>';
+}
+
+/* ── CART ──────────────────────────────────────────────────────────────── */
+function toggleCart(appId){
+  var idx=S.cart.indexOf(appId);
+  if(idx===-1)S.cart.push(appId);else S.cart.splice(idx,1);
+  renderAll();
+}
+function renderCartBar(){
+  var bar=document.getElementById('cart-bar');
+  var n=S.cart.length;
+  if(n===0){bar.classList.remove('is-visible');return;}
+  bar.classList.add('is-visible');
+  document.getElementById('cart-count-badge').textContent=n;
+  var total=cartTotal();
+  document.getElementById('cart-price-total').innerHTML=fmtTotal(total)+'<span class="per">/tháng</span>';
+}
+
+/* ── MODAL ─────────────────────────────────────────────────────────────── */
+function openModal(appId){
+  var app=getApp(appId);
+  if(!app)return;
+  S.modalApp=appId;
+  S.modalTier=S.plan;
+  buildModal(app);
+  var ov=document.getElementById('modal-overlay');
+  ov.classList.add('is-open');ov.setAttribute('aria-hidden','false');
+}
+function closeModal(){
+  var ov=document.getElementById('modal-overlay');
+  ov.classList.remove('is-open');ov.setAttribute('aria-hidden','true');
+  S.modalApp=null;
+}
+function buildModal(app){
+  var inCart=S.cart.indexOf(app.id)!==-1;
+  var planKeys=['personal','team','enterprise'];
+  var planLabels={personal:'Cá nhân',team:'Team',enterprise:'Doanh nghiệp'};
+  var tiersHtml=planKeys.map(function(key){
+    var t=app.tiers[key];
+    if(!t)return '';
+    var ph;
+    if(t.price===null)ph='<span style="font-size:13px;color:var(--text-3)">Liên hệ</span>';
+    else if(t.price===0)ph='<span style="color:var(--accent);font-size:14px">Miễn phí</span>';
+    else ph='<span class="tier-price">'+fmtPrice(t.price)+'<span class="per">/th</span></span>';
+    return '<div class="tier-row'+(S.modalTier===key?' is-selected':'')+'" data-tier="'+key+'">' +
+      '<div class="tier-row-left"><div class="tier-radio"></div>' +
+      '<span class="tier-label">'+t.label+' <span style="font-size:11px;font-weight:400;color:var(--text-3)">('+planLabels[key]+')</span></span>' +
+      '</div>'+ph+'</div>';
+  }).join('');
+
+  /* cart summary */
+  var cartHtml='';
+  if(S.cart.length>0){
+    var items=S.cart.map(function(id){
+      var a=getApp(id);if(!a)return '';
+      var p=appPrice(a,S.plan);
+      return '<div class="modal-cart-item"><span>'+a.name+'</span><span>'+fmtPrice(p)+(p&&p>0?'/th':'')+'</span></div>';
+    }).join('');
+    var tot=cartTotal();
+    cartHtml='<div class="modal-cart-summary">' +
+      '<div class="mc-title">🛒 Giỏ của bạn ('+S.cart.length+' app)</div>'+items+
+      '<div class="modal-cart-total"><span>Tổng / tháng</span><span style="color:var(--accent)">'+fmtTotal(tot)+'</span></div>' +
+    '</div>';
+  }
+
+  document.getElementById('modal-content').innerHTML=
+    '<div class="modal-app-top"><div class="modal-app-mark" style="background:'+app.color+'">'+app.initials+'</div>' +
+    '<div><div class="modal-app-name">'+app.name+'</div><div class="modal-app-cat">'+app.cat+'</div></div></div>' +
+    '<p class="modal-desc">'+app.desc+'</p>' +
+    '<div class="modal-tiers-title">Chọn gói</div>' +
+    '<div class="modal-tiers" id="modal-tiers">'+tiersHtml+'</div>' +
+    '<button class="modal-add-btn'+(inCart?' remove':'')+'" id="modal-add-btn">'+(inCart?'✕ Bỏ khỏi giỏ':'+ Thêm vào giỏ')+'</button>' +
+    cartHtml;
+
+  document.querySelectorAll('.tier-row').forEach(function(row){
+    row.addEventListener('click',function(){S.modalTier=row.dataset.tier;buildModal(app);});
+  });
+  document.getElementById('modal-add-btn').addEventListener('click',function(){
+    toggleCart(app.id);
+    buildModal(app);
+  });
+}
+
+/* ── RENDER ALL ────────────────────────────────────────────────────────── */
+function renderAll(){renderApps();renderProfessions();renderChips();renderCartBar();renderSalary();}
+
+/* ── EXCHANGE RATE ─────────────────────────────────────────────────────── */
+function fetchRate(){
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.rates&&d.rates.VND){
+        S.rate=Math.round(d.rates.VND);
+        document.getElementById('rate-display').textContent=S.rate.toLocaleString('vi-VN')+' ₫';
+        renderAll();
+      }
+    }).catch(function(){});
+}
+
+/* ── EVENTS ────────────────────────────────────────────────────────────── */
+document.getElementById('theme-toggle').addEventListener('click',function(){
+  var cur=document.documentElement.dataset.theme;
+  document.documentElement.dataset.theme=cur==='dark'?'light':'dark';
+  // logo.svg is theme-agnostic (pure green icon), no swap needed
+});
+
+document.getElementById('cur-toggle').querySelectorAll('button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.getElementById('cur-toggle').querySelectorAll('button').forEach(function(b){b.classList.remove('is-on');});
+    btn.classList.add('is-on');S.currency=btn.dataset.cur;renderAll();
+  });
+});
+
+document.getElementById('cat-tabs').querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.getElementById('cat-tabs').querySelectorAll('.tab').forEach(function(t){t.classList.remove('is-on');});
+    tab.classList.add('is-on');
+    S.filter=tab.dataset.cat;S.search='';
+    document.getElementById('search-input').value='';
+    renderApps();
+  });
+});
+
+document.getElementById('plan-seg').querySelectorAll('button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.getElementById('plan-seg').querySelectorAll('button').forEach(function(b){b.classList.remove('is-on');});
+    btn.classList.add('is-on');S.plan=btn.dataset.plan;renderAll();
+  });
+});
+
+document.getElementById('search-input').addEventListener('input',function(){S.search=this.value;renderApps();});
+document.addEventListener('keydown',function(e){
+  if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();document.getElementById('search-input').focus();}
+  if(e.key==='Escape')closeModal();
+});
+
+document.getElementById('btn-cart-clear').addEventListener('click',function(){S.cart=[];S.selectedSkills=[];renderAll();});
+document.getElementById('btn-cart-detail').addEventListener('click',function(){
+  if(S.cart.length>0)openModal(S.cart[0]);
+});
+document.getElementById('modal-close').addEventListener('click',closeModal);
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+document.getElementById('salary-input').addEventListener('input',renderSalary);
+document.getElementById('salary-cur').addEventListener('change',renderSalary);
+
+/* Tweaks */
+var tw=document.getElementById('tweaks');
+document.querySelectorAll('#tweaks .tw-row').forEach(function(row){
+  row.querySelectorAll('.tw-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      row.querySelectorAll('.tw-btn').forEach(function(x){x.classList.remove('is-on');});
+      btn.classList.add('is-on');
+      var g=row.dataset.group,v=btn.dataset.val;
+      if(g==='nav')document.body.dataset.nav=v;
+      if(g==='tab')document.body.dataset.tab=v;
+      if(g==='rate')document.querySelector('.rate').style.display=v==='hide'?'none':'';
+    });
+  });
+});
+document.getElementById('tw-close').addEventListener('click',function(){
+  tw.classList.remove('is-open');
+  window.parent.postMessage({type:'__edit_mode_dismissed'},'*');
+});
+window.addEventListener('message',function(e){
+  if(!e.data||typeof e.data!=='object')return;
+  if(e.data.type==='__activate_edit_mode')tw.classList.add('is-open');
+  if(e.data.type==='__deactivate_edit_mode')tw.classList.remove('is-open');
+});
+window.parent.postMessage({type:'__edit_mode_available'},'*');
+
+/* ── INIT ── */
+fetchRate();
+renderAll();
 </script>
+
+<style>
+body[data-nav="pill"] .nav a{border-radius:999px;}
+body[data-nav="pill"] .nav a::after{display:none;}
+body[data-nav="pill"] .nav a:hover,body[data-nav="pill"] .nav a.is-active{background:var(--accent-soft);color:var(--text);}
+body[data-tab="soft"] .tab.is-on{background:var(--accent-soft);border-radius:8px;}
+body[data-tab="soft"] .tab.is-on::after{display:none;}
+</style>
 
 </body>
 </html>
