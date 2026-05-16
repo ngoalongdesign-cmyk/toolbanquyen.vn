@@ -178,8 +178,35 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent 75%);
   opacity: .25; pointer-events: none; z-index: 0;
 }
+/* ─── Hero 3-column grid: cards | center | cards ─────────────── */
 .hero-inner {
-  position: relative; z-index: 1; text-align: center; padding-top: 32px;
+  position: relative; z-index: 1; padding-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr min(720px,100%) 1fr;
+  align-items: start; gap: 0;
+}
+.hero-side {
+  position: relative; min-height: 820px; z-index: 0;
+}
+.hero-side-l { justify-self: stretch; }
+.hero-side-r { justify-self: stretch; }
+.hero-center {
+  position: relative; z-index: 2; text-align: center; padding: 0 8px;
+}
+.hero-arc {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+.hero-arc path {
+  stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 3 8;
+  fill: none; opacity: 0.4;
+  filter: drop-shadow(0 0 6px rgba(34,197,94,0.45));
+  animation: arcDash 40s linear infinite;
+}
+.hero-arc circle { fill: var(--accent); opacity: 0.55; filter: drop-shadow(0 0 4px rgba(34,197,94,0.6)); }
+@media (max-width: 1080px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-side { display: none; }
 }
 .hero-pill {
   display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px;
@@ -270,17 +297,6 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 }
 
 /* ─── Hero arc decoration — dotted curves nối các cards ─────────── */
-.hero-arcs {
-  position:absolute;inset:0;width:100%;height:100%;
-  z-index:0;pointer-events:none;display:none;
-}
-@media (min-width:1080px) { .hero-arcs { display:block; } }
-.hero-arcs path {
-  stroke:var(--accent);stroke-width:1.2;stroke-dasharray:3 7;fill:none;
-  opacity:0.38;filter:drop-shadow(0 0 6px rgba(34,197,94,0.5));
-  animation:arcDash 40s linear infinite;
-}
-.hero-arcs circle { fill:var(--accent);opacity:0.5;filter:drop-shadow(0 0 4px rgba(34,197,94,0.6)); }
 @keyframes arcDash { to { stroke-dashoffset:-200; } }
 
 /* ─── Floating cards (hero) — 2D tilted cards giống ChatGPT ────────── */
@@ -346,32 +362,33 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .float-card.fc-size-sm .fc-price { font-size:16px; }
 .float-card.fc-size-sm .fc-delta { font-size:10px; }
 
-/* POSITIONS — match image 3 layout precisely */
-.fc-tl { top:170px; left:60px;    --rot:-4deg; animation-delay:0s;   }
-.fc-tr { top:200px; right:60px;   --rot:4deg;  animation-delay:1.2s; }
-.fc-ml { top:430px; left:130px;   --rot:-3deg; animation-delay:2.4s; }
-.fc-mr { top:440px; right:130px;  --rot:3deg;  animation-delay:3.6s; }
-.fc-bl { top:625px; left:210px;   --rot:-3deg; animation-delay:4.8s; }
-.fc-br { top:660px; right:100px;  --rot:3deg;  animation-delay:6.0s; }
+/* POSITIONS — cards anchor INNER edge of their side column → không tràn vào center */
+/* Left-side cards: right:X (X = khoảng cách tới center) */
+.hero-side-l .fc-tl { top: 30px;  right: 30px;  --rot:-4deg; animation-delay: 0s;   }
+.hero-side-l .fc-ml { top: 280px; right: 80px;  --rot:-3deg; animation-delay: 2.4s; }
+.hero-side-l .fc-bl { top: 530px; right: 50px;  --rot:-3deg; animation-delay: 4.8s; }
+
+/* Right-side cards: left:X */
+.hero-side-r .fc-tr { top: 50px;  left: 30px;   --rot:4deg;  animation-delay: 1.2s; }
+.hero-side-r .fc-mr { top: 290px; left: 80px;   --rot:3deg;  animation-delay: 3.6s; }
+.hero-side-r .fc-br { top: 540px; left: 40px;   --rot:3deg;  animation-delay: 6.0s; }
 
 @keyframes floatTilt {
   0%,100% { transform: translateY(0)   rotate(var(--rot)) scale(var(--fc-scale)); }
   50%     { transform: translateY(-8px) rotate(var(--rot)) scale(var(--fc-scale)); }
 }
 
-/* GHOST cards — blurred partial cards peeking from far edges (depth) */
+/* GHOST cards — 1 per side, blurred xa hơn, depth atmosphere */
 .float-card.is-ghost {
-  opacity: 0.35;
-  filter: blur(3px) saturate(0.5);
+  opacity: 0.32;
+  filter: blur(2.5px) saturate(0.55);
   z-index: 0;
   pointer-events: none;
-  --fc-scale: 0.85;
+  --fc-scale: 0.82;
   animation-duration: 10s;
 }
-.fc-ghost-l1 { left: -160px;  top: 280px; --rot: -5deg; animation-delay: 0.7s; }
-.fc-ghost-l2 { left: -180px;  top: 560px; --rot: -4deg; animation-delay: 3.2s; }
-.fc-ghost-r1 { right: -160px; top: 300px; --rot: 5deg;  animation-delay: 1.8s; }
-.fc-ghost-r2 { right: -180px; top: 580px; --rot: 4deg;  animation-delay: 4.5s; }
+.hero-side-l .fc-ghost { top: 170px; right: 260px; --rot: -5deg; animation-delay: 0.7s; }
+.hero-side-r .fc-ghost { top: 200px; left: 260px;  --rot: 5deg;  animation-delay: 2.5s; }
 @media (max-width:1480px) { .float-card.is-ghost { display: none; } }
 
 .fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box; }
@@ -929,131 +946,58 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <section class="hero">
   <div class="container hero-inner">
 
-    <!-- Dotted curves — wavy lines snaking past cards (giống hình 3 ChatGPT) -->
-    <svg class="hero-arcs" viewBox="0 0 1240 880" preserveAspectRatio="none" aria-hidden="true">
-      <!-- LEFT wavy: từ dưới Adobe TL → qua ngoài Figma ML → ngoài Claude BL -->
-      <path d="M 360 350 C 60 410, 80 540, 320 530 C 60 620, 180 760, 460 720"/>
-      <!-- RIGHT wavy: mirror -->
-      <path d="M 880 380 C 1180 440, 1160 560, 920 550 C 1180 640, 1060 770, 780 740"/>
-      <!-- Anchor dots ở 2 đầu mỗi đường (như hình 3) -->
-      <circle cx="360" cy="350" r="3.5"/>
-      <circle cx="460" cy="720" r="3.5"/>
-      <circle cx="880" cy="380" r="3.5"/>
-      <circle cx="780" cy="740" r="3.5"/>
-    </svg>
+    <!-- ════════ LEFT SIDE ════════ -->
+    <aside class="hero-side hero-side-l" aria-hidden="true">
+      <svg class="hero-arc hero-arc-l" viewBox="0 0 400 880" preserveAspectRatio="none">
+        <path d="M 350 280 C 50 360, 60 500, 290 510 C 30 620, 200 760, 380 740"/>
+        <circle cx="350" cy="280" r="4"/>
+        <circle cx="380" cy="740" r="4"/>
+      </svg>
+      <div class="float-card is-ghost fc-ghost">
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/notion.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Notion Plus</div>
+          <div class="fc-price">$10<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+      <div class="float-card is-popular fc-size-xl fc-tl">
+        <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/adobe-photoshop-2.svg" alt="Photoshop" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Adobe Photoshop</div>
+          <div class="fc-price">$22.99<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+      <div class="float-card fc-size-md fc-ml">
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/figma-color.svg" alt="Figma" style="width:100%;height:100%;padding:8px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Figma Professional</div>
+          <div class="fc-price">$15<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+      <div class="float-card fc-size-sm fc-bl">
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/claude-logo.svg" alt="Claude" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Claude Pro</div>
+          <div class="fc-price">$20<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+    </aside>
 
-    <!-- GHOST cards: blurred partial cards tạo depth atmosphere phía sau -->
-    <div class="float-card is-ghost fc-ghost-l1" aria-hidden="true">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/notion.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Notion Plus</div>
-        <div class="fc-price">$10<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-    <div class="float-card is-ghost fc-ghost-l2" aria-hidden="true">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/canva.svg" alt="" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Canva Pro</div>
-        <div class="fc-price">$15<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-    <div class="float-card is-ghost fc-ghost-r1" aria-hidden="true">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/google-gemini.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Gemini Advanced</div>
-        <div class="fc-price">$19.99<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-    <div class="float-card is-ghost fc-ghost-r2" aria-hidden="true">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/capcut-3.svg" alt="" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">CapCut Pro</div>
-        <div class="fc-price">$10<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
-    <!-- POPULAR cards: với badge + green glow -->
-    <div class="float-card is-popular fc-size-xl fc-tl">
-      <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/adobe-photoshop-2.svg" alt="Photoshop" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Adobe Photoshop</div>
-        <div class="fc-price">$22.99<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
-    <div class="float-card is-popular fc-size-lg fc-tr">
-      <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/chatgpt-6.svg" alt="ChatGPT" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">ChatGPT Plus</div>
-        <div class="fc-price">$20<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
-    <!-- Secondary cards -->
-    <div class="float-card fc-size-md fc-ml">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/figma-color.svg" alt="Figma" style="width:100%;height:100%;padding:8px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Figma Professional</div>
-        <div class="fc-price">$15<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
-    <div class="float-card fc-size-lg fc-br">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/Midjourney--Streamline-Svg-Logos.svg" alt="Midjourney" style="width:100%;height:100%;padding:7px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Midjourney Standard</div>
-        <div class="fc-price">$30<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
-    <div class="float-card fc-size-md fc-mr">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/cursor.svg" alt="Cursor" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Cursor Pro</div>
-        <div class="fc-price">$20<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
-    <div class="float-card fc-size-sm fc-bl">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/claude-logo.svg" alt="Claude" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">Claude Pro</div>
-        <div class="fc-price">$20<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
+    <!-- ════════ CENTER CONTENT ════════ -->
+    <div class="hero-center">
     <div class="hero-pill">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
       Tính giá · So sánh · Tiết kiệm
@@ -1129,6 +1073,58 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         <div class="stat-label">Tỉ giá USD/VND<br/>cập nhật tự động</div>
       </div>
     </div>
+    </div>
+    <!-- /hero-center -->
+
+    <!-- ════════ RIGHT SIDE ════════ -->
+    <aside class="hero-side hero-side-r" aria-hidden="true">
+      <svg class="hero-arc hero-arc-r" viewBox="0 0 400 880" preserveAspectRatio="none">
+        <path d="M 50 300 C 350 380, 340 510, 110 510 C 370 620, 200 760, 20 740"/>
+        <circle cx="50" cy="300" r="4"/>
+        <circle cx="20" cy="740" r="4"/>
+      </svg>
+      <div class="float-card is-ghost fc-ghost">
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/google-gemini.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Gemini Advanced</div>
+          <div class="fc-price">$19.99<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+      <div class="float-card is-popular fc-size-lg fc-tr">
+        <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/chatgpt-6.svg" alt="ChatGPT" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">ChatGPT Plus</div>
+          <div class="fc-price">$20<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+      <div class="float-card fc-size-md fc-mr">
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/cursor.svg" alt="Cursor" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Cursor Pro</div>
+          <div class="fc-price">$20<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+      <div class="float-card fc-size-lg fc-br">
+        <div class="fc-icon" style="background:#fff;">
+          <img src="icons/Midjourney--Streamline-Svg-Logos.svg" alt="Midjourney" style="width:100%;height:100%;padding:7px;box-sizing:border-box;display:block;">
+        </div>
+        <div class="fc-body">
+          <div class="fc-name">Midjourney Standard</div>
+          <div class="fc-price">$30<span>/tháng</span></div>
+          <div class="fc-delta">Giá chính hãng</div>
+        </div>
+      </div>
+    </aside>
 
   </div>
 </section>
