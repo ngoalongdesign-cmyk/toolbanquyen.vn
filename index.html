@@ -1228,4 +1228,66 @@ document.querySelectorAll('#tweaks .tw-row').forEach(function(row){
       row.querySelectorAll('.tw-btn').forEach(function(x){x.classList.remove('is-on');});
       btn.classList.add('is-on');
       var g=row.dataset.group,v=btn.dataset.val;
-      if(g==='nav')document.body.
+      if(g==='nav')document.body.dataset.nav=v;
+      if(g==='tab')document.body.dataset.tab=v;
+      if(g==='rate')document.querySelector('.rate').style.display=v==='hide'?'none':'';
+    });
+  });
+});
+document.getElementById('tw-close').addEventListener('click',function(){
+  tw.classList.remove('is-open');
+  window.parent.postMessage({type:'__edit_mode_dismissed'},'*');
+});
+window.addEventListener('message',function(e){
+  if(!e.data||typeof e.data!=='object')return;
+  if(e.data.type==='__activate_edit_mode')tw.classList.add('is-open');
+  if(e.data.type==='__deactivate_edit_mode')tw.classList.remove('is-open');
+});
+window.parent.postMessage({type:'__edit_mode_available'},'*');
+
+/* ── INIT ── */
+fetchRate();
+renderAll();
+</script>
+
+<style>
+body[data-nav="pill"] .nav a{border-radius:999px;}
+body[data-nav="pill"] .nav a::after{display:none;}
+body[data-nav="pill"] .nav a:hover,body[data-nav="pill"] .nav a.is-active{background:var(--accent-soft);color:var(--text);}
+body[data-tab="soft"] .tab.is-on{background:var(--accent-soft);border-radius:8px;}
+body[data-tab="soft"] .tab.is-on::after{display:none;}
+</style>
+
+</body>
+</html>dataset.nav=v;
+      if(g==='tab')document.body.dataset.tab=v;
+      if(g==='rate')document.querySelector('.rate').style.display=v==='hide'?'none':'';
+    });
+  });
+});
+document.getElementById('tw-close').addEventListener('click',function(){
+  tw.classList.remove('is-open');
+  window.parent.postMessage({type:'__edit_mode_dismissed'},'*');
+});
+window.addEventListener('message',function(e){
+  if(!e.data||typeof e.data!=='object')return;
+  if(e.data.type==='__activate_edit_mode')tw.classList.add('is-open');
+  if(e.data.type==='__deactivate_edit_mode')tw.classList.remove('is-open');
+});
+window.parent.postMessage({type:'__edit_mode_available'},'*');
+
+/* ── INIT ── */
+fetchRate();
+renderAll();
+</script>
+
+<style>
+body[data-nav="pill"] .nav a{border-radius:999px;}
+body[data-nav="pill"] .nav a::after{display:none;}
+body[data-nav="pill"] .nav a:hover,body[data-nav="pill"] .nav a.is-active{background:var(--accent-soft);color:var(--text);}
+body[data-tab="soft"] .tab.is-on{background:var(--accent-soft);border-radius:8px;}
+body[data-tab="soft"] .tab.is-on::after{display:none;}
+</style>
+
+</body>
+</html>
