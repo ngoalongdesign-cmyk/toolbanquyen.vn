@@ -162,7 +162,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .container { max-width: 1240px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
-.hero { position: relative; padding: 80px 0 0; overflow: hidden; }
+.hero { position: relative; padding: 80px 0 80px; overflow: hidden; }
+@media (min-width:1080px) { .hero { min-height: 780px; } }
 .hero::before {
   content: ''; position: absolute; left: 50%; top: 0; width: 900px; height: 900px;
   transform: translate(-50%, -55%);
@@ -266,6 +267,20 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
   .stat-num { font-size: 30px; }
 }
 
+/* ─── Hero arc decoration — dotted curves nối các cards ─────────── */
+.hero-arcs {
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;display:none;
+}
+@media (min-width:1080px) { .hero-arcs { display:block; } }
+.hero-arcs path {
+  stroke:var(--accent);stroke-width:1.2;stroke-dasharray:3 7;fill:none;
+  opacity:0.38;filter:drop-shadow(0 0 6px rgba(34,197,94,0.5));
+  animation:arcDash 40s linear infinite;
+}
+.hero-arcs circle { fill:var(--accent);opacity:0.5;filter:drop-shadow(0 0 4px rgba(34,197,94,0.6)); }
+@keyframes arcDash { to { stroke-dashoffset:-200; } }
+
 /* ─── Floating cards (hero) — 6 cards với chính phụ depth ─────────── */
 .float-card {
   position: absolute; z-index: 2; display: flex; align-items: center; gap: 11px;
@@ -274,9 +289,34 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
   border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(12px);
   box-shadow: 0 16px 40px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.02) inset;
   animation: float 7s ease-in-out infinite;
-  transition: transform .3s ease;
+  transition: transform .3s ease, border-color .25s, box-shadow .3s;
 }
 [data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.97),rgba(246,251,247,.92)); box-shadow: 0 16px 40px -18px rgba(20,60,30,.32); }
+
+/* POPULAR cards — featured với green glow + "Phổ biến" badge */
+.float-card.is-popular {
+  border-color:color-mix(in oklab,var(--accent) 45%,var(--border));
+  box-shadow:
+    0 16px 40px -20px rgba(0,0,0,.7),
+    0 0 0 1px color-mix(in oklab,var(--accent) 25%,transparent),
+    0 0 32px -4px rgba(34,197,94,0.32),
+    0 2px 0 rgba(255,255,255,.02) inset;
+}
+[data-theme="light"] .float-card.is-popular {
+  box-shadow:
+    0 16px 40px -18px rgba(20,60,30,.4),
+    0 0 0 1px color-mix(in oklab,var(--accent) 30%,transparent),
+    0 0 32px -4px rgba(34,197,94,0.25);
+}
+.fc-popular {
+  position:absolute;top:-9px;right:14px;z-index:4;
+  display:inline-flex;align-items:center;gap:3px;
+  background:var(--accent);color:#08120c;
+  font-size:9.5px;font-weight:800;letter-spacing:0.04em;
+  padding:3px 9px 3px 7px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(34,197,94,0.45);
+}
+.fc-popular svg { width:9px;height:9px;flex:0 0 9px; }
 
 /* MAIN cards — featured, bigger, sharper */
 .float-card.is-main { padding:14px 18px 14px 13px; z-index:3; }
@@ -293,13 +333,13 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .float-card.is-sub .fc-delta { font-size:10px; }
 .float-card.is-sub:hover { opacity:1;transform:scale(1); }
 
-/* Positions — scatter around the hero, varied verticality for depth */
-.fc-tl  { top:48px;  left:-20px;  animation-delay:0s; }       /* main */
-.fc-tr  { top:104px; right:30px;  animation-delay:1.2s; }     /* sub */
-.fc-ml  { top:340px; left:-50px;  animation-delay:2.6s; }     /* main */
-.fc-mr  { top:312px; right:-30px; animation-delay:3.8s; }     /* sub */
-.fc-bl  { top:560px; left:30px;   animation-delay:5.2s; }     /* sub */
-.fc-br  { top:600px; right:-15px; animation-delay:6.4s; }     /* main */
+/* Positions — arc shape around hero, popular cards on top corners */
+.fc-tl  { top:80px;  left:-30px;  animation-delay:0s;   }  /* main + popular */
+.fc-tr  { top:80px;  right:-30px; animation-delay:1.0s; }  /* main + popular */
+.fc-ml  { top:360px; left:-60px;  animation-delay:2.4s; }  /* main */
+.fc-mr  { top:380px; right:-40px; animation-delay:3.6s; }  /* sub */
+.fc-bl  { top:620px; left:50px;   animation-delay:4.8s; }  /* sub */
+.fc-br  { top:600px; right:-20px; animation-delay:6.0s; }  /* main */
 
 @keyframes float {
   0%,100% { transform: translateY(0) scale(var(--fc-scale,1)); }
@@ -862,8 +902,24 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <section class="hero">
   <div class="container hero-inner">
 
-    <!-- MAIN cards: featured, prominent -->
-    <div class="float-card is-main fc-tl">
+    <!-- Dotted arc lines — ambient curves embracing the hero (depth/atmosphere) -->
+    <svg class="hero-arcs" viewBox="0 0 1400 880" preserveAspectRatio="none" aria-hidden="true">
+      <!-- Left arc — bowing toward center then back out -->
+      <path d="M 180 130 C 40 280, 60 440, 240 500 C 60 580, 90 740, 220 800"/>
+      <!-- Right arc — mirror -->
+      <path d="M 1220 130 C 1360 280, 1340 440, 1160 500 C 1340 580, 1310 740, 1180 800"/>
+      <!-- Decorative dots along the path -->
+      <circle cx="180" cy="130" r="3"/>
+      <circle cx="240" cy="500" r="3"/>
+      <circle cx="220" cy="800" r="3"/>
+      <circle cx="1220" cy="130" r="3"/>
+      <circle cx="1160" cy="500" r="3"/>
+      <circle cx="1180" cy="800" r="3"/>
+    </svg>
+
+    <!-- POPULAR cards: với badge + green glow -->
+    <div class="float-card is-main is-popular fc-tl">
+      <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/adobe-photoshop-2.svg" alt="Photoshop" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
       </div>
@@ -874,6 +930,19 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
+    <div class="float-card is-main is-popular fc-tr">
+      <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/chatgpt-6.svg" alt="ChatGPT" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">ChatGPT Plus</div>
+        <div class="fc-price">$20<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
+
+    <!-- MAIN cards: featured, prominent -->
     <div class="float-card is-main fc-ml">
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/figma-color.svg" alt="Figma" style="width:100%;height:100%;padding:8px;box-sizing:border-box;display:block;">
@@ -897,17 +966,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
 
     <!-- SUB cards: smaller, faded for depth -->
-    <div class="float-card is-sub fc-tr">
-      <div class="fc-icon" style="background:#fff;">
-        <img src="icons/chatgpt-6.svg" alt="ChatGPT" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-      </div>
-      <div class="fc-body">
-        <div class="fc-name">ChatGPT Plus</div>
-        <div class="fc-price">$20<span>/tháng</span></div>
-        <div class="fc-delta">Giá chính hãng</div>
-      </div>
-    </div>
-
     <div class="float-card is-sub fc-mr">
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/cursor.svg" alt="Cursor" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
@@ -1661,16 +1719,19 @@ function getRecommendations(){
     });
   });
 
-  // 3. SALARY OVER-BUDGET: cart > 15% salary → flag
+  // 3. SALARY OVER-BUDGET: cart > 10% salary → flag
+  // IMPORTANT: Việt Nam dùng '.' làm thousand separator (25.000.000),
+  // không phải decimal. Strip mọi non-digit (cùng logic với renderSalary).
   var salaryEl=document.getElementById('salary-input');
   if(salaryEl && salaryEl.value){
-    var rawSalary=parseFloat(salaryEl.value.replace(/[^0-9.]/g,''))||0;
+    var rawSalary=parseFloat(salaryEl.value.replace(/[^0-9]/g,''))||0;
     var salaryCur=document.getElementById('salary-cur');
     var curSalary=salaryCur?salaryCur.value:'VND';
-    var salaryUSD=curSalary==='VND'?(rawSalary/S.rate):rawSalary;
-    if(salaryUSD>0){
+    if(rawSalary>0){
       var totalUSD=cartTotal();
-      var pct=(totalUSD/salaryUSD)*100;
+      // toolCost ở cùng đơn vị với salary để so sánh
+      var toolCostInSal=curSalary==='VND'?Math.round(totalUSD*S.rate):totalUSD;
+      var pct=(toolCostInSal/rawSalary)*100;
       if(pct>=10){
         recs.push({
           type:'warning',
