@@ -571,6 +571,27 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 @media (max-width:820px)  { .grid-apps { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:520px)  { .grid-apps { grid-template-columns:1fr; } }
 
+/* ─── Apps "Xem thêm" pagination ──────────────────────────────────────── */
+.apps-more-wrap { display:flex;justify-content:center;margin-top:28px; }
+.btn-apps-more {
+  display:inline-flex;align-items:center;gap:8px;
+  height:48px;padding:0 28px;border-radius:14px;
+  background:var(--card);border:1px solid var(--border);
+  color:var(--text);font-size:14px;font-weight:600;letter-spacing:-0.005em;
+  transition:all .18s ease;
+  box-shadow:var(--shadow-soft);
+}
+.btn-apps-more:hover {
+  border-color:var(--accent);color:var(--accent);
+  transform:translateY(-1px);
+  box-shadow:var(--shadow-hover);
+}
+.btn-apps-more strong { color:var(--accent);font-weight:700; }
+.btn-apps-more .arr { transition:transform .18s ease;font-weight:700; }
+.btn-apps-more:hover .arr { transform:translateY(2px); }
+.btn-apps-more.is-collapse .arr { transform:translateY(0); }
+.btn-apps-more.is-collapse:hover .arr { transform:translateY(-2px); }
+
 .card {
   position:relative;background:var(--card);border:1px solid var(--border-2);
   border-radius:20px;padding:24px;
@@ -1089,16 +1110,18 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="tabs-wrap">
       <div class="tabs" role="tablist" id="cat-tabs">
-        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">29</span></button>
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">41</span></button>
         <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
         <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
-        <button class="tab" data-cat="Productivity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Productivity</button>
-        <button class="tab" data-cat="Development"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Dev</button>
-        <button class="tab" data-cat="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-8-3 18-7-7-8-3z"/></svg>Marketing</button>
+        <button class="tab" data-cat="Architecture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>Kiến trúc</button>
         <button class="tab" data-cat="Video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Video</button>
+        <button class="tab" data-cat="Development"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Dev</button>
+        <button class="tab" data-cat="Productivity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Productivity</button>
+        <button class="tab" data-cat="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-8-3 18-7-7-8-3z"/></svg>Marketing</button>
       </div>
     </div>
     <div class="grid-apps" id="apps-grid"></div>
+    <div class="apps-more-wrap" id="apps-more-wrap" style="display:none"></div>
   </div>
 </section>
 
@@ -1466,12 +1489,117 @@ var APPS = [
      personal:{label:'Standard',price:8,popular:true,features:['660 credit/tháng (~33 video 5s)','Kling 1.6 + Image-to-Video','Watermark khi export','Lip sync cơ bản']},
      team:{label:'Pro',price:28,features:['3000 credit/tháng','Không watermark, ưu tiên queue','Kling 2.0 Master','Motion brush + camera control']},
      enterprise:{label:'Premier',price:58,features:['8000 credit/tháng','Generation 1080p','API access (qua liên hệ)','Phù hợp creator chuyên nghiệp']}
-   }}
+   }},
+
+  /* ─── Architecture ─── */
+  {id:'autocad',name:'AutoCAD',cat:'Architecture',color:'#E51937',initials:'AC',popular:false,
+   logo:'https://cdn.simpleicons.org/autodesk/ffffff',url:'https://www.autodesk.com/products/autocad/overview',
+   desc:'CAD industry standard — drafting 2D/3D, bản vẽ kỹ thuật cho kiến trúc, xây dựng, cơ khí.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:255,features:['AutoCAD đầy đủ + 7 toolset chuyên ngành','AutoCAD Web + Mobile','Hỗ trợ chính thức Autodesk','Renew tháng linh hoạt']},
+     {id:'annual',label:'Annual',price:160,popular:true,note:'Trả năm $1,920',features:['Tiết kiệm ~37% so với Monthly','Mọi tính năng Monthly','Bao gồm Autodesk Drive','Hỗ trợ ưu tiên']},
+     {id:'3year',label:'3-Year',price:135,note:'Trả 3 năm $4,860',features:['Giá khoá trong 3 năm','Tiết kiệm tối đa','Phù hợp studio kiến trúc','Quản lý license tập trung']},
+     {id:'student',label:'Student (Edu)',price:0,note:'Email .edu / xác minh sinh viên',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew mỗi năm']}
+   ]},
+  {id:'revit',name:'Autodesk Revit',cat:'Architecture',color:'#0696D7',initials:'Rv',popular:false,
+   logo:'https://cdn.simpleicons.org/autodesk/ffffff',url:'https://www.autodesk.com/products/revit/overview',
+   desc:'BIM (Building Information Modeling) — thiết kế kiến trúc, kết cấu, MEP với coordination tự động.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:390,features:['Revit đầy đủ Architecture/Structure/MEP','Cloud collaboration cơ bản','Dynamo for Revit','Hỗ trợ Autodesk']},
+     {id:'annual',label:'Annual',price:245,popular:true,note:'Trả năm $2,940',features:['Tiết kiệm ~37% vs Monthly','Mọi tính năng Monthly','Phù hợp studio BIM','Autodesk Drive bao gồm']},
+     {id:'aec-collection',label:'AEC Collection',price:340,note:'Bundle 8+ app — $4,085/năm',features:['Revit + AutoCAD + Civil 3D','Navisworks Manage','InfraWorks + 3ds Max','Phù hợp studio đa năng']},
+     {id:'student',label:'Student (Edu)',price:0,note:'Email .edu',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew năm']}
+   ]},
+  {id:'sketchup',name:'SketchUp',cat:'Architecture',color:'#005F9E',initials:'Sk',popular:true,
+   logo:'https://cdn.simpleicons.org/sketchup/ffffff',url:'https://www.sketchup.com/plans-and-pricing',
+   desc:'3D modeling dễ học — phổ biến nhất tại VN cho kiến trúc, nội thất, concept nhanh.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['SketchUp Web (browser)','10GB Trimble Connect','Cá nhân, phi thương mại','Phù hợp học việc']},
+     {id:'go',label:'Go',price:9.92,note:'$119/năm',features:['SketchUp Web + iPad','Cloud storage','3D Warehouse access','Phù hợp người dùng nhẹ']},
+     {id:'pro',label:'Pro',price:29.92,popular:true,note:'$359/năm',features:['SketchUp Desktop (Win + Mac)','LayOut (bản vẽ 2D)','Style Builder','Trimble Connect Business']},
+     {id:'studio',label:'Studio',price:62.42,note:'$749/năm — Win only',features:['Mọi tính năng Pro','V-Ray for SketchUp đầy đủ','Scan Essentials','Phù hợp render chất lượng cao']}
+   ]},
+  {id:'rhino',name:'Rhinoceros 3D',cat:'Architecture',color:'#801010',initials:'Rh',popular:false,
+   logo:'https://cdn.simpleicons.org/rhinoceros/ffffff',url:'https://www.rhino3d.com/sales/',
+   desc:'NURBS modeling chính xác — kiến trúc parametric, công nghiệp, jewelry với Grasshopper.',
+   tiers:[
+     {id:'commercial',label:'Commercial',price:30,note:'Mua đứt $995 (≈3 năm)',features:['Rhino 8 license vĩnh viễn','Grasshopper visual scripting','Windows + Mac trong 1 license','Update minor miễn phí']},
+     {id:'edu-single',label:'Educational Single',price:6,note:'Mua đứt $195',features:['HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Email .edu xác minh']},
+     {id:'lab',label:'Lab License',price:30,note:'$975/30 máy/năm',features:['Cài 30 máy phòng lab','Cho trường đại học','Quản lý tập trung','Renew năm']}
+   ]},
+  {id:'lumion',name:'Lumion',cat:'Architecture',color:'#00B5E2',initials:'Lm',popular:false,
+   url:'https://lumion.com/buy',
+   desc:'Real-time render kiến trúc — biến SketchUp/Revit thành ảnh + video chất lượng cao trong giây.',
+   tiers:[
+     {id:'standard',label:'Standard',price:42,note:'$1,499/năm',features:['5000+ object & material','Real-time render','Phong cảnh + nước + cây cối','Export HD video']},
+     {id:'pro',label:'Pro',price:84,popular:true,note:'$2,999/năm',features:['Mọi tính năng Standard','Ray tracing đầy đủ','Phantom render đẹp hơn','LiveSync với SketchUp/Revit/Rhino']},
+     {id:'edu',label:'Education',price:0,note:'Cho trường, GV',features:['Miễn phí cho institution','Đầy đủ tính năng Pro','Cấp qua đăng ký','Renew năm']}
+   ]},
+  {id:'twinmotion',name:'Twinmotion',cat:'Architecture',color:'#00DB7E',initials:'Tm',popular:false,
+   url:'https://www.twinmotion.com/pricing',
+   desc:'Real-time render từ Epic Games (Unreal Engine) — kiến trúc, nội thất, môi trường VR.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Đầy đủ tính năng render','Phi thương mại','Asset library đầy đủ','Phù hợp học việc']},
+     {id:'pro',label:'Pro',price:35,popular:true,note:'$445/năm',features:['Sử dụng thương mại','Path tracing chất lượng cao','Render 8K + video 4K','LiveLink Revit/SketchUp/Rhino']},
+     {id:'cloud',label:'Cloud Render',price:null,note:'Pay-per-use',features:['Add-on render trên cloud','Tiết kiệm máy local','Phù hợp dự án lớn','Quotas theo dự án']}
+   ]},
+  {id:'enscape',name:'Enscape',cat:'Architecture',color:'#5B47FB',initials:'En',popular:false,
+   url:'https://enscape3d.com/pricing/',
+   desc:'Plugin render real-time trong Revit/SketchUp/Rhino — không cần export ra phần mềm khác.',
+   tiers:[
+     {id:'fixed-seat',label:'Fixed Seat',price:58.99,popular:true,note:'$708/năm',features:['1 máy cụ thể','Plugin Revit/SketchUp/Rhino/Archicad','VR + Panorama 360','Asset Library 3000+']},
+     {id:'floating',label:'Floating Seat',price:84.99,note:'$1,020/năm',features:['Dùng nhiều máy 1 user','Mọi tính năng Fixed','Phù hợp freelancer','License management']},
+     {id:'edu',label:'Education',price:0,note:'HS/SV/GV',features:['Miễn phí cho trường','Mọi tính năng','Phi thương mại','Renew hàng năm']}
+   ]},
+
+  /* ─── Filmmaking (bổ sung Video category) ─── */
+  {id:'avid',name:'Avid Media Composer',cat:'Video',color:'#0F3F66',initials:'Av',popular:false,
+   url:'https://www.avid.com/media-composer',
+   desc:'Editor chuẩn Hollywood — TV/film post-production, project lớn nhiều giờ footage.',
+   tiers:[
+     {id:'first',label:'First (Free)',price:0,features:['Avid First miễn phí','Tính năng edit cơ bản','4 video / 8 audio track','Watermark khi export']},
+     {id:'standard',label:'Standard',price:24.99,popular:true,features:['Edit unlimited track','Avid Cloud collaboration','Bao gồm Sibelius Notation','PhraseFind + ScriptSync']},
+     {id:'ultimate',label:'Ultimate',price:49.99,features:['Mọi thứ trong Standard','Symphony Color tools','NEXIS storage support','Pro Tools | Carbon support']}
+   ]},
+  {id:'finalcut',name:'Final Cut Pro',cat:'Video',color:'#111111',initials:'FC',popular:false,
+   logo:'https://cdn.simpleicons.org/finalcutpro/ffffff',url:'https://www.apple.com/final-cut-pro/',
+   desc:'Editor chuyên nghiệp của Apple — mua đứt, chỉ macOS, tối ưu chip M-series.',
+   tiers:[
+     {id:'mac',label:'Mac (mua đứt)',price:24.92,popular:true,note:'Mua đứt $299',features:['Mua 1 lần dùng vĩnh viễn','Chỉ macOS','Object Tracker AI','Update miễn phí trọn đời']},
+     {id:'ipad',label:'iPad (yearly)',price:4.99,note:'$49/năm',features:['App trên iPad Pro/Air','Multi-cam edit','Trial 1 tháng miễn phí','Tích hợp với Mac']},
+     {id:'edu',label:'Pro Apps Bundle Edu',price:16.58,note:'$199 — 5 app',features:['Final Cut + Motion + Compressor','Logic Pro + MainStage','HS/SV/GV','Tiết kiệm ~50%']}
+   ]},
+  {id:'frame-io',name:'Frame.io',cat:'Video',color:'#73E300',initials:'Fi',popular:false,
+   url:'https://frame.io/pricing',
+   desc:'Video review collab — share, comment frame-by-frame với khách hàng và team.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['2 project, 5 collaborator','Cloud storage 2GB','Frame-accurate comment','Phù hợp freelancer thử']},
+     {id:'pro',label:'Pro',price:15,perUser:true,popular:true,features:['Unlimited project','250GB storage / user','Custom branding','Camera-to-cloud (C2C)']},
+     {id:'team',label:'Team',price:25,perUser:true,features:['1TB storage / user','Brand kit','Review pages tuỳ chỉnh','SSO Google']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log','C2C device control','Dedicated CSM']}
+   ]},
+  {id:'redgiant',name:'Red Giant Complete',cat:'Video',color:'#E63B26',initials:'RG',popular:false,
+   url:'https://www.maxon.net/en/red-giant-complete',
+   desc:'Bộ plugin VFX/motion cho After Effects, Premiere — Trapcode, Magic Bullet, Universe.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:107,features:['Trapcode + Magic Bullet + Universe','VFX Suite + PluralEyes','Bản quyền theo user','Update đầy đủ']},
+     {id:'annual',label:'Annual',price:67,popular:true,note:'$799/năm',features:['Tiết kiệm ~37% vs Monthly','Mọi plugin Red Giant','Bao gồm Cineware','Phù hợp motion designer']},
+     {id:'edu',label:'Education',price:24.92,note:'$299/năm — HS/SV/GV',features:['Đầy đủ plugin','Phi thương mại','Cần xác minh edu','Renew năm']}
+   ]},
+  {id:'cinema4d',name:'Cinema 4D',cat:'Video',color:'#011A6A',initials:'C4',popular:false,
+   url:'https://www.maxon.net/en/cinema-4d',
+   desc:'Motion graphics + 3D — chuẩn của Hollywood broadcast, tích hợp After Effects mạnh.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:124,features:['Cinema 4D đầy đủ','Mograph + Volumetric','Render Standard + Physical','Cineware bridge']},
+     {id:'annual',label:'Annual',price:67,popular:true,note:'$799/năm',features:['Tiết kiệm ~46% vs Monthly','Mọi tính năng C4D','Bao gồm Redshift CPU','Cập nhật phiên bản đầy đủ']},
+     {id:'maxon-one',label:'Maxon One',price:147,note:'$1,769/năm',features:['Cinema 4D + Redshift + Red Giant','Forger + ZBrush','Trapcode + Universe','Bộ đầy đủ cho studio']},
+     {id:'edu',label:'Educational',price:0,note:'1 năm miễn phí HS/SV',features:['Maxon One Edu miễn phí','Cần email .edu','Phi thương mại','Renew năm']}
+   ]}
 ];
 
 var PROFESSIONS = [
   {id:'uxdesigner',label:'UI/UX Designer',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><circle cx="8" cy="8" r="1.6"/><path d="M3 14l4-4 5 5"/><path d="M14 11l2-2 5 5v6h-6"/></svg>'},
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="14" height="14" rx="1.5"/><path d="M2 7h14" opacity="0.55"/><path d="M11.5 11L14.5 21L16.5 17.5L20 16Z"/></svg>'},
   {id:'developer',label:'Developer',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion'],
    svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><path d="M14 4l-4 16" opacity="0.65"/></svg>'},
   {id:'creator',label:'Content Creator',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion'],
@@ -1673,6 +1801,7 @@ var S = {
   rate:26199,
   filter:'all',
   search:'',
+  showAll:false,    // pagination: false = limit 12 app, true = show all
   modalApp:null,
   modalTier:0       // currently-selected tier idx in open modal
 };
@@ -1769,8 +1898,23 @@ function renderApps(){
     }
     return true;
   });
+  // Sort: popular trước, rồi tới các app còn lại (giữ order trong APPS array)
+  list.sort(function(a,b){
+    if(a.popular && !b.popular) return -1;
+    if(!a.popular && b.popular) return 1;
+    return 0;
+  });
   document.getElementById('count-badge').textContent=list.length;
-  document.getElementById('apps-grid').innerHTML=list.map(function(app){
+  // ── Pagination: default 12 app, "Xem thêm" expand ─────────────────────
+  var LIMIT = 12;
+  var totalCount = list.length;
+  var displayList = list;
+  var truncated = false;
+  if(!q && !S.showAll && totalCount > LIMIT){
+    displayList = list.slice(0, LIMIT);
+    truncated = true;
+  }
+  document.getElementById('apps-grid').innerHTML=displayList.map(function(app){
     var inCart=S.cart.indexOf(app.id)!==-1;
     // Nếu chưa pick: hiện gói rẻ nhất (paid). Nếu pick rồi: hiện gói đã chọn.
     var tierIdx=inCart?activeTierIdx(app):cheapestPaidTierIdx(app);
@@ -1818,6 +1962,32 @@ function renderApps(){
   document.querySelectorAll('#apps-grid .card').forEach(function(c){
     c.addEventListener('click',function(){openModal(c.dataset.id);});
   });
+  // ── Render "Xem thêm / Thu gọn" button ─────────────────────────────────
+  var moreWrap=document.getElementById('apps-more-wrap');
+  if(moreWrap){
+    if(q){
+      // Search active: hide pagination, show all matching
+      moreWrap.style.display='none';
+      moreWrap.innerHTML='';
+    } else if(truncated){
+      moreWrap.style.display='';
+      moreWrap.innerHTML='<button class="btn-apps-more" id="btn-apps-more-cta" type="button">Xem thêm <strong>'+(totalCount-LIMIT)+'</strong> app <span class="arr">↓</span></button>';
+      document.getElementById('btn-apps-more-cta').addEventListener('click',function(){
+        S.showAll=true;renderApps();
+      });
+    } else if(S.showAll && totalCount > LIMIT){
+      moreWrap.style.display='';
+      moreWrap.innerHTML='<button class="btn-apps-more is-collapse" id="btn-apps-collapse" type="button">Thu gọn <span class="arr">↑</span></button>';
+      document.getElementById('btn-apps-collapse').addEventListener('click',function(){
+        S.showAll=false;renderApps();
+        var appsTop=document.getElementById('apps');
+        if(appsTop) appsTop.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    } else {
+      moreWrap.style.display='none';
+      moreWrap.innerHTML='';
+    }
+  }
 }
 
 /* ── RENDER PROFESSIONS ────────────────────────────────────────────────── */
@@ -2080,7 +2250,7 @@ document.getElementById('cat-tabs').querySelectorAll('.tab').forEach(function(ta
   tab.addEventListener('click',function(){
     document.getElementById('cat-tabs').querySelectorAll('.tab').forEach(function(t){t.classList.remove('is-on');});
     tab.classList.add('is-on');
-    S.filter=tab.dataset.cat;S.search='';
+    S.filter=tab.dataset.cat;S.search='';S.showAll=false;
     document.getElementById('search-input').value='';
     renderApps();
   });
@@ -2095,7 +2265,9 @@ document.addEventListener('keydown',function(e){
 
 document.getElementById('btn-cart-clear').addEventListener('click',function(){S.cart=[];S.cartTiers={};renderAll();});
 document.getElementById('btn-cart-detail').addEventListener('click',function(){
-  if(S.cart.length>0)openModal(S.cart[0]);
+  if(S.cart.length===0) return;
+  var target = document.getElementById('recs') || document.getElementById('professions');
+  if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 });
 document.getElementById('modal-close').addEventListener('click',closeModal);
 document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
