@@ -611,28 +611,39 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .modal-body { padding:20px 24px 24px; }
 .modal-desc { font-size:13.5px;color:var(--text-2);line-height:1.65;margin-bottom:20px; }
 
-/* Plan cards grid */
-.modal-plans { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px; }
-@media (max-width:480px) { .modal-plans { grid-template-columns:1fr; } }
+/* Plan cards — horizontal scroll, N tiers */
+.modal-plans {
+  display:flex;flex-wrap:nowrap;gap:10px;margin-bottom:20px;
+  overflow-x:auto;overflow-y:visible;padding:10px 2px 14px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.modal-plans::-webkit-scrollbar { height:6px; }
+.modal-plans::-webkit-scrollbar-thumb { background:var(--border);border-radius:999px; }
+.modal-plans::-webkit-scrollbar-track { background:transparent; }
 .plan-card {
   border:1.5px solid var(--border-2);border-radius:14px;padding:14px 12px;
   cursor:pointer;transition:border-color .18s,background .18s,transform .2s;
   position:relative;display:flex;flex-direction:column;gap:8px;
+  flex:0 0 200px;min-width:200px;scroll-snap-align:start;
 }
+@media (max-width:480px) { .plan-card { flex:0 0 80%;min-width:80%; } }
 .plan-card:hover { border-color:var(--border);transform:translateY(-2px); }
 .plan-card.is-active { border-color:var(--accent);background:var(--accent-soft); }
 .plan-popular-tag { position:absolute;top:-9px;left:50%;transform:translateX(-50%);
   background:var(--accent);color:#08120c;font-size:9px;font-weight:800;
-  padding:2px 8px;border-radius:999px;letter-spacing:0.06em;white-space:nowrap; }
-.plan-type { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-3); }
-.plan-name-label { font-size:13px;font-weight:600;color:var(--text);line-height:1.2; }
-.plan-price-big { font-size:24px;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;line-height:1;color:var(--text); }
+  padding:2px 8px;border-radius:999px;letter-spacing:0.06em;white-space:nowrap;z-index:1; }
+.plan-name-label { font-size:14px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-0.01em; }
+.plan-price-big { font-size:22px;font-weight:800;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;line-height:1.1;color:var(--text); }
 .plan-price-big .per { font-size:11px;font-weight:500;color:var(--text-3);margin-left:1px; }
 .plan-price-big.free { color:var(--accent);font-size:18px; }
 .plan-price-big.contact { color:var(--text-3);font-size:14px;font-weight:600; }
+.plan-note { font-size:10.5px;color:var(--text-3);font-style:italic;line-height:1.4;margin-top:-2px; }
 .plan-feats { list-style:none;padding:0;margin:6px 0 0;display:flex;flex-direction:column;gap:4px; }
 .plan-feats li { font-size:11px;color:var(--text-2);display:flex;align-items:flex-start;gap:5px;line-height:1.4; }
 .plan-feats li::before { content:'✓';color:var(--accent);font-size:10px;flex:0 0 auto;margin-top:1px;font-weight:700; }
+/* Card grid price prefix */
+.price-prefix { font-size:11px;font-weight:500;color:var(--text-3);letter-spacing:0.02em;margin-right:1px;text-transform:lowercase; }
 
 /* CTA */
 .modal-add-btn { width:100%;height:48px;border-radius:12px;font-size:15px;font-weight:700;background:var(--accent);color:#08120c;transition:all .18s;margin-bottom:10px; }
@@ -849,13 +860,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         <button class="tab" data-cat="Video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Video</button>
       </div>
     </div>
-    <div class="plan-row" style="margin-top:-8px;margin-bottom:24px;">
-      <div class="plan-seg" id="plan-seg">
-        <button class="is-on" data-plan="personal">Cá nhân</button>
-        <button data-plan="team">Team</button>
-        <button data-plan="enterprise">Doanh nghiệp</button>
-      </div>
-    </div>
     <div class="grid-apps" id="apps-grid"></div>
   </div>
 </section>
@@ -1034,14 +1038,18 @@ var APPS = [
      team:{label:'Basic',price:15,popular:true,features:['3 site, không Framer brand','10K CMS items','Password protection','Custom code injection']},
      enterprise:{label:'Pro',price:30,features:['10 site, A/B testing','50K CMS items','Localization','Analytics dashboard']}
    }},
-  {id:'chatgpt',name:'ChatGPT Plus',cat:'AI',color:'#10a37f',initials:'G',popular:true,
+  {id:'chatgpt',name:'ChatGPT',cat:'AI',color:'#10a37f',initials:'G',popular:true,
    logo:'icons/chatgpt-6.svg',url:'https://openai.com/chatgpt/pricing',
-   desc:'AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter, voice.',
-   tiers:{
-     personal:{label:'Plus',price:20,popular:true,features:['GPT-4o full access','DALL·E 3 image generation','Code Interpreter & analysis','Web browsing realtime']},
-     team:{label:'Team',price:30,features:['Shared workspace','Admin console','Higher rate limits','Data không dùng để train']},
-     enterprise:{label:'Enterprise',price:null,features:['Unlimited messages','SOC2 & HIPAA compliant','Custom system prompts','Priority SLA & support']}
-   }},
+   desc:'AI chatbot mạnh nhất từ OpenAI — GPT-5.5, DALL·E, Code Interpreter, voice.',
+   tiers:[
+     {id:'free',label:'Free',price:0,priceVND:0,features:['Quyền truy cập giới hạn GPT-5.5 Instant','Nhắn tin & tải lên có giới hạn','Tạo sinh ảnh giới hạn và chậm hơn','Nghiên cứu sâu giới hạn','Bộ nhớ & ngữ cảnh có giới hạn']},
+     {id:'go',label:'Go',price:5,priceVND:132000,features:['Mọi tính năng trong gói Free','Tăng cường truy cập GPT-5.5 Instant','Nhiều tin nhắn hơn','Tải lên nhiều hơn','Tăng cường tạo ảnh','Bộ nhớ nhiều hơn']},
+     {id:'plus',label:'Plus',price:20,priceVND:522500,popular:true,features:['Mọi tính năng trong gói Go','Suy luận nâng cao GPT-5.5 Thinking','Mở rộng tin nhắn & nội dung tải lên','Tạo ảnh phức tạp & chính xác hơn','Nghiên cứu sâu & chế độ tác nhân','Dự án, nhiệm vụ & GPT tùy chỉnh','Sử dụng Codex mở rộng']},
+     {id:'pro',label:'Pro',price:109,priceVND:2849000,note:'Tăng gấp đôi Codex đến 31/5/2026',features:['Sử dụng nhiều hơn gấp 5-20 lần','Suy luận Pro với GPT-5.5 Pro','Số lượng tác vụ Codex tối đa','GPT-5.3 & tải tệp không giới hạn','Tạo hình ảnh không giới hạn','Chế độ tác nhân & nghiên cứu sâu tối đa']},
+     {id:'business-codex',label:'Business Codex',price:null,note:'Bảng giá sử dụng (usage-based)',features:['Kỹ thuật phần mềm hỗ trợ bởi AI','Tự động kiểm tra mã & bảo mật','Tự động hóa các tác vụ trên máy','Tích hợp môi trường đám mây đa tác nhân','SAML SSO & MFA','GDPR, CCPA, CSA STAR, SOC 2 Type 2']},
+     {id:'business',label:'ChatGPT & Codex Business',price:19.8,priceVND:519000,perUser:true,popular:false,features:['Mọi thứ trong Plus và Business Codex','Quyền truy cập tốt nhất các mô hình','60+ ứng dụng dữ liệu (Slack, Drive, GitHub…)','GPT tùy chỉnh, phân tích dữ liệu, canvas','SAML SSO + MFA, không đào tạo trên dữ liệu','GDPR, CCPA, SOC 2 Type 2']},
+     {id:'enterprise',label:'Enterprise',price:null,note:'Mức giá tùy chỉnh',features:['Cửa sổ ngữ cảnh mở rộng + tệp lớn','SCIM, EKM, xác minh & kiểm soát quyền','Quyền riêng tư dữ liệu nâng cao','Lưu trữ dữ liệu tại 10 khu vực','Hỗ trợ ưu tiên 24/7, SLA','Hóa đơn & ưu đãi theo số lượng']}
+   ]},
   {id:'claude',name:'Claude Pro',cat:'AI',color:'#C25C3A',initials:'Cl',popular:true,
    logo:'icons/claude-logo.svg',url:'https://claude.ai',
    desc:'AI assistant của Anthropic — phân tích sâu, viết lách, code, xử lý file dài.',
@@ -1363,19 +1371,83 @@ function bindIntent(){
 
 /* ── STATE ─────────────────────────────────────────────────────────────── */
 var S = {
-  cart:[],cartTiers:{},currency:'USD',rate:26199,
-  filter:'all',plan:'personal',search:'',
-  selectedSkills:[],modalApp:null,modalTier:'personal'
+  cart:[],          // array of app IDs
+  cartTiers:{},     // {appId: tierIdx (integer)}
+  currency:'USD',
+  rate:26199,
+  filter:'all',
+  search:'',
+  selectedSkills:[],
+  modalApp:null,
+  modalTier:0       // currently-selected tier idx in open modal
 };
 
 /* ── HELPERS ───────────────────────────────────────────────────────────── */
 function getApp(id){return APPS.find(function(a){return a.id===id});}
-function appPrice(app,plan){
-  var tier=S.cartTiers&&S.cartTiers[app.id]?S.cartTiers[app.id]:plan;
-  var t=app.tiers[tier];if(!t||t.price===null)return null;return t.price;
+
+/* Migration: convert legacy {personal,team,enterprise} object → array of tiers */
+function normalizeTiers(){
+  APPS.forEach(function(app){
+    if(Array.isArray(app.tiers)) return;
+    var legacyKeys=['personal','team','enterprise'];
+    var arr=[];
+    legacyKeys.forEach(function(k){
+      var t=app.tiers[k];
+      if(t){
+        arr.push({
+          id:k,
+          label:t.label||k,
+          price:typeof t.price==='undefined'?null:t.price,
+          priceVND:t.priceVND,
+          perUser:t.perUser,
+          popular:t.popular,
+          features:t.features||[]
+        });
+      }
+    });
+    app.tiers=arr;
+  });
+}
+
+/* Get default tier idx — popular flag wins, then first paid (skip free), then 0 */
+function defaultTierIdx(app){
+  if(!app.tiers||!app.tiers.length) return 0;
+  for(var i=0;i<app.tiers.length;i++) if(app.tiers[i].popular) return i;
+  for(var j=0;j<app.tiers.length;j++) if(app.tiers[j].price>0) return j;
+  return 0;
+}
+/* Get cheapest paid tier idx (for "Từ Xđ/tháng" display); fallback to first */
+function cheapestPaidTierIdx(app){
+  if(!app.tiers||!app.tiers.length) return 0;
+  var bestIdx=-1,bestPrice=Infinity;
+  app.tiers.forEach(function(t,i){
+    if(t.price>0 && t.price<bestPrice){bestPrice=t.price;bestIdx=i;}
+  });
+  return bestIdx>=0?bestIdx:0;
+}
+/* Get the tier currently selected for app — cartTiers idx, else default */
+function activeTierIdx(app){
+  var stored=S.cartTiers&&typeof S.cartTiers[app.id]==='number'?S.cartTiers[app.id]:null;
+  if(stored!==null && app.tiers[stored]) return stored;
+  return defaultTierIdx(app);
+}
+function appPrice(app,tierIdx){
+  if(typeof tierIdx!=='number') tierIdx=activeTierIdx(app);
+  var t=app.tiers[tierIdx];
+  if(!t||t.price===null) return null;
+  return t.price;
 }
 function fmtUSD(n){return n%1===0?'$'+n:'$'+n.toFixed(2);}
 function fmtVND(n){return n.toLocaleString('vi-VN')+' ₫';}
+/* Price formatter — accepts tier object (priceVND override) OR usd number */
+function fmtTierPrice(tier){
+  if(!tier) return fmtPrice(null);
+  if(tier.price===null) return fmtPrice(null);
+  if(tier.price===0) return fmtPrice(0);
+  // priceVND override → use it directly (no conversion)
+  if(tier.priceVND && S.currency==='VND') return fmtVND(tier.priceVND);
+  return fmtPrice(tier.price);
+}
 function fmtPrice(usd){
   if(usd===null)return '<span style="font-size:13px;color:var(--text-3)">Liên hệ</span>';
   if(usd===0)return '<span style="color:var(--accent);font-size:14px">Miễn phí</span>';
@@ -1386,7 +1458,7 @@ function fmtTotal(usd){
   if(S.currency==='VND')return fmtVND(Math.round(usd*S.rate));
   return fmtUSD(usd);
 }
-function cartTotal(){return S.cart.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a,S.plan)||0):s;},0);}
+function cartTotal(){return S.cart.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a)||0):s;},0);}
 
 /* ── RENDER APPS ───────────────────────────────────────────────────────── */
 function renderApps(){
@@ -1404,8 +1476,14 @@ function renderApps(){
   });
   document.getElementById('count-badge').textContent=list.length;
   document.getElementById('apps-grid').innerHTML=list.map(function(app){
-    var p=appPrice(app,S.plan);
     var inCart=S.cart.indexOf(app.id)!==-1;
+    // Nếu chưa pick: hiện gói rẻ nhất (paid). Nếu pick rồi: hiện gói đã chọn.
+    var tierIdx=inCart?activeTierIdx(app):cheapestPaidTierIdx(app);
+    var tier=app.tiers[tierIdx];
+    var priceLabel=fmtTierPrice(tier);
+    var prefix=(!inCart && app.tiers.length>1 && tier && tier.price>0)?'<span class="price-prefix">Từ </span>':'';
+    var perLabel=tier&&tier.price>0?(tier.perUser?'/người·th':'/tháng'):'';
+    var tierCount=app.tiers.length;
     var iconBg=app.logo&&app.logo.indexOf('icons/')=== 0?'#fff':app.color;
     var markHtml=app.logo
       ?'<div class="app-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="'+app.name+'" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
@@ -1421,13 +1499,16 @@ function renderApps(){
       var fullList=app.includes.map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join(', ');
       includesHtml='<div class="app-includes" title="Bao gồm '+app.includes.length+' app: '+fullList+'"><span class="app-includes-label">Gồm</span>'+incItems.join('')+more+'</div>';
     }
+    var tierBadge=inCart && tier
+      ?'<span class="flag alt">'+tier.label+'</span>'
+      :'<span class="flag alt">'+tierCount+' gói</span>';
     return '<article class="card'+(inCart?' in-cart':'')+'" data-id="'+app.id+'">' +
       '<div class="card-top">'+markHtml+
       '<div><div class="app-name">'+app.name+'</div><div class="app-cat">'+app.cat+'</div></div></div>' +
       '<p>'+app.desc+'</p>' +includesHtml+
-      '<div class="card-foot"><div class="price">'+fmtPrice(p)+(p!==null&&p!==0?'<span class="per">/th</span>':'')+'</div>' +
+      '<div class="card-foot"><div class="price">'+prefix+priceLabel+(perLabel?'<span class="per">'+perLabel+'</span>':'')+'</div>' +
       (app.popular?'<span class="flag">Phổ biến</span>':'') +
-      (function(){var t=S.cartTiers&&S.cartTiers[app.id]?S.cartTiers[app.id]:S.plan;return '<span class="flag alt">'+(app.tiers[t]?app.tiers[t].label:'')+'</span>';}()) +
+      tierBadge +
       '</div>' +
       '<div class="card-actions">' +
       '<button class="btn-add" data-id="'+app.id+'">'+(inCart?'✓ Đang tính':'+ Chọn để tính')+'</button>' +
@@ -1476,7 +1557,7 @@ function renderProfessions(){
   }
   // Update totals only
   PROFESSIONS.forEach(function(prof){
-    var total=prof.apps.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a,S.plan)||0):s;},0);
+    var total=prof.apps.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a)||0):s;},0);
     var el=grid.querySelector('[data-total="'+prof.id+'"]');
     if(el) el.innerHTML=fmtTotal(total)+'<span class="per">/tháng</span>';
   });
@@ -1630,7 +1711,9 @@ function openModal(appId){
   var app=getApp(appId);
   if(!app)return;
   S.modalApp=appId;
-  S.modalTier=S.plan;
+  // Mặc định: tier đã chọn nếu trong cart, không thì default
+  var inCart=S.cart.indexOf(appId)!==-1;
+  S.modalTier=inCart?activeTierIdx(app):defaultTierIdx(app);
   buildModal(app);
   var ov=document.getElementById('modal-overlay');
   ov.classList.add('is-open');ov.setAttribute('aria-hidden','false');
@@ -1642,28 +1725,27 @@ function closeModal(){
 }
 function buildModal(app){
   var inCart=S.cart.indexOf(app.id)!==-1;
-  var planKeys=['personal','team','enterprise'];
-  var planLabels={personal:'Cá nhân',team:'Team',enterprise:'Doanh nghiệp'};
 
-  /* Plan cards */
-  var plansHtml=planKeys.map(function(key){
-    var t=app.tiers[key];
-    if(!t)return '';
-    var isActive=S.modalTier===key;
+  /* Plan cards — N tiers, horizontal scroll */
+  var plansHtml=app.tiers.map(function(t,idx){
+    var isActive=S.modalTier===idx;
     var priceHtml;
     if(t.price===null) priceHtml='<div class="plan-price-big contact">Liên hệ</div>';
     else if(t.price===0) priceHtml='<div class="plan-price-big free">Miễn phí</div>';
-    else priceHtml='<div class="plan-price-big">'+fmtPrice(t.price)+'<span class="per">/th</span></div>';
+    else {
+      var per=t.perUser?'/người·th':'/th';
+      priceHtml='<div class="plan-price-big">'+fmtTierPrice(t)+'<span class="per">'+per+'</span></div>';
+    }
     var featsHtml=t.features&&t.features.length
       ?'<ul class="plan-feats">'+t.features.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul>':'';
     var popularTag=t.popular?'<span class="plan-popular-tag">Phổ biến</span>':'';
-    return '<div class="plan-card'+(isActive?' is-active':'')+'" data-plan="'+key+'" onclick="selectModalPlan(\''+key+'\')">' +
+    var noteTag=t.note?'<div class="plan-note">'+t.note+'</div>':'';
+    return '<div class="plan-card'+(isActive?' is-active':'')+'" data-plan-idx="'+idx+'" onclick="selectModalPlan('+idx+')">' +
       popularTag+
-      '<div class="plan-type">'+planLabels[key]+'</div>'+
       '<div class="plan-name-label">'+t.label+'</div>'+
-      priceHtml+featsHtml+
+      priceHtml+noteTag+featsHtml+
     '</div>';
-  }).filter(Boolean).join('');
+  }).join('');
 
   /* Cart summary */
   var cartHtml='';
@@ -1700,8 +1782,8 @@ function buildModal(app){
     toggleCart(app.id);buildModal(app);
   });
 }
-function selectModalPlan(key){
-  S.modalTier=key;
+function selectModalPlan(idx){
+  S.modalTier=Number(idx);
   var app=getApp(S.modalApp);
   if(app)buildModal(app);
 }
@@ -1746,12 +1828,6 @@ document.getElementById('cat-tabs').querySelectorAll('.tab').forEach(function(ta
   });
 });
 
-document.getElementById('plan-seg').querySelectorAll('button').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    document.getElementById('plan-seg').querySelectorAll('button').forEach(function(b){b.classList.remove('is-on');});
-    btn.classList.add('is-on');S.plan=btn.dataset.plan;renderAll();
-  });
-});
 
 document.getElementById('search-input').addEventListener('input',function(){S.search=this.value;renderApps();});
 document.addEventListener('keydown',function(e){
@@ -1844,6 +1920,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
 })();
 
 /* ── INIT ── */
+normalizeTiers();
 bindIntent();
 fetchRate();
 renderAll();
