@@ -163,7 +163,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
 .hero { position: relative; padding: 80px 0 80px; overflow: hidden; }
-@media (min-width:1080px) { .hero { min-height: 780px; } }
+@media (min-width:1080px) { .hero { min-height: 880px; } }
 .hero::before {
   content: ''; position: absolute; left: 50%; top: 0; width: 900px; height: 900px;
   transform: translate(-50%, -55%);
@@ -180,7 +180,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .hero-inner {
   position: relative; z-index: 1; text-align: center; padding-top: 32px;
-  perspective: 1600px; perspective-origin: 50% 35%;
 }
 .hero-pill {
   display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px;
@@ -284,16 +283,15 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .hero-arcs circle { fill:var(--accent);opacity:0.5;filter:drop-shadow(0 0 4px rgba(34,197,94,0.6)); }
 @keyframes arcDash { to { stroke-dashoffset:-200; } }
 
-/* ─── Floating cards (hero) — 6 cards với 3D tilt + ghost depth ───── */
+/* ─── Floating cards (hero) — 2D tilted cards giống ChatGPT ────────── */
 .float-card {
-  --rotY: 0deg; --rotZ: 0deg; --fc-scale: 1;
-  position: absolute; z-index: 2; display: flex; align-items: center; gap: 11px;
-  padding: 11px 15px 11px 11px;
+  --rot: 0deg; --fc-scale: 1;
+  position: absolute; z-index: 2; display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px 14px 14px;
   background: linear-gradient(180deg,rgba(15,26,18,.92),rgba(11,20,16,.85));
-  border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 16px; backdrop-filter: blur(12px);
   box-shadow: 0 16px 40px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.02) inset;
   animation: floatTilt 7s ease-in-out infinite;
-  transform-style: preserve-3d;
   will-change: transform;
 }
 [data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.97),rgba(246,251,247,.92)); box-shadow: 0 16px 40px -18px rgba(20,60,30,.32); }
@@ -314,66 +312,67 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
     0 0 32px -4px rgba(34,197,94,0.25);
 }
 .fc-popular {
-  position:absolute;top:-9px;right:14px;z-index:4;
-  display:inline-flex;align-items:center;gap:3px;
+  position:absolute;top:-10px;right:16px;z-index:4;
+  display:inline-flex;align-items:center;gap:4px;
   background:var(--accent);color:#08120c;
-  font-size:9.5px;font-weight:800;letter-spacing:0.04em;
-  padding:3px 9px 3px 7px;border-radius:999px;white-space:nowrap;
+  font-size:10px;font-weight:800;letter-spacing:0.04em;
+  padding:4px 10px 4px 8px;border-radius:999px;white-space:nowrap;
   box-shadow:0 4px 14px rgba(34,197,94,0.45);
 }
-.fc-popular svg { width:9px;height:9px;flex:0 0 9px; }
+.fc-popular svg { width:10px;height:10px;flex:0 0 10px; }
 
-/* MAIN cards — featured, bigger, sharper */
-.float-card.is-main { padding:14px 18px 14px 13px; z-index:3; }
-.float-card.is-main .fc-icon { width:46px;height:46px;flex:0 0 46px; }
-.float-card.is-main .fc-name { font-size:12.5px; }
-.float-card.is-main .fc-price { font-size:20px; }
-.float-card.is-main .fc-delta { font-size:11px; }
+/* SIZE TIERS — match image 3 exactly */
+.float-card.fc-size-xl { width: 320px; padding: 16px 20px 16px 16px; }
+.float-card.fc-size-xl .fc-icon { width:54px;height:54px;flex:0 0 54px; }
+.float-card.fc-size-xl .fc-name { font-size:13px; }
+.float-card.fc-size-xl .fc-price { font-size:22px; }
+.float-card.fc-size-xl .fc-delta { font-size:11px; }
 
-/* SUB cards — background, smaller, slightly faded for depth */
-.float-card.is-sub { z-index:1;opacity:0.86;transform:scale(0.95); }
-.float-card.is-sub .fc-icon { width:36px;height:36px;flex:0 0 36px; }
-.float-card.is-sub .fc-name { font-size:11px; }
-.float-card.is-sub .fc-price { font-size:15px; }
-.float-card.is-sub .fc-delta { font-size:10px; }
-.float-card.is-sub:hover { opacity:1;transform:scale(1); }
+.float-card.fc-size-lg { width: 270px; padding: 14px 18px 14px 14px; }
+.float-card.fc-size-lg .fc-icon { width:46px;height:46px;flex:0 0 46px; }
+.float-card.fc-size-lg .fc-name { font-size:12px; }
+.float-card.fc-size-lg .fc-price { font-size:19px; }
+.float-card.fc-size-lg .fc-delta { font-size:10.5px; }
 
-/* Positions — arc shape around hero, popular cards on top corners */
-.fc-tl  { top:80px;  left:-30px;  animation-delay:0s;   }  /* main + popular */
-.fc-tr  { top:80px;  right:-30px; animation-delay:1.0s; }  /* main + popular */
-.fc-ml  { top:360px; left:-60px;  animation-delay:2.4s; }  /* main */
-.fc-mr  { top:380px; right:-40px; animation-delay:3.6s; }  /* sub */
-.fc-bl  { top:620px; left:50px;   animation-delay:4.8s; }  /* sub */
-.fc-br  { top:600px; right:-20px; animation-delay:6.0s; }  /* main */
+.float-card.fc-size-md { width: 240px; padding: 12px 16px 12px 12px; }
+.float-card.fc-size-md .fc-icon { width:42px;height:42px;flex:0 0 42px; }
+.float-card.fc-size-md .fc-name { font-size:11.5px; }
+.float-card.fc-size-md .fc-price { font-size:17px; }
+.float-card.fc-size-md .fc-delta { font-size:10px; }
+
+.float-card.fc-size-sm { width: 220px; padding: 12px 14px 12px 12px; }
+.float-card.fc-size-sm .fc-icon { width:40px;height:40px;flex:0 0 40px; }
+.float-card.fc-size-sm .fc-name { font-size:11px; }
+.float-card.fc-size-sm .fc-price { font-size:16px; }
+.float-card.fc-size-sm .fc-delta { font-size:10px; }
+
+/* POSITIONS — match image 3 layout precisely */
+.fc-tl { top:170px; left:60px;    --rot:-4deg; animation-delay:0s;   }
+.fc-tr { top:200px; right:60px;   --rot:4deg;  animation-delay:1.2s; }
+.fc-ml { top:430px; left:130px;   --rot:-3deg; animation-delay:2.4s; }
+.fc-mr { top:440px; right:130px;  --rot:3deg;  animation-delay:3.6s; }
+.fc-bl { top:625px; left:210px;   --rot:-3deg; animation-delay:4.8s; }
+.fc-br { top:660px; right:100px;  --rot:3deg;  animation-delay:6.0s; }
 
 @keyframes floatTilt {
-  0%,100% { transform: translateY(0)   rotateY(var(--rotY)) rotateZ(var(--rotZ)) scale(var(--fc-scale)); }
-  50%     { transform: translateY(-8px) rotateY(var(--rotY)) rotateZ(var(--rotZ)) scale(var(--fc-scale)); }
+  0%,100% { transform: translateY(0)   rotate(var(--rot)) scale(var(--fc-scale)); }
+  50%     { transform: translateY(-8px) rotate(var(--rot)) scale(var(--fc-scale)); }
 }
-.float-card.is-sub { --fc-scale:0.95; }
 
-/* 3D tilt per position — cards "face" the title in the center */
-.fc-tl { --rotY: 16deg;  --rotZ: -2deg; }
-.fc-tr { --rotY: -16deg; --rotZ: 2deg;  }
-.fc-ml { --rotY: 20deg;  --rotZ: -1deg; }
-.fc-mr { --rotY: -20deg; --rotZ: 1deg;  }
-.fc-bl { --rotY: 14deg;  --rotZ: -2deg; }
-.fc-br { --rotY: -18deg; --rotZ: 2deg;  }
-
-/* GHOST cards — blurred partial cards visible at far edges (depth atmosphere) */
+/* GHOST cards — blurred partial cards peeking from far edges (depth) */
 .float-card.is-ghost {
-  opacity: 0.32;
-  filter: blur(2.5px) saturate(0.55);
+  opacity: 0.35;
+  filter: blur(3px) saturate(0.5);
   z-index: 0;
   pointer-events: none;
-  --fc-scale: 0.82;
-  animation-duration: 9s;
+  --fc-scale: 0.85;
+  animation-duration: 10s;
 }
-.fc-ghost-l1 { left: -180px; top: 230px;  --rotY: 24deg;  --rotZ: -3deg; animation-delay: 0.7s; }
-.fc-ghost-l2 { left: -200px; top: 540px;  --rotY: 22deg;  --rotZ: -2deg; animation-delay: 3.2s; }
-.fc-ghost-r1 { right: -180px; top: 220px; --rotY: -24deg; --rotZ: 3deg;  animation-delay: 1.8s; }
-.fc-ghost-r2 { right: -200px; top: 560px; --rotY: -22deg; --rotZ: 2deg;  animation-delay: 4.5s; }
-@media (max-width:1380px) { .float-card.is-ghost { display: none; } }
+.fc-ghost-l1 { left: -160px;  top: 280px; --rot: -5deg; animation-delay: 0.7s; }
+.fc-ghost-l2 { left: -180px;  top: 560px; --rot: -4deg; animation-delay: 3.2s; }
+.fc-ghost-r1 { right: -160px; top: 300px; --rot: 5deg;  animation-delay: 1.8s; }
+.fc-ghost-r2 { right: -180px; top: 580px; --rot: 4deg;  animation-delay: 4.5s; }
+@media (max-width:1480px) { .float-card.is-ghost { display: none; } }
 
 .fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box; }
 .fc-body { display:flex;flex-direction:column;gap:2px;min-width:0; }
@@ -383,11 +382,11 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .fc-delta { display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--accent);margin-top:2px; }
 
 @media (max-width:1320px) {
-  .fc-tl{left:10px} .fc-tr{right:10px}
-  .fc-bl{left:10px} .fc-br{right:10px}
-  .fc-ml{left:-20px} .fc-mr{right:-10px}
+  .fc-tl{left:0px} .fc-tr{right:0px}
+  .fc-ml{left:40px} .fc-mr{right:40px}
+  .fc-bl{left:80px} .fc-br{right:30px}
 }
-@media (max-width:1080px) { .fc-ml,.fc-mr,.fc-bl,.fc-br{display:none} }
+@media (max-width:1100px) { .fc-ml,.fc-mr,.fc-bl,.fc-br{display:none} }
 @media (max-width:880px)  { .float-card{display:none} }
 
 /* ─── Social proof ───────────────────────────────────────────────── */
@@ -930,19 +929,17 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <section class="hero">
   <div class="container hero-inner">
 
-    <!-- Dotted arc lines — ambient curves embracing the hero (depth/atmosphere) -->
-    <svg class="hero-arcs" viewBox="0 0 1400 880" preserveAspectRatio="none" aria-hidden="true">
-      <!-- Left arc — bowing toward center then back out -->
-      <path d="M 180 130 C 40 280, 60 440, 240 500 C 60 580, 90 740, 220 800"/>
-      <!-- Right arc — mirror -->
-      <path d="M 1220 130 C 1360 280, 1340 440, 1160 500 C 1340 580, 1310 740, 1180 800"/>
-      <!-- Decorative dots along the path -->
-      <circle cx="180" cy="130" r="3"/>
-      <circle cx="240" cy="500" r="3"/>
-      <circle cx="220" cy="800" r="3"/>
-      <circle cx="1220" cy="130" r="3"/>
-      <circle cx="1160" cy="500" r="3"/>
-      <circle cx="1180" cy="800" r="3"/>
+    <!-- Dotted curves — wavy lines snaking past cards (giống hình 3 ChatGPT) -->
+    <svg class="hero-arcs" viewBox="0 0 1240 880" preserveAspectRatio="none" aria-hidden="true">
+      <!-- LEFT wavy: từ dưới Adobe TL → qua ngoài Figma ML → ngoài Claude BL -->
+      <path d="M 360 350 C 60 410, 80 540, 320 530 C 60 620, 180 760, 460 720"/>
+      <!-- RIGHT wavy: mirror -->
+      <path d="M 880 380 C 1180 440, 1160 560, 920 550 C 1180 640, 1060 770, 780 740"/>
+      <!-- Anchor dots ở 2 đầu mỗi đường (như hình 3) -->
+      <circle cx="360" cy="350" r="3.5"/>
+      <circle cx="460" cy="720" r="3.5"/>
+      <circle cx="880" cy="380" r="3.5"/>
+      <circle cx="780" cy="740" r="3.5"/>
     </svg>
 
     <!-- GHOST cards: blurred partial cards tạo depth atmosphere phía sau -->
@@ -988,7 +985,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
 
     <!-- POPULAR cards: với badge + green glow -->
-    <div class="float-card is-main is-popular fc-tl">
+    <div class="float-card is-popular fc-size-xl fc-tl">
       <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/adobe-photoshop-2.svg" alt="Photoshop" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
@@ -1000,7 +997,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
-    <div class="float-card is-main is-popular fc-tr">
+    <div class="float-card is-popular fc-size-lg fc-tr">
       <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/chatgpt-6.svg" alt="ChatGPT" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
@@ -1012,8 +1009,8 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
-    <!-- MAIN cards: featured, prominent -->
-    <div class="float-card is-main fc-ml">
+    <!-- Secondary cards -->
+    <div class="float-card fc-size-md fc-ml">
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/figma-color.svg" alt="Figma" style="width:100%;height:100%;padding:8px;box-sizing:border-box;display:block;">
       </div>
@@ -1024,7 +1021,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
-    <div class="float-card is-main fc-br">
+    <div class="float-card fc-size-lg fc-br">
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/Midjourney--Streamline-Svg-Logos.svg" alt="Midjourney" style="width:100%;height:100%;padding:7px;box-sizing:border-box;display:block;">
       </div>
@@ -1035,8 +1032,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
-    <!-- SUB cards: smaller, faded for depth -->
-    <div class="float-card is-sub fc-mr">
+    <div class="float-card fc-size-md fc-mr">
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/cursor.svg" alt="Cursor" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
       </div>
@@ -1047,7 +1043,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
-    <div class="float-card is-sub fc-bl">
+    <div class="float-card fc-size-sm fc-bl">
       <div class="fc-icon" style="background:#fff;">
         <img src="icons/claude-logo.svg" alt="Claude" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
       </div>
