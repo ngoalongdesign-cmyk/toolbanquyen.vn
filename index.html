@@ -437,6 +437,32 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 .sug-add.is-in-cart:hover { background:rgba(239,68,68,.10);color:#ef4444;border-color:#ef4444; }
 .suggestions-empty { text-align:center;padding:32px;color:var(--text-2);font-size:14px; }
 
+/* Alternatives section ── apps cùng OVERLAP_GROUPS với primary */
+.suggestions-alts {
+  margin-top:22px;padding:16px 18px;border-radius:14px;
+  background:var(--card-2);border:1px dashed var(--border);
+}
+.sug-alts-head {
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--text-2);margin-bottom:10px;letter-spacing:-0.005em;
+}
+.sug-alts-head em { font-style:normal;color:var(--text-3);font-size:12px; }
+.sug-alts-ico { width:15px;height:15px;color:var(--accent);flex-shrink:0; }
+.sug-alts-list { display:flex;flex-wrap:wrap;gap:8px; }
+.sug-alt-chip {
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  background:var(--bg-elev);border:1px solid var(--border-2);
+  font-size:12px;color:var(--text-2);font-weight:500;
+  transition:all .15s ease;cursor:pointer;
+}
+.sug-alt-chip:hover { border-color:var(--accent);color:var(--accent);background:var(--accent-soft); }
+.sug-alt-chip.is-in-cart { border-color:var(--accent);color:var(--accent);background:var(--accent-soft); }
+.sug-alt-chip .sac-name { font-weight:700;color:var(--text); }
+.sug-alt-chip.is-in-cart .sac-name { color:var(--accent); }
+.sug-alt-chip .sac-sep { color:var(--text-3);font-size:10px; }
+.sug-alt-chip .sac-replaces { font-size:11px;color:var(--text-3); }
+
 /* Hidden #search-input kept for binding compatibility */
 .hero-search-hidden {
   position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden;
@@ -1275,6 +1301,13 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <p class="lede">Click <strong>+ Thêm</strong> để chọn app, hoặc click body để xem các gói. Có thể chỉnh mô tả và phân tích lại bất cứ lúc nào.</p>
     </div>
     <div class="grid-suggestions" id="suggestions-grid"></div>
+    <div class="suggestions-alts" id="suggestions-alts" style="display:none">
+      <div class="sug-alts-head">
+        <svg class="sug-alts-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10M7 17h10"/><polyline points="13 3 17 7 13 11"/><polyline points="11 13 7 17 11 21"/></svg>
+        <span>Hoặc thử các lựa chọn tương đương <em>— mỗi nhóm chỉ cần 1 app, đừng add cả hai</em></span>
+      </div>
+      <div class="sug-alts-list" id="sug-alts-list"></div>
+    </div>
     <div class="suggestions-empty" id="suggestions-empty" style="display:none">
       <p>Không tìm thấy app phù hợp từ mô tả. Thử mô tả rõ hơn về công việc hoặc app bạn quan tâm.</p>
     </div>
@@ -1444,7 +1477,7 @@ var APPS = [
      {id:'teams-all',label:'Teams All Apps',price:89.99,perUser:true,features:['Mọi app cho team','Admin console + billing','24/7 tech support','Stock & Fonts đầy đủ','Easy license reassign']},
      {id:'enterprise',label:'Enterprise',price:null,features:['Admin console tập trung','VIP licensing','SSO + advanced compliance','Custom MSA','Global support 24/7']}
    ]},
-  {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:false,
+  {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
    logo:'icons/canva.svg',url:'https://www.canva.com/pricing/',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
    tiers:{
@@ -1824,7 +1857,7 @@ function getRecommendations(){
       recs.push({
         type:'overlap',
         priority:1,
-        title:'Trùng năng: '+inCart.length+' app cùng là '+g.label,
+        title:'App trùng chức năng: '+inCart.length+' app cùng là '+g.label,
         body:'Bạn đang chọn '+appNames.join(', ')+'. Các app này phục vụ cùng mục đích, đa số user chỉ cần 1. Cân nhắc giữ '+getApp(cheapestId).name+' và bỏ phần còn lại (hoặc dùng Free tier).',
         savingsUSD:savings,
         keepApp:cheapestId,
@@ -2411,15 +2444,52 @@ var KEYWORD_DICT = {
   'dich thuat':['claude','chatgpt','gemini'],
   'translate':['claude','chatgpt','gemini'],
 
-  // ── AI IMAGE/VIDEO ──
+  // ── ẢNH (casual, business, marketing) — Canva first (template/quick), Adobe (pro edit), ChatGPT (DALL-E quick), Midjourney KHÔNG có ở đây vì là tool nghệ thuật ──
+  'tạo ảnh':['canva','chatgpt','adobe-cc'],
+  'tao anh':['canva','chatgpt','adobe-cc'],
+  'tạo hình ảnh':['canva','chatgpt','adobe-cc'],
+  'tao hinh anh':['canva','chatgpt','adobe-cc'],
+  'hình ảnh':['canva','adobe-cc','chatgpt'],
+  'hinh anh':['canva','adobe-cc','chatgpt'],
+  'tạo hình':['canva','adobe-cc'],
+  'tao hinh':['canva','adobe-cc'],
+  'ảnh đẹp':['canva','adobe-cc'],
+  'anh dep':['canva','adobe-cc'],
+  'ảnh sản phẩm':['canva','adobe-cc'],
+  'anh san pham':['canva','adobe-cc'],
+  'chỉnh sửa ảnh':['adobe-cc','canva'],
+  'chinh sua anh':['adobe-cc','canva'],
+  'photo':['adobe-cc','canva'],
+  'photo edit':['adobe-cc','canva'],
+  'thiết kế nhanh':['canva'],
+  'thiet ke nhanh':['canva'],
+  'template':['canva','figma','notion'],
+  'poster':['canva','adobe-cc'],
+  'banner':['canva','adobe-cc'],
+  'infographic':['canva','adobe-cc','figma'],
+  // ── ART / NGHỆ THUẬT — Midjourney first (artist-grade AI art), Adobe (pro illustrator) ──
   'midjourney':['midjourney'],
-  'gen ảnh':['midjourney','adobe-cc','chatgpt'],
-  'gen anh':['midjourney','adobe-cc','chatgpt'],
-  'tạo ảnh':['midjourney','adobe-cc','chatgpt'],
-  'tao anh':['midjourney','adobe-cc','chatgpt'],
+  'gen ảnh ai':['midjourney','chatgpt'],
+  'gen anh ai':['midjourney','chatgpt'],
+  'gen ảnh':['midjourney','chatgpt'],
+  'gen anh':['midjourney','chatgpt'],
+  'ai vẽ':['midjourney','chatgpt'],
+  'ai ve':['midjourney','chatgpt'],
+  'ai art':['midjourney'],
+  'art':['midjourney','adobe-cc'],
+  'nghệ thuật':['midjourney','adobe-cc'],
+  'nghe thuat':['midjourney','adobe-cc'],
+  'artist':['midjourney','adobe-cc'],
+  'họa sĩ':['midjourney','adobe-cc'],
+  'hoa si':['midjourney','adobe-cc'],
+  'tranh':['midjourney','adobe-cc'],
   'concept art':['midjourney'],
   'minh hoạ':['midjourney','adobe-cc'],
   'minh hoa':['midjourney','adobe-cc'],
+  'illustration':['midjourney','adobe-cc'],
+  'fanart':['midjourney'],
+  'character design':['midjourney','adobe-cc'],
+  // ── AI VIDEO ──
   'ai video':['runway','kling'],
   'gen video':['runway','kling'],
   'video ai':['runway','kling'],
@@ -2495,6 +2565,31 @@ var KEYWORD_DICT = {
   'creator':['capcut','canva','claude','buffer','notion'],
   'sáng tạo nội dung':['capcut','canva','claude','buffer'],
   'sang tao noi dung':['capcut','canva','claude','buffer'],
+  'email marketing':['buffer','chatgpt','canva'],
+  'edm':['canva','chatgpt'],
+  'newsletter':['canva','chatgpt'],
+  'thư điện tử':['chatgpt','claude'],
+  'thu dien tu':['chatgpt','claude'],
+
+  // ── SALES / BUSINESS — Canva (marketing material), ChatGPT (sales copy), Buffer (social post), Claude (long-form). Midjourney KHÔNG có vì không phải tool nghiệp dư/marketing ──
+  'sale':['canva','chatgpt','buffer','claude'],
+  'sales':['canva','chatgpt','buffer','claude'],
+  'saler':['canva','chatgpt','buffer','claude'],
+  'bán hàng':['canva','chatgpt','buffer','claude'],
+  'ban hang':['canva','chatgpt','buffer','claude'],
+  'kinh doanh':['chatgpt','canva','buffer','claude','notion'],
+  'bất động sản':['canva','chatgpt','buffer'],
+  'bat dong san':['canva','chatgpt','buffer'],
+  'real estate':['canva','chatgpt','buffer'],
+  'bds':['canva','chatgpt','buffer'],
+  'khách hàng':['chatgpt','claude','notion','canva'],
+  'khach hang':['chatgpt','claude','notion','canva'],
+  'crm':['notion','linear','clickup'],
+  'pitch deck':['canva','figma','chatgpt'],
+  'thuyết trình':['canva','figma','chatgpt'],
+  'thuyet trinh':['canva','figma','chatgpt'],
+  'báo cáo':['notion','chatgpt','claude'],
+  'bao cao':['notion','chatgpt','claude'],
 
   // ── FOUNDER ──
   'founder':['notion','linear','chatgpt','cursor','vercel'],
@@ -2596,22 +2691,64 @@ function parseSalaryFromText(text){
 /**
  * Render section #suggestions theo S.suggestions.
  */
+/**
+ * Dedupe ranked suggestions theo OVERLAP_GROUPS — chỉ giữ 1 primary mỗi group.
+ * Apps bị loại trở thành "alternatives" của primary đó.
+ * Returns {primary:[{id,score,popular}], altMap:{primaryId: [altId,...]}}
+ */
+function dedupeSuggestionsByOverlap(ranked){
+  var seenGroups = {};   // groupKey → primaryAppId
+  var primary = [];
+  var altMap = {};
+  ranked.forEach(function(s){
+    var groupKey = null;
+    Object.keys(OVERLAP_GROUPS).forEach(function(gKey){
+      if(!groupKey && OVERLAP_GROUPS[gKey].apps.indexOf(s.id) !== -1){
+        groupKey = gKey;
+      }
+    });
+    if(!groupKey){
+      primary.push(s);
+      return;
+    }
+    if(!seenGroups[groupKey]){
+      seenGroups[groupKey] = s.id;
+      primary.push(s);
+      altMap[s.id] = [];
+    } else {
+      var primaryId = seenGroups[groupKey];
+      altMap[primaryId] = altMap[primaryId] || [];
+      altMap[primaryId].push(s.id);
+    }
+  });
+  return { primary: primary, altMap: altMap };
+}
+
 function renderSuggestions(){
   var sec = document.getElementById('suggestions');
   var grid = document.getElementById('suggestions-grid');
+  var altsSection = document.getElementById('suggestions-alts');
+  var altsList = document.getElementById('sug-alts-list');
   var emptyEl = document.getElementById('suggestions-empty');
   var titleEl = document.getElementById('suggestions-title');
   if(!sec || !grid) return;
   if(!S.suggestions || !S.suggestions.length){
     grid.innerHTML='';
+    if(altsSection) altsSection.style.display='none';
     return;
   }
-  var top = S.suggestions.slice(0,12);
+
+  // Dedupe by OVERLAP_GROUPS — chỉ 1 app/group hiển thị primary
+  var deduped = dedupeSuggestionsByOverlap(S.suggestions);
+  var primary = deduped.primary.slice(0,12);
+  var altMap = deduped.altMap;
+
   if(titleEl){
-    titleEl.innerHTML = 'Đây là <em class="em">' + top.length + ' app</em> phù hợp với bạn';
+    titleEl.innerHTML = 'Đây là <em class="em">' + primary.length + ' app</em> phù hợp với bạn';
   }
   if(emptyEl) emptyEl.style.display='none';
-  grid.innerHTML = top.map(function(s){
+
+  grid.innerHTML = primary.map(function(s){
     var app = getApp(s.id); if(!app) return '';
     var inCart = S.cart.indexOf(app.id) !== -1;
     var tIdx = inCart ? activeTierIdx(app) : cheapestPaidTierIdx(app);
@@ -2634,6 +2771,50 @@ function renderSuggestions(){
       '<button class="sug-add'+(inCart?' is-in-cart':'')+'" data-add="'+app.id+'" type="button">'+addLabel+'</button>'+
       '</div></article>';
   }).join('');
+
+  // Render alternatives section
+  if(altsSection && altsList){
+    var altsHtml = '';
+    Object.keys(altMap).forEach(function(primaryId){
+      var alts = altMap[primaryId];
+      if(!alts || !alts.length) return;
+      var primaryApp = getApp(primaryId);
+      if(!primaryApp) return;
+      alts.slice(0, 4).forEach(function(altId){
+        var altApp = getApp(altId);
+        if(!altApp) return;
+        var inCartAlt = S.cart.indexOf(altId) !== -1;
+        altsHtml += '<button class="sug-alt-chip'+(inCartAlt?' is-in-cart':'')+'" data-add-alt="'+altId+'" type="button">'+
+          '<span class="sac-name">'+altApp.name+'</span>'+
+          '<span class="sac-sep">↔</span>'+
+          '<span class="sac-replaces">thay '+primaryApp.name+'</span>'+
+          '</button>';
+      });
+    });
+    if(altsHtml){
+      altsList.innerHTML = altsHtml;
+      altsSection.style.display='';
+      altsList.querySelectorAll('.sug-alt-chip').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var id = btn.dataset.addAlt;
+          var idx = S.cart.indexOf(id);
+          if(idx === -1){
+            S.cart.push(id);
+            var a = getApp(id);
+            if(a) S.cartTiers[id] = cheapestPaidTierIdx(a);
+          } else {
+            S.cart.splice(idx,1);
+            delete S.cartTiers[id];
+          }
+          renderAll();
+        });
+      });
+    } else {
+      altsSection.style.display='none';
+      altsList.innerHTML='';
+    }
+  }
+
   // Click card body → mở modal
   grid.querySelectorAll('.sug-card').forEach(function(c){
     c.addEventListener('click',function(){ openModal(c.dataset.id); });
