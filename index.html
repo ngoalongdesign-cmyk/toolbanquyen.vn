@@ -664,6 +664,7 @@ footer { padding:80px 0 80px;text-align:center;color:var(--text-3);font-size:12.
 footer .dot-sep { margin:0 8px;opacity:.5; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" defer></script>
+<script src="lottie-data.js" defer></script>
 </head>
 <body>
 
@@ -1130,7 +1131,6 @@ var APPS = [
      enterprise:{label:'Agency',price:120,features:['10 channel kèm white-label','Client reporting tự động','Custom access cho client','Priority support 24/7']}
    }},
   {id:'ahrefs',name:'Ahrefs',cat:'Marketing',color:'#E08C00',initials:'Ah',popular:false,
-   logo:'https://cdn.simpleicons.org/ahrefs/ffffff',
    desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor.',
    tiers:{
      personal:{label:'Lite',price:129,features:['Site Explorer cơ bản','500 credit/tháng','5 dự án theo dõi','Keyword research giới hạn']},
@@ -1162,7 +1162,6 @@ var APPS = [
      enterprise:{label:'Enterprise',price:89.99,features:['Admin console + VIP licensing','SSO + advanced compliance','Dedicated CSM','Custom MSA & invoice']}
    }},
   {id:'descript',name:'Descript',cat:'Video',color:'#6B21A8',initials:'Ds',popular:false,
-   logo:'https://cdn.simpleicons.org/descript/ffffff',
    desc:'Edit video bằng text — AI transcript, remove filler words, screen recorder.',
    tiers:{
      personal:{label:'Hobbyist',price:12,features:['10 giờ transcription/tháng','Watermark khi export','1080p export','Screen + camera recorder']},
@@ -1220,12 +1219,12 @@ var APPS = [
 ];
 
 var PROFESSIONS = [
-  {id:'uxdesigner',label:'UI/UX Designer',icon:'🎨',lottie:'icons/animated%20icons/ui-ux%20designer.json',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer']},
-  {id:'developer',label:'Developer',icon:'💻',lottie:'icons/animated%20icons/developer.json',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion']},
-  {id:'creator',label:'Content Creator',icon:'🎬',lottie:'icons/animated%20icons/content%20creator.json',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion']},
-  {id:'marketer',label:'Marketer / SEO',icon:'📣',lottie:'icons/animated%20icons/marketer-seo.json',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs']},
-  {id:'freelancer',label:'Freelance Designer',icon:'✏️',lottie:'icons/animated%20icons/freelancer%20designer.json',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude']},
-  {id:'founder',label:'Founder / Team Lead',icon:'🚀',lottie:'icons/animated%20icons/founder-team%20leader.json',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel']}
+  {id:'uxdesigner',label:'UI/UX Designer',icon:'🎨',lottieKey:'uxdesigner',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer']},
+  {id:'developer',label:'Developer',icon:'💻',lottieKey:'developer',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion']},
+  {id:'creator',label:'Content Creator',icon:'🎬',lottieKey:'creator',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion']},
+  {id:'marketer',label:'Marketer / SEO',icon:'📣',lottieKey:'marketer',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs']},
+  {id:'freelancer',label:'Freelance Designer',icon:'✏️',lottieKey:'freelancer',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude']},
+  {id:'founder',label:'Founder / Team Lead',icon:'🚀',lottieKey:'founder',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel']}
 ];
 
 var SKILLS = [
@@ -1454,8 +1453,8 @@ function renderProfessions(){
   if(!grid.dataset.built){
     grid.innerHTML=PROFESSIONS.map(function(prof){
       var names=prof.apps.map(function(id){var a=getApp(id);return a?'<span>'+a.name+'</span>':'';});
-      var iconHtml=prof.lottie
-        ?'<div class="prof-icon" data-lottie="'+prof.lottie+'" data-fallback="'+prof.icon+'">'+prof.icon+'</div>'
+      var iconHtml=prof.lottieKey
+        ?'<div class="prof-icon" data-lottie-key="'+prof.lottieKey+'" data-fallback="'+prof.icon+'">'+prof.icon+'</div>'
         :'<div class="prof-icon">'+prof.icon+'</div>';
       return '<div class="prof-card" data-prof="'+prof.id+'">' +
         iconHtml +
@@ -1484,15 +1483,21 @@ function renderProfessions(){
 }
 
 var _profAnimCache={};
+var _profLottieRetries=0;
 function loadProfLottie(){
-  if(typeof lottie==='undefined'){
-    // Lottie chưa load xong — retry sau 200ms
-    setTimeout(loadProfLottie,200);
+  // Cần cả lottie lib và LOTTIE_DATA đã load xong
+  if(typeof lottie==='undefined' || typeof window.LOTTIE_DATA==='undefined'){
+    if(_profLottieRetries++ < 50) setTimeout(loadProfLottie,200);
     return;
   }
-  document.querySelectorAll('.prof-icon[data-lottie]').forEach(function(el){
+  document.querySelectorAll('.prof-icon[data-lottie-key]').forEach(function(el){
     if(el.dataset.loaded==='1') return;
-    var path=el.dataset.lottie;
+    var key=el.dataset.lottieKey;
+    var data=window.LOTTIE_DATA[key];
+    if(!data){
+      el.innerHTML=el.dataset.fallback||'';
+      return;
+    }
     el.dataset.loaded='1';
     el.innerHTML='';
     try {
@@ -1501,13 +1506,10 @@ function loadProfLottie(){
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: path,
+        animationData: data,
         rendererSettings: { preserveAspectRatio: 'xMidYMid meet' }
       });
-      anim.addEventListener('data_failed',function(){
-        el.innerHTML=el.dataset.fallback||'';
-      });
-      _profAnimCache[path]=anim;
+      _profAnimCache[key]=anim;
     } catch(e){
       el.innerHTML=el.dataset.fallback||'';
     }
