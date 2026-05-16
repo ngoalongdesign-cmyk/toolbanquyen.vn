@@ -282,7 +282,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .head-left .eyebrow::before { content:'';width:24px;height:2px;background:var(--accent);border-radius:1px; }
 .head-left h2 { font-size:clamp(30px,3.4vw,44px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0; }
 .head-left h2 .em { color:var(--accent);font-style:normal; }
-.head-left .lede { font-size:15px;color:var(--text-2);margin:4px 0 0;max-width:520px; }
+.head-left .lede { font-size:15px;color:var(--text-2);margin:4px 0 48px;max-width:520px; }
 .head-left .meta { font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:var(--text-3);white-space:nowrap; }
 
 .head-compact { display:flex;align-items:baseline;gap:18px;justify-content:space-between;border-top:1px solid var(--border-2);padding-top:24px; }
@@ -392,6 +392,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .salary-result .sr-val { font-variant-numeric:tabular-nums;font-weight:600; }
 .salary-result .sr-val.accent { color:var(--accent);font-size:16px; }
 .salary-empty { font-size:13.5px;color:var(--text-3);text-align:center;padding:16px;background:var(--bg-elev);border:1px dashed var(--border);border-radius:12px; }
+.salary-warn { display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;margin-top:10px; }
+.salary-warn .sw-icon { font-size:16px;flex:0 0 auto;margin-top:1px; }
+.salary-warn.ok { background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--accent); }
+.salary-warn.caution { background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#f59e0b; }
+.salary-warn.danger { background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#ef4444; }
 
 /* ─── Profession cards ───────────────────────────────────────────── */
 .prof-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
@@ -1064,6 +1069,18 @@ function renderChips(){
         if(sk)sk.apps.forEach(function(aid){if(S.cart.indexOf(aid)===-1)S.cart.push(aid);});
       } else {
         S.selectedSkills.splice(idx,1);
+        // Remove apps that only belonged to this skill (not in any remaining selected skill)
+        if(sk){
+          var keepApps=new Set();
+          S.selectedSkills.forEach(function(sid){
+            var s=SKILLS.find(function(x){return x.id===sid;});
+            if(s)s.apps.forEach(function(a){keepApps.add(a);});
+          });
+          S.cart=S.cart.filter(function(aid){
+            var wasSkillApp=sk.apps.indexOf(aid)!==-1;
+            return !wasSkillApp||keepApps.has(aid);
+          });
+        }
       }
       renderAll();
     });
@@ -1083,11 +1100,24 @@ function renderSalary(){
   var remaining=Math.max(0,sal-toolCostInSal);
   var pct=((toolCostInSal/sal)*100).toFixed(1);
   var fmt=function(n){return salCur==='VND'?fmtVND(n):'$'+n.toFixed(0);};
+  var pctNum=parseFloat(pct);
+  var warn='';
+  if(pctNum===0){
+    warn='<div class="salary-warn ok"><span class="sw-icon">✅</span><span>Tool đang miễn phí — không tốn đồng nào. Tuyệt vời!</span></div>';
+  } else if(pctNum<5){
+    warn='<div class="salary-warn ok"><span class="sw-icon">✅</span><span><strong>Hợp lý.</strong> Dưới 5% lương là mức lý tưởng — công cụ đang sinh lời cho bạn nhiều hơn chi phí bỏ ra.</span></div>';
+  } else if(pctNum<10){
+    warn='<div class="salary-warn caution"><span class="sw-icon">⚠️</span><span><strong>Cần cân nhắc.</strong> '+pct+'% lương đang chi cho tool. Kiểm tra lại xem app nào thực sự dùng, cái nào có thể bỏ.</span></div>';
+  } else if(pctNum<20){
+    warn='<div class="salary-warn danger"><span class="sw-icon">🔴</span><span><strong>Quá cao!</strong> '+pct+'% lương = '+fmt(toolCostInSal)+' mỗi tháng chỉ cho phần mềm. Hãy cắt bớt các app ít dùng ngay.</span></div>';
+  } else {
+    warn='<div class="salary-warn danger"><span class="sw-icon">🚨</span><span><strong>Nguy hiểm!</strong> Bạn đang tiêu hơn 1/5 lương cho tool. Rà soát lại toàn bộ — nhiều app trong đó chắc chắn trùng chức năng hoặc không cần thiết.</span></div>';
+  }
   el.innerHTML='<div class="salary-result">' +
     '<div class="sr-row"><span class="sr-label">Lương của bạn</span><span class="sr-val">'+fmt(sal)+'</span></div>' +
     '<div class="sr-row"><span class="sr-label">Chi phí tool ('+S.cart.length+' app)</span><span class="sr-val">'+fmt(toolCostInSal)+'</span></div>' +
     '<div class="sr-row"><span class="sr-label">Còn lại sau tool</span><span class="sr-val accent">'+fmt(remaining)+' <span style="font-size:12px;color:var(--text-2);font-weight:500">('+pct+'% lương)</span></span></div>' +
-  '</div>';
+  '</div>'+warn;
 }
 
 /* ── CART ──────────────────────────────────────────────────────────────── */
@@ -1273,16 +1303,4 @@ body[data-tab="soft"] .tab.is-on::after{display:none;}
 </style>
 
 </body>
-</html>dataset.nav=v;
-      if(g==='tab')document.body.dataset.tab=v;
-      if(g==='rate')document.querySelector('.rate').style.display=v==='hide'?'none':'';
-    });
-  });
-});
-document.getElementById('tw-close').addEventListener('click',function(){
-  tw.classList.remove('is-open');
-  window.parent.postMessage({type:'__edit_mode_dismissed'},'*');
-});
-window.addEventListener('message',function(e){
-  if(!e.data||typeof e.data!=='object')return;
-  if(e.data.type==='__activate_
+</html>
