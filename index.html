@@ -1028,14 +1028,17 @@ var SKILLS = [
 
 /* ── STATE ─────────────────────────────────────────────────────────────── */
 var S = {
-  cart:[],currency:'USD',rate:26199,
+  cart:[],cartTiers:{},currency:'USD',rate:26199,
   filter:'all',plan:'personal',search:'',
   selectedSkills:[],modalApp:null,modalTier:'personal'
 };
 
 /* ── HELPERS ───────────────────────────────────────────────────────────── */
 function getApp(id){return APPS.find(function(a){return a.id===id});}
-function appPrice(app,plan){var t=app.tiers[plan];if(!t||t.price===null)return null;return t.price;}
+function appPrice(app,plan){
+  var tier=S.cartTiers&&S.cartTiers[app.id]?S.cartTiers[app.id]:plan;
+  var t=app.tiers[tier];if(!t||t.price===null)return null;return t.price;
+}
 function fmtUSD(n){return n%1===0?'$'+n:'$'+n.toFixed(2);}
 function fmtVND(n){return n.toLocaleString('vi-VN')+' ₫';}
 function fmtPrice(usd){
@@ -1086,7 +1089,8 @@ function renderApps(){
       '<div><div class="app-name">'+app.name+'</div><div class="app-cat">'+app.cat+'</div></div></div>' +
       '<p>'+app.desc+'</p>' +includesHtml+
       '<div class="card-foot"><div class="price">'+fmtPrice(p)+(p!==null&&p!==0?'<span class="per">/th</span>':'')+'</div>' +
-      (app.popular?'<span class="flag">Phổ biến</span>':'<span class="flag alt">'+(app.tiers[S.plan]?app.tiers[S.plan].label:'')+'</span>') +
+      (app.popular?'<span class="flag">Phổ biến</span>':'') +
+      (function(){var t=S.cartTiers&&S.cartTiers[app.id]?S.cartTiers[app.id]:S.plan;return '<span class="flag alt">'+(app.tiers[t]?app.tiers[t].label:'')+'</span>';}()) +
       '</div>' +
       '<div class="card-actions">' +
       '<button class="btn-add" data-id="'+app.id+'">'+(inCart?'✓ Đang tính':'+ Chọn để tính')+'</button>' +
@@ -1304,6 +1308,9 @@ function buildModal(app){
     '</div>';
 
   document.getElementById('modal-add-btn').addEventListener('click',function(){
+    var inNow=S.cart.indexOf(app.id)!==-1;
+    if(!inNow){S.cartTiers[app.id]=S.modalTier;}
+    else{delete S.cartTiers[app.id];}
     toggleCart(app.id);buildModal(app);
   });
 }
