@@ -52,17 +52,12 @@
 
 /* Light-theme elevation: soft shadow on all white card surfaces for visibility on green bg */
 [data-theme="light"] .prof-card,
-[data-theme="light"] .combo,
 [data-theme="light"] .salary,
-[data-theme="light"] .intent-box,
-[data-theme="light"] .chip,
 [data-theme="light"] .hf-step,
 [data-theme="light"] .modal-content {
   box-shadow: var(--shadow-soft);
 }
-[data-theme="light"] .prof-card:hover,
-[data-theme="light"] .combo:hover,
-[data-theme="light"] .chip:hover {
+[data-theme="light"] .prof-card:hover {
   box-shadow: var(--shadow-hover);
 }
 * { box-sizing: border-box; }
@@ -403,8 +398,7 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   transition: background .15s;
 }
 .tr:first-child { border-top: 0; }
-.tr:hover { background: var(--accent-soft-2); cursor: pointer; }
-.tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 8px; }
+.tr:hover { background: var(--accent-soft-2); }
 .tr .ico {
   width: 32px; height: 32px;
   background: #fff;
@@ -492,18 +486,15 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 .logo-cell {
   aspect-ratio: 1;
   background: #fff;
-  border: 0;
   border-radius: 10px;
   padding: 8px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  opacity: 1;
+  opacity: 1; /* base — animation is decorative only */
   transition: transform .18s ease, box-shadow .18s ease;
   animation: logoFade .4s ease-out both;
   animation-delay: calc(var(--i, 0) * 40ms + 80ms);
-  font: inherit; color: inherit;
 }
-.logo-cell:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .logo-cell:hover {
   transform: translateY(-2px) scale(1.04);
   box-shadow: 0 8px 20px -8px rgba(0,0,0,.5);
@@ -529,7 +520,7 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   font-size: 11.5px; font-weight: 600; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 28px;
 }
 .head-center .kicker::before, .head-center .kicker::after { content:''; width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent); }
-.head-center h1 { font-size:clamp(40px,5.6vw,64px);line-height:1.12;font-weight:800;letter-spacing:-0.03em;margin:0 0 20px; }
+.head-center h1 { font-size:clamp(30px,3.8vw,44px);line-height:1.18;font-weight:800;letter-spacing:-0.025em;margin:0 0 16px; }
 .head-center h1 .em { color:var(--accent);font-style:normal; }
 .head-center .lede { font-size:16px;color:var(--text-2);max-width:540px;margin:0 auto 56px; line-height:1.7; }
 
@@ -582,13 +573,20 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 
 .card {
   position:relative;background:var(--card);border:1px solid var(--border-2);
-  border-radius:var(--radius);padding:22px;
-  transition:border-color .18s,transform .18s;box-shadow:var(--shadow);cursor:pointer;
-  display:flex;flex-direction:column;
+  border-radius:20px;padding:24px;
+  transition:border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  cursor:pointer;display:flex;flex-direction:column;
 }
+[data-theme="light"] .card { box-shadow: 0 1px 2px rgba(20,60,30,.04), 0 12px 36px -18px rgba(20,60,30,.18); }
+[data-theme="dark"]  .card { box-shadow: 0 12px 32px -20px rgba(0,0,0,.55); }
 .card p { flex:1; }
 .card-foot { margin-top:auto; }
-.card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
+.card:hover {
+  border-color: color-mix(in oklab, var(--border) 35%, var(--accent));
+  transform: translateY(-2px);
+}
+[data-theme="light"] .card:hover { box-shadow: 0 2px 6px rgba(20,60,30,.06), 0 16px 40px -18px rgba(20,60,30,.24); }
+[data-theme="dark"]  .card:hover { box-shadow: 0 18px 44px -20px rgba(0,0,0,.6); }
 .card.in-cart { border-color:var(--accent); }
 .card-top { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
 .app-mark { width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:0 0 40px;color:#fff;overflow:hidden;letter-spacing:-0.01em; }
@@ -622,83 +620,34 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 }
 .app-includes-more { font-size:10.5px;color:var(--text-3);font-weight:600;padding:2px 4px; }
 .card-actions { display:flex;gap:6px;margin-top:14px; }
-.btn-add {
-  flex:1;height:34px;border-radius:8px;font-size:12.5px;font-weight:600;
+/* Card CTA — 1 button full-width, mở modal cho cả 2 trường hợp */
+.btn-card-cta {
+  width:100%;height:40px;border-radius:10px;
+  font-size:13px;font-weight:600;letter-spacing:-0.005em;
   background:var(--accent-soft);color:var(--accent);
-  border:1px solid color-mix(in oklab,var(--accent) 30%,transparent);transition:all .15s;
+  border:1px solid color-mix(in oklab,var(--accent) 30%,transparent);
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  transition:all .15s ease;
+  cursor:pointer;
 }
-.btn-add:hover, .card.in-cart .btn-add { background:var(--accent);color:#08120c; }
-.btn-detail {
-  height:34px;padding:0 12px;border-radius:8px;font-size:12px;font-weight:500;
-  color:var(--text-2);border:1px solid var(--border);transition:all .15s;
+.btn-card-cta:hover {
+  background:var(--accent);color:#08120c;
+  border-color:var(--accent);
+  transform:translateY(-1px);
 }
-.btn-detail:hover { color:var(--text);background:var(--bg-elev); }
-
-/* ─── Skills chips ───────────────────────────────────────────────── */
-.chips-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px; }
-@media (max-width:900px) { .chips-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
-@media (max-width:600px) { .chips-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
-.chip {
-  display:inline-flex;align-items:center;gap:10px;padding:11px 14px;
-  border:1px solid var(--border);border-radius:10px;background:var(--card);
-  font-size:13.5px;font-weight:500;color:var(--text);transition:all .18s;text-align:left;width:100%;
+.btn-card-cta .arr { transition:transform .15s; }
+.btn-card-cta:hover .arr { transform:translateX(2px); }
+.btn-card-cta.is-in-cart {
+  background:transparent;color:var(--text);
+  border-color:var(--accent);
 }
-.chip:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent)); }
-.chip .check { width:16px;height:16px;border-radius:5px;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;flex:0 0 16px;transition:all .18s; }
-.chip.is-on { border-color:var(--accent);background:var(--accent-soft); }
-.chip.is-on .check { background:var(--accent);border-color:var(--accent); }
-.chip.is-on .check::after { content:'';width:8px;height:4px;border-left:1.5px solid #08120c;border-bottom:1.5px solid #08120c;transform:rotate(-45deg) translate(1px,-1px); }
-
-/* ─── Intent free-text input ──────────────────────────────────────── */
-.intent-box {
-  background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:20px 20px 16px;margin-bottom:28px;
+.btn-card-cta.is-in-cart .check {
+  color:var(--accent);font-weight:800;margin-right:2px;
 }
-.intent-label-row { display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap; }
-.intent-label { font-size:12px;color:var(--text-2);font-weight:600;letter-spacing:0.02em; }
-.intent-label .em { color:var(--accent); }
-.intent-badge { font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:999px; }
-.intent-input {
-  width:100%;min-height:70px;background:var(--bg-elev);border:1px solid var(--border-2);
-  border-radius:10px;padding:12px 14px;color:var(--text);font:inherit;font-size:13.5px;line-height:1.5;
-  resize:vertical;transition:border-color .15s,box-shadow .15s;box-sizing:border-box;
-  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+.btn-card-cta.is-in-cart:hover {
+  background:var(--accent-soft);color:var(--accent);
+  border-color:var(--accent);
 }
-.intent-input::-webkit-scrollbar { width:6px;height:6px; }
-.intent-input::-webkit-scrollbar-thumb { background:var(--border);border-radius:999px; }
-.intent-input::-webkit-scrollbar-thumb:hover { background:color-mix(in oklab,var(--border) 60%,var(--accent)); }
-.intent-input::-webkit-scrollbar-track { background:transparent; }
-.intent-input:focus { outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 18%,transparent); }
-.intent-input::placeholder { color:var(--text-3); }
-.intent-hint { font-size:11.5px;color:var(--text-3);margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center; }
-.intent-hint-label { font-weight:500;margin-right:2px; }
-.intent-hint-tag {
-  font-size:11px;color:var(--text-2);background:var(--bg-elev);border:1px solid var(--border);
-  padding:3px 9px;border-radius:999px;cursor:pointer;transition:all .15s;
-}
-.intent-hint-tag:hover { color:var(--accent);border-color:color-mix(in oklab,var(--accent) 35%,transparent);background:var(--accent-soft); }
-.intent-preview { margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);display:none; }
-.intent-preview.is-on { display:block;animation:intentFade .25s ease; }
-@keyframes intentFade { from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:none;} }
-.intent-preview-head { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px; }
-.intent-preview-title { font-size:12.5px;color:var(--text-2);font-weight:600; }
-.intent-preview-title strong { color:var(--accent);font-weight:700; }
-.intent-preview-add {
-  height:32px;padding:0 14px;font-size:12px;font-weight:600;border-radius:999px;
-  background:var(--accent);color:#08120c;border:none;cursor:pointer;transition:filter .15s;
-}
-.intent-preview-add:hover { filter:brightness(0.92); }
-.intent-preview-add:disabled { opacity:0.5;cursor:not-allowed; }
-.intent-preview-chips { display:flex;flex-wrap:wrap;gap:6px; }
-.intent-preview-chip {
-  display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 5px;
-  background:var(--bg-elev);border:1px solid var(--border-2);border-radius:999px;
-  font-size:12px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;
-}
-.intent-preview-chip:hover { border-color:var(--accent); }
-.intent-preview-chip.in-cart { background:var(--accent-soft);border-color:color-mix(in oklab,var(--accent) 35%,transparent);color:var(--accent); }
-.intent-preview-chip .ico { width:18px;height:18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;overflow:hidden; }
-.intent-preview-chip .ico img { width:14px;height:14px;object-fit:contain; }
 
 /* ─── Salary ─────────────────────────────────────────────────────── */
 .salary {
@@ -725,6 +674,12 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 .salary-result .sr-val.accent { color:var(--accent);font-size:16px; }
 .salary-empty { font-size:13.5px;color:var(--text-3);text-align:center;padding:16px;background:var(--bg-elev);border:1px dashed var(--border);border-radius:12px; }
 .salary-warn { display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;margin-top:10px; }
+
+/* ── Salary v2: result-only layout ─────────────────────────────── */
+.salary.salary-v2 { grid-template-columns: 1fr 1.1fr; }
+.salary.salary-in-recs { margin-top: 0; margin-bottom: 28px; }
+@media (max-width: 780px) { .salary.salary-v2 { grid-template-columns: 1fr; } }
+.salary.salary-v2 #salary-result { min-height: 140px; }
 .salary-warn .sw-icon { font-size:16px;flex:0 0 auto;margin-top:1px; }
 .salary-warn.ok { background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--accent); }
 .salary-warn.caution { background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#f59e0b; }
@@ -797,22 +752,32 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 @media (max-width:900px) { .prof-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:560px) { .prof-grid{grid-template-columns:1fr} }
 .prof-card {
-  border:1px solid var(--border-2);border-radius:var(--radius);background:var(--card);
-  padding:28px;cursor:pointer;transition:border-color .18s,transform .18s;position:relative;overflow:hidden;
+  border:1px solid var(--border-2);border-radius:20px;background:var(--card);
+  padding:28px;cursor:pointer;
+  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  position:relative;overflow:hidden;
 }
+[data-theme="light"] .prof-card { box-shadow: 0 1px 2px rgba(20,60,30,.04), 0 12px 36px -18px rgba(20,60,30,.18); }
+[data-theme="dark"]  .prof-card { box-shadow: 0 12px 32px -20px rgba(0,0,0,.55); }
 .prof-card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
 .prof-card.is-active { border-color:var(--accent); }
 .prof-card::before { content:'';position:absolute;inset:0;background:radial-gradient(300px 200px at 100% 0%,rgba(34,197,94,.04),transparent 65%);pointer-events:none; }
 .prof-icon {
-  width:64px;height:64px;margin-bottom:12px;
+  width:56px;height:56px;margin-bottom:14px;
   display:flex;align-items:center;justify-content:center;
+  color: var(--accent);
+  transition: transform .25s ease, background .25s ease, color .25s ease;
   font-size:36px;line-height:1;
   background:var(--accent-soft-2);border-radius:14px;
   border:1px solid var(--border-2);
   overflow:hidden;
 }
-.prof-icon svg { width:100% !important;height:100% !important;display:block; }
-.prof-card:hover .prof-icon { background:var(--accent-soft);border-color:color-mix(in oklab,var(--accent) 25%,var(--border-2)); }
+.prof-icon svg { width: 28px; height: 28px; display: block; }
+.prof-card:hover .prof-icon {
+  background: var(--accent-soft);
+  border-color: color-mix(in oklab, var(--accent) 30%, var(--border-2));
+  transform: scale(1.06);
+}
 .prof-label { font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px; }
 .prof-desc { font-size:12.5px;color:var(--text-2);margin-bottom:14px;line-height:1.5; }
 .prof-apps-row { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px; }
@@ -993,8 +958,6 @@ footer .footer-meta strong { color:var(--text-2);font-weight:600; }
 footer .footer-disclaimer { font-size:11px;color:var(--text-3);opacity:0.85;margin-top:8px;line-height:1.55; }
 footer .dot-sep { margin:0 8px;opacity:.5; }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" defer></script>
-<script src="lottie-data.js" defer></script>
 </head>
 <body>
 
@@ -1002,7 +965,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <header class="header">
   <div class="header-inner">
     <a href="#" class="brand" aria-label="toolbanquyen.vn">
-      <img src="logo.svg" alt="toolbanquyen" id="logo" width="32" height="32"/>
+      <img src="logo.svg" alt="" id="logo"/>
       <div class="wordmark">
         <span class="name">toolbanquyen</span>
         <span class="dot"></span>
@@ -1013,7 +976,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <a href="#apps" class="is-active" data-section="apps">Tất cả app</a>
       <a href="#recs" data-section="recs">Đề xuất</a>
       <a href="#professions" data-section="professions">Bộ tool theo nghề</a>
-      <a href="#skills" data-section="skills">Gợi ý tool</a>
     </nav>
     <div class="right">
       <div class="rate" title="Tỉ giá tham chiếu">
@@ -1122,7 +1084,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
   <div class="container">
     <div class="sec-head head-center">
       <div class="kicker">Bước 2 — Chọn app để tính</div>
-      <h1>Tick app bạn <em class="em">đang dùng</em><br/>hoặc muốn dùng.</h1>
+      <h1>Tick app bạn <em class="em">đang dùng</em> hoặc muốn dùng.</h1>
       <p class="lede">Chọn app → hệ thống tự cộng chi phí và tính % lương. Click vào app để xem đầy đủ các gói giá.</p>
     </div>
     <div class="tabs-wrap">
@@ -1143,6 +1105,15 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <!-- ─── ĐỀ XUẤT TỐI ƯU ─────────────────────────────────────────────────── -->
 <section class="sec" id="recs">
   <div class="container">
+    <div class="salary salary-v2 salary-in-recs">
+      <div class="salary-head">
+        <div class="micro">Tự cập nhật</div>
+        <h3>% lương cho <span class="em">công cụ</span></h3>
+        <p class="salary-sub">Lương lấy từ ô ở đầu trang. Tick app để xem chi phí và tỉ lệ % được trừ mỗi tháng.</p>
+      </div>
+      <div id="salary-result"></div>
+    </div>
+
     <div class="rec-panel" id="rec-panel">
       <div class="rec-head">
         <div class="rec-head-left">
@@ -1171,60 +1142,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
   </div>
 </section>
 
-<!-- ─── GỢI Ý THEO KỸ NĂNG ───────────────────────────────────────────── -->
-<section class="sec" id="skills">
-  <div class="container">
-    <div class="sec-head head-left">
-      <div class="left-block">
-        <div class="eyebrow">Gợi ý theo kỹ năng</div>
-        <h2>Bạn làm gì? Chọn kỹ năng để<br/>nhận <em class="em">gợi ý tool</em>.</h2>
-        <p class="lede">Tick vào kỹ năng — hệ thống tự gợi ý bộ tool phù hợp và tính tổng chi phí.</p>
-      </div>
-      <div class="meta">08 skills · 25 tools</div>
-    </div>
-
-    <div class="intent-box">
-      <div class="intent-label-row">
-        <div class="intent-label">Mô tả nhu cầu của bạn <span class="em">bằng lời tự do</span> — AI gợi ý tool phù hợp</div>
-        <span class="intent-badge">Mới</span>
-      </div>
-      <textarea class="intent-input" id="intent-input" rows="2"
-        placeholder="VD: Tôi là freelancer thiết kế logo, làm banner social media, đôi khi cần edit video TikTok ngắn…"></textarea>
-      <div class="intent-hint">
-        <span class="intent-hint-label">Thử ngay:</span>
-        <span class="intent-hint-tag" data-intent="Freelancer thiết kế logo và branding">freelancer logo</span>
-        <span class="intent-hint-tag" data-intent="Content creator làm video TikTok và YouTube ngắn">creator video</span>
-        <span class="intent-hint-tag" data-intent="Developer code frontend với AI assistant">dev frontend AI</span>
-        <span class="intent-hint-tag" data-intent="Marketer SEO, lên lịch đăng bài social media">marketer SEO</span>
-        <span class="intent-hint-tag" data-intent="UI UX designer làm app và web prototype">UI UX designer</span>
-        <span class="intent-hint-tag" data-intent="Sinh viên cần AI để học và viết content">sinh viên AI</span>
-      </div>
-      <div class="intent-preview" id="intent-preview">
-        <div class="intent-preview-head">
-          <div class="intent-preview-title" id="intent-preview-title">Gợi ý <strong>0</strong> app phù hợp:</div>
-          <button class="intent-preview-add" id="intent-preview-add" type="button">+ Thêm tất cả vào tính</button>
-        </div>
-        <div class="intent-preview-chips" id="intent-preview-chips"></div>
-      </div>
-    </div>
-
-    <div class="chips-grid" id="chips-grid"></div>
-    <div class="salary">
-      <div class="salary-head">
-        <div class="micro">Tính lương thực nhận</div>
-        <h3>Bỏ bao nhiêu % lương<br/>cho <span class="em">công cụ?</span></h3>
-        <p class="salary-sub">Nhập lương — hệ thống tự tính sau khi trừ chi phí tool đã chọn.</p>
-      </div>
-      <div class="salary-form">
-        <div class="field">
-          <input type="text" id="salary-input" placeholder="Nhập lương của bạn…" value="25.000.000"/>
-          <select id="salary-cur"><option value="VND">VND</option><option value="USD">USD</option></select>
-        </div>
-        <div id="salary-result"></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 </main>
 
@@ -1308,7 +1225,7 @@ var APPS = [
      {id:'organization',label:'Organization',price:45,perUser:true,features:['Shared component libraries','Org-wide design system','SSO + guest access','Team analytics','Branching cho design']},
      {id:'enterprise',label:'Enterprise',price:75,perUser:true,features:['Advanced security audit','Dedicated success manager','Custom MSA','SCIM provisioning','Workspaces multiple']}
    ]},
-  {id:'adobe-cc',name:'Adobe Creative Cloud',cat:'Design',color:'#CC0000',initials:'Ac',popular:false,
+  {id:'adobe-cc',name:'Adobe Creative Cloud',cat:'Design',color:'#CC0000',initials:'Ac',popular:true,
    logo:'icons/adobe-creative-cloud-cc.svg',url:'https://www.adobe.com/creativecloud/plans.html',
    includes:['photoshop','illustrator','indesign','after effects','premiere pro','lightroom','xd','audition','animate','dreamweaver','acrobat','character animator'],
    desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
@@ -1322,7 +1239,7 @@ var APPS = [
      {id:'teams-all',label:'Teams All Apps',price:89.99,perUser:true,features:['Mọi app cho team','Admin console + billing','24/7 tech support','Stock & Fonts đầy đủ','Easy license reassign']},
      {id:'enterprise',label:'Enterprise',price:null,features:['Admin console tập trung','VIP licensing','SSO + advanced compliance','Custom MSA','Global support 24/7']}
    ]},
-  {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
+  {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:false,
    logo:'icons/canva.svg',url:'https://www.canva.com/pricing/',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
    tiers:{
@@ -1338,7 +1255,7 @@ var APPS = [
      team:{label:'Business',price:20,features:['Permissions cấp Workspace','SSO Google/Microsoft','Shared libraries','Workspace analytics']},
      enterprise:{label:'Enterprise',price:30,features:['SAML SSO + SCIM','Audit logs đầy đủ','Custom integration','Dedicated CSM']}
    }},
-  {id:'miro',name:'Miro',cat:'Design',color:'#C4921A',initials:'M',popular:true,
+  {id:'miro',name:'Miro',cat:'Design',color:'#C4921A',initials:'M',popular:false,
    logo:'icons/miro-icon.svg',url:'https://miro.com/pricing/',
    desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
    tiers:{
@@ -1404,7 +1321,7 @@ var APPS = [
      {id:'business',label:'Business',price:40,perUser:true,features:['Mọi tính năng Pro','Privacy mode toàn org','SSO Google/Microsoft','Admin dashboard','Centralized billing']},
      {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Custom data retention','99.9% SLA','Dedicated support','Audit log đầy đủ']}
    ]},
-  {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#181717',initials:'GH',popular:true,
+  {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#181717',initials:'GH',popular:false,
    logo:'icons/copilot-color.svg',url:'https://github.com/features/copilot/plans',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
    tiers:{
@@ -1428,7 +1345,7 @@ var APPS = [
      team:{label:'Teams',price:15,features:['Shared command, snippet, quicklink','Custom extension store nội bộ','SSO Google Workspace','Centralized billing']},
      enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log đầy đủ','Custom data residency','Dedicated success manager']}
    }},
-  {id:'notion',name:'Notion',cat:'Productivity',color:'#333',initials:'N',popular:true,
+  {id:'notion',name:'Notion',cat:'Productivity',color:'#333',initials:'N',popular:false,
    logo:'icons/notion.svg',url:'https://notion.so/pricing',
    desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
    tiers:[
@@ -1478,7 +1395,7 @@ var APPS = [
      team:{label:'Guru',price:250,features:['15 dự án + 1500 keyword','Content Marketing Platform','Historical data từ 2012','Google Data Studio integration']},
      enterprise:{label:'Business',price:500,features:['40 dự án + 5000 keyword','API access đầy đủ','PLA (Product Listing Ads)','Extended limit toàn tool']}
    }},
-  {id:'capcut',name:'CapCut Pro',cat:'Video',color:'#222',initials:'CC',popular:true,
+  {id:'capcut',name:'CapCut Pro',cat:'Video',color:'#222',initials:'CC',popular:false,
    logo:'icons/capcut-3.svg',url:'https://www.capcut.com/pricing',
    desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
    tiers:{
@@ -1518,7 +1435,7 @@ var APPS = [
      team:{label:'Studio (lifetime)',price:null,features:['Mua đứt ~$295 (≈1 lần)','8K timeline + HDR','Neural Engine AI tools','Plugin & noise reduction']},
      enterprise:{label:'Dongle',price:null,features:['USB dongle để chuyển máy','Phù hợp studio nhiều máy','Bao gồm full Studio license','Mua 1 lần, dùng vĩnh viễn']}
    }},
-  {id:'gemini',name:'Google Gemini',cat:'AI',color:'#4285F4',initials:'Ge',popular:true,
+  {id:'gemini',name:'Google Gemini',cat:'AI',color:'#4285F4',initials:'Ge',popular:false,
    logo:'icons/google-gemini.svg',url:'https://gemini.google.com/advanced',
    desc:'AI assistant của Google — tích hợp sâu Google Workspace, search, multimodal.',
    tiers:{
@@ -1526,7 +1443,7 @@ var APPS = [
      team:{label:'Workspace AI',price:30,features:['Gemini trong Gmail, Docs, Sheets','Help me write/organize','NotebookLM Plus','Quản trị tập trung admin']},
      enterprise:{label:'Enterprise',price:null,features:['Data residency tùy chọn','SAML SSO + audit log','Custom data retention','Dedicated CSM + SLA']}
    }},
-  {id:'deepseek',name:'DeepSeek',cat:'AI',color:'#4D6BFE',initials:'DS',popular:true,
+  {id:'deepseek',name:'DeepSeek',cat:'AI',color:'#4D6BFE',initials:'DS',popular:false,
    logo:'icons/deepseek-color.svg',url:'https://www.deepseek.com/',
    desc:'AI model mã nguồn mở từ Trung Quốc — suy luận sâu, coding, toán học.',
    tiers:{
@@ -1553,148 +1470,21 @@ var APPS = [
 ];
 
 var PROFESSIONS = [
-  {id:'uxdesigner',label:'UI/UX Designer',icon:'🎨',lottieKey:'uxdesigner',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer']},
-  {id:'developer',label:'Developer',icon:'💻',lottieKey:'developer',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion']},
-  {id:'creator',label:'Content Creator',icon:'🎬',lottieKey:'creator',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion']},
-  {id:'marketer',label:'Marketer / SEO',icon:'📣',lottieKey:'marketer',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs']},
-  {id:'freelancer',label:'Freelance Designer',icon:'✏️',lottieKey:'freelancer',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude']},
-  {id:'founder',label:'Founder / Team Lead',icon:'🚀',lottieKey:'founder',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel']}
+  {id:'uxdesigner',label:'UI/UX Designer',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer'],
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><circle cx="8" cy="8" r="1.6"/><path d="M3 14l4-4 5 5"/><path d="M14 11l2-2 5 5v6h-6"/></svg>'},
+  {id:'developer',label:'Developer',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion'],
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><path d="M14 4l-4 16" opacity="0.65"/></svg>'},
+  {id:'creator',label:'Content Creator',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion'],
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/><path d="M5 9l3 3-3 3" opacity="0.7"/></svg>'},
+  {id:'marketer',label:'Marketer / SEO',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs'],
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-9"/><path d="M14 6h6v6" /><path d="M3 21h18" opacity="0.5"/></svg>'},
+  {id:'freelancer',label:'Freelance Designer',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude'],
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l7 7L9 22H2v-7L14 3z"/><path d="M13 4l7 7"/><path d="M2 22l5-5" opacity="0.6"/></svg>'},
+  {id:'founder',label:'Founder / Team Lead',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel'],
+   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><circle cx="16" cy="8" r="1.5"/></svg>'}
 ];
 
-var SKILLS = [
-  {id:'design',label:'Thiết kế đồ họa',apps:['figma','adobe-cc','canva','sketch','midjourney']},
-  {id:'video',label:'Edit video',apps:['capcut','premiere','descript','runway']},
-  {id:'code',label:'Lập trình / Code',apps:['cursor','github-copilot','vercel','linear']},
-  {id:'marketing',label:'Marketing & SEO',apps:['buffer','ahrefs','semrush','canva']},
-  {id:'writing',label:'Viết content',apps:['claude','chatgpt','notion','perplexity']},
-  {id:'management',label:'Quản lý team',apps:['notion','linear','clickup','miro']},
-  {id:'ai',label:'AI & Automation',apps:['chatgpt','claude','midjourney','cursor','perplexity']},
-  {id:'nocode',label:'Web / No-code',apps:['framer','notion','vercel','canva']}
-];
 
-/* ── INTENT MAP (free-text keyword → apps) ─────────────────────────────── */
-var INTENT_MAP = [
-  // Design / Branding
-  {kw:['logo','branding','identity','nhận diện thương hiệu','brand'],apps:['figma','adobe-cc','midjourney','canva']},
-  {kw:['ui','ux','app design','web design','interface','giao diện','product design'],apps:['figma','sketch','framer']},
-  {kw:['thiết kế đồ họa','graphic design','đồ họa','graphic designer','designer','thiết kế','design'],apps:['figma','adobe-cc','canva','midjourney','sketch']},
-  {kw:['wireframe','prototype','prototyping','mockup','mock-up','mock up'],apps:['figma','sketch','miro']},
-  {kw:['print','in ấn','poster','brochure','flyer','tạp chí','magazine'],apps:['adobe-cc']},
-  {kw:['photo','ảnh','sửa ảnh','retouch','chỉnh ảnh','photoshop','ps'],apps:['adobe-cc']},
-  {kw:['illustrator','ai vector','vector'],apps:['adobe-cc','figma']},
-  {kw:['thumbnail','banner','social post','post mạng xã hội'],apps:['canva','adobe-cc']},
-  {kw:['template','design template'],apps:['canva','figma']},
-  // Video
-  {kw:['video','edit video','dựng phim','dựng video','montage'],apps:['premiere','capcut','davinci','descript']},
-  {kw:['tiktok','reel','reels','short','shorts','video ngắn','mobile video'],apps:['capcut']},
-  {kw:['youtube','vlog'],apps:['premiere','capcut','descript']},
-  {kw:['color grading','màu phim','grading','hậu kỳ màu'],apps:['davinci','premiere']},
-  {kw:['podcast','transcript','audio','voice'],apps:['descript']},
-  {kw:['vfx','motion graphics','after effects','animation video'],apps:['adobe-cc','runway']},
-  // AI image / video gen
-  {kw:['ai art','ảnh ai','generate image','concept art','minh hoạ ai','illustration ai'],apps:['midjourney','runway']},
-  {kw:['ai video','video ai','tạo video ai','generative video','sora'],apps:['runway','kling']},
-  {kw:['concept design','concept'],apps:['midjourney','figma','adobe-cc']},
-  // Code / Dev
-  {kw:['code','lập trình','dev','developer','frontend','backend','programming','full-stack','fullstack'],apps:['cursor','github-copilot','vercel']},
-  {kw:['ai coding','pair programming','code completion','autocomplete code','ai code'],apps:['cursor','github-copilot','claude']},
-  {kw:['deploy','host website','frontend host','hosting','vercel'],apps:['vercel']},
-  {kw:['no-code','no code','website builder','landing page','trang web no code'],apps:['framer','canva']},
-  // Writing / AI assistant
-  {kw:['viết','write','content writing','blog','copywriting','viết content','viết bài'],apps:['chatgpt','claude','notion']},
-  {kw:['chatbot','ai assistant','trợ lý ai','assistant'],apps:['chatgpt','claude','gemini']},
-  {kw:['phân tích','analysis','analyze','phân tích dữ liệu','data analysis'],apps:['claude','chatgpt']},
-  {kw:['research','tìm kiếm','nghiên cứu','tra cứu','search engine'],apps:['perplexity','chatgpt','claude']},
-  {kw:['file dài','long document','tài liệu dài','phân tích pdf','đọc pdf'],apps:['claude']},
-  // Productivity
-  {kw:['note','ghi chú','wiki','workspace','knowledge base','tài liệu nội bộ'],apps:['notion']},
-  {kw:['task','todo','project management','quản lý dự án','sprint','agile','dự án'],apps:['linear','clickup','notion']},
-  {kw:['team management','lãnh đạo','founder','team lead','quản lý team','manage team','team lead'],apps:['notion','linear','clickup','miro']},
-  {kw:['brainstorm','workshop','whiteboard','mindmap','sơ đồ','flowchart','diagram'],apps:['miro']},
-  {kw:['mac','macos','launcher','productivity mac','shortcut mac'],apps:['raycast']},
-  // Marketing
-  {kw:['seo','keyword','từ khoá','backlink','rank','google rank'],apps:['ahrefs','semrush']},
-  {kw:['ppc','quảng cáo','google ads','meta ads','ads','chạy ads'],apps:['semrush']},
-  {kw:['social schedule','lịch đăng','schedule post','social media schedule','đăng bài tự động','lịch nội dung'],apps:['buffer']},
-  {kw:['social media','instagram','facebook','linkedin','x','twitter post'],apps:['canva','buffer','capcut']},
-  {kw:['marketer','marketing','digital marketing'],apps:['canva','buffer','chatgpt','ahrefs','semrush']},
-  // Personas
-  {kw:['freelancer','freelance','freelance designer','freelance dev'],apps:['figma','adobe-cc','canva','midjourney','claude','notion']},
-  {kw:['creator','content creator','youtuber','vlogger','tiktoker'],apps:['capcut','canva','claude','buffer']},
-  {kw:['ui designer','ux designer','product designer'],apps:['figma','miro','notion','framer']},
-  {kw:['student','sinh viên','học sinh','học tập','học bài'],apps:['chatgpt','claude','notion']},
-  // Specific AI
-  {kw:['gemini','google ai','workspace ai','gmail ai'],apps:['gemini']},
-  {kw:['xai','grok','twitter ai','real-time x'],apps:['grok']},
-  {kw:['open source ai','mã nguồn mở','deepseek','self host ai'],apps:['deepseek']}
-];
-
-function matchIntent(text){
-  var t=(text||'').toLowerCase().trim();
-  if(!t || t.length<3) return [];
-  var scores={};
-  INTENT_MAP.forEach(function(entry){
-    var hit=entry.kw.some(function(k){return t.indexOf(k.toLowerCase())!==-1;});
-    if(hit) entry.apps.forEach(function(a){scores[a]=(scores[a]||0)+1;});
-  });
-  return Object.keys(scores).sort(function(a,b){return scores[b]-scores[a];});
-}
-
-function renderIntentPreview(){
-  var ta=document.getElementById('intent-input');
-  var box=document.getElementById('intent-preview');
-  if(!ta||!box) return;
-  var ids=matchIntent(ta.value);
-  if(ids.length===0){box.classList.remove('is-on');return;}
-  box.classList.add('is-on');
-  document.getElementById('intent-preview-title').innerHTML='Gợi ý <strong>'+ids.length+'</strong> app phù hợp:';
-  var btn=document.getElementById('intent-preview-add');
-  btn.dataset.apps=ids.join(',');
-  var allInCart=ids.every(function(id){return S.cart.indexOf(id)!==-1;});
-  btn.textContent=allInCart?'✓ Đã thêm tất cả':'+ Thêm tất cả vào tính';
-  btn.disabled=allInCart;
-  document.getElementById('intent-preview-chips').innerHTML=ids.map(function(id){
-    var app=APPS.find(function(a){return a.id===id;});
-    if(!app) return '';
-    var inCart=S.cart.indexOf(id)!==-1;
-    var iconBg=app.logo&&app.logo.indexOf('icons/')===0?'#fff':(app.color||'#222');
-    var ico=app.logo
-      ?'<span class="ico" style="background:'+iconBg+'"><img src="'+app.logo+'" alt=""></span>'
-      :'<span class="ico" style="background:'+app.color+'"></span>';
-    return '<button class="intent-preview-chip'+(inCart?' in-cart':'')+'" data-id="'+id+'" type="button">'+ico+app.name+'</button>';
-  }).join('');
-  document.querySelectorAll('#intent-preview-chips .intent-preview-chip').forEach(function(c){
-    c.addEventListener('click',function(){
-      var id=this.dataset.id;
-      var idx=S.cart.indexOf(id);
-      if(idx===-1) S.cart.push(id); else {S.cart.splice(idx,1);delete S.cartTiers[id];}
-      renderAll();
-    });
-  });
-}
-
-var intentDebounceTimer=null;
-function bindIntent(){
-  var ta=document.getElementById('intent-input');
-  if(!ta) return;
-  ta.addEventListener('input',function(){
-    clearTimeout(intentDebounceTimer);
-    intentDebounceTimer=setTimeout(renderIntentPreview,300);
-  });
-  document.querySelectorAll('.intent-hint-tag').forEach(function(tag){
-    tag.addEventListener('click',function(){
-      ta.value=tag.dataset.intent;
-      renderIntentPreview();
-      ta.focus();
-    });
-  });
-  document.getElementById('intent-preview-add').addEventListener('click',function(){
-    if(this.disabled) return;
-    var ids=this.dataset.apps?this.dataset.apps.split(','):[];
-    ids.forEach(function(id){if(S.cart.indexOf(id)===-1)S.cart.push(id);});
-    renderAll();
-  });
-}
 
 /* ── RECOMMENDATION ENGINE ────────────────────────────────────────────── */
 // Overlap groups — apps phục vụ cùng mục đích, user thường chỉ cần 1
@@ -1772,11 +1562,10 @@ function getRecommendations(){
   // 3. SALARY OVER-BUDGET: cart > 10% salary → flag
   // IMPORTANT: Việt Nam dùng '.' làm thousand separator (25.000.000),
   // không phải decimal. Strip mọi non-digit (cùng logic với renderSalary).
-  var salaryEl=document.getElementById('salary-input');
-  if(salaryEl && salaryEl.value){
-    var rawSalary=parseFloat(salaryEl.value.replace(/[^0-9]/g,''))||0;
-    var salaryCur=document.getElementById('salary-cur');
-    var curSalary=salaryCur?salaryCur.value:'VND';
+  var _salInfo=getSalary();
+  if(_salInfo.value>0){
+    var rawSalary=_salInfo.value;
+    var curSalary=_salInfo.currency;
     if(rawSalary>0){
       var totalUSD=cartTotal();
       // toolCost ở cùng đơn vị với salary để so sánh
@@ -1884,7 +1673,6 @@ var S = {
   rate:26199,
   filter:'all',
   search:'',
-  selectedSkills:[],
   modalApp:null,
   modalTier:0       // currently-selected tier idx in open modal
 };
@@ -2018,14 +1806,13 @@ function renderApps(){
       tierBadge +
       '</div>' +
       '<div class="card-actions">' +
-      '<button class="btn-add" data-id="'+app.id+'">'+(inCart?'✓ Đang tính':'+ Chọn để tính')+'</button>' +
-      '<button class="btn-detail" data-id="'+app.id+'">Xem gói giá</button>' +
+      '<button class="btn-card-cta'+(inCart?' is-in-cart':'')+'" data-id="'+app.id+'">'+
+        (inCart?'<span class="check">✓</span> Đang tính · Xem chi tiết':'Xem gói & chọn <span class="arr">→</span>')+
+      '</button>' +
       '</div></article>';
   }).join('');
-  document.querySelectorAll('#apps-grid .btn-add').forEach(function(b){
-    b.addEventListener('click',function(e){e.stopPropagation();toggleCart(b.dataset.id);});
-  });
-  document.querySelectorAll('#apps-grid .btn-detail').forEach(function(b){
+  // 1 action: cả card body và button đều mở modal
+  document.querySelectorAll('#apps-grid .btn-card-cta').forEach(function(b){
     b.addEventListener('click',function(e){e.stopPropagation();openModal(b.dataset.id);});
   });
   document.querySelectorAll('#apps-grid .card').forEach(function(c){
@@ -2041,9 +1828,7 @@ function renderProfessions(){
   if(!grid.dataset.built){
     grid.innerHTML=PROFESSIONS.map(function(prof){
       var names=prof.apps.map(function(id){var a=getApp(id);return a?'<span>'+a.name+'</span>':'';});
-      var iconHtml=prof.lottieKey
-        ?'<div class="prof-icon" data-lottie-key="'+prof.lottieKey+'" data-fallback="'+prof.icon+'">'+prof.icon+'</div>'
-        :'<div class="prof-icon">'+prof.icon+'</div>';
+      var iconHtml='<div class="prof-icon">'+(prof.svg||'')+'</div>';
       return '<div class="prof-card" data-prof="'+prof.id+'">' +
         iconHtml +
         '<div class="prof-label">'+prof.label+'</div>' +
@@ -2060,7 +1845,6 @@ function renderProfessions(){
     document.querySelectorAll('.prof-card').forEach(function(c){
       c.addEventListener('click',function(){selectProf(c.dataset.prof);});
     });
-    loadProfLottie();
   }
   // Update totals only
   PROFESSIONS.forEach(function(prof){
@@ -2070,39 +1854,6 @@ function renderProfessions(){
   });
 }
 
-var _profAnimCache={};
-var _profLottieRetries=0;
-function loadProfLottie(){
-  // Cần cả lottie lib và LOTTIE_DATA đã load xong
-  if(typeof lottie==='undefined' || typeof window.LOTTIE_DATA==='undefined'){
-    if(_profLottieRetries++ < 50) setTimeout(loadProfLottie,200);
-    return;
-  }
-  document.querySelectorAll('.prof-icon[data-lottie-key]').forEach(function(el){
-    if(el.dataset.loaded==='1') return;
-    var key=el.dataset.lottieKey;
-    var data=window.LOTTIE_DATA[key];
-    if(!data){
-      el.innerHTML=el.dataset.fallback||'';
-      return;
-    }
-    el.dataset.loaded='1';
-    el.innerHTML='';
-    try {
-      var anim=lottie.loadAnimation({
-        container: el,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        animationData: data,
-        rendererSettings: { preserveAspectRatio: 'xMidYMid meet' }
-      });
-      _profAnimCache[key]=anim;
-    } catch(e){
-      el.innerHTML=el.dataset.fallback||'';
-    }
-  });
-}
 function selectProf(profId){
   var prof=PROFESSIONS.find(function(p){return p.id===profId;});
   if(!prof)return;
@@ -2112,49 +1863,25 @@ function selectProf(profId){
   document.getElementById('apps').scrollIntoView({behavior:'smooth'});
 }
 
-/* ── RENDER CHIPS ──────────────────────────────────────────────────────── */
-function renderChips(){
-  document.getElementById('chips-grid').innerHTML=SKILLS.map(function(sk){
-    var on=S.selectedSkills.indexOf(sk.id)!==-1;
-    return '<button class="chip'+(on?' is-on':'')+'" data-skill="'+sk.id+'">' +
-      '<span class="check"></span><span class="chip-label">'+sk.label+'</span></button>';
-  }).join('');
-  document.querySelectorAll('#chips-grid .chip').forEach(function(chip){
-    chip.addEventListener('click',function(){
-      var id=chip.dataset.skill;
-      var idx=S.selectedSkills.indexOf(id);
-      var sk=SKILLS.find(function(s){return s.id===id;});
-      if(idx===-1){
-        S.selectedSkills.push(id);
-        if(sk)sk.apps.forEach(function(aid){if(S.cart.indexOf(aid)===-1)S.cart.push(aid);});
-      } else {
-        S.selectedSkills.splice(idx,1);
-        // Remove apps that only belonged to this skill (not in any remaining selected skill)
-        if(sk){
-          var keepApps=new Set();
-          S.selectedSkills.forEach(function(sid){
-            var s=SKILLS.find(function(x){return x.id===sid;});
-            if(s)s.apps.forEach(function(a){keepApps.add(a);});
-          });
-          S.cart=S.cart.filter(function(aid){
-            var wasSkillApp=sk.apps.indexOf(aid)!==-1;
-            return !wasSkillApp||keepApps.has(aid);
-          });
-        }
-      }
-      renderAll();
-    });
-  });
+/* ── SALARY HELPER (single source of truth) ─────────────────────────────── */
+function getSalary(){
+  var ip=document.getElementById('salary-hero');
+  var cur=document.getElementById('salary-cur-hero');
+  if(!ip) return {value:0, currency:'VND', raw:''};
+  var raw=String(ip.value||'').replace(/[^0-9]/g,'');
+  var val=parseFloat(raw);
+  return { value: isNaN(val)?0:val, currency: cur?cur.value:'VND', raw: raw };
 }
 
 /* ── SALARY CALC ───────────────────────────────────────────────────────── */
 function renderSalary(){
   var el=document.getElementById('salary-result');
+  if(!el) return;
   if(S.cart.length===0){el.innerHTML='<div class="salary-empty">Chọn app ở trên để bắt đầu tính 👆</div>';return;}
-  var raw=document.getElementById('salary-input').value.replace(/[^0-9]/g,'');
-  var sal=parseFloat(raw);
-  if(!sal||isNaN(sal)){el.innerHTML='<div class="salary-empty">Nhập lương của bạn để bắt đầu</div>';return;}
-  var salCur=document.getElementById('salary-cur').value;
+  var info=getSalary();
+  var sal=info.value;
+  if(!sal){el.innerHTML='<div class="salary-empty">Nhập lương ở đầu trang để xem % bị ăn</div>';return;}
+  var salCur=info.currency;
   var totalUSD=cartTotal();
   var toolCostInSal=salCur==='VND'?Math.round(totalUSD*S.rate):totalUSD;
   var remaining=Math.max(0,sal-toolCostInSal);
@@ -2197,9 +1924,9 @@ function renderCartBar(){
   // Show % salary in cart bar if salary is set
   var pctEl=document.getElementById('cart-pct-badge');
   if(pctEl){
-    var raw=document.getElementById('salary-input').value.replace(/[^0-9]/g,'');
-    var sal=parseFloat(raw);
-    var salCur=document.getElementById('salary-cur').value;
+    var _csi=getSalary();
+    var sal=_csi.value;
+    var salCur=_csi.currency;
     var cost=salCur==='VND'?Math.round(total*S.rate):total;
     if(sal&&sal>0&&cost>0){
       var pct=((cost/sal)*100).toFixed(1);
@@ -2315,7 +2042,7 @@ function selectModalPlan(idx){
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
-function renderAll(){renderApps();renderProfessions();renderChips();renderCartBar();renderSalary();renderIntentPreview();renderRecommendations();}
+function renderAll(){renderApps();renderProfessions();renderCartBar();renderSalary();renderRecommendations();}
 
 /* ── EXCHANGE RATE ─────────────────────────────────────────────────────── */
 function fetchRate(){
@@ -2366,15 +2093,12 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')closeModal();
 });
 
-document.getElementById('btn-cart-clear').addEventListener('click',function(){S.cart=[];S.selectedSkills=[];renderAll();});
+document.getElementById('btn-cart-clear').addEventListener('click',function(){S.cart=[];S.cartTiers={};renderAll();});
 document.getElementById('btn-cart-detail').addEventListener('click',function(){
   if(S.cart.length>0)openModal(S.cart[0]);
 });
 document.getElementById('modal-close').addEventListener('click',closeModal);
 document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
-
-document.getElementById('salary-input').addEventListener('input',renderSalary);
-document.getElementById('salary-cur').addEventListener('change',renderSalary);
 
 /* Tweaks */
 var tw=document.getElementById('tweaks');
@@ -2401,37 +2125,18 @@ window.addEventListener('message',function(e){
 });
 window.parent.postMessage({type:'__edit_mode_available'},'*');
 
-/* ── HERO SALARY SYNC ───────────────────────────────────────────────────── */
+/* ── HERO SALARY — single source ───────────────────────────────────────── */
 (function(){
   var heroIn=document.getElementById('salary-hero');
   var heroCur=document.getElementById('salary-cur-hero');
-  var mainIn=document.getElementById('salary-input');
-  var mainCur=document.getElementById('salary-cur');
-  if(!heroIn||!mainIn)return;
-  // Sync hero → main
-  heroIn.addEventListener('input',function(){
-    mainIn.value=this.value;renderSalary();
-  });
-  heroCur.addEventListener('change',function(){
-    // Sync salary currency với main + đồng bộ display currency S.currency
-    mainCur.value=this.value;
-    S.currency=this.value==='USD'?'USD':'VND'; // (trước đây 'USD':'USD' — typo)
-    // Sync header USD/VND seg-toggle
-    var seg=document.getElementById('cur-toggle');
-    if(seg){
-      seg.querySelectorAll('button').forEach(function(b){
-        b.classList.toggle('is-on', b.dataset.cur===S.currency);
-      });
-    }
-    renderAll();
-  });
-  // Sync main → hero (on load)
-  heroIn.value=mainIn.value;
-  heroCur.value=mainCur.value;
-  // Format on blur
-  heroIn.addEventListener('blur',function(){
-    var raw=this.value.replace(/[^0-9]/g,'');
-    if(raw&&mainCur.value==='VND')this.value=parseFloat(raw).toLocaleString('vi-VN');
+  if(!heroIn) return;
+  function update(){ renderSalary(); renderCartBar(); renderRecommendations(); }
+  heroIn.addEventListener('input', update);
+  if (heroCur) heroCur.addEventListener('change', update);
+  // Format on blur (VND grouping)
+  heroIn.addEventListener('blur', function(){
+    var raw=String(this.value||'').replace(/[^0-9]/g,'');
+    if(raw && heroCur && heroCur.value==='VND') this.value=parseFloat(raw).toLocaleString('vi-VN');
   });
 })();
 
@@ -2446,7 +2151,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
     });
   });
   // Scroll spy: update active based on which section is in view
-  var sections=['apps','professions','skills'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var sections=['apps','recs','professions'].map(function(id){return document.getElementById(id);}).filter(Boolean);
   var observer=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if(entry.isIntersecting){
@@ -2462,21 +2167,29 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
 
 /* ── HERO TABLE + LOGO GRID ──────────────────────────────────────────── */
 (function(){
-  // FEATURED — pull data từ APPS array (data accuracy, không drift)
-  // displayName/logoOverride để show "Adobe Photoshop" marketing-friendly,
-  // nhưng vẫn link tới app 'adobe-cc' đúng trong APPS catalog.
-  var FEATURED_IDS = [
-    {appId:'adobe-cc', tierId:'single-app',   delta:'+0.2%', displayName:'Adobe Photoshop', logoOverride:'icons/adobe-photoshop-2.svg'},
-    {appId:'chatgpt',  tierId:'plus',         delta:'+0.1%'},
-    {appId:'figma',    tierId:'professional', delta:'—'},
-    {appId:'cursor',   tierId:'pro',          delta:'+0.1%'},
-    {appId:'claude',   tierId:'pro',          delta:'—'}
+  // Featured apps for the hero live price table (5 popular picks)
+  var FEATURED = [
+    {id:'photoshop', logo:'icons/adobe-photoshop-2.svg', name:'Adobe Photoshop',  usd:22.99, delta:'+0.2%'},
+    {id:'chatgpt',   logo:'icons/chatgpt-6.svg',         name:'ChatGPT Plus',     usd:20.00, delta:'+0.1%'},
+    {id:'figma',     logo:'icons/figma-color.svg',       name:'Figma Pro',        usd:15.00, delta:'—'},
+    {id:'cursor',    logo:'icons/cursor.svg',            name:'Cursor Pro',       usd:20.00, delta:'+0.1%'},
+    {id:'claude',    logo:'icons/claude-logo.svg',       name:'Claude Pro',       usd:20.00, delta:'—'}
   ];
 
-  // Logo grid — 12 app id từ APPS catalog. Click → openModal app cụ thể.
-  var LOGO_GRID_IDS = [
-    'figma','adobe-cc','chatgpt','claude','cursor','notion',
-    'canva','linear','framer','vercel','capcut','midjourney'
+  // Logo grid — 12 popular apps
+  var LOGO_GRID = [
+    'icons/figma-color.svg',
+    'icons/adobe-photoshop-2.svg',
+    'icons/chatgpt-6.svg',
+    'icons/claude-logo.svg',
+    'icons/cursor.svg',
+    'icons/notion.svg',
+    'icons/canva.svg',
+    'icons/linear.svg',
+    'icons/framer-2.svg',
+    'icons/vercel.svg',
+    'icons/capcut-3.svg',
+    'icons/Midjourney--Streamline-Svg-Logos.svg'
   ];
 
   // Pull current rate from #rate-display in header (synced by fetchRate)
@@ -2490,77 +2203,35 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   function fmtVND(n){ return n.toLocaleString('vi-VN') + ' ₫'; }
   function fmtUSD(n){ return '$' + (n % 1 === 0 ? n.toFixed(0) : n.toFixed(2)); }
 
-  // Helper: find app + tier trong APPS (đã normalize sang array)
-  function lookupAppTier(appId, tierId){
-    if (typeof APPS === 'undefined') return null;
-    var app = APPS.find(function(a){return a.id===appId;});
-    if (!app || !app.tiers) return null;
-    var tiers = Array.isArray(app.tiers) ? app.tiers : Object.keys(app.tiers).map(function(k){var t=app.tiers[k]||{};t.id=t.id||k;return t;});
-    var tier = tiers.find(function(t){return t.id===tierId;}) || tiers.find(function(t){return t && t.popular;}) || tiers[0];
-    return {app:app, tier:tier};
-  }
-
-  // Render live table — pull APPS data, dùng priceVND nếu có (regional pricing)
+  // Render the live table
   function renderHeroTable(){
     var body = document.getElementById('hero-table-body');
     if (!body) return;
     var rate = currentRate();
-    body.innerHTML = FEATURED_IDS.map(function(f){
-      var found = lookupAppTier(f.appId, f.tierId);
-      if (!found || !found.tier) return '';
-      var app = found.app, tier = found.tier;
-      var name = f.displayName || app.name;
-      var logo = f.logoOverride || app.logo || '';
-      var usd = (typeof tier.price === 'number') ? tier.price : null;
-      // PREFER priceVND (giá VN thực) thay vì USD × rate
-      var vnd = tier.priceVND ? tier.priceVND : (usd != null ? Math.round(usd * rate) : null);
-      var usdLabel = usd != null ? fmtUSD(usd) : '—';
-      var vndLabel = vnd != null ? fmtVND(vnd) : 'Liên hệ';
-      var deltaCls = (f.delta === '—' || f.delta === '-') ? 'delta flat' : 'delta';
+    body.innerHTML = FEATURED.map(function(a){
+      var vnd = Math.round(a.usd * rate);
+      var deltaCls = (a.delta === '—' || a.delta === '-') ? 'delta flat' : 'delta';
       return ''
-        + '<div class="tr" data-id="' + app.id + '" data-tier="' + (f.tierId || '') + '" role="button" tabindex="0">'
-        +   '<div class="ico"><img src="' + logo + '" alt=""/></div>'
-        +   '<div class="nm">' + name + '</div>'
-        +   '<div class="usd">' + usdLabel + '</div>'
-        +   '<div class="vnd">' + vndLabel + '</div>'
-        +   '<div class="' + deltaCls + '">' + f.delta + '</div>'
+        + '<div class="tr" data-id="' + a.id + '">'
+        +   '<div class="ico"><img src="' + a.logo + '" alt=""/></div>'
+        +   '<div class="nm">' + a.name + '</div>'
+        +   '<div class="usd">' + fmtUSD(a.usd) + '</div>'
+        +   '<div class="vnd">' + fmtVND(vnd) + '</div>'
+        +   '<div class="' + deltaCls + '">' + a.delta + '</div>'
         + '</div>';
     }).join('');
     // Update footer rate display
     var rt = document.getElementById('rate-display-table');
     if (rt) rt.textContent = rate.toLocaleString('vi-VN') + ' ₫';
-
-    // Click row → openModal(appId)
-    body.querySelectorAll('.tr').forEach(function(row){
-      row.addEventListener('click', function(){
-        if (typeof openModal === 'function') openModal(row.dataset.id);
-      });
-      row.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          if (typeof openModal === 'function') openModal(row.dataset.id);
-        }
-      });
-    });
   }
 
-  // Render logo grid — pull APPS data, click → openModal app cụ thể
+  // Render the logo grid
   function renderHeroLogos(){
     var grid = document.getElementById('hero-logo-grid');
     if (!grid) return;
-    var apps = typeof APPS !== 'undefined' ? APPS : [];
-    grid.innerHTML = LOGO_GRID_IDS.map(function(id, i){
-      var app = apps.find(function(a){return a.id===id;});
-      if (!app || !app.logo) return '';
-      return '<button type="button" class="logo-cell" data-id="' + id + '" style="--i:' + i + '" title="' + app.name + ' — Click để xem giá"><img src="' + app.logo + '" alt="' + app.name + '" loading="lazy"/></button>';
+    grid.innerHTML = LOGO_GRID.map(function(p, i){
+      return '<a class="logo-cell" href="#apps" style="--i:' + i + '" title="Xem chi tiết"><img src="' + p + '" alt="" loading="lazy"/></a>';
     }).join('');
-
-    // Click logo → openModal
-    grid.querySelectorAll('.logo-cell').forEach(function(cell){
-      cell.addEventListener('click', function(){
-        if (typeof openModal === 'function') openModal(cell.dataset.id);
-      });
-    });
   }
 
   // Currency toggle (USD/VND primary)
@@ -2598,7 +2269,6 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
 
 /* ── INIT ── */
 normalizeTiers();
-bindIntent();
 fetchRate();
 renderAll();
 </script>
