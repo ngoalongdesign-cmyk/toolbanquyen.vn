@@ -463,9 +463,36 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 .sug-alt-chip .sac-sep { color:var(--text-3);font-size:10px; }
 .sug-alt-chip .sac-replaces { font-size:11px;color:var(--text-3); }
 
-/* Hidden #search-input kept for binding compatibility */
-.hero-search-hidden {
-  position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden;
+/* Visible search input in apps tabs-wrap */
+.search-wrap {
+  display:inline-flex;align-items:center;gap:8px;
+  height:38px;padding:0 12px;
+  background:var(--bg-elev);border:1px solid var(--border-2);
+  border-radius:10px;min-width:240px;flex-shrink:0;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.search-wrap:focus-within {
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft);
+}
+.search-icon { width:16px;height:16px;color:var(--text-3);flex-shrink:0; }
+.search-wrap:focus-within .search-icon { color:var(--accent); }
+.search-wrap input {
+  flex:1;min-width:0;background:transparent;border:0;outline:0;
+  font:inherit;font-size:13px;color:var(--text);letter-spacing:-0.005em;
+}
+.search-wrap input::placeholder { color:var(--text-3); }
+.search-kbd {
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:600;
+  padding:2px 6px;border-radius:5px;
+  background:var(--card-2);border:1px solid var(--border-2);color:var(--text-3);
+  letter-spacing:0;flex-shrink:0;
+}
+.search-wrap:focus-within .search-kbd { display:none; }
+@media (max-width:720px){
+  .tabs-wrap { flex-wrap:wrap; }
+  .search-wrap { width:100%;min-width:0;order:-1;margin-bottom:12px; }
+  .search-kbd { display:none; }
 }
 
 /* ─── Cell B: Live price table ───────────────────────────────── */
@@ -725,7 +752,7 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 }
 [data-theme="light"] .card { box-shadow: 0 1px 2px rgba(20,60,30,.04), 0 12px 36px -18px rgba(20,60,30,.18); }
 [data-theme="dark"]  .card { box-shadow: 0 12px 32px -20px rgba(0,0,0,.55); }
-.card p { flex:1; }
+/* .card p { flex:1; } — removed: new card uses margin-top:auto on .card-foot instead */
 .card-foot { margin-top:auto; }
 .card:hover {
   border-color: color-mix(in oklab, var(--border) 35%, var(--accent));
@@ -793,6 +820,89 @@ select option:checked, select option:hover { background-color: var(--accent-soft
 .btn-card-cta.is-in-cart:hover {
   background:var(--accent-soft);color:var(--accent);
   border-color:var(--accent);
+}
+
+/* ─── NEW Card design (v2): pills tier inline + star + compact includes ─── */
+.app-meta { flex:1;min-width:0; }
+.app-name-row { display:inline-flex;align-items:center;gap:5px;line-height:1.25; }
+.app-popular-star {
+  width:13px;height:13px;color:var(--accent);
+  flex-shrink:0;filter:drop-shadow(0 0 4px rgba(34,197,94,.3));
+}
+.app-desc {
+  font-size:13px;line-height:1.55;color:var(--text-2);
+  margin:0 0 12px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.app-includes-line {
+  font-size:12px;color:var(--text-3);
+  margin:-4px 0 12px;line-height:1.5;letter-spacing:-0.005em;
+  cursor:help;
+}
+.app-includes-line strong { color:var(--text-2);font-weight:600;font-size:11.5px; }
+.app-includes-line .incmore {
+  display:inline-flex;align-items:center;
+  font-weight:600;color:var(--text-2);background:var(--card-2);
+  padding:1px 7px;border-radius:999px;font-size:11px;
+  margin-left:3px;border:1px solid var(--border-2);
+}
+.card-tiers {
+  display:flex;flex-wrap:wrap;gap:5px;
+  margin:0 0 14px;
+}
+.tier-pill {
+  position:relative;
+  font-size:11.5px;font-weight:500;letter-spacing:-0.005em;
+  padding:5px 11px;border-radius:999px;
+  background:var(--bg-elev);border:1px solid var(--border-2);
+  color:var(--text-2);white-space:nowrap;
+  transition:all .15s ease;cursor:pointer;
+}
+.tier-pill:hover {
+  border-color:color-mix(in oklab,var(--accent) 45%,var(--border));
+  color:var(--accent);background:var(--accent-soft);
+}
+.tier-pill.is-active {
+  background:var(--accent);color:#08120c;border-color:var(--accent);
+  font-weight:700;
+  box-shadow:0 1px 2px rgba(20,80,30,.15), 0 4px 12px -4px rgba(20,80,30,.25);
+}
+.tier-pill.is-active:hover {
+  background:var(--accent);color:#08120c;
+}
+.tier-pill.is-popular::before {
+  content:'';position:absolute;top:-2px;right:-2px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 1.5px var(--card);
+}
+.tier-pill.is-active.is-popular::before { display:none; }
+.card-price {
+  font-size:20px;font-weight:700;letter-spacing:-0.025em;
+  font-variant-numeric:tabular-nums;line-height:1.15;
+}
+.card-price .price-prefix {
+  font-size:13px;color:var(--text-3);font-weight:500;margin-right:3px;
+}
+.card-price .per {
+  font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px;
+}
+.btn-card-detail {
+  font-size:12px;font-weight:600;color:var(--text-2);letter-spacing:-0.005em;
+  padding:6px 10px;border-radius:8px;
+  display:inline-flex;align-items:center;gap:4px;
+  transition:all .15s ease;
+  border:1px solid transparent;
+}
+.btn-card-detail:hover {
+  color:var(--accent);background:var(--accent-soft);
+  border-color:color-mix(in oklab,var(--accent) 20%,transparent);
+}
+.btn-card-detail .arr { transition:transform .15s ease; }
+.btn-card-detail:hover .arr { transform:translateX(2px); }
+.card.is-popular {
+  border-color:color-mix(in oklab,var(--accent) 18%,var(--border-2));
 }
 
 /* ─── Salary ─────────────────────────────────────────────────────── */
@@ -1019,6 +1129,37 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   font-variant-numeric:tabular-nums;
 }
 .cart-popover-foot-total .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
+.cart-popover-share {
+  padding:12px 20px;border-top:1px solid var(--border-2);
+  display:flex;justify-content:center;
+}
+.btn-share-link {
+  display:inline-flex;align-items:center;gap:8px;
+  height:38px;padding:0 18px;border-radius:10px;
+  background:var(--accent-soft);color:var(--accent);
+  border:1px solid color-mix(in oklab,var(--accent) 30%,transparent);
+  font-size:13px;font-weight:600;letter-spacing:-0.005em;
+  transition:all .15s ease;
+}
+.btn-share-link:hover {
+  background:var(--accent);color:#08120c;border-color:var(--accent);
+  transform:translateY(-1px);
+}
+.btn-share-link svg { width:15px;height:15px; }
+
+/* ─── Toast notification ─────────────────────────────────────────────── */
+.toast {
+  position:fixed;left:50%;bottom:88px;transform:translate(-50%,12px);
+  z-index:200;
+  padding:10px 18px;border-radius:10px;
+  background:var(--text);color:var(--bg);
+  font-size:13px;font-weight:600;letter-spacing:-0.005em;
+  box-shadow:0 16px 48px -8px rgba(0,0,0,.5);
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease, transform .22s cubic-bezier(.2,.8,.2,1);
+}
+.toast.is-visible { opacity:1;transform:translate(-50%,0); }
+.toast.is-error { background:#ef4444;color:#fff; }
 @media (max-width:720px){
   .cart-popover-inner { border-radius:14px;margin:0 12px; }
   .cart-popover-list { max-height:55vh; }
@@ -1210,7 +1351,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         <div class="hero-cta">
           <div class="hs-wrap">
             <span class="hs-prefix">Lương /tháng</span>
-            <input type="text" id="salary-hero" placeholder="25.000.000" inputmode="numeric" autocomplete="off"/>
+            <input type="text" id="salary-hero" placeholder="25,000,000" inputmode="numeric" autocomplete="off"/>
             <select id="salary-cur-hero" aria-label="Đơn vị tiền tệ">
               <option value="VND">VND</option>
               <option value="USD">USD</option>
@@ -1250,10 +1391,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
           <span>Không cần đăng ký</span>
         </p>
 
-        <!-- Hidden search input — kept for binding compatibility -->
-        <form class="hero-search-hidden" onsubmit="return false;" aria-hidden="true">
-          <input type="text" id="search-input" placeholder="Tìm app" aria-label="Tìm app"/>
-        </form>
       </div>
 
       <!-- ═══ Cell B: Live price table ═══ -->
@@ -1332,6 +1469,11 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         <button class="tab" data-cat="Development"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Dev</button>
         <button class="tab" data-cat="Productivity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Productivity</button>
         <button class="tab" data-cat="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-8-3 18-7-7-8-3z"/></svg>Marketing</button>
+      </div>
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="text" id="search-input" placeholder="Tìm app theo tên, mô tả..." aria-label="Tìm app" autocomplete="off"/>
+        <kbd class="search-kbd" aria-hidden="true">⌘K</kbd>
       </div>
     </div>
     <div class="grid-apps" id="apps-grid"></div>
@@ -1413,6 +1555,12 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <div class="cart-popover-foot">
         <span class="cart-popover-foot-label">Tổng cộng</span>
         <span class="cart-popover-foot-total" id="cart-popover-total">$0<span class="per">/tháng</span></span>
+      </div>
+      <div class="cart-popover-share">
+        <button class="btn-share-link" id="btn-share-link" type="button" title="Copy link để chia sẻ kết quả">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span>Copy link chia sẻ</span>
+        </button>
       </div>
     </div>
   </div>
@@ -2121,45 +2269,85 @@ function renderApps(){
     var priceLabel=fmtTierPrice(tier);
     var prefix=(!inCart && app.tiers.length>1 && tier && tier.price>0)?'<span class="price-prefix">Từ </span>':'';
     var perLabel=tier&&tier.price>0?(tier.perUser?'/người·th':'/tháng'):'';
-    var tierCount=app.tiers.length;
     var iconBg=app.logo&&app.logo.indexOf('icons/')=== 0?'#fff':app.color;
     var markHtml=app.logo
       ?'<div class="app-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="'+app.name+'" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
       :'<div class="app-mark" style="background:'+app.color+'">'+app.initials+'</div>';
+    // Star icon for popular apps
+    var starHtml = app.popular ? '<svg class="app-popular-star" viewBox="0 0 24 24" fill="currentColor" aria-label="Phổ biến"><title>App phổ biến</title><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>' : '';
+    // Compact includes (Adobe CC etc) — first 3 names + "+N" badge
     var includesHtml='';
     if(app.includes){
-      var incItems=app.includes.slice(0,6).map(function(s){
-        var label=s.charAt(0).toUpperCase()+s.slice(1);
-        var matched=q&&s.indexOf(q)!==-1;
-        return '<span class="app-includes-chip'+(matched?' match':'')+'">'+label+'</span>';
+      var firstThree = app.includes.slice(0,3).map(function(s){
+        return s.charAt(0).toUpperCase()+s.slice(1);
       });
-      var more=app.includes.length>6?'<span class="app-includes-more">+'+(app.includes.length-6)+'</span>':'';
-      var fullList=app.includes.map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join(', ');
-      includesHtml='<div class="app-includes" title="Bao gồm '+app.includes.length+' app: '+fullList+'"><span class="app-includes-label">Gồm</span>'+incItems.join('')+more+'</div>';
+      var moreCount = app.includes.length > 3 ? app.includes.length - 3 : 0;
+      var fullList = app.includes.map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join(', ');
+      includesHtml = '<div class="app-includes-line" title="Gồm '+app.includes.length+' app: '+fullList+'"><strong>Gồm:</strong> ' + firstThree.join(', ') + (moreCount?' <span class="incmore">+'+moreCount+'</span>':'') + '</div>';
     }
-    var tierBadge=inCart && tier
-      ?'<span class="flag alt">'+tier.label+'</span>'
-      :'<span class="flag alt">'+tierCount+' gói</span>';
-    return '<article class="card'+(inCart?' in-cart':'')+'" data-id="'+app.id+'">' +
+    // Tier pills — click to pick + add. Click active pill → remove from cart.
+    var pillsHtml = '<div class="card-tiers" role="group" aria-label="Chọn gói">';
+    app.tiers.forEach(function(t, idx){
+      var isActive = inCart && (tierIdx === idx);
+      var label = t.label || ('Gói '+(idx+1));
+      var priceTip;
+      if(t.price === null) priceTip = 'Liên hệ';
+      else if(t.price === 0) priceTip = 'Miễn phí';
+      else if(S.currency === 'VND'){
+        priceTip = t.priceVND ? fmtVND(t.priceVND) : fmtVND(Math.round(t.price * S.rate));
+      } else {
+        priceTip = fmtUSD(t.price);
+      }
+      var perTip = t.price > 0 ? (t.perUser ? '/người·th' : '/tháng') : '';
+      pillsHtml += '<button class="tier-pill'+(isActive?' is-active':'')+(t.popular?' is-popular':'')+'" data-app="'+app.id+'" data-tier="'+idx+'" type="button" title="'+label+' — '+priceTip+perTip+'">'+label+'</button>';
+    });
+    pillsHtml += '</div>';
+    return '<article class="card'+(inCart?' in-cart':'')+(app.popular?' is-popular':'')+'" data-id="'+app.id+'">' +
       '<div class="card-top">'+markHtml+
-      '<div><div class="app-name">'+app.name+'</div><div class="app-cat">'+app.cat+'</div></div></div>' +
-      '<p>'+app.desc+'</p>' +includesHtml+
-      '<div class="card-foot"><div class="price">'+prefix+priceLabel+(perLabel?'<span class="per">'+perLabel+'</span>':'')+'</div>' +
-      (app.popular?'<span class="flag">Phổ biến</span>':'') +
-      tierBadge +
-      '</div>' +
-      '<div class="card-actions">' +
-      '<button class="btn-card-cta'+(inCart?' is-in-cart':'')+'" data-id="'+app.id+'">'+
-        (inCart?'<span class="check">✓</span> Đang tính · Xem chi tiết':'Xem gói & chọn <span class="arr">→</span>')+
-      '</button>' +
+      '<div class="app-meta">' +
+        '<div class="app-name-row"><span class="app-name">'+app.name+'</span>'+starHtml+'</div>' +
+        '<div class="app-cat">'+app.cat+'</div>' +
+      '</div></div>' +
+      '<p class="app-desc">'+app.desc+'</p>' + includesHtml + pillsHtml +
+      '<div class="card-foot">' +
+        '<div class="card-price">'+prefix+priceLabel+(perLabel?'<span class="per">'+perLabel+'</span>':'')+'</div>' +
+        '<button class="btn-card-detail" data-detail="'+app.id+'" type="button">Xem chi tiết <span class="arr">→</span></button>' +
       '</div></article>';
   }).join('');
-  // 1 action: cả card body và button đều mở modal
-  document.querySelectorAll('#apps-grid .btn-card-cta').forEach(function(b){
-    b.addEventListener('click',function(e){e.stopPropagation();openModal(b.dataset.id);});
+  // Pill click: add app + pick tier, or swap tier, or remove if click active pill
+  document.querySelectorAll('#apps-grid .tier-pill').forEach(function(pill){
+    pill.addEventListener('click', function(e){
+      e.stopPropagation();
+      var appId = pill.dataset.app;
+      var tIdx = parseInt(pill.dataset.tier, 10);
+      var inCart = S.cart.indexOf(appId) !== -1;
+      var isActive = pill.classList.contains('is-active');
+      if(inCart && isActive){
+        // Toggle off: remove from cart
+        var i = S.cart.indexOf(appId);
+        S.cart.splice(i, 1);
+        delete S.cartTiers[appId];
+      } else {
+        // Add or swap tier
+        if(!inCart) S.cart.push(appId);
+        S.cartTiers[appId] = tIdx;
+      }
+      renderAll();
+    });
   });
+  // Xem chi tiết → mở modal
+  document.querySelectorAll('#apps-grid .btn-card-detail').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      openModal(btn.dataset.detail);
+    });
+  });
+  // Click card body (không phải pill/detail) → mở modal
   document.querySelectorAll('#apps-grid .card').forEach(function(c){
-    c.addEventListener('click',function(){openModal(c.dataset.id);});
+    c.addEventListener('click', function(e){
+      if(e.target.closest('.tier-pill') || e.target.closest('.btn-card-detail')) return;
+      openModal(c.dataset.id);
+    });
   });
   // ── Render "Xem thêm / Thu gọn" button ─────────────────────────────────
   var moreWrap=document.getElementById('apps-more-wrap');
@@ -2943,7 +3131,111 @@ function selectModalPlan(idx){
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
-function renderAll(){renderApps();renderCartBar();renderCartPopover();renderSalary();renderRecommendations();renderSuggestions();}
+function renderAll(){renderApps();renderCartBar();renderCartPopover();renderSalary();renderRecommendations();renderSuggestions();updateShareURL();}
+
+/* ── SHARE URL STATE ───────────────────────────────────────────────────── */
+function encodeShareURL(){
+  var parts = [];
+  if(S.cart.length){
+    var cartStr = S.cart.map(function(id){
+      var a = getApp(id); if(!a) return '';
+      var tIdx = activeTierIdx(a);
+      return id + ':' + tIdx;
+    }).filter(Boolean).join(',');
+    if(cartStr) parts.push('c=' + encodeURIComponent(cartStr));
+  }
+  var sal = (typeof getSalary === 'function') ? getSalary() : {value:0,currency:'VND'};
+  if(sal.value > 0){
+    parts.push('s=' + sal.value + ':' + sal.currency);
+  }
+  if(S.currency){
+    parts.push('cur=' + S.currency);
+  }
+  return parts.length ? '#' + parts.join('&') : '';
+}
+function decodeShareURL(){
+  if(!location.hash || location.hash.length < 2) return false;
+  var hash = location.hash.slice(1);
+  var params = {};
+  hash.split('&').forEach(function(p){
+    var i = p.indexOf('=');
+    if(i > -1) params[p.slice(0,i)] = decodeURIComponent(p.slice(i+1));
+  });
+  // Cart entries: appId:tierIdx,...
+  if(params.c){
+    params.c.split(',').forEach(function(e){
+      var sp = e.split(':');
+      var id = sp[0];
+      var tIdx = parseInt(sp[1], 10);
+      if(getApp(id) && !isNaN(tIdx)){
+        if(S.cart.indexOf(id) === -1) S.cart.push(id);
+        S.cartTiers[id] = tIdx;
+      }
+    });
+  }
+  // Salary
+  if(params.s){
+    var sp2 = params.s.split(':');
+    var sval = parseFloat(sp2[0]);
+    var scur = sp2[1];
+    if(!isNaN(sval) && (scur === 'USD' || scur === 'VND')){
+      var heroIn = document.getElementById('salary-hero');
+      var heroCur = document.getElementById('salary-cur-hero');
+      if(heroIn){
+        // Swap convention: USD chấm, VND phẩy
+        var locale = scur === 'USD' ? 'vi-VN' : 'en-US';
+        heroIn.value = sval.toLocaleString(locale);
+      }
+      if(heroCur) heroCur.value = scur;
+    }
+  }
+  // Display currency
+  if(params.cur === 'USD' || params.cur === 'VND'){
+    S.currency = params.cur;
+  }
+  return true;
+}
+function updateShareURL(){
+  if(typeof history === 'undefined' || !history.replaceState) return;
+  var hash = encodeShareURL();
+  try {
+    if(hash){
+      history.replaceState(null, '', hash);
+    } else if(location.hash){
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  } catch(e){}
+}
+function copyShareLink(){
+  var url = location.origin + location.pathname + location.search + encodeShareURL();
+  // Use modern Clipboard API with fallback
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(url).then(function(){ return true; }).catch(function(){ return false; });
+  }
+  // Fallback: textarea + execCommand
+  try {
+    var ta = document.createElement('textarea');
+    ta.value = url; ta.style.position='fixed'; ta.style.left='-9999px';
+    document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return Promise.resolve(ok);
+  } catch(e){ return Promise.resolve(false); }
+}
+function showToast(msg, isError){
+  var existing = document.getElementById('toast');
+  if(existing) existing.remove();
+  var t = document.createElement('div');
+  t.id = 'toast';
+  t.className = 'toast' + (isError ? ' is-error' : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.classList.add('is-visible'); });
+  setTimeout(function(){
+    t.classList.remove('is-visible');
+    setTimeout(function(){ t.remove(); }, 220);
+  }, 2200);
+}
 
 /* ── EXCHANGE RATE ─────────────────────────────────────────────────────── */
 function fetchRate(){
@@ -2963,17 +3255,41 @@ function fetchRate(){
     });
 }
 
+/* ── LocalStorage persist ──────────────────────────────────────────────── */
+var LS_KEYS = { theme:'tbq:theme', currency:'tbq:currency' };
+function saveLocalState(){
+  try {
+    localStorage.setItem(LS_KEYS.theme, document.documentElement.dataset.theme || 'dark');
+    localStorage.setItem(LS_KEYS.currency, S.currency);
+  } catch(e){}
+}
+function loadLocalState(){
+  try {
+    var t = localStorage.getItem(LS_KEYS.theme);
+    if(t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+    var c = localStorage.getItem(LS_KEYS.currency);
+    if(c === 'USD' || c === 'VND') S.currency = c;
+  } catch(e){}
+}
+function syncCurrencyToggle(){
+  document.querySelectorAll('#cur-toggle button').forEach(function(b){
+    b.classList.toggle('is-on', b.dataset.cur === S.currency);
+  });
+}
+
 /* ── EVENTS ────────────────────────────────────────────────────────────── */
 document.getElementById('theme-toggle').addEventListener('click',function(){
   var cur=document.documentElement.dataset.theme;
   document.documentElement.dataset.theme=cur==='dark'?'light':'dark';
-  // logo.svg is theme-agnostic (pure green icon), no swap needed
+  saveLocalState();
 });
 
 document.getElementById('cur-toggle').querySelectorAll('button').forEach(function(btn){
   btn.addEventListener('click',function(){
     document.getElementById('cur-toggle').querySelectorAll('button').forEach(function(b){b.classList.remove('is-on');});
-    btn.classList.add('is-on');S.currency=btn.dataset.cur;renderAll();
+    btn.classList.add('is-on');S.currency=btn.dataset.cur;
+    saveLocalState();
+    renderAll();
   });
 });
 
@@ -3040,6 +3356,23 @@ document.getElementById('modal-overlay').addEventListener('click',function(e){if
   });
 })();
 
+/* ── Share link button ─────────────────────────────────────────────────── */
+(function(){
+  var btn = document.getElementById('btn-share-link');
+  if(!btn) return;
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(S.cart.length === 0){
+      showToast('Chọn ít nhất 1 app trước khi share', true);
+      return;
+    }
+    Promise.resolve(copyShareLink()).then(function(ok){
+      if(ok) showToast('Đã copy link — paste để chia sẻ');
+      else showToast('Không copy được, vui lòng copy URL từ thanh địa chỉ', true);
+    });
+  });
+})();
+
 /* ── Job describe — analyze button + chips ─────────────────────────────── */
 (function(){
   var ta=document.getElementById('job-describe-input');
@@ -3077,7 +3410,8 @@ document.getElementById('modal-overlay').addEventListener('click',function(e){if
     var salaryMsg='';
     if(sal && heroIn){
       if(heroCur) heroCur.value=sal.currency;
-      var locale=sal.currency==='USD'?'en-US':'vi-VN';
+      // Swap convention: USD dùng chấm, VND dùng phẩy
+      var locale=sal.currency==='USD'?'vi-VN':'en-US';
       heroIn.value=sal.value.toLocaleString(locale);
       salaryMsg='<svg class="hdp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Đã đọc được lương trong câu: <strong>'+heroIn.value+' '+sal.currency+'</strong> — cập nhật ô lương phía trên.';
     }
@@ -3130,7 +3464,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   var heroIn=document.getElementById('salary-hero');
   var heroCur=document.getElementById('salary-cur-hero');
   if(!heroIn) return;
-  function update(){ renderSalary(); renderCartBar(); renderRecommendations(); }
+  function update(){ renderSalary(); renderCartBar(); renderRecommendations(); updateShareURL(); }
 
   // Format helper — USD: "1,234,567" (en-US), VND: "1.234.567" (vi-VN)
   function formatSalary(){
@@ -3139,7 +3473,8 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
     if(!raw){ heroIn.value=''; return; }
     var num = parseFloat(raw);
     if(isNaN(num)) return;
-    var locale = (heroCur && heroCur.value === 'USD') ? 'en-US' : 'vi-VN';
+    // Swap convention: USD dùng dấu chấm (vi-VN), VND dùng dấu phẩy (en-US)
+    var locale = (heroCur && heroCur.value === 'USD') ? 'vi-VN' : 'en-US';
     var newVal = num.toLocaleString(locale);
     if(newVal === oldVal) return;
     // Preserve cursor position by counting digits before cursor
@@ -3299,7 +3634,10 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
 })();
 
 /* ── INIT ── */
+loadLocalState();        // Restore theme + currency from localStorage
 normalizeTiers();
+decodeShareURL();        // Restore cart + salary từ URL hash nếu có
+syncCurrencyToggle();    // Update USD/VND segment UI (after possible URL override)
 fetchRate();
 renderAll();
 </script>
