@@ -560,8 +560,11 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
   <div class="container hero-inner">
 
     <div class="float-card fc-tl">
-      <div class="fc-icon" style="background:#fff;padding:4px;overflow:hidden;">
-        <img src="https://cdn.simpleicons.org/adobe" alt="Adobe" width="32" height="32" style="width:32px;height:32px;object-fit:contain;display:block;">
+      <div class="fc-icon" style="background:#001e36;">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+          <rect width="40" height="40" rx="9" fill="#001e36"/>
+          <text x="20" y="27" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="16" fill="#31a8ff">Ps</text>
+        </svg>
       </div>
       <div class="fc-body">
         <div class="fc-name">Adobe Photoshop</div>
@@ -571,8 +574,12 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
 
     <div class="float-card fc-tr">
-      <div class="fc-icon" style="background:#fff;padding:4px;overflow:hidden;">
-        <img src="https://cdn.simpleicons.org/openai" alt="OpenAI" width="32" height="32" style="width:32px;height:32px;object-fit:contain;display:block;">
+      <div class="fc-icon" style="background:#10a37f;">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+          <rect width="40" height="40" rx="9" fill="#10a37f"/>
+          <path d="M20 10c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 4a6 6 0 110 12A6 6 0 0120 14z" fill="rgba(255,255,255,0.9)"/>
+          <circle cx="20" cy="20" r="3.5" fill="rgba(255,255,255,0.9)"/>
+        </svg>
       </div>
       <div class="fc-body">
         <div class="fc-name">ChatGPT Plus</div>
@@ -582,8 +589,14 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
 
     <div class="float-card fc-ml">
-      <div class="fc-icon" style="background:#fff;padding:4px;overflow:hidden;">
-        <img src="https://cdn.simpleicons.org/figma" alt="Figma" width="32" height="32" style="width:32px;height:32px;object-fit:contain;display:block;">
+      <div class="fc-icon" style="background:#1e1e1e;">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+          <rect width="40" height="40" rx="9" fill="#1e1e1e"/>
+          <circle cx="15" cy="12" r="4.5" fill="#f24e1e"/>
+          <path d="M10.5 16.5h9v9H15a4.5 4.5 0 010-9z" fill="#a259ff"/>
+          <path d="M15 25.5h9a4.5 4.5 0 010 9 4.5 4.5 0 01-4.5-4.5v-4.5z" fill="#0acf83"/>
+          <circle cx="24" cy="21" r="4.5" fill="#1abcfe"/>
+        </svg>
       </div>
       <div class="fc-body">
         <div class="fc-name">Figma Pro</div>
@@ -593,8 +606,14 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
 
     <div class="float-card fc-mr">
-      <div class="fc-icon" style="background:#fff;padding:4px;overflow:hidden;">
-        <img src="https://cdn.simpleicons.org/cursor" alt="Cursor" width="32" height="32" style="width:32px;height:32px;object-fit:contain;display:block;">
+      <div class="fc-icon" style="background:#1a1a2e;">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+          <rect width="40" height="40" rx="9" fill="#1a1a2e"/>
+          <rect x="9" y="9" width="9" height="9" rx="2" fill="white"/>
+          <rect x="22" y="9" width="9" height="9" rx="2" fill="white"/>
+          <rect x="9" y="22" width="9" height="9" rx="2" fill="white"/>
+          <rect x="22" y="22" width="9" height="9" rx="2" fill="white"/>
+        </svg>
       </div>
       <div class="fc-body">
         <div class="fc-name">Cursor Pro</div>
@@ -785,104 +804,104 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 /* ── DATA ──────────────────────────────────────────────────────────────── */
 var APPS = [
   {id:'figma',name:'Figma',cat:'Design',color:'#1e1e1e',initials:'F',popular:true,
-   logo:'https://cdn.simpleicons.org/figma',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=figma.com',
    desc:'Thiết kế UI/UX cộng tác thời gian thực, prototyping, design system toàn diện.',
    tiers:{personal:{label:'Professional',price:15},team:{label:'Organization',price:45},enterprise:{label:'Enterprise',price:75}}},
   {id:'adobe-cc',name:'Adobe Creative Cloud',cat:'Design',color:'#1a0000',initials:'Ac',popular:false,
-   logo:'https://cdn.simpleicons.org/adobe',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=adobe.com',
    includes:['photoshop','illustrator','indesign','after effects','premiere pro','lightroom','xd','audition','animate','dreamweaver','acrobat','character animator'],
    desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
    tiers:{personal:{label:'Single App',price:29.99},team:{label:'All Apps',price:59.99},enterprise:{label:'Enterprise',price:89.99}}},
   {id:'canva',name:'Canva Pro',cat:'Design',color:'#0a0a1a',initials:'C',popular:true,
-   logo:'https://cdn.simpleicons.org/canva',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=canva.com',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
    tiers:{personal:{label:'Pro',price:15},team:{label:'Teams (5 người)',price:30},enterprise:{label:'Enterprise',price:null}}},
   {id:'sketch',name:'Sketch',cat:'Design',color:'#1a1200',initials:'S',popular:false,
-   logo:'https://cdn.simpleicons.org/sketch',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=sketch.com',
    desc:'Công cụ thiết kế UI/UX dành riêng cho macOS — gọn nhẹ, nhanh, plugin ecosystem mạnh.',
    tiers:{personal:{label:'Standard',price:12},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:30}}},
   {id:'miro',name:'Miro',cat:'Design',color:'#1a1000',initials:'M',popular:true,
-   logo:'https://cdn.simpleicons.org/miro',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=miro.com',
    desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
    tiers:{personal:{label:'Starter',price:10},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:null}}},
   {id:'framer',name:'Framer',cat:'Design',color:'#000510',initials:'Fr',popular:false,
-   logo:'https://cdn.simpleicons.org/framer',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=framer.com',
    desc:'Thiết kế và publish website chuyên nghiệp với animation phức tạp, không cần code.',
    tiers:{personal:{label:'Mini',price:5},team:{label:'Basic',price:15},enterprise:{label:'Pro',price:30}}},
   {id:'chatgpt',name:'ChatGPT Plus',cat:'AI',color:'#0a1a15',initials:'G',popular:true,
-   logo:'https://cdn.simpleicons.org/openai',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=openai.com',
    desc:'AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter, voice.',
    tiers:{personal:{label:'Plus',price:20},team:{label:'Team',price:30},enterprise:{label:'Enterprise',price:null}}},
   {id:'claude',name:'Claude Pro',cat:'AI',color:'#1a0e08',initials:'Cl',popular:true,
-   logo:'https://cdn.simpleicons.org/anthropic',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=anthropic.com',
    desc:'AI assistant của Anthropic — phân tích sâu, viết lách, code, xử lý file dài.',
    tiers:{personal:{label:'Pro',price:20},team:{label:'Team',price:30},enterprise:{label:'Enterprise',price:null}}},
   {id:'midjourney',name:'Midjourney',cat:'AI',color:'#0d0d1a',initials:'MJ',popular:true,
-   logo:'https://cdn.simpleicons.org/midjourney',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=midjourney.com',
    desc:'Tạo ảnh AI chất lượng cao nhất — concept art, branding, minh hoạ sáng tạo.',
    tiers:{personal:{label:'Basic',price:10},team:{label:'Standard',price:30},enterprise:{label:'Pro',price:60}}},
   {id:'perplexity',name:'Perplexity Pro',cat:'AI',color:'#051515',initials:'Px',popular:false,
-   logo:'https://cdn.simpleicons.org/perplexity',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=perplexity.ai',
    desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time.',
    tiers:{personal:{label:'Pro',price:20},team:{label:'Enterprise',price:null},enterprise:{label:'Enterprise',price:null}}},
   {id:'cursor',name:'Cursor',cat:'Development',color:'#0d0d1a',initials:'Cu',popular:true,
-   logo:'https://cdn.simpleicons.org/cursor',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=cursor.com',
    desc:'IDE tích hợp AI — autocomplete thông minh, chat với codebase, refactor tự động.',
    tiers:{personal:{label:'Pro',price:20},team:{label:'Business',price:40},enterprise:{label:'Enterprise',price:null}}},
   {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#0d1117',initials:'GH',popular:true,
-   logo:'https://cdn.simpleicons.org/github',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=github.com',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
    tiers:{personal:{label:'Individual',price:10},team:{label:'Business',price:19},enterprise:{label:'Enterprise',price:39}}},
   {id:'vercel',name:'Vercel',cat:'Development',color:'#111',initials:'Vc',popular:false,
-   logo:'https://cdn.simpleicons.org/vercel',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=vercel.com',
    desc:'Deploy và host frontend siêu nhanh — CI/CD tự động, edge network toàn cầu.',
    tiers:{personal:{label:'Pro',price:20},team:{label:'Team',price:40},enterprise:{label:'Enterprise',price:null}}},
   {id:'raycast',name:'Raycast Pro',cat:'Development',color:'#1a0505',initials:'Rc',popular:false,
-   logo:'https://cdn.simpleicons.org/raycast',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=raycast.com',
    desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management.',
    tiers:{personal:{label:'Pro',price:10},team:{label:'Teams',price:15},enterprise:{label:'Enterprise',price:null}}},
   {id:'notion',name:'Notion',cat:'Productivity',color:'#111',initials:'N',popular:true,
-   logo:'https://cdn.simpleicons.org/notion',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=notion.so',
    desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
    tiers:{personal:{label:'Plus',price:10},team:{label:'Business',price:18},enterprise:{label:'Enterprise',price:null}}},
   {id:'linear',name:'Linear',cat:'Productivity',color:'#0a0b1a',initials:'Li',popular:false,
-   logo:'https://cdn.simpleicons.org/linear',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=linear.app',
    desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
    tiers:{personal:{label:'Basic',price:8},team:{label:'Business',price:16},enterprise:{label:'Enterprise',price:null}}},
   {id:'clickup',name:'ClickUp',cat:'Productivity',color:'#0d0a1a',initials:'CU',popular:false,
-   logo:'https://cdn.simpleicons.org/clickup',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=clickup.com',
    desc:'Project management đa năng — task, doc, time tracking, OKR trong một app.',
    tiers:{personal:{label:'Unlimited',price:10},team:{label:'Business',price:19},enterprise:{label:'Enterprise',price:null}}},
   {id:'buffer',name:'Buffer',cat:'Marketing',color:'#051525',initials:'Bu',popular:false,
-   logo:'https://cdn.simpleicons.org/buffer',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=buffer.com',
    desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
    tiers:{personal:{label:'Essentials',price:6},team:{label:'Team',price:12},enterprise:{label:'Agency',price:120}}},
   {id:'ahrefs',name:'Ahrefs',cat:'Marketing',color:'#1a0c00',initials:'Ah',popular:false,
-   logo:'https://cdn.simpleicons.org/ahrefs',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=ahrefs.com',
    desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor.',
    tiers:{personal:{label:'Lite',price:129},team:{label:'Standard',price:249},enterprise:{label:'Advanced',price:449}}},
   {id:'semrush',name:'Semrush',cat:'Marketing',color:'#1a0800',initials:'Se',popular:false,
-   logo:'https://cdn.simpleicons.org/semrush',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=semrush.com',
    desc:'Marketing platform — SEO, PPC, social media, content, competitor analysis.',
    tiers:{personal:{label:'Pro',price:140},team:{label:'Guru',price:250},enterprise:{label:'Business',price:500}}},
   {id:'capcut',name:'CapCut Pro',cat:'Video',color:'#111',initials:'CC',popular:true,
-   logo:'https://cdn.simpleicons.org/capcut',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=capcut.com',
    desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
    tiers:{personal:{label:'Pro',price:10},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:null}}},
   {id:'premiere',name:'Adobe Premiere Pro',cat:'Video',color:'#0d0520',initials:'Pr',popular:false,
-   logo:'https://cdn.simpleicons.org/adobepremierepro',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=adobe.com',
    desc:'Edit video chuyên nghiệp — Hollywood-grade, tích hợp After Effects, Audition.',
    tiers:{personal:{label:'Single App',price:29.99},team:{label:'All Apps',price:59.99},enterprise:{label:'Enterprise',price:89.99}}},
   {id:'descript',name:'Descript',cat:'Video',color:'#1a0520',initials:'Ds',popular:false,
-   logo:'https://cdn.simpleicons.org/descript',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=descript.com',
    desc:'Edit video bằng text — AI transcript, remove filler words, screen recorder.',
    tiers:{personal:{label:'Hobbyist',price:12},team:{label:'Creator',price:24},enterprise:{label:'Business',price:40}}},
   {id:'runway',name:'Runway ML',cat:'Video',color:'#0d1117',initials:'Rw',popular:false,
-   logo:'https://cdn.simpleicons.org/runway',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=runwayml.com',
    desc:'AI video generation & editing — Gen-3, inpainting, motion tracking, VFX.',
    tiers:{personal:{label:'Standard',price:15},team:{label:'Pro',price:35},enterprise:{label:'Unlimited',price:95}}},
   {id:'davinci',name:'DaVinci Resolve',cat:'Video',color:'#1a0500',initials:'DV',popular:false,
-   logo:'https://cdn.simpleicons.org/davinciresolve',
+   logo:'https://www.google.com/s2/favicons?sz=128&domain=blackmagicdesign.com',
    desc:'Professional color grading và post-production — tiêu chuẩn Hollywood.',
    tiers:{personal:{label:'Studio',price:0},team:{label:'Studio (lifetime)',price:null},enterprise:{label:'Dongle',price:null}}}
 ];
@@ -1209,29 +1228,4 @@ document.querySelectorAll('#tweaks .tw-row').forEach(function(row){
       row.querySelectorAll('.tw-btn').forEach(function(x){x.classList.remove('is-on');});
       btn.classList.add('is-on');
       var g=row.dataset.group,v=btn.dataset.val;
-      if(g==='nav')document.body.dataset.nav=v;
-      if(g==='tab')document.body.dataset.tab=v;
-      if(g==='rate')document.querySelector('.rate').style.display=v==='hide'?'none':'';
-    });
-  });
-});
-document.getElementById('tw-close').addEventListener('click',function(){
-  tw.classList.remove('is-open');
-  window.parent.postMessage({type:'__edit_mode_dismissed'},'*');
-});
-window.addEventListener('message',function(e){
-  if(!e.data||typeof e.data!=='object')return;
-  if(e.data.type==='__activate_edit_mode')tw.classList.add('is-open');
-  if(e.data.type==='__deactivate_edit_mode')tw.classList.remove('is-open');
-});
-window.parent.postMessage({type:'__edit_mode_available'},'*');
-
-/* ── INIT ── */
-fetchRate();
-renderAll();
-</script>
-
-<style>
-body[data-nav="pill"] .nav a{border-radius:999px;}
-body[data-nav="pill"] .nav a::after{display:none;}
-body[data-nav="pill"] .nav a:hover,body[data-nav="pill"] .nav a.is-active{background:var(--accent-soft);color:var(--tex
+      if(g==='nav')document.body.
