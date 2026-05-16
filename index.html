@@ -361,8 +361,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .price .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
 .flag { font-size:10.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:999px;letter-spacing:0.04em; }
 .flag.alt { color:var(--text-2);background:var(--card-2);border:1px solid var(--border-2); }
-.app-includes { font-size:11px;color:var(--text-3);margin:-4px 0 12px;line-height:1.4; }
-.app-includes-highlight { color:var(--accent);font-weight:600; }
+.app-includes {
+  margin:-2px 0 12px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px;
+  padding:8px 10px;background:color-mix(in oklab,var(--card-2) 60%,transparent);
+  border:1px solid var(--border);border-radius:10px;
+}
+.app-includes-label {
+  font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--text-2);margin-right:3px;
+}
+.app-includes-chip {
+  font-size:10.5px;font-weight:500;color:var(--text-2);
+  background:var(--bg-elev);border:1px solid var(--border-2);
+  padding:2px 7px;border-radius:999px;white-space:nowrap;line-height:1.5;
+}
+.app-includes-chip.match {
+  background:var(--accent-soft);color:var(--accent);
+  border-color:color-mix(in oklab,var(--accent) 35%,transparent);font-weight:600;
+}
+.app-includes-more { font-size:10.5px;color:var(--text-3);font-weight:600;padding:2px 4px; }
 .card-actions { display:flex;gap:6px;margin-top:14px; }
 .btn-add {
   flex:1;height:34px;border-radius:8px;font-size:12.5px;font-weight:600;
@@ -883,19 +900,35 @@ var APPS = [
   {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
    logo:'icons/canva.svg',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
-   tiers:{personal:{label:'Pro',price:15},team:{label:'Teams (5 người)',price:30},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:15,popular:true,features:['100GB cloud storage','Magic Studio AI (toàn bộ)','Background Remover & Magic Resize','610K+ template Premium']},
+     team:{label:'Teams (5 người)',price:30,features:['Brand Kit không giới hạn','Real-time collab + comment','Approval workflow','Phân quyền nội bộ']},
+     enterprise:{label:'Enterprise',price:null,features:['SSO + SAML','Brand controls toàn organization','Advanced analytics','24/7 priority support']}
+   }},
   {id:'sketch',name:'Sketch',cat:'Design',color:'#C4741A',initials:'S',popular:false,
    logo:'icons/sketch-2.svg',
    desc:'Công cụ thiết kế UI/UX dành riêng cho macOS — gọn nhẹ, nhanh, plugin ecosystem mạnh.',
-   tiers:{personal:{label:'Standard',price:12},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:30}}},
+   tiers:{
+     personal:{label:'Standard',price:12,popular:true,features:['Mac app native + Web app','Real-time collab + prototyping','Plugin marketplace (1000+)','Cloud sync không giới hạn']},
+     team:{label:'Business',price:20,features:['Permissions cấp Workspace','SSO Google/Microsoft','Shared libraries','Workspace analytics']},
+     enterprise:{label:'Enterprise',price:30,features:['SAML SSO + SCIM','Audit logs đầy đủ','Custom integration','Dedicated CSM']}
+   }},
   {id:'miro',name:'Miro',cat:'Design',color:'#C4921A',initials:'M',popular:true,
    logo:'icons/miro-icon.svg',
    desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
-   tiers:{personal:{label:'Starter',price:10},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Starter',price:10,popular:true,features:['Unlimited board (1 editor)','Video chat & comment','Talktrack (video walkthrough)','3000+ template community']},
+     team:{label:'Business',price:20,features:['Unlimited editor','Private workspace','Day pass cho khách','Diagram intelligent (AI)']},
+     enterprise:{label:'Enterprise',price:null,features:['SSO + SCIM','Audit log + DLP','Centralized admin','99.99% SLA']}
+   }},
   {id:'framer',name:'Framer',cat:'Design',color:'#0055FF',initials:'Fr',popular:false,
    logo:'icons/framer-2.svg',
    desc:'Thiết kế và publish website chuyên nghiệp với animation phức tạp, không cần code.',
-   tiers:{personal:{label:'Mini',price:5},team:{label:'Basic',price:15},enterprise:{label:'Pro',price:30}}},
+   tiers:{
+     personal:{label:'Mini',price:5,features:['1 site, custom domain','1000 CMS items','Bandwidth 100GB','Framer branding ở footer']},
+     team:{label:'Basic',price:15,popular:true,features:['3 site, không Framer brand','10K CMS items','Password protection','Custom code injection']},
+     enterprise:{label:'Pro',price:30,features:['10 site, A/B testing','50K CMS items','Localization','Analytics dashboard']}
+   }},
   {id:'chatgpt',name:'ChatGPT Plus',cat:'AI',color:'#10a37f',initials:'G',popular:true,
    logo:'icons/chatgpt-6.svg',url:'https://openai.com/chatgpt/pricing',
    desc:'AI chatbot mạnh nhất từ OpenAI — GPT-4o, DALL·E, Code Interpreter, voice.',
@@ -915,11 +948,19 @@ var APPS = [
   {id:'midjourney',name:'Midjourney',cat:'AI',color:'#2D2D44',initials:'MJ',popular:true,
    logo:'icons/Midjourney--Streamline-Svg-Logos.svg',
    desc:'Tạo ảnh AI chất lượng cao nhất — concept art, branding, minh hoạ sáng tạo.',
-   tiers:{personal:{label:'Basic',price:10},team:{label:'Standard',price:30},enterprise:{label:'Pro',price:60}}},
+   tiers:{
+     personal:{label:'Basic',price:10,features:['~200 ảnh/tháng (3.3h GPU)','Discord + Web access','Image rating membership','General commercial use']},
+     team:{label:'Standard',price:30,popular:true,features:['~900 ảnh/tháng (15h GPU)','Unlimited Relax mode','Stealth (ảnh private)','Web alpha access']},
+     enterprise:{label:'Pro',price:60,features:['~1800 ảnh/tháng (30h)','Stealth mode mặc định','12 job song song','API access mới (waitlist)']}
+   }},
   {id:'perplexity',name:'Perplexity Pro',cat:'AI',color:'#20B2AA',initials:'Px',popular:false,
    logo:'icons/perplexity-color-1-.svg',
    desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time.',
-   tiers:{personal:{label:'Pro',price:20},team:{label:'Enterprise',price:null},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:20,popular:true,features:['300+ Pro search/ngày','Chọn model: GPT-4o, Claude, Sonar','Upload file & phân tích','Spaces (workspace cá nhân)']},
+     team:{label:'Enterprise',price:null,features:['Shared workspace + Spaces','Admin & user provisioning','SSO + SCIM','Billing tập trung']},
+     enterprise:{label:'Enterprise',price:null,features:['Custom data retention','Audit log đầy đủ','Dedicated success manager','99.9% SLA']}
+   }},
   {id:'cursor',name:'Cursor',cat:'Development',color:'#7C3AED',initials:'Cu',popular:true,
    logo:'icons/cursor.svg',url:'https://cursor.com/pricing',
    desc:'IDE tích hợp AI — autocomplete thông minh, chat với codebase, refactor tự động.',
@@ -931,15 +972,27 @@ var APPS = [
   {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#181717',initials:'GH',popular:true,
    logo:'icons/copilot-color.svg',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
-   tiers:{personal:{label:'Individual',price:10},team:{label:'Business',price:19},enterprise:{label:'Enterprise',price:39}}},
+   tiers:{
+     personal:{label:'Individual',price:10,popular:true,features:['Code completion (mọi IDE)','Copilot Chat trong IDE','Pull request summary','Truy cập GPT-4o-mini & Claude']},
+     team:{label:'Business',price:19,features:['Mọi tính năng Individual','Policy management cấp org','User management','Audit log']},
+     enterprise:{label:'Enterprise',price:39,features:['Custom model fine-tune','IP indemnity đầy đủ','SAML SSO + SCIM','24/7 priority support']}
+   }},
   {id:'vercel',name:'Vercel',cat:'Development',color:'#333',initials:'Vc',popular:false,
    logo:'icons/vercel.svg',
    desc:'Deploy và host frontend siêu nhanh — CI/CD tự động, edge network toàn cầu.',
-   tiers:{personal:{label:'Pro',price:20},team:{label:'Team',price:40},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:20,popular:true,features:['1TB bandwidth + Edge Functions','Preview deployment không giới hạn','Custom domain SSL','Analytics & Speed Insights cơ bản']},
+     team:{label:'Team',price:40,features:['Concurrent build x6','SSO Google/GitHub','Team collaboration & roles','Password protection cho preview']},
+     enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','99.99% SLA','DDoS mitigation cao cấp','Dedicated support & CSM']}
+   }},
   {id:'raycast',name:'Raycast Pro',cat:'Development',color:'#E64F3B',initials:'Rc',popular:false,
    logo:'icons/raycast.svg',
    desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management.',
-   tiers:{personal:{label:'Pro',price:10},team:{label:'Teams',price:15},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:10,popular:true,features:['Raycast AI (GPT-4o, Claude)','Cloud sync settings & quicklink','Unlimited clipboard history','Custom themes & icons']},
+     team:{label:'Teams',price:15,features:['Shared command, snippet, quicklink','Custom extension store nội bộ','SSO Google Workspace','Centralized billing']},
+     enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log đầy đủ','Custom data residency','Dedicated success manager']}
+   }},
   {id:'notion',name:'Notion',cat:'Productivity',color:'#333',initials:'N',popular:true,
    logo:'icons/notion.svg',url:'https://notion.so/pricing',
    desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
@@ -951,59 +1004,115 @@ var APPS = [
   {id:'linear',name:'Linear',cat:'Productivity',color:'#5E6AD2',initials:'Li',popular:false,
    logo:'icons/linear.svg',
    desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
-   tiers:{personal:{label:'Basic',price:8},team:{label:'Business',price:16},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Basic',price:8,popular:true,features:['250 issue created/month','File upload 25MB','Slack & GitHub integration','Linear Insights cơ bản']},
+     team:{label:'Business',price:16,features:['Unlimited issue & file','Triage queue + roadmap','Sub-team & SLA','Insights nâng cao']},
+     enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log + data residency','Custom workflow & API limit','Priority support 24/7']}
+   }},
   {id:'clickup',name:'ClickUp',cat:'Productivity',color:'#7B68EE',initials:'CU',popular:false,
    logo:'icons/clickup.svg',
    desc:'Project management đa năng — task, doc, time tracking, OKR trong một app.',
-   tiers:{personal:{label:'Unlimited',price:10},team:{label:'Business',price:19},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Unlimited',price:10,popular:true,features:['Unlimited storage & task','Custom field & dashboard','Native time tracking','Goal & sprint cơ bản']},
+     team:{label:'Business',price:19,features:['Advanced automation','Custom exporting','Workload management','Advanced dashboard & widget']},
+     enterprise:{label:'Enterprise',price:null,features:['White labeling toàn org','SSO + SCIM','Permission cấp cao','Dedicated success team']}
+   }},
   {id:'buffer',name:'Buffer',cat:'Marketing',color:'#2D9CDB',initials:'Bu',popular:false,
    logo:'https://cdn.simpleicons.org/buffer/ffffff',
    desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
-   tiers:{personal:{label:'Essentials',price:6},team:{label:'Team',price:12},enterprise:{label:'Agency',price:120}}},
+   tiers:{
+     personal:{label:'Essentials',price:6,popular:true,features:['3 channel mạng xã hội','Lên lịch & first comment','Analytics cơ bản','AI Assistant viết caption']},
+     team:{label:'Team',price:12,features:['Unlimited user / channel','Approval workflow','Draft collaboration','Engagement inbox chung']},
+     enterprise:{label:'Agency',price:120,features:['10 channel kèm white-label','Client reporting tự động','Custom access cho client','Priority support 24/7']}
+   }},
   {id:'ahrefs',name:'Ahrefs',cat:'Marketing',color:'#E08C00',initials:'Ah',popular:false,
    logo:'https://cdn.simpleicons.org/ahrefs/ffffff',
    desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor.',
-   tiers:{personal:{label:'Lite',price:129},team:{label:'Standard',price:249},enterprise:{label:'Advanced',price:449}}},
+   tiers:{
+     personal:{label:'Lite',price:129,features:['Site Explorer cơ bản','500 credit/tháng','5 dự án theo dõi','Keyword research giới hạn']},
+     team:{label:'Standard',price:249,popular:true,features:['Backlink history 6 tháng','5000 credit/tháng','20 dự án','Content Explorer + Rank Tracker']},
+     enterprise:{label:'Advanced',price:449,features:['Backlink history full','10000 credit/tháng','100 dự án','API access (5K row/ngày)']}
+   }},
   {id:'semrush',name:'Semrush',cat:'Marketing',color:'#FF642D',initials:'Se',popular:false,
    logo:'https://cdn.simpleicons.org/semrush/ffffff',
    desc:'Marketing platform — SEO, PPC, social media, content, competitor analysis.',
-   tiers:{personal:{label:'Pro',price:140},team:{label:'Guru',price:250},enterprise:{label:'Business',price:500}}},
+   tiers:{
+     personal:{label:'Pro',price:140,popular:true,features:['5 dự án + 500 keyword','SEO, PPC & social media basic','Position tracking hàng ngày','Site Audit 100K trang']},
+     team:{label:'Guru',price:250,features:['15 dự án + 1500 keyword','Content Marketing Platform','Historical data từ 2012','Google Data Studio integration']},
+     enterprise:{label:'Business',price:500,features:['40 dự án + 5000 keyword','API access đầy đủ','PLA (Product Listing Ads)','Extended limit toàn tool']}
+   }},
   {id:'capcut',name:'CapCut Pro',cat:'Video',color:'#222',initials:'CC',popular:true,
    logo:'icons/capcut-3.svg',
    desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
-   tiers:{personal:{label:'Pro',price:10},team:{label:'Business',price:20},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Pro',price:10,popular:true,features:['Cloud storage 100GB','AI effect & template Premium','Background remover, auto reframe','Export 4K không watermark']},
+     team:{label:'Business',price:20,features:['Shared team workspace','Brand kit + asset chung','Commercial license đầy đủ','Multi-seat billing']},
+     enterprise:{label:'Enterprise',price:null,features:['SSO + admin console','Advanced licensing','Priority CSM','Custom contract']}
+   }},
   {id:'premiere',name:'Adobe Premiere Pro',cat:'Video',color:'#9999FF',initials:'Pr',popular:false,
    logo:'icons/adobe-premiere-pro-cc-1430-vector-svg-.svg',
    desc:'Edit video chuyên nghiệp — Hollywood-grade, tích hợp After Effects, Audition.',
-   tiers:{personal:{label:'Single App',price:29.99},team:{label:'All Apps',price:59.99},enterprise:{label:'Enterprise',price:89.99}}},
+   tiers:{
+     personal:{label:'Single App',price:29.99,features:['Chỉ Premiere Pro','100GB cloud storage','Adobe Fonts đầy đủ','Behance + Portfolio']},
+     team:{label:'All Apps',price:59.99,popular:true,features:['20+ app Creative Cloud','Bao gồm After Effects, Audition','Generative Fill (Firefly)','Stock & Fonts không giới hạn']},
+     enterprise:{label:'Enterprise',price:89.99,features:['Admin console + VIP licensing','SSO + advanced compliance','Dedicated CSM','Custom MSA & invoice']}
+   }},
   {id:'descript',name:'Descript',cat:'Video',color:'#6B21A8',initials:'Ds',popular:false,
    logo:'https://cdn.simpleicons.org/descript/ffffff',
    desc:'Edit video bằng text — AI transcript, remove filler words, screen recorder.',
-   tiers:{personal:{label:'Hobbyist',price:12},team:{label:'Creator',price:24},enterprise:{label:'Business',price:40}}},
+   tiers:{
+     personal:{label:'Hobbyist',price:12,features:['10 giờ transcription/tháng','Watermark khi export','1080p export','Screen + camera recorder']},
+     team:{label:'Creator',price:24,popular:true,features:['30 giờ transcription/tháng','Không watermark','4K export','AI voice cloning cơ bản']},
+     enterprise:{label:'Business',price:40,features:['40 giờ transcription/tháng','Brand template','Advanced collab + role','Priority support 24/7']}
+   }},
   {id:'runway',name:'Runway ML',cat:'Video',color:'#222',initials:'Rw',popular:false,
    logo:'icons/runway.svg',
    desc:'AI video generation & editing — Gen-3, inpainting, motion tracking, VFX.',
-   tiers:{personal:{label:'Standard',price:15},team:{label:'Pro',price:35},enterprise:{label:'Unlimited',price:95}}},
+   tiers:{
+     personal:{label:'Standard',price:15,features:['625 credit/tháng (~62s video)','Gen-3 Alpha Turbo','Watermark khi export','Voice Generation cơ bản']},
+     team:{label:'Pro',price:35,popular:true,features:['2250 credit + 5 workspace seat','Không watermark','Upscale 4K','Director Mode, expand video']},
+     enterprise:{label:'Unlimited',price:95,features:['Unlimited Relax mode','Đầy đủ tính năng Pro','Priority queue khi render','Hỗ trợ pro creator']}
+   }},
   {id:'davinci',name:'DaVinci Resolve',cat:'Video',color:'#B03A2E',initials:'DV',popular:false,
    logo:'icons/davinci-resolve-12.svg',
    desc:'Professional color grading và post-production — tiêu chuẩn Hollywood.',
-   tiers:{personal:{label:'Studio',price:0},team:{label:'Studio (lifetime)',price:null},enterprise:{label:'Dongle',price:null}}},
+   tiers:{
+     personal:{label:'Free',price:0,popular:true,features:['Full edit + color grade + Fairlight','Export tới UHD 4K','Fusion VFX cơ bản','Đủ cho 95% nhu cầu cá nhân']},
+     team:{label:'Studio (lifetime)',price:null,features:['Mua đứt ~$295 (≈1 lần)','8K timeline + HDR','Neural Engine AI tools','Plugin & noise reduction']},
+     enterprise:{label:'Dongle',price:null,features:['USB dongle để chuyển máy','Phù hợp studio nhiều máy','Bao gồm full Studio license','Mua 1 lần, dùng vĩnh viễn']}
+   }},
   {id:'gemini',name:'Google Gemini',cat:'AI',color:'#4285F4',initials:'Ge',popular:true,
    logo:'icons/google-gemini.svg',
    desc:'AI assistant của Google — tích hợp sâu Google Workspace, search, multimodal.',
-   tiers:{personal:{label:'Advanced',price:19.99},team:{label:'Workspace AI',price:30},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'Advanced',price:19.99,popular:true,features:['Gemini 2.5 Pro full access','2TB Google One storage','Deep Research & NotebookLM Pro','Veo 3 (tạo video AI)']},
+     team:{label:'Workspace AI',price:30,features:['Gemini trong Gmail, Docs, Sheets','Help me write/organize','NotebookLM Plus','Quản trị tập trung admin']},
+     enterprise:{label:'Enterprise',price:null,features:['Data residency tùy chọn','SAML SSO + audit log','Custom data retention','Dedicated CSM + SLA']}
+   }},
   {id:'deepseek',name:'DeepSeek',cat:'AI',color:'#4D6BFE',initials:'DS',popular:true,
    logo:'icons/deepseek-color.svg',
    desc:'AI model mã nguồn mở từ Trung Quốc — suy luận sâu, coding, toán học.',
-   tiers:{personal:{label:'Free',price:0},team:{label:'API',price:null},enterprise:{label:'API',price:null}}},
+   tiers:{
+     personal:{label:'Free',price:0,popular:true,features:['DeepSeek-V3 + R1 reasoning','Web chat miễn phí hoàn toàn','Suy luận sâu, code, toán','Mã nguồn mở, tự host được']},
+     team:{label:'API',price:null,features:['Pay-per-use, rẻ hơn GPT/Claude','~$0.14/1M token input','Compatible OpenAI SDK','Cache giảm thêm chi phí']},
+     enterprise:{label:'API',price:null,features:['Volume discount','Tự deploy on-premise','Mã model public trên HuggingFace','Phù hợp dev & startup']}
+   }},
   {id:'grok',name:'Grok (xAI)',cat:'AI',color:'#111',initials:'Gr',popular:false,
    logo:'icons/grok-1.svg',
    desc:'AI của xAI (Elon Musk) — trả lời thẳng thắn, truy cập real-time X/Twitter.',
-   tiers:{personal:{label:'X Premium',price:8},team:{label:'X Premium+',price:16},enterprise:{label:'Enterprise',price:null}}},
+   tiers:{
+     personal:{label:'X Premium',price:8,popular:true,features:['Grok 3 truy cập cơ bản','Tích sub-account X (Twitter)','Edit post + longer post','Reply boost trên X']},
+     team:{label:'X Premium+',price:16,features:['Grok 3 + Think mode','Truy cập real-time X data','Không quảng cáo trên X','Tải xuống video, doanh thu chia sẻ']},
+     enterprise:{label:'Enterprise',price:null,features:['xAI API riêng cho doanh nghiệp','Higher rate limit','Custom integration','SLA & support riêng']}
+   }},
   {id:'kling',name:'Kling AI',cat:'Video',color:'#1a1a2e',initials:'Kl',popular:false,
    logo:'icons/kling-color.svg',
    desc:'AI video generation — tạo video từ text/ảnh, chất lượng cao, nổi tiếng tại Việt Nam.',
-   tiers:{personal:{label:'Standard',price:8},team:{label:'Pro',price:28},enterprise:{label:'Premier',price:58}}}
+   tiers:{
+     personal:{label:'Standard',price:8,popular:true,features:['660 credit/tháng (~33 video 5s)','Kling 1.6 + Image-to-Video','Watermark khi export','Lip sync cơ bản']},
+     team:{label:'Pro',price:28,features:['3000 credit/tháng','Không watermark, ưu tiên queue','Kling 2.0 Master','Motion brush + camera control']},
+     enterprise:{label:'Premier',price:58,features:['8000 credit/tháng','Generation 1080p','API access (qua liên hệ)','Phù hợp creator chuyên nghiệp']}
+   }}
 ];
 
 var PROFESSIONS = [
@@ -1080,9 +1189,11 @@ function renderApps(){
       var incItems=app.includes.slice(0,6).map(function(s){
         var label=s.charAt(0).toUpperCase()+s.slice(1);
         var matched=q&&s.indexOf(q)!==-1;
-        return matched?'<span class="app-includes-highlight">'+label+'</span>':label;
+        return '<span class="app-includes-chip'+(matched?' match':'')+'">'+label+'</span>';
       });
-      includesHtml='<div class="app-includes">Gồm: '+incItems.join(', ')+(app.includes.length>6?'…':'')+'</div>';
+      var more=app.includes.length>6?'<span class="app-includes-more">+'+(app.includes.length-6)+'</span>':'';
+      var fullList=app.includes.map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join(', ');
+      includesHtml='<div class="app-includes" title="Bao gồm '+app.includes.length+' app: '+fullList+'"><span class="app-includes-label">Gồm</span>'+incItems.join('')+more+'</div>';
     }
     return '<article class="card'+(inCart?' in-cart':'')+'" data-id="'+app.id+'">' +
       '<div class="card-top">'+markHtml+
