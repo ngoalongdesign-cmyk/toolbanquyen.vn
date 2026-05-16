@@ -33,15 +33,37 @@
   --bg-elev: #ffffff;
   --card: #ffffff;
   --card-2: #f6fbf7;
-  --border: #d6ebda;
-  --border-2: #e6f1e9;
+  --border: #c5e0cb;
+  --border-2: #dceee0;
   --text: #0d1a10;
   --text-2: #5a7d5f;
   --text-3: #8aa890;
   --header-bg: rgba(240,250,242,.82);
   --accent-soft: rgba(22,163,74,.10);
   --accent-soft-2: rgba(22,163,74,.04);
-  --shadow: 0 1px 0 rgba(0,0,0,.02) inset, 0 24px 60px -28px rgba(20,60,30,.18);
+  --shadow: 0 1px 2px rgba(20,60,30,.04), 0 8px 24px -14px rgba(20,60,30,.22);
+  --shadow-soft: 0 1px 2px rgba(20,60,30,.04), 0 4px 14px -10px rgba(20,60,30,.18);
+  --shadow-hover: 0 2px 6px rgba(20,60,30,.07), 0 12px 28px -10px rgba(20,60,30,.26);
+}
+[data-theme="dark"] {
+  --shadow-soft: 0 1px 0 rgba(255,255,255,.02) inset, 0 12px 32px -16px rgba(0,0,0,.5);
+  --shadow-hover: 0 1px 0 rgba(255,255,255,.03) inset, 0 20px 48px -16px rgba(0,0,0,.65);
+}
+
+/* Light-theme elevation: soft shadow on all white card surfaces for visibility on green bg */
+[data-theme="light"] .prof-card,
+[data-theme="light"] .combo,
+[data-theme="light"] .salary,
+[data-theme="light"] .intent-box,
+[data-theme="light"] .chip,
+[data-theme="light"] .hf-step,
+[data-theme="light"] .modal-content {
+  box-shadow: var(--shadow-soft);
+}
+[data-theme="light"] .prof-card:hover,
+[data-theme="light"] .combo:hover,
+[data-theme="light"] .chip:hover {
+  box-shadow: var(--shadow-hover);
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -495,7 +517,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .prof-card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
 .prof-card.is-active { border-color:var(--accent); }
 .prof-card::before { content:'';position:absolute;inset:0;background:radial-gradient(300px 200px at 100% 0%,rgba(34,197,94,.04),transparent 65%);pointer-events:none; }
-.prof-icon { font-size:28px;margin-bottom:10px; }
+.prof-icon {
+  width:64px;height:64px;margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;line-height:1;
+  background:var(--accent-soft-2);border-radius:14px;
+  border:1px solid var(--border-2);
+  overflow:hidden;
+}
+.prof-icon svg { width:100% !important;height:100% !important;display:block; }
+.prof-card:hover .prof-icon { background:var(--accent-soft);border-color:color-mix(in oklab,var(--accent) 25%,var(--border-2)); }
 .prof-label { font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px; }
 .prof-desc { font-size:12.5px;color:var(--text-2);margin-bottom:14px;line-height:1.5; }
 .prof-apps-row { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px; }
@@ -632,6 +663,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 footer { padding:80px 0 80px;text-align:center;color:var(--text-3);font-size:12.5px; }
 footer .dot-sep { margin:0 8px;opacity:.5; }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" defer></script>
 </head>
 <body>
 
@@ -1188,12 +1220,12 @@ var APPS = [
 ];
 
 var PROFESSIONS = [
-  {id:'uxdesigner',label:'UI/UX Designer',icon:'🎨',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer']},
-  {id:'developer',label:'Developer',icon:'💻',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion']},
-  {id:'creator',label:'Content Creator',icon:'🎬',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion']},
-  {id:'marketer',label:'Marketer / SEO',icon:'📣',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs']},
-  {id:'freelancer',label:'Freelance Designer',icon:'✏️',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude']},
-  {id:'founder',label:'Founder / Team Lead',icon:'🚀',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel']}
+  {id:'uxdesigner',label:'UI/UX Designer',icon:'🎨',lottie:'icons/animated%20icons/ui-ux%20designer.json',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer']},
+  {id:'developer',label:'Developer',icon:'💻',lottie:'icons/animated%20icons/developer.json',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion']},
+  {id:'creator',label:'Content Creator',icon:'🎬',lottie:'icons/animated%20icons/content%20creator.json',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion']},
+  {id:'marketer',label:'Marketer / SEO',icon:'📣',lottie:'icons/animated%20icons/marketer-seo.json',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs']},
+  {id:'freelancer',label:'Freelance Designer',icon:'✏️',lottie:'icons/animated%20icons/freelancer%20designer.json',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude']},
+  {id:'founder',label:'Founder / Team Lead',icon:'🚀',lottie:'icons/animated%20icons/founder-team%20leader.json',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel']}
 ];
 
 var SKILLS = [
@@ -1416,23 +1448,69 @@ function renderApps(){
 
 /* ── RENDER PROFESSIONS ────────────────────────────────────────────────── */
 function renderProfessions(){
-  document.getElementById('prof-grid').innerHTML=PROFESSIONS.map(function(prof){
+  var grid=document.getElementById('prof-grid');
+  if(!grid) return;
+  // Chỉ build structure 1 lần để giữ nguyên Lottie animation
+  if(!grid.dataset.built){
+    grid.innerHTML=PROFESSIONS.map(function(prof){
+      var names=prof.apps.map(function(id){var a=getApp(id);return a?'<span>'+a.name+'</span>':'';});
+      var iconHtml=prof.lottie
+        ?'<div class="prof-icon" data-lottie="'+prof.lottie+'" data-fallback="'+prof.icon+'">'+prof.icon+'</div>'
+        :'<div class="prof-icon">'+prof.icon+'</div>';
+      return '<div class="prof-card" data-prof="'+prof.id+'">' +
+        iconHtml +
+        '<div class="prof-label">'+prof.label+'</div>' +
+        '<div class="prof-desc">'+prof.desc+'</div>' +
+        '<div class="prof-apps-row">'+names.join('')+'</div>' +
+        '<div class="prof-foot"><div class="prof-total" data-total="'+prof.id+'"></div>' +
+        '<button class="prof-btn" data-prof="'+prof.id+'">Chọn bộ này</button>' +
+        '</div></div>';
+    }).join('');
+    grid.dataset.built='1';
+    document.querySelectorAll('.prof-btn').forEach(function(b){
+      b.addEventListener('click',function(e){e.stopPropagation();selectProf(b.dataset.prof);});
+    });
+    document.querySelectorAll('.prof-card').forEach(function(c){
+      c.addEventListener('click',function(){selectProf(c.dataset.prof);});
+    });
+    loadProfLottie();
+  }
+  // Update totals only
+  PROFESSIONS.forEach(function(prof){
     var total=prof.apps.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a,S.plan)||0):s;},0);
-    var names=prof.apps.map(function(id){var a=getApp(id);return a?'<span>'+a.name+'</span>':'';});
-    return '<div class="prof-card" data-prof="'+prof.id+'">' +
-      '<div class="prof-icon">'+prof.icon+'</div>' +
-      '<div class="prof-label">'+prof.label+'</div>' +
-      '<div class="prof-desc">'+prof.desc+'</div>' +
-      '<div class="prof-apps-row">'+names.join('')+'</div>' +
-      '<div class="prof-foot"><div class="prof-total">'+fmtTotal(total)+'<span class="per">/tháng</span></div>' +
-      '<button class="prof-btn" data-prof="'+prof.id+'">Chọn bộ này</button>' +
-      '</div></div>';
-  }).join('');
-  document.querySelectorAll('.prof-btn').forEach(function(b){
-    b.addEventListener('click',function(e){e.stopPropagation();selectProf(b.dataset.prof);});
+    var el=grid.querySelector('[data-total="'+prof.id+'"]');
+    if(el) el.innerHTML=fmtTotal(total)+'<span class="per">/tháng</span>';
   });
-  document.querySelectorAll('.prof-card').forEach(function(c){
-    c.addEventListener('click',function(){selectProf(c.dataset.prof);});
+}
+
+var _profAnimCache={};
+function loadProfLottie(){
+  if(typeof lottie==='undefined'){
+    // Lottie chưa load xong — retry sau 200ms
+    setTimeout(loadProfLottie,200);
+    return;
+  }
+  document.querySelectorAll('.prof-icon[data-lottie]').forEach(function(el){
+    if(el.dataset.loaded==='1') return;
+    var path=el.dataset.lottie;
+    el.dataset.loaded='1';
+    el.innerHTML='';
+    try {
+      var anim=lottie.loadAnimation({
+        container: el,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: path,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid meet' }
+      });
+      anim.addEventListener('data_failed',function(){
+        el.innerHTML=el.dataset.fallback||'';
+      });
+      _profAnimCache[path]=anim;
+    } catch(e){
+      el.innerHTML=el.dataset.fallback||'';
+    }
   });
 }
 function selectProf(profId){
