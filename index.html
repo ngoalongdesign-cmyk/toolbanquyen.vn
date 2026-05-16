@@ -206,6 +206,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hs-wrap input { min-width:150px;background:transparent;border:0;outline:0;color:var(--text);padding:10px 14px;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums; }
 .hs-wrap input::placeholder { color:var(--text-3);font-weight:400; }
 .hs-wrap select { background:var(--card-2);border:0;border-left:1px solid var(--border);outline:0;color:var(--text);font:inherit;font-weight:600;font-size:13px;padding:0 12px;cursor:pointer; }
+/* Theme-aware native dropdown (option list) — sync với theme thay vì màu OS default */
+select { color-scheme:dark; }
+select option { background-color:var(--card);color:var(--text);padding:8px; }
+select option:checked, select option:hover { background-color:var(--accent-soft);color:var(--text); }
+[data-theme="light"] select { color-scheme:light; }
+[data-theme="light"] select option { background-color:#ffffff;color:#0d1a10; }
+[data-theme="light"] select option:checked, [data-theme="light"] select option:hover { background-color:rgba(22,163,74,.12);color:#0d1a10; }
 .hs-hint { font-size:12px;color:var(--text-3);width:100%;text-align:center;margin-top:-6px; }
 /* ─── Search secondary ─── */
 .hero-search-or { font-size:12px;color:var(--text-3);margin:0 0 8px;text-align:center; }
@@ -259,29 +266,61 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .stat-num { font-size: 30px; }
 }
 
-/* ─── Floating cards ─────────────────────────────────────────────── */
+/* ─── Floating cards (hero) — 6 cards với chính phụ depth ─────────── */
 .float-card {
-  position: absolute; z-index: 2; display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px 12px 12px; min-width: 220px;
+  position: absolute; z-index: 2; display: flex; align-items: center; gap: 11px;
+  padding: 11px 15px 11px 11px;
   background: linear-gradient(180deg,rgba(15,26,18,.92),rgba(11,20,16,.85));
   border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(12px);
   box-shadow: 0 16px 40px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.02) inset;
-  animation: float 6s ease-in-out infinite;
+  animation: float 7s ease-in-out infinite;
+  transition: transform .3s ease;
 }
-[data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.95),rgba(246,251,247,.9)); box-shadow: 0 16px 40px -20px rgba(20,60,30,.25); }
-.fc-tl { top:60px; left:-10px; animation-delay:0s; }
-.fc-tr { top:80px; right:-10px; animation-delay:1.4s; }
-.fc-ml { top:280px; left:-30px; animation-delay:2.8s; }
-.fc-mr { top:300px; right:-30px; animation-delay:4.2s; }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-.fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 40px;overflow:hidden;box-sizing:border-box; }
-.fc-body { display:flex;flex-direction:column;gap:2px; }
-.fc-name { font-size:11.5px;color:var(--text-2);font-weight:500; }
-.fc-price { font-size:17px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums; }
+[data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.97),rgba(246,251,247,.92)); box-shadow: 0 16px 40px -18px rgba(20,60,30,.32); }
+
+/* MAIN cards — featured, bigger, sharper */
+.float-card.is-main { padding:14px 18px 14px 13px; z-index:3; }
+.float-card.is-main .fc-icon { width:46px;height:46px;flex:0 0 46px; }
+.float-card.is-main .fc-name { font-size:12.5px; }
+.float-card.is-main .fc-price { font-size:20px; }
+.float-card.is-main .fc-delta { font-size:11px; }
+
+/* SUB cards — background, smaller, slightly faded for depth */
+.float-card.is-sub { z-index:1;opacity:0.86;transform:scale(0.95); }
+.float-card.is-sub .fc-icon { width:36px;height:36px;flex:0 0 36px; }
+.float-card.is-sub .fc-name { font-size:11px; }
+.float-card.is-sub .fc-price { font-size:15px; }
+.float-card.is-sub .fc-delta { font-size:10px; }
+.float-card.is-sub:hover { opacity:1;transform:scale(1); }
+
+/* Positions — scatter around the hero, varied verticality for depth */
+.fc-tl  { top:48px;  left:-20px;  animation-delay:0s; }       /* main */
+.fc-tr  { top:104px; right:30px;  animation-delay:1.2s; }     /* sub */
+.fc-ml  { top:340px; left:-50px;  animation-delay:2.6s; }     /* main */
+.fc-mr  { top:312px; right:-30px; animation-delay:3.8s; }     /* sub */
+.fc-bl  { top:560px; left:30px;   animation-delay:5.2s; }     /* sub */
+.fc-br  { top:600px; right:-15px; animation-delay:6.4s; }     /* main */
+
+@keyframes float {
+  0%,100% { transform: translateY(0) scale(var(--fc-scale,1)); }
+  50%     { transform: translateY(-8px) scale(var(--fc-scale,1)); }
+}
+.float-card.is-sub { --fc-scale:0.95; }
+
+.fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box; }
+.fc-body { display:flex;flex-direction:column;gap:2px;min-width:0; }
+.fc-name { color:var(--text-2);font-weight:500;white-space:nowrap; }
+.fc-price { font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;line-height:1.1; }
 .fc-price span { font-size:11px;font-weight:500;color:var(--text-3);margin-left:2px; }
-.fc-delta { display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:var(--accent);margin-top:2px; }
-@media (max-width:1180px) { .fc-tl{left:10px} .fc-tr{right:10px} .fc-ml,.fc-mr{display:none} }
-@media (max-width:880px) { .float-card{display:none} }
+.fc-delta { display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--accent);margin-top:2px; }
+
+@media (max-width:1320px) {
+  .fc-tl{left:10px} .fc-tr{right:10px}
+  .fc-bl{left:10px} .fc-br{right:10px}
+  .fc-ml{left:-20px} .fc-mr{right:-10px}
+}
+@media (max-width:1080px) { .fc-ml,.fc-mr,.fc-bl,.fc-br{display:none} }
+@media (max-width:880px)  { .float-card{display:none} }
 
 /* ─── Social proof ───────────────────────────────────────────────── */
 .proof {
@@ -325,7 +364,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .head-left h2 { font-size:clamp(30px,3.4vw,44px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0; }
 .head-left h2 .em { color:var(--accent);font-style:normal; }
 .head-left .lede { font-size:15px;color:var(--text-2);margin:4px 0 48px;max-width:520px; }
-.head-left .meta { font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:var(--text-3);white-space:nowrap; }
+.head-left .meta {
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;color:var(--text-3);
+  white-space:nowrap;background:var(--card-2);border:1px solid var(--border-2);
+  padding:6px 12px;border-radius:999px;margin-bottom:6px;
+}
 
 .head-compact { display:flex;align-items:baseline;gap:18px;justify-content:space-between;border-top:1px solid var(--border-2);padding-top:24px; }
 .head-compact h3 { font-size:22px;font-weight:700;letter-spacing:-0.015em;margin:0; }
@@ -443,7 +486,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width:100%;min-height:70px;background:var(--bg-elev);border:1px solid var(--border-2);
   border-radius:10px;padding:12px 14px;color:var(--text);font:inherit;font-size:13.5px;line-height:1.5;
   resize:vertical;transition:border-color .15s,box-shadow .15s;box-sizing:border-box;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
 }
+.intent-input::-webkit-scrollbar { width:6px;height:6px; }
+.intent-input::-webkit-scrollbar-thumb { background:var(--border);border-radius:999px; }
+.intent-input::-webkit-scrollbar-thumb:hover { background:color-mix(in oklab,var(--border) 60%,var(--accent)); }
+.intent-input::-webkit-scrollbar-track { background:transparent; }
 .intent-input:focus { outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 18%,transparent); }
 .intent-input::placeholder { color:var(--text-3); }
 .intent-hint { font-size:11.5px;color:var(--text-3);margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center; }
@@ -814,20 +862,44 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 <section class="hero">
   <div class="container hero-inner">
 
-    <div class="float-card fc-tl">
-      <div class="fc-icon" style="background:#fff;border-radius:9px;overflow:hidden;">
-        <img src="icons/adobe-photoshop-2.svg" alt="Photoshop" width="40" height="40" style="width:40px;height:40px;padding:6px;box-sizing:border-box;display:block;">
+    <!-- MAIN cards: featured, prominent -->
+    <div class="float-card is-main fc-tl">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/adobe-photoshop-2.svg" alt="Photoshop" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
       </div>
       <div class="fc-body">
         <div class="fc-name">Adobe Photoshop</div>
-        <div class="fc-price">$29.99<span>/tháng</span></div>
+        <div class="fc-price">$22.99<span>/tháng</span></div>
         <div class="fc-delta">Giá chính hãng</div>
       </div>
     </div>
 
-    <div class="float-card fc-tr">
-      <div class="fc-icon" style="background:#fff;border-radius:9px;overflow:hidden;">
-        <img src="icons/chatgpt-6.svg" alt="ChatGPT" width="40" height="40" style="width:40px;height:40px;padding:6px;box-sizing:border-box;display:block;">
+    <div class="float-card is-main fc-ml">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/figma-color.svg" alt="Figma" style="width:100%;height:100%;padding:8px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">Figma Professional</div>
+        <div class="fc-price">$15<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
+
+    <div class="float-card is-main fc-br">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/Midjourney--Streamline-Svg-Logos.svg" alt="Midjourney" style="width:100%;height:100%;padding:7px;box-sizing:border-box;display:block;">
+      </div>
+      <div class="fc-body">
+        <div class="fc-name">Midjourney Standard</div>
+        <div class="fc-price">$30<span>/tháng</span></div>
+        <div class="fc-delta">Giá chính hãng</div>
+      </div>
+    </div>
+
+    <!-- SUB cards: smaller, faded for depth -->
+    <div class="float-card is-sub fc-tr">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/chatgpt-6.svg" alt="ChatGPT" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
       </div>
       <div class="fc-body">
         <div class="fc-name">ChatGPT Plus</div>
@@ -836,23 +908,23 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       </div>
     </div>
 
-    <div class="float-card fc-ml">
-      <div class="fc-icon" style="background:#fff;border-radius:9px;overflow:hidden;">
-        <img src="icons/figma-color.svg" alt="Figma" width="40" height="40" style="width:40px;height:40px;padding:5px;box-sizing:border-box;display:block;">
+    <div class="float-card is-sub fc-mr">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/cursor.svg" alt="Cursor" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
       </div>
       <div class="fc-body">
-        <div class="fc-name">Figma Pro</div>
-        <div class="fc-price">$15<span>/tháng</span></div>
+        <div class="fc-name">Cursor Pro</div>
+        <div class="fc-price">$20<span>/tháng</span></div>
         <div class="fc-delta">Giá chính hãng</div>
       </div>
     </div>
 
-    <div class="float-card fc-mr">
-      <div class="fc-icon" style="background:#fff;border-radius:9px;overflow:hidden;">
-        <img src="icons/cursor.svg" alt="Cursor" width="40" height="40" style="width:40px;height:40px;padding:6px;box-sizing:border-box;display:block;">
+    <div class="float-card is-sub fc-bl">
+      <div class="fc-icon" style="background:#fff;">
+        <img src="icons/claude-logo.svg" alt="Claude" style="width:100%;height:100%;padding:5px;box-sizing:border-box;display:block;">
       </div>
       <div class="fc-body">
-        <div class="fc-name">Cursor Pro</div>
+        <div class="fc-name">Claude Pro</div>
         <div class="fc-price">$20<span>/tháng</span></div>
         <div class="fc-delta">Giá chính hãng</div>
       </div>
@@ -1143,7 +1215,7 @@ var APPS = [
      {id:'enterprise',label:'Enterprise',price:null,features:['Admin console tập trung','VIP licensing','SSO + advanced compliance','Custom MSA','Global support 24/7']}
    ]},
   {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
-   logo:'icons/canva.svg',
+   logo:'icons/canva.svg',url:'https://www.canva.com/pricing/',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
    tiers:{
      personal:{label:'Pro',price:15,popular:true,features:['100GB cloud storage','Magic Studio AI (toàn bộ)','Background Remover & Magic Resize','610K+ template Premium']},
@@ -1151,7 +1223,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['SSO + SAML','Brand controls toàn organization','Advanced analytics','24/7 priority support']}
    }},
   {id:'sketch',name:'Sketch',cat:'Design',color:'#C4741A',initials:'S',popular:false,
-   logo:'icons/sketch-2.svg',
+   logo:'icons/sketch-2.svg',url:'https://www.sketch.com/pricing/',
    desc:'Công cụ thiết kế UI/UX dành riêng cho macOS — gọn nhẹ, nhanh, plugin ecosystem mạnh.',
    tiers:{
      personal:{label:'Standard',price:12,popular:true,features:['Mac app native + Web app','Real-time collab + prototyping','Plugin marketplace (1000+)','Cloud sync không giới hạn']},
@@ -1159,7 +1231,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:30,features:['SAML SSO + SCIM','Audit logs đầy đủ','Custom integration','Dedicated CSM']}
    }},
   {id:'miro',name:'Miro',cat:'Design',color:'#C4921A',initials:'M',popular:true,
-   logo:'icons/miro-icon.svg',
+   logo:'icons/miro-icon.svg',url:'https://miro.com/pricing/',
    desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
    tiers:{
      personal:{label:'Starter',price:10,popular:true,features:['Unlimited board (1 editor)','Video chat & comment','Talktrack (video walkthrough)','3000+ template community']},
@@ -1167,7 +1239,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['SSO + SCIM','Audit log + DLP','Centralized admin','99.99% SLA']}
    }},
   {id:'framer',name:'Framer',cat:'Design',color:'#0055FF',initials:'Fr',popular:false,
-   logo:'icons/framer-2.svg',
+   logo:'icons/framer-2.svg',url:'https://www.framer.com/pricing',
    desc:'Thiết kế và publish website chuyên nghiệp với animation phức tạp, không cần code.',
    tiers:{
      personal:{label:'Mini',price:5,features:['1 site, custom domain','1000 CMS items','Bandwidth 100GB','Framer branding ở footer']},
@@ -1198,7 +1270,7 @@ var APPS = [
      {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM provisioning','Audit logs đầy đủ','Custom agreements & SLA','Data residency options','Dedicated CSM']}
    ]},
   {id:'midjourney',name:'Midjourney',cat:'AI',color:'#2D2D44',initials:'MJ',popular:true,
-   logo:'icons/Midjourney--Streamline-Svg-Logos.svg',
+   logo:'icons/Midjourney--Streamline-Svg-Logos.svg',url:'https://www.midjourney.com/account',
    desc:'Tạo ảnh AI chất lượng cao nhất — concept art, branding, minh hoạ sáng tạo.',
    tiers:{
      personal:{label:'Basic',price:10,features:['~200 ảnh/tháng (3.3h GPU)','Discord + Web access','Image rating membership','General commercial use']},
@@ -1206,7 +1278,7 @@ var APPS = [
      enterprise:{label:'Pro',price:60,features:['~1800 ảnh/tháng (30h)','Stealth mode mặc định','12 job song song','API access mới (waitlist)']}
    }},
   {id:'perplexity',name:'Perplexity Pro',cat:'AI',color:'#20B2AA',initials:'Px',popular:false,
-   logo:'icons/perplexity-color-1-.svg',
+   logo:'icons/perplexity-color-1-.svg',url:'https://www.perplexity.ai/pro',
    desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time.',
    tiers:{
      personal:{label:'Pro',price:20,popular:true,features:['300+ Pro search/ngày','Chọn model: GPT-4o, Claude, Sonar','Upload file & phân tích','Spaces (workspace cá nhân)']},
@@ -1225,7 +1297,7 @@ var APPS = [
      {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Custom data retention','99.9% SLA','Dedicated support','Audit log đầy đủ']}
    ]},
   {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#181717',initials:'GH',popular:true,
-   logo:'icons/copilot-color.svg',
+   logo:'icons/copilot-color.svg',url:'https://github.com/features/copilot/plans',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
    tiers:{
      personal:{label:'Individual',price:10,popular:true,features:['Code completion (mọi IDE)','Copilot Chat trong IDE','Pull request summary','Truy cập GPT-4o-mini & Claude']},
@@ -1233,7 +1305,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:39,features:['Custom model fine-tune','IP indemnity đầy đủ','SAML SSO + SCIM','24/7 priority support']}
    }},
   {id:'vercel',name:'Vercel',cat:'Development',color:'#333',initials:'Vc',popular:false,
-   logo:'icons/vercel.svg',
+   logo:'icons/vercel.svg',url:'https://vercel.com/pricing',
    desc:'Deploy và host frontend siêu nhanh — CI/CD tự động, edge network toàn cầu.',
    tiers:{
      personal:{label:'Pro',price:20,popular:true,features:['1TB bandwidth + Edge Functions','Preview deployment không giới hạn','Custom domain SSL','Analytics & Speed Insights cơ bản']},
@@ -1241,7 +1313,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','99.99% SLA','DDoS mitigation cao cấp','Dedicated support & CSM']}
    }},
   {id:'raycast',name:'Raycast Pro',cat:'Development',color:'#E64F3B',initials:'Rc',popular:false,
-   logo:'icons/raycast.svg',
+   logo:'icons/raycast.svg',url:'https://www.raycast.com/pro',
    desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management.',
    tiers:{
      personal:{label:'Pro',price:10,popular:true,features:['Raycast AI (GPT-4o, Claude)','Cloud sync settings & quicklink','Unlimited clipboard history','Custom themes & icons']},
@@ -1259,7 +1331,7 @@ var APPS = [
      {id:'ai-addon',label:'Notion AI (add-on)',price:10,perUser:true,note:'Add-on, cộng vào gói chính',features:['Q&A trên toàn workspace','Tạo và sửa nội dung','Auto-summary & translation','Action items từ meeting','Có thể add vào mọi gói']}
    ]},
   {id:'linear',name:'Linear',cat:'Productivity',color:'#5E6AD2',initials:'Li',popular:false,
-   logo:'icons/linear.svg',
+   logo:'icons/linear.svg',url:'https://linear.app/pricing',
    desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
    tiers:{
      personal:{label:'Basic',price:8,popular:true,features:['250 issue created/month','File upload 25MB','Slack & GitHub integration','Linear Insights cơ bản']},
@@ -1267,7 +1339,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log + data residency','Custom workflow & API limit','Priority support 24/7']}
    }},
   {id:'clickup',name:'ClickUp',cat:'Productivity',color:'#7B68EE',initials:'CU',popular:false,
-   logo:'icons/clickup.svg',
+   logo:'icons/clickup.svg',url:'https://clickup.com/pricing',
    desc:'Project management đa năng — task, doc, time tracking, OKR trong một app.',
    tiers:{
      personal:{label:'Unlimited',price:10,popular:true,features:['Unlimited storage & task','Custom field & dashboard','Native time tracking','Goal & sprint cơ bản']},
@@ -1275,7 +1347,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['White labeling toàn org','SSO + SCIM','Permission cấp cao','Dedicated success team']}
    }},
   {id:'buffer',name:'Buffer',cat:'Marketing',color:'#2D9CDB',initials:'Bu',popular:false,
-   logo:'https://cdn.simpleicons.org/buffer/ffffff',
+   logo:'https://cdn.simpleicons.org/buffer/ffffff',url:'https://buffer.com/pricing',
    desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
    tiers:{
      personal:{label:'Essentials',price:6,popular:true,features:['3 channel mạng xã hội','Lên lịch & first comment','Analytics cơ bản','AI Assistant viết caption']},
@@ -1283,6 +1355,7 @@ var APPS = [
      enterprise:{label:'Agency',price:120,features:['10 channel kèm white-label','Client reporting tự động','Custom access cho client','Priority support 24/7']}
    }},
   {id:'ahrefs',name:'Ahrefs',cat:'Marketing',color:'#E08C00',initials:'Ah',popular:false,
+   url:'https://ahrefs.com/pricing',
    desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor.',
    tiers:{
      personal:{label:'Lite',price:129,features:['Site Explorer cơ bản','500 credit/tháng','5 dự án theo dõi','Keyword research giới hạn']},
@@ -1290,7 +1363,7 @@ var APPS = [
      enterprise:{label:'Advanced',price:449,features:['Backlink history full','10000 credit/tháng','100 dự án','API access (5K row/ngày)']}
    }},
   {id:'semrush',name:'Semrush',cat:'Marketing',color:'#FF642D',initials:'Se',popular:false,
-   logo:'https://cdn.simpleicons.org/semrush/ffffff',
+   logo:'https://cdn.simpleicons.org/semrush/ffffff',url:'https://www.semrush.com/pricing/',
    desc:'Marketing platform — SEO, PPC, social media, content, competitor analysis.',
    tiers:{
      personal:{label:'Pro',price:140,popular:true,features:['5 dự án + 500 keyword','SEO, PPC & social media basic','Position tracking hàng ngày','Site Audit 100K trang']},
@@ -1298,7 +1371,7 @@ var APPS = [
      enterprise:{label:'Business',price:500,features:['40 dự án + 5000 keyword','API access đầy đủ','PLA (Product Listing Ads)','Extended limit toàn tool']}
    }},
   {id:'capcut',name:'CapCut Pro',cat:'Video',color:'#222',initials:'CC',popular:true,
-   logo:'icons/capcut-3.svg',
+   logo:'icons/capcut-3.svg',url:'https://www.capcut.com/pricing',
    desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
    tiers:{
      personal:{label:'Pro',price:10,popular:true,features:['Cloud storage 100GB','AI effect & template Premium','Background remover, auto reframe','Export 4K không watermark']},
@@ -1306,7 +1379,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['SSO + admin console','Advanced licensing','Priority CSM','Custom contract']}
    }},
   {id:'premiere',name:'Adobe Premiere Pro',cat:'Video',color:'#9999FF',initials:'Pr',popular:false,
-   logo:'icons/adobe-premiere-pro-cc-1430-vector-svg-.svg',
+   logo:'icons/adobe-premiere-pro-cc-1430-vector-svg-.svg',url:'https://www.adobe.com/products/premiere/buying-guide.html',
    desc:'Edit video chuyên nghiệp — Hollywood-grade, tích hợp After Effects, Audition.',
    tiers:{
      personal:{label:'Single App',price:29.99,features:['Chỉ Premiere Pro','100GB cloud storage','Adobe Fonts đầy đủ','Behance + Portfolio']},
@@ -1314,6 +1387,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:89.99,features:['Admin console + VIP licensing','SSO + advanced compliance','Dedicated CSM','Custom MSA & invoice']}
    }},
   {id:'descript',name:'Descript',cat:'Video',color:'#6B21A8',initials:'Ds',popular:false,
+   url:'https://www.descript.com/pricing',
    desc:'Edit video bằng text — AI transcript, remove filler words, screen recorder.',
    tiers:{
      personal:{label:'Hobbyist',price:12,features:['10 giờ transcription/tháng','Watermark khi export','1080p export','Screen + camera recorder']},
@@ -1321,7 +1395,7 @@ var APPS = [
      enterprise:{label:'Business',price:40,features:['40 giờ transcription/tháng','Brand template','Advanced collab + role','Priority support 24/7']}
    }},
   {id:'runway',name:'Runway ML',cat:'Video',color:'#222',initials:'Rw',popular:false,
-   logo:'icons/runway.svg',
+   logo:'icons/runway.svg',url:'https://runwayml.com/pricing',
    desc:'AI video generation & editing — Gen-3, inpainting, motion tracking, VFX.',
    tiers:{
      personal:{label:'Standard',price:15,features:['625 credit/tháng (~62s video)','Gen-3 Alpha Turbo','Watermark khi export','Voice Generation cơ bản']},
@@ -1329,7 +1403,7 @@ var APPS = [
      enterprise:{label:'Unlimited',price:95,features:['Unlimited Relax mode','Đầy đủ tính năng Pro','Priority queue khi render','Hỗ trợ pro creator']}
    }},
   {id:'davinci',name:'DaVinci Resolve',cat:'Video',color:'#B03A2E',initials:'DV',popular:false,
-   logo:'icons/davinci-resolve-12.svg',
+   logo:'icons/davinci-resolve-12.svg',url:'https://www.blackmagicdesign.com/products/davinciresolve',
    desc:'Professional color grading và post-production — tiêu chuẩn Hollywood.',
    tiers:{
      personal:{label:'Free',price:0,popular:true,features:['Full edit + color grade + Fairlight','Export tới UHD 4K','Fusion VFX cơ bản','Đủ cho 95% nhu cầu cá nhân']},
@@ -1337,7 +1411,7 @@ var APPS = [
      enterprise:{label:'Dongle',price:null,features:['USB dongle để chuyển máy','Phù hợp studio nhiều máy','Bao gồm full Studio license','Mua 1 lần, dùng vĩnh viễn']}
    }},
   {id:'gemini',name:'Google Gemini',cat:'AI',color:'#4285F4',initials:'Ge',popular:true,
-   logo:'icons/google-gemini.svg',
+   logo:'icons/google-gemini.svg',url:'https://gemini.google.com/advanced',
    desc:'AI assistant của Google — tích hợp sâu Google Workspace, search, multimodal.',
    tiers:{
      personal:{label:'Advanced',price:19.99,popular:true,features:['Gemini 2.5 Pro full access','2TB Google One storage','Deep Research & NotebookLM Pro','Veo 3 (tạo video AI)']},
@@ -1345,7 +1419,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['Data residency tùy chọn','SAML SSO + audit log','Custom data retention','Dedicated CSM + SLA']}
    }},
   {id:'deepseek',name:'DeepSeek',cat:'AI',color:'#4D6BFE',initials:'DS',popular:true,
-   logo:'icons/deepseek-color.svg',
+   logo:'icons/deepseek-color.svg',url:'https://www.deepseek.com/',
    desc:'AI model mã nguồn mở từ Trung Quốc — suy luận sâu, coding, toán học.',
    tiers:{
      personal:{label:'Free',price:0,popular:true,features:['DeepSeek-V3 + R1 reasoning','Web chat miễn phí hoàn toàn','Suy luận sâu, code, toán','Mã nguồn mở, tự host được']},
@@ -1353,7 +1427,7 @@ var APPS = [
      enterprise:{label:'API',price:null,features:['Volume discount','Tự deploy on-premise','Mã model public trên HuggingFace','Phù hợp dev & startup']}
    }},
   {id:'grok',name:'Grok (xAI)',cat:'AI',color:'#111',initials:'Gr',popular:false,
-   logo:'icons/grok-1.svg',
+   logo:'icons/grok-1.svg',url:'https://x.com/i/premium',
    desc:'AI của xAI (Elon Musk) — trả lời thẳng thắn, truy cập real-time X/Twitter.',
    tiers:{
      personal:{label:'X Premium',price:8,popular:true,features:['Grok 3 truy cập cơ bản','Tích sub-account X (Twitter)','Edit post + longer post','Reply boost trên X']},
@@ -1361,7 +1435,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['xAI API riêng cho doanh nghiệp','Higher rate limit','Custom integration','SLA & support riêng']}
    }},
   {id:'kling',name:'Kling AI',cat:'Video',color:'#1a1a2e',initials:'Kl',popular:false,
-   logo:'icons/kling-color.svg',
+   logo:'icons/kling-color.svg',url:'https://klingai.com/pricing',
    desc:'AI video generation — tạo video từ text/ảnh, chất lượng cao, nổi tiếng tại Việt Nam.',
    tiers:{
      personal:{label:'Standard',price:8,popular:true,features:['660 credit/tháng (~33 video 5s)','Kling 1.6 + Image-to-Video','Watermark khi export','Lip sync cơ bản']},
@@ -1395,6 +1469,7 @@ var INTENT_MAP = [
   // Design / Branding
   {kw:['logo','branding','identity','nhận diện thương hiệu','brand'],apps:['figma','adobe-cc','midjourney','canva']},
   {kw:['ui','ux','app design','web design','interface','giao diện','product design'],apps:['figma','sketch','framer']},
+  {kw:['thiết kế đồ họa','graphic design','đồ họa','graphic designer','designer','thiết kế','design'],apps:['figma','adobe-cc','canva','midjourney','sketch']},
   {kw:['wireframe','prototype','prototyping','mockup','mock-up','mock up'],apps:['figma','sketch','miro']},
   {kw:['print','in ấn','poster','brochure','flyer','tạp chí','magazine'],apps:['adobe-cc']},
   {kw:['photo','ảnh','sửa ảnh','retouch','chỉnh ảnh','photoshop','ps'],apps:['adobe-cc']},
