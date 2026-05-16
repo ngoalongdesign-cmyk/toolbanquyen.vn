@@ -193,17 +193,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero-center {
   position: relative; z-index: 2; text-align: center; padding: 0 8px;
 }
-.hero-arc {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 0;
-}
-.hero-arc path {
-  stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 3 8;
-  fill: none; opacity: 0.4;
-  filter: drop-shadow(0 0 6px rgba(34,197,94,0.45));
-  animation: arcDash 40s linear infinite;
-}
-.hero-arc circle { fill: var(--accent); opacity: 0.55; filter: drop-shadow(0 0 4px rgba(34,197,94,0.6)); }
 @media (max-width: 1080px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-side { display: none; }
@@ -297,35 +286,25 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 }
 
 /* ─── Hero arc decoration — dotted curves nối các cards ─────────── */
-@keyframes arcDash { to { stroke-dashoffset:-200; } }
 
-/* ─── Floating cards (hero) — 2D tilted cards giống ChatGPT ────────── */
+/* ─── Floating cards (hero) — 2D tilted cards ───────────────── */
 .float-card {
   --rot: 0deg; --fc-scale: 1;
   position: absolute; z-index: 2; display: flex; align-items: center; gap: 12px;
   padding: 14px 18px 14px 14px;
-  background: linear-gradient(180deg,rgba(15,26,18,.92),rgba(11,20,16,.85));
-  border: 1px solid var(--border); border-radius: 16px; backdrop-filter: blur(12px);
+  background: linear-gradient(180deg,rgba(15,26,18,.96),rgba(11,20,16,.92));
+  border: 1px solid var(--border); border-radius: 16px;
   box-shadow: 0 16px 40px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.02) inset;
   animation: floatTilt 7s ease-in-out infinite;
   will-change: transform;
+  transform: rotate(var(--rot)) scale(var(--fc-scale));
+  /* backdrop-filter đã bỏ — gây jank trên GPU yếu */
 }
 [data-theme="light"] .float-card { background: linear-gradient(180deg,rgba(255,255,255,.97),rgba(246,251,247,.92)); box-shadow: 0 16px 40px -18px rgba(20,60,30,.32); }
 
-/* POPULAR cards — featured với green glow + "Phổ biến" badge */
+/* POPULAR cards — chỉ giữ "Phổ biến" pill, không glow nữa (clean) */
 .float-card.is-popular {
-  border-color:color-mix(in oklab,var(--accent) 45%,var(--border));
-  box-shadow:
-    0 16px 40px -20px rgba(0,0,0,.7),
-    0 0 0 1px color-mix(in oklab,var(--accent) 25%,transparent),
-    0 0 32px -4px rgba(34,197,94,0.32),
-    0 2px 0 rgba(255,255,255,.02) inset;
-}
-[data-theme="light"] .float-card.is-popular {
-  box-shadow:
-    0 16px 40px -18px rgba(20,60,30,.4),
-    0 0 0 1px color-mix(in oklab,var(--accent) 30%,transparent),
-    0 0 32px -4px rgba(34,197,94,0.25);
+  border-color: color-mix(in oklab,var(--accent) 30%,var(--border));
 }
 .fc-popular {
   position:absolute;top:-10px;right:16px;z-index:4;
@@ -333,7 +312,6 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
   background:var(--accent);color:#08120c;
   font-size:10px;font-weight:800;letter-spacing:0.04em;
   padding:4px 10px 4px 8px;border-radius:999px;white-space:nowrap;
-  box-shadow:0 4px 14px rgba(34,197,94,0.45);
 }
 .fc-popular svg { width:10px;height:10px;flex:0 0 10px; }
 
@@ -362,34 +340,21 @@ select option:checked, select option:hover { background-color:var(--accent-soft)
 .float-card.fc-size-sm .fc-price { font-size:16px; }
 .float-card.fc-size-sm .fc-delta { font-size:10px; }
 
-/* POSITIONS — cards anchor INNER edge of their side column → không tràn vào center */
-/* Left-side cards: right:X (X = khoảng cách tới center) */
-.hero-side-l .fc-tl { top: 30px;  right: 30px;  --rot:-4deg; animation-delay: 0s;   }
-.hero-side-l .fc-ml { top: 280px; right: 80px;  --rot:-3deg; animation-delay: 2.4s; }
-.hero-side-l .fc-bl { top: 530px; right: 50px;  --rot:-3deg; animation-delay: 4.8s; }
+/* POSITIONS — clean rhythmic placement, cards anchor inner edge */
+.hero-side-l .fc-tl { top: 40px;  right: 20px;  --rot:-3deg; animation-delay: 0s;   }
+.hero-side-l .fc-ml { top: 290px; right: 60px;  --rot:-2deg; animation-delay: 2.5s; }
+.hero-side-l .fc-bl { top: 530px; right: 40px;  --rot:-2deg; animation-delay: 5.0s; }
 
-/* Right-side cards: left:X */
-.hero-side-r .fc-tr { top: 50px;  left: 30px;   --rot:4deg;  animation-delay: 1.2s; }
-.hero-side-r .fc-mr { top: 290px; left: 80px;   --rot:3deg;  animation-delay: 3.6s; }
-.hero-side-r .fc-br { top: 540px; left: 40px;   --rot:3deg;  animation-delay: 6.0s; }
+.hero-side-r .fc-tr { top: 60px;  left: 20px;   --rot:3deg;  animation-delay: 1.2s; }
+.hero-side-r .fc-mr { top: 290px; left: 60px;   --rot:2deg;  animation-delay: 3.7s; }
+.hero-side-r .fc-br { top: 530px; left: 30px;   --rot:2deg;  animation-delay: 6.2s; }
 
 @keyframes floatTilt {
   0%,100% { transform: translateY(0)   rotate(var(--rot)) scale(var(--fc-scale)); }
-  50%     { transform: translateY(-8px) rotate(var(--rot)) scale(var(--fc-scale)); }
+  50%     { transform: translateY(-6px) rotate(var(--rot)) scale(var(--fc-scale)); }
 }
 
-/* GHOST cards — 1 per side, blurred xa hơn, depth atmosphere */
-.float-card.is-ghost {
-  opacity: 0.32;
-  filter: blur(2.5px) saturate(0.55);
-  z-index: 0;
-  pointer-events: none;
-  --fc-scale: 0.82;
-  animation-duration: 10s;
-}
-.hero-side-l .fc-ghost { top: 170px; right: 260px; --rot: -5deg; animation-delay: 0.7s; }
-.hero-side-r .fc-ghost { top: 200px; left: 260px;  --rot: 5deg;  animation-delay: 2.5s; }
-@media (max-width:1480px) { .float-card.is-ghost { display: none; } }
+/* (Ghost cards đã bỏ — clean minimal) */
 
 .fc-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box; }
 .fc-body { display:flex;flex-direction:column;gap:2px;min-width:0; }
@@ -948,21 +913,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 
     <!-- ════════ LEFT SIDE ════════ -->
     <aside class="hero-side hero-side-l" aria-hidden="true">
-      <svg class="hero-arc hero-arc-l" viewBox="0 0 400 880" preserveAspectRatio="none">
-        <path d="M 350 280 C 50 360, 60 500, 290 510 C 30 620, 200 760, 380 740"/>
-        <circle cx="350" cy="280" r="4"/>
-        <circle cx="380" cy="740" r="4"/>
-      </svg>
-      <div class="float-card is-ghost fc-ghost">
-        <div class="fc-icon" style="background:#fff;">
-          <img src="icons/notion.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-        </div>
-        <div class="fc-body">
-          <div class="fc-name">Notion Plus</div>
-          <div class="fc-price">$10<span>/tháng</span></div>
-          <div class="fc-delta">Giá chính hãng</div>
-        </div>
-      </div>
       <div class="float-card is-popular fc-size-xl fc-tl">
         <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
         <div class="fc-icon" style="background:#fff;">
@@ -1078,21 +1028,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 
     <!-- ════════ RIGHT SIDE ════════ -->
     <aside class="hero-side hero-side-r" aria-hidden="true">
-      <svg class="hero-arc hero-arc-r" viewBox="0 0 400 880" preserveAspectRatio="none">
-        <path d="M 50 300 C 350 380, 340 510, 110 510 C 370 620, 200 760, 20 740"/>
-        <circle cx="50" cy="300" r="4"/>
-        <circle cx="20" cy="740" r="4"/>
-      </svg>
-      <div class="float-card is-ghost fc-ghost">
-        <div class="fc-icon" style="background:#fff;">
-          <img src="icons/google-gemini.svg" alt="" style="width:100%;height:100%;padding:6px;box-sizing:border-box;display:block;">
-        </div>
-        <div class="fc-body">
-          <div class="fc-name">Gemini Advanced</div>
-          <div class="fc-price">$19.99<span>/tháng</span></div>
-          <div class="fc-delta">Giá chính hãng</div>
-        </div>
-      </div>
       <div class="float-card is-popular fc-size-lg fc-tr">
         <span class="fc-popular"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17l-5.5 4L8 13.6 3 9l6.6-.4z"/></svg>Phổ biến</span>
         <div class="fc-icon" style="background:#fff;">
