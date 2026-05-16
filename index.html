@@ -318,13 +318,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hs-go:active { transform: scale(.97); }
 .hs-go svg { width: 14px; height: 14px; }
 
-/* Theme-aware native dropdown */
+/* Theme-aware native dropdown — fix text contrast on checked option */
 select { color-scheme: dark; }
-select option { background-color: var(--card); color: var(--text); padding: 8px; }
-select option:checked, select option:hover { background-color: var(--accent-soft); color: var(--text); }
+select option { background-color: var(--bg-elev); color: var(--text); padding: 8px; }
+select option:hover { background-color: var(--accent-soft); color: var(--accent); }
+select option:checked { background-color: var(--accent); color: #08120c; font-weight: 700; }
 [data-theme="light"] select { color-scheme: light; }
 [data-theme="light"] select option { background-color: #ffffff; color: #0d1a10; }
-[data-theme="light"] select option:checked, [data-theme="light"] select option:hover { background-color: rgba(22,163,74,.12); color: #0d1a10; }
+[data-theme="light"] select option:hover { background-color: rgba(22,163,74,.12); color: #16a34a; }
+[data-theme="light"] select option:checked { background-color: #16a34a; color: #ffffff; font-weight: 700; }
 
 .hero-trust {
   margin: auto 0 0;
@@ -627,37 +629,75 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   transition: transform .15s;
 }
 .grid-head .arr:hover { transform: translateX(3px); }
-.logo-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
+/* ─── Logo marquee: 2 rows scroll opposite directions ─────────────── */
+.logo-marquee {
+  position: relative;
+  display: flex; flex-direction: column; gap: 10px;
+  overflow: hidden;
+  /* Fade edges để feel "endless tape" */
+  -webkit-mask: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+          mask: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
-@media (max-width: 1079px) { .logo-grid { grid-template-columns: repeat(8, 1fr); } }
-@media (max-width: 640px)  { .logo-grid { grid-template-columns: repeat(6, 1fr); } }
-@media (max-width: 480px)  { .logo-grid { grid-template-columns: repeat(4, 1fr); } }
+.marquee-row {
+  display: flex; gap: 10px;
+  width: max-content;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+.marquee-left  { animation-name: marquee-left; }
+.marquee-right { animation-name: marquee-right; }
+/* Pause cả 2 hàng khi hover bất kỳ logo */
+.logo-marquee:hover .marquee-row { animation-play-state: paused; }
+@keyframes marquee-left  { from { transform: translateX(0); }       to { transform: translateX(-50%); } }
+@keyframes marquee-right { from { transform: translateX(-50%); }    to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce){
+  .marquee-row { animation-duration: 0s; }
+}
 .logo-cell {
-  aspect-ratio: 1;
+  position: relative;
+  flex-shrink: 0;
+  width: 52px; height: 52px;
   background: #fff;
   border-radius: 10px;
   padding: 8px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  opacity: 1; /* base — animation is decorative only */
   transition: transform .18s ease, box-shadow .18s ease;
-  animation: logoFade .4s ease-out both;
-  animation-delay: calc(var(--i, 0) * 40ms + 80ms);
 }
 .logo-cell:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 8px 20px -8px rgba(0,0,0,.5);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,.55);
+  z-index: 5;
 }
-.logo-cell img { width: 100%; height: 100%; object-fit: contain; }
-@keyframes logoFade {
-  0%   { transform: translateY(6px); }
-  100% { transform: translateY(0); }
+.logo-cell img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.logo-tip {
+  position: absolute; left: 50%; bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(4px);
+  background: var(--text); color: var(--bg);
+  padding: 5px 10px; border-radius: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: -0.005em;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease, transform .18s cubic-bezier(.2,.8,.2,1);
+  z-index: 10;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,.5);
 }
-@media (prefers-reduced-motion: reduce) {
-  .logo-cell { animation: none; }
+.logo-tip::after {
+  content: ''; position: absolute; left: 50%; top: 100%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--text);
+}
+.logo-tip .lt-price { color: var(--accent); font-weight: 700; margin-left: 4px; }
+.logo-cell:hover .logo-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+@media (max-width:640px){
+  .logo-cell { width: 44px; height: 44px; padding: 6px; }
+  .marquee-row { animation-duration: 50s; }
 }
 
 /* ─── Sections ───────────────────────────────────────────────────── */
@@ -1414,14 +1454,15 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         </div>
       </div>
 
-      <!-- ═══ Cell C: Logo grid ═══ -->
+      <!-- ═══ Cell C: Logo marquee — 2 hàng scroll ngược chiều ═══ -->
       <div class="bento-cell cell-grid">
         <div class="grid-head">
-          <span>Toàn bộ 29 app bản quyền</span>
+          <span id="hero-grid-count">Toàn bộ 41 app bản quyền</span>
           <a href="#apps" class="arr" aria-label="Xem tất cả">→</a>
         </div>
-        <div class="logo-grid" id="hero-logo-grid">
-          <!-- rendered by JS -->
+        <div class="logo-marquee" id="hero-logo-grid">
+          <div class="marquee-row marquee-left" id="marquee-row-1"></div>
+          <div class="marquee-row marquee-right" id="marquee-row-2"></div>
         </div>
       </div>
 
@@ -3542,21 +3583,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
     {id:'claude',    logo:'icons/claude-logo.svg',       name:'Claude Pro',       usd:20.00, delta:'—'}
   ];
 
-  // Logo grid — 12 popular apps
-  var LOGO_GRID = [
-    'icons/figma-color.svg',
-    'icons/adobe-photoshop-2.svg',
-    'icons/chatgpt-6.svg',
-    'icons/claude-logo.svg',
-    'icons/cursor.svg',
-    'icons/notion.svg',
-    'icons/canva.svg',
-    'icons/linear.svg',
-    'icons/framer-2.svg',
-    'icons/vercel.svg',
-    'icons/capcut-3.svg',
-    'icons/Midjourney--Streamline-Svg-Logos.svg'
-  ];
+  // Logo marquee — sử dụng tất cả apps có logo từ APPS array (dynamic)
 
   // Pull current rate from #rate-display in header (synced by fetchRate)
   function currentRate(){
@@ -3591,13 +3618,65 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
     if (rt) rt.textContent = rate.toLocaleString('vi-VN') + ' ₫';
   }
 
-  // Render the logo grid
+  // Helper — cheapest paid tier price (cho tooltip)
+  function getCheapestPaidPrice(app){
+    if(!app || !app.tiers || !app.tiers.length) return null;
+    var min = Infinity;
+    app.tiers.forEach(function(t){
+      if(t && t.price > 0 && t.price < min) min = t.price;
+    });
+    if(min === Infinity){
+      // Toàn free → return 0
+      for(var i=0;i<app.tiers.length;i++){
+        if(app.tiers[i] && app.tiers[i].price === 0) return 0;
+      }
+      return null;
+    }
+    return min;
+  }
+
+  function makeLogoCell(a){
+    var price = getCheapestPaidPrice(a);
+    var rate = currentRate();
+    var priceLabel;
+    if(price === null) priceLabel = '<span class="lt-price">Liên hệ</span>';
+    else if(price === 0) priceLabel = '<span class="lt-price">Miễn phí</span>';
+    else {
+      var displayCur = (typeof S !== 'undefined' && S.currency === 'VND')
+        ? Math.round(price * rate).toLocaleString('en-US') + ' đ'  // VND swap → comma
+        : (price % 1 === 0 ? '$' + price : '$' + price.toFixed(2));
+      priceLabel = '<span class="lt-price">' + displayCur + '/th</span>';
+    }
+    var iconBg = a.logo && a.logo.indexOf('icons/') === 0 ? '#fff' : (a.color || '#fff');
+    return '<a class="logo-cell" data-app="' + a.id + '" href="#" tabindex="-1" style="background:' + iconBg + '">' +
+      '<img src="' + a.logo + '" alt="' + a.name + '" loading="lazy"/>' +
+      '<span class="logo-tip">' + a.name + ' ' + priceLabel + '</span>' +
+    '</a>';
+  }
+
+  // Render logo marquee: 2 rows opposite directions, mỗi row duplicate cho seamless loop
   function renderHeroLogos(){
-    var grid = document.getElementById('hero-logo-grid');
-    if (!grid) return;
-    grid.innerHTML = LOGO_GRID.map(function(p, i){
-      return '<a class="logo-cell" href="#apps" style="--i:' + i + '" title="Xem chi tiết"><img src="' + p + '" alt="" loading="lazy"/></a>';
-    }).join('');
+    var rowOne = document.getElementById('marquee-row-1');
+    var rowTwo = document.getElementById('marquee-row-2');
+    var countEl = document.getElementById('hero-grid-count');
+    if(!rowOne || !rowTwo) return;
+    if(countEl) countEl.textContent = 'Toàn bộ ' + APPS.length + ' app bản quyền';
+    // Lọc apps có logo
+    var withLogos = APPS.filter(function(a){ return a.logo; });
+    // Chia 2 nửa
+    var half = Math.ceil(withLogos.length / 2);
+    var row1 = withLogos.slice(0, half);
+    var row2 = withLogos.slice(half);
+    // Duplicate cho infinite loop
+    rowOne.innerHTML = row1.concat(row1).map(makeLogoCell).join('');
+    rowTwo.innerHTML = row2.concat(row2).map(makeLogoCell).join('');
+    // Click logo → mở modal app đó
+    document.querySelectorAll('#hero-logo-grid .logo-cell').forEach(function(c){
+      c.addEventListener('click', function(e){
+        e.preventDefault();
+        if(typeof openModal === 'function') openModal(c.dataset.app);
+      });
+    });
   }
 
   // Currency toggle (USD/VND primary)
