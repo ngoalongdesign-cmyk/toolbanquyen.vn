@@ -51,14 +51,10 @@
 }
 
 /* Light-theme elevation: soft shadow on all white card surfaces for visibility on green bg */
-[data-theme="light"] .prof-card,
 [data-theme="light"] .salary,
 [data-theme="light"] .hf-step,
 [data-theme="light"] .modal-content {
   box-shadow: var(--shadow-soft);
-}
-[data-theme="light"] .prof-card:hover {
-  box-shadow: var(--shadow-hover);
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -337,6 +333,109 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   display: inline-flex; flex-wrap: wrap; gap: 8px 14px;
 }
 .hero-trust .sep { color: var(--border); }
+
+/* ─── Hero describe textarea (job description input) ─────────────────── */
+.hero-describe {
+  margin-top: 14px; padding: 16px;
+  background: var(--card-2); border: 1px solid var(--border-2);
+  border-radius: 14px;
+  transition: border-color .18s ease, background .18s ease;
+}
+.hero-describe:focus-within {
+  border-color: color-mix(in oklab, var(--accent) 35%, var(--border));
+  background: var(--card);
+}
+.hd-head { display:flex;flex-direction:column;gap:2px;margin-bottom:10px; }
+.hd-label { font-size:12.5px;font-weight:600;color:var(--text);letter-spacing:-0.005em; }
+.hd-hint { font-size:11.5px;color:var(--text-3); }
+.hd-textarea {
+  width:100%;min-height:62px;padding:10px 12px;resize:vertical;
+  background:var(--bg-elev);border:1px solid var(--border-2);border-radius:10px;
+  font-family:inherit;font-size:13.5px;color:var(--text);line-height:1.5;
+  letter-spacing:-0.003em;outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.hd-textarea:focus { border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft); }
+.hd-textarea::placeholder { color:var(--text-3); }
+.hd-row { display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;flex-wrap:wrap; }
+.hd-chips { display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0; }
+.hd-chip {
+  font-size:11.5px;font-weight:500;color:var(--text-2);
+  background:var(--bg-elev);border:1px solid var(--border-2);
+  padding:5px 10px;border-radius:999px;
+  transition:all .15s ease;white-space:nowrap;
+}
+.hd-chip:hover { border-color:var(--accent);color:var(--accent);background:var(--accent-soft); }
+.hd-analyze {
+  display:inline-flex;align-items:center;gap:6px;
+  height:38px;padding:0 16px;border-radius:10px;
+  background:var(--accent);color:#08120c;
+  font-size:13px;font-weight:700;letter-spacing:-0.005em;
+  flex-shrink:0;transition:background .15s ease, transform .15s ease;
+}
+.hd-analyze:hover { background:var(--accent-2);transform:translateY(-1px); }
+.hd-analyze svg { width:14px;height:14px; }
+.hd-parsed {
+  margin-top:10px;padding:8px 12px;border-radius:8px;
+  background:var(--accent-soft);border:1px solid color-mix(in oklab,var(--accent) 25%,transparent);
+  font-size:12.5px;color:var(--text);
+  display:flex;align-items:center;gap:8px;
+}
+.hd-parsed strong { color:var(--accent); }
+.hd-parsed .hdp-ico { width:14px;height:14px;flex-shrink:0; }
+
+/* ─── Section suggestions ────────────────────────────────────────────── */
+.sec-suggestions { padding-top:48px;padding-bottom:48px; }
+.grid-suggestions {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+}
+@media (max-width:980px) { .grid-suggestions { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:560px) { .grid-suggestions { grid-template-columns:1fr; } }
+.sug-card {
+  position:relative;background:var(--card);border:1px solid var(--border-2);
+  border-radius:16px;padding:16px;
+  display:flex;flex-direction:column;gap:10px;
+  cursor:pointer;transition:all .18s ease;
+  box-shadow:var(--shadow-soft);
+}
+.sug-card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px);box-shadow:var(--shadow-hover); }
+.sug-card.in-cart { border-color:var(--accent); }
+.sug-card.in-cart::after {
+  content:'✓ Đã chọn';position:absolute;top:10px;right:12px;
+  font-size:10.5px;font-weight:700;color:var(--accent);
+  background:var(--accent-soft);padding:2px 7px;border-radius:999px;
+}
+.sug-top { display:flex;align-items:center;gap:10px; }
+.sug-mark {
+  width:36px;height:36px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;overflow:hidden;
+}
+.sug-mark img { width:60%;height:60%;object-fit:contain; }
+.sug-info { flex:1;min-width:0; }
+.sug-name { font-size:14px;font-weight:700;letter-spacing:-0.01em;color:var(--text);line-height:1.25; }
+.sug-cat { font-size:11px;color:var(--text-3);margin-top:1px; }
+.sug-score {
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:10.5px;font-weight:600;color:var(--accent);
+  padding:2px 7px;border-radius:999px;background:var(--accent-soft);
+}
+.sug-desc { font-size:12px;color:var(--text-2);line-height:1.45;margin:0; }
+.sug-foot { display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;border-top:1px solid var(--border-2); }
+.sug-price { font-size:14px;font-weight:700;color:var(--text);letter-spacing:-0.01em;font-variant-numeric:tabular-nums; }
+.sug-price .per { font-size:10.5px;color:var(--text-3);font-weight:500;margin-left:2px; }
+.sug-add {
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;font-weight:700;
+  padding:5px 12px;border-radius:8px;
+  background:var(--accent-soft);color:var(--accent);
+  border:1px solid color-mix(in oklab,var(--accent) 25%,transparent);
+  transition:all .15s ease;
+}
+.sug-add:hover { background:var(--accent);color:#08120c; }
+.sug-add.is-in-cart { background:transparent;color:var(--text-2);border-color:var(--border); }
+.sug-add.is-in-cart:hover { background:rgba(239,68,68,.10);color:#ef4444;border-color:#ef4444; }
+.suggestions-empty { text-align:center;padding:32px;color:var(--text-2);font-size:14px; }
 
 /* Hidden #search-input kept for binding compatibility */
 .hero-search-hidden {
@@ -768,47 +867,6 @@ select option:checked, select option:hover { background-color: var(--accent-soft
   .rec-action { width:100%;height:38px; }
 }
 
-/* ─── Profession cards ───────────────────────────────────────────── */
-.prof-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
-@media (max-width:900px) { .prof-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
-@media (max-width:560px) { .prof-grid{grid-template-columns:1fr} }
-.prof-card {
-  border:1px solid var(--border-2);border-radius:20px;background:var(--card);
-  padding:28px;cursor:pointer;
-  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
-  position:relative;overflow:hidden;
-}
-[data-theme="light"] .prof-card { box-shadow: 0 1px 2px rgba(20,60,30,.04), 0 12px 36px -18px rgba(20,60,30,.18); }
-[data-theme="dark"]  .prof-card { box-shadow: 0 12px 32px -20px rgba(0,0,0,.55); }
-.prof-card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-1px); }
-.prof-card.is-active { border-color:var(--accent); }
-.prof-card::before { content:'';position:absolute;inset:0;background:radial-gradient(300px 200px at 100% 0%,rgba(34,197,94,.04),transparent 65%);pointer-events:none; }
-.prof-icon {
-  width:56px;height:56px;margin-bottom:14px;
-  display:flex;align-items:center;justify-content:center;
-  color: var(--accent);
-  transition: transform .25s ease, background .25s ease, color .25s ease;
-  font-size:36px;line-height:1;
-  background:var(--accent-soft-2);border-radius:14px;
-  border:1px solid var(--border-2);
-  overflow:hidden;
-}
-.prof-icon svg { width: 28px; height: 28px; display: block; }
-.prof-card:hover .prof-icon {
-  background: var(--accent-soft);
-  border-color: color-mix(in oklab, var(--accent) 30%, var(--border-2));
-  transform: scale(1.06);
-}
-.prof-label { font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px; }
-.prof-desc { font-size:12.5px;color:var(--text-2);margin-bottom:14px;line-height:1.5; }
-.prof-apps-row { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px; }
-.prof-apps-row span { font-size:11px;padding:3px 8px;border-radius:6px;background:var(--card-2);border:1px solid var(--border-2);color:var(--text-2); }
-.prof-foot { display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-2);padding-top:12px; }
-.prof-total { font-size:20px;font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums; }
-.prof-total .per { font-size:11px;color:var(--text-3);font-weight:500;margin-left:2px; }
-.prof-btn { font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:6px 12px;border-radius:8px;border:1px solid color-mix(in oklab,var(--accent) 25%,transparent);transition:all .15s; }
-.prof-btn:hover { background:var(--accent);color:#08120c; }
-
 /* ─── Combo ──────────────────────────────────────────────────────── */
 .combo-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
 @media (max-width:880px) { .combo-grid{grid-template-columns:1fr} }
@@ -1083,8 +1141,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </a>
     <nav class="nav" id="main-nav">
       <a href="#apps" class="is-active" data-section="apps">Tất cả app</a>
-      <a href="#recs" data-section="recs">Đề xuất</a>
-      <a href="#professions" data-section="professions">Bộ tool theo nghề</a>
+      <a href="#recs" data-section="recs">Đề xuất tối ưu</a>
     </nav>
     <div class="right">
       <div class="rate" title="Tỉ giá tham chiếu">
@@ -1137,6 +1194,27 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
+
+          <div class="hero-describe" id="hero-describe">
+            <div class="hd-head">
+              <span class="hd-label">Hoặc mô tả nghề + nhu cầu, để mình gợi ý bộ tool</span>
+              <span class="hd-hint">Có thể ghi lương ngay trong câu — VD "25 triệu" / "$1500"</span>
+            </div>
+            <textarea id="job-describe-input" class="hd-textarea" placeholder="Ví dụ: Tôi là UI/UX designer, cần app vẽ giao diện và AI hỗ trợ viết. Lương 25 triệu/tháng." rows="2" autocomplete="off"></textarea>
+            <div class="hd-row">
+              <div class="hd-chips" id="hd-chips">
+                <button class="hd-chip" type="button" data-fill="Tôi là UI/UX designer làm app, cần Figma và AI hỗ trợ thiết kế.">UX Designer</button>
+                <button class="hd-chip" type="button" data-fill="Tôi là kỹ sư phần mềm, viết code fullstack và deploy web.">Software Engineer</button>
+                <button class="hd-chip" type="button" data-fill="Tôi là kiến trúc sư, cần CAD, BIM, render 3D dự án.">Kiến trúc sư</button>
+                <button class="hd-chip" type="button" data-fill="Tôi làm content creator, edit video TikTok và viết caption.">Content Creator</button>
+              </div>
+              <button type="button" class="hd-analyze" id="btn-analyze-job">
+                Gợi ý ngay
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="hd-parsed" id="hd-parsed" style="display:none"></div>
+          </div>
         </div>
 
         <p class="hero-trust">
@@ -1184,6 +1262,21 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ─── GỢI Ý THEO MÔ TẢ ──────────────────────────────────────────────── -->
+<section class="sec sec-suggestions" id="suggestions" style="display:none">
+  <div class="container">
+    <div class="sec-head head-center">
+      <div class="kicker">Gợi ý theo mô tả</div>
+      <h2 id="suggestions-title">Đây là <em class="em">N app</em> phù hợp với bạn</h2>
+      <p class="lede">Click <strong>+ Thêm</strong> để chọn app, hoặc click body để xem các gói. Có thể chỉnh mô tả và phân tích lại bất cứ lúc nào.</p>
+    </div>
+    <div class="grid-suggestions" id="suggestions-grid"></div>
+    <div class="suggestions-empty" id="suggestions-empty" style="display:none">
+      <p>Không tìm thấy app phù hợp từ mô tả. Thử mô tả rõ hơn về công việc hoặc app bạn quan tâm.</p>
     </div>
   </div>
 </section>
@@ -1240,19 +1333,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
   </div>
 </section>
-
-<!-- ─── BỘ TOOL THEO NGHỀ ─────────────────────────────────────────────── -->
-<section class="sec" id="professions">
-  <div class="container">
-    <div class="sec-head head-center">
-      <div class="kicker">Bộ tool theo nghề</div>
-      <h1>Bạn làm <em class="em">nghề gì?</em></h1>
-      <p class="lede">Chọn bộ tool đầy đủ theo lĩnh vực của bạn. Giá tính tự động theo tỉ giá thực tế.</p>
-    </div>
-    <div class="prof-grid" id="prof-grid"></div>
-  </div>
-</section>
-
 
 </main>
 
@@ -1699,23 +1779,6 @@ var APPS = [
    ]}
 ];
 
-var PROFESSIONS = [
-  {id:'uxdesigner',label:'UI/UX Designer',desc:'Thiết kế sản phẩm số — từ wireframe đến design system hoàn chỉnh.',apps:['figma','miro','chatgpt','notion','framer'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="14" height="14" rx="1.5"/><path d="M2 7h14" opacity="0.55"/><path d="M11.5 11L14.5 21L16.5 17.5L20 16Z"/></svg>'},
-  {id:'developer',label:'Developer',desc:'Lập trình — từ code đến deploy, quản lý project và issue tracking.',apps:['cursor','github-copilot','vercel','linear','notion'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><path d="M14 4l-4 16" opacity="0.65"/></svg>'},
-  {id:'creator',label:'Content Creator',desc:'Tạo nội dung — video, ảnh, caption đa nền tảng tốc độ cao.',apps:['capcut','canva','claude','buffer','notion'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/><path d="M5 9l3 3-3 3" opacity="0.7"/></svg>'},
-  {id:'marketer',label:'Marketer / SEO',desc:'Marketing — SEO, quảng cáo, quản lý social media, phân tích.',apps:['canva','buffer','chatgpt','notion','ahrefs'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-9"/><path d="M14 6h6v6" /><path d="M3 21h18" opacity="0.5"/></svg>'},
-  {id:'freelancer',label:'Freelance Designer',desc:'Designer freelance — branding, print, social media, concept art.',apps:['figma','adobe-cc','canva','midjourney','claude'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l7 7L9 22H2v-7L14 3z"/><path d="M13 4l7 7"/><path d="M2 22l5-5" opacity="0.6"/></svg>'},
-  {id:'founder',label:'Founder / Team Lead',desc:'Quản lý team — planning, AI productivity, communication.',apps:['notion','linear','chatgpt','cursor','vercel'],
-   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><circle cx="16" cy="8" r="1.5"/></svg>'}
-];
-
-
-
 /* ── RECOMMENDATION ENGINE ────────────────────────────────────────────── */
 // Overlap groups — apps phục vụ cùng mục đích, user thường chỉ cần 1
 var OVERLAP_GROUPS = {
@@ -1904,6 +1967,7 @@ var S = {
   filter:'all',
   search:'',
   showAll:false,    // pagination: false = limit 12 app, true = show all
+  suggestions:[],   // [{id, score, popular}] from analyzeDescription
   modalApp:null,
   modalTier:0       // currently-selected tier idx in open modal
 };
@@ -2092,49 +2156,6 @@ function renderApps(){
   }
 }
 
-/* ── RENDER PROFESSIONS ────────────────────────────────────────────────── */
-function renderProfessions(){
-  var grid=document.getElementById('prof-grid');
-  if(!grid) return;
-  // Chỉ build structure 1 lần để giữ nguyên Lottie animation
-  if(!grid.dataset.built){
-    grid.innerHTML=PROFESSIONS.map(function(prof){
-      var names=prof.apps.map(function(id){var a=getApp(id);return a?'<span>'+a.name+'</span>':'';});
-      var iconHtml='<div class="prof-icon">'+(prof.svg||'')+'</div>';
-      return '<div class="prof-card" data-prof="'+prof.id+'">' +
-        iconHtml +
-        '<div class="prof-label">'+prof.label+'</div>' +
-        '<div class="prof-desc">'+prof.desc+'</div>' +
-        '<div class="prof-apps-row">'+names.join('')+'</div>' +
-        '<div class="prof-foot"><div class="prof-total" data-total="'+prof.id+'"></div>' +
-        '<button class="prof-btn" data-prof="'+prof.id+'">Chọn bộ này</button>' +
-        '</div></div>';
-    }).join('');
-    grid.dataset.built='1';
-    document.querySelectorAll('.prof-btn').forEach(function(b){
-      b.addEventListener('click',function(e){e.stopPropagation();selectProf(b.dataset.prof);});
-    });
-    document.querySelectorAll('.prof-card').forEach(function(c){
-      c.addEventListener('click',function(){selectProf(c.dataset.prof);});
-    });
-  }
-  // Update totals only
-  PROFESSIONS.forEach(function(prof){
-    var total=prof.apps.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a)||0):s;},0);
-    var el=grid.querySelector('[data-total="'+prof.id+'"]');
-    if(el) el.innerHTML=fmtTotal(total)+'<span class="per">/tháng</span>';
-  });
-}
-
-function selectProf(profId){
-  var prof=PROFESSIONS.find(function(p){return p.id===profId;});
-  if(!prof)return;
-  S.cart=prof.apps.slice();
-  document.querySelectorAll('.prof-card').forEach(function(c){c.classList.toggle('is-active',c.dataset.prof===profId);});
-  renderAll();
-  document.getElementById('apps').scrollIntoView({behavior:'smooth'});
-}
-
 /* ── SALARY HELPER (single source of truth) ─────────────────────────────── */
 function getSalary(){
   var ip=document.getElementById('salary-hero');
@@ -2271,6 +2292,374 @@ function renderCartPopover(){
   });
 }
 
+/* ── JOB DESCRIPTION ANALYZER ──────────────────────────────────────────── */
+/* Keyword → app IDs. Matched as case-insensitive whole word/phrase. */
+var KEYWORD_DICT = {
+  // ── DESIGN ──
+  'ui/ux':['figma','sketch','miro','framer'],
+  'ux':['figma','sketch','miro','framer'],
+  'wireframe':['figma','miro','sketch'],
+  'prototype':['figma','framer','sketch'],
+  'design system':['figma','sketch'],
+  'figma':['figma'],
+  'adobe':['adobe-cc'],
+  'photoshop':['adobe-cc'],
+  'illustrator':['adobe-cc'],
+  'indesign':['adobe-cc'],
+  'canva':['canva'],
+  'framer':['framer'],
+  'graphic':['adobe-cc','canva','figma'],
+  'thiết kế đồ họa':['adobe-cc','canva','figma'],
+  'thiet ke do hoa':['adobe-cc','canva','figma'],
+  'design web':['figma','framer','sketch'],
+  'web design':['figma','framer','sketch'],
+  'thiết kế web':['figma','framer','sketch'],
+  'thiet ke web':['figma','framer','sketch'],
+  'designer':['figma','adobe-cc','canva','sketch'],
+  'thiết kế':['figma','adobe-cc','canva','sketch'],
+  'thiet ke':['figma','adobe-cc','canva','sketch'],
+  'branding':['adobe-cc','canva','figma','midjourney'],
+  'logo':['adobe-cc','canva','midjourney'],
+  'whiteboard':['miro'],
+  'brainstorm':['miro'],
+  'miro':['miro'],
+  'sketch app':['sketch'],
+
+  // ── ARCHITECTURE ──
+  'kiến trúc':['autocad','revit','sketchup','rhino','lumion','twinmotion','enscape'],
+  'kien truc':['autocad','revit','sketchup','rhino','lumion','twinmotion','enscape'],
+  'architect':['autocad','revit','sketchup','rhino','lumion','twinmotion','enscape'],
+  'cad':['autocad','revit','sketchup','rhino'],
+  'bim':['revit','sketchup'],
+  'autocad':['autocad'],
+  'revit':['revit'],
+  'sketchup':['sketchup'],
+  'rhino':['rhino'],
+  'lumion':['lumion'],
+  'twinmotion':['twinmotion'],
+  'enscape':['enscape'],
+  'nội thất':['sketchup','rhino','autocad','enscape','lumion'],
+  'noi that':['sketchup','rhino','autocad','enscape','lumion'],
+  'interior':['sketchup','rhino','autocad','enscape','lumion'],
+  'xây dựng':['autocad','revit'],
+  'xay dung':['autocad','revit'],
+  'construction':['autocad','revit'],
+  'render':['lumion','twinmotion','enscape','redgiant','cinema4d','rhino'],
+  'dựng hình':['lumion','twinmotion','enscape','rhino','sketchup','cinema4d'],
+  'dung hinh':['lumion','twinmotion','enscape','rhino','sketchup','cinema4d'],
+  'render 3d':['lumion','twinmotion','enscape','cinema4d','rhino'],
+  '3d':['rhino','sketchup','cinema4d','lumion','twinmotion'],
+  'mô hình 3d':['rhino','sketchup','cinema4d'],
+  'mo hinh 3d':['rhino','sketchup','cinema4d'],
+  'parametric':['rhino'],
+  'grasshopper':['rhino'],
+
+  // ── DEV ──
+  'code':['cursor','github-copilot','vercel'],
+  'coding':['cursor','github-copilot','vercel'],
+  'lập trình':['cursor','github-copilot','vercel','linear'],
+  'lap trinh':['cursor','github-copilot','vercel','linear'],
+  'developer':['cursor','github-copilot','vercel','linear'],
+  'kỹ sư phần mềm':['cursor','github-copilot','vercel','linear'],
+  'ky su phan mem':['cursor','github-copilot','vercel','linear'],
+  'phần mềm':['cursor','github-copilot','vercel'],
+  'phan mem':['cursor','github-copilot','vercel'],
+  'software engineer':['cursor','github-copilot','vercel','linear'],
+  'programmer':['cursor','github-copilot','vercel'],
+  'fullstack':['cursor','github-copilot','vercel','linear'],
+  'frontend':['cursor','github-copilot','vercel','framer'],
+  'backend':['cursor','github-copilot','vercel'],
+  'lập trình web':['cursor','github-copilot','vercel'],
+  'lap trinh web':['cursor','github-copilot','vercel'],
+  'deploy':['vercel'],
+  'hosting':['vercel'],
+  'github':['github-copilot'],
+  'copilot':['github-copilot'],
+  'cursor':['cursor'],
+  'vercel':['vercel'],
+  'raycast':['raycast'],
+  'launcher':['raycast'],
+
+  // ── AI ──
+  'ai':['chatgpt','claude','gemini','midjourney'],
+  'chatbot':['chatgpt','claude','gemini','deepseek','grok'],
+  'gpt':['chatgpt'],
+  'chatgpt':['chatgpt'],
+  'openai':['chatgpt'],
+  'claude':['claude'],
+  'anthropic':['claude'],
+  'gemini':['gemini'],
+  'deepseek':['deepseek'],
+  'grok':['grok'],
+  'perplexity':['perplexity'],
+  'ai search':['perplexity','chatgpt'],
+  'viết bài':['claude','chatgpt','notion'],
+  'viet bai':['claude','chatgpt','notion'],
+  'viết nội dung':['claude','chatgpt','notion'],
+  'viet noi dung':['claude','chatgpt','notion'],
+  'writing':['claude','chatgpt'],
+  'hỗ trợ viết':['claude','chatgpt'],
+  'ho tro viet':['claude','chatgpt'],
+  'nghiên cứu':['claude','perplexity','chatgpt','gemini'],
+  'nghien cuu':['claude','perplexity','chatgpt','gemini'],
+  'research':['claude','perplexity','chatgpt','gemini'],
+  'phân tích':['claude','chatgpt','perplexity'],
+  'phan tich':['claude','chatgpt','perplexity'],
+  'tìm kiếm':['perplexity','chatgpt'],
+  'tim kiem':['perplexity','chatgpt'],
+  'dịch thuật':['claude','chatgpt','gemini'],
+  'dich thuat':['claude','chatgpt','gemini'],
+  'translate':['claude','chatgpt','gemini'],
+
+  // ── AI IMAGE/VIDEO ──
+  'midjourney':['midjourney'],
+  'gen ảnh':['midjourney','adobe-cc','chatgpt'],
+  'gen anh':['midjourney','adobe-cc','chatgpt'],
+  'tạo ảnh':['midjourney','adobe-cc','chatgpt'],
+  'tao anh':['midjourney','adobe-cc','chatgpt'],
+  'concept art':['midjourney'],
+  'minh hoạ':['midjourney','adobe-cc'],
+  'minh hoa':['midjourney','adobe-cc'],
+  'ai video':['runway','kling'],
+  'gen video':['runway','kling'],
+  'video ai':['runway','kling'],
+  'runway':['runway'],
+  'kling':['kling'],
+
+  // ── VIDEO/FILM ──
+  'video':['capcut','premiere','davinci','descript','runway','avid','finalcut','frame-io'],
+  'edit video':['capcut','premiere','davinci','descript','avid','finalcut'],
+  'biên tập video':['premiere','davinci','avid','finalcut','capcut'],
+  'bien tap video':['premiere','davinci','avid','finalcut','capcut'],
+  'phim':['premiere','davinci','avid','finalcut'],
+  'film':['premiere','davinci','avid','finalcut'],
+  'youtube':['capcut','premiere','descript','davinci'],
+  'tiktok':['capcut'],
+  'reels':['capcut'],
+  'quay phim':['premiere','davinci','avid','finalcut','frame-io'],
+  'quay video':['capcut','premiere','davinci'],
+  'quay dựng':['premiere','davinci','avid','finalcut'],
+  'quay dung':['premiere','davinci','avid','finalcut'],
+  'capcut':['capcut'],
+  'premiere':['premiere'],
+  'davinci':['davinci'],
+  'final cut':['finalcut'],
+  'finalcut':['finalcut'],
+  'avid':['avid'],
+  'descript':['descript'],
+  'motion graphic':['cinema4d','redgiant','adobe-cc'],
+  'after effect':['adobe-cc','redgiant','cinema4d'],
+  'vfx':['davinci','redgiant','cinema4d','adobe-cc'],
+  'colorist':['davinci'],
+  'color grade':['davinci'],
+  'review video':['frame-io'],
+  'cinema 4d':['cinema4d'],
+  'cinema4d':['cinema4d'],
+  'c4d':['cinema4d'],
+
+  // ── PRODUCTIVITY/PM ──
+  'notion':['notion'],
+  'ghi chú':['notion'],
+  'ghi chu':['notion'],
+  'docs':['notion'],
+  'wiki':['notion'],
+  'project management':['linear','clickup','notion'],
+  'quản lý dự án':['linear','clickup','notion'],
+  'quan ly du an':['linear','clickup','notion'],
+  'quản lý task':['linear','clickup','notion'],
+  'quan ly task':['linear','clickup','notion'],
+  'task':['linear','clickup','notion'],
+  'issue':['linear'],
+  'sprint':['linear','clickup'],
+  'roadmap':['linear','notion'],
+  'kanban':['linear','clickup','notion'],
+  'linear':['linear'],
+  'clickup':['clickup'],
+
+  // ── MARKETING/SEO ──
+  'marketing':['canva','buffer','ahrefs','semrush','chatgpt'],
+  'seo':['ahrefs','semrush'],
+  'ahrefs':['ahrefs'],
+  'semrush':['semrush'],
+  'social media':['buffer','canva','capcut'],
+  'mạng xã hội':['buffer','canva','capcut'],
+  'mang xa hoi':['buffer','canva','capcut'],
+  'lên lịch':['buffer'],
+  'len lich':['buffer'],
+  'đăng bài':['buffer','capcut'],
+  'dang bai':['buffer','capcut'],
+  'content':['canva','capcut','chatgpt','claude'],
+  'caption':['chatgpt','claude','canva'],
+  'quảng cáo':['canva','buffer','ahrefs','semrush'],
+  'quang cao':['canva','buffer','ahrefs','semrush'],
+  'creator':['capcut','canva','claude','buffer','notion'],
+  'sáng tạo nội dung':['capcut','canva','claude','buffer'],
+  'sang tao noi dung':['capcut','canva','claude','buffer'],
+
+  // ── FOUNDER ──
+  'founder':['notion','linear','chatgpt','cursor','vercel'],
+  'team lead':['notion','linear','chatgpt'],
+  'startup':['notion','linear','vercel','chatgpt','cursor']
+};
+
+// Cụm phủ định — nếu xuất hiện trước keyword trong khoảng ~30 ký tự thì exclude app đó
+var NEGATION_PHRASES = [
+  'không cần','không làm','không dùng','không sử dụng','không biết','không phải','không có',
+  'ko cần','ko làm','ko dùng','ko sử dụng','ko biết','ko phải','ko có',
+  'không','ko','chẳng','chả',
+  'don\'t need','no need','except','besides','tránh','trừ','ngoài'
+];
+
+function escapeRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+/**
+ * Phân tích câu mô tả → ranked apps [{id, score, popular}].
+ * Có xử lý phủ định liền kề.
+ */
+function analyzeDescription(text){
+  if(!text || !text.trim()) return [];
+  var t = ' ' + text.toLowerCase() + ' ';
+  var scores = {};
+  var excluded = {};
+  Object.keys(KEYWORD_DICT).forEach(function(kw){
+    var kwLower = kw.toLowerCase();
+    var idx = 0;
+    while((idx = t.indexOf(kwLower, idx)) !== -1){
+      // Word boundary check trước và sau
+      var charBefore = idx > 0 ? t[idx-1] : ' ';
+      var charAfter = idx + kwLower.length < t.length ? t[idx+kwLower.length] : ' ';
+      var isBoundary = /[\s,.;:?!()/"'-]/.test(charBefore) && /[\s,.;:?!()/"'-]/.test(charAfter);
+      if(!isBoundary){ idx += kwLower.length; continue; }
+
+      // Kiểm tra phủ định trong 30 ký tự trước
+      var before = t.substring(Math.max(0, idx-30), idx);
+      var isNegated = false;
+      for(var i=0;i<NEGATION_PHRASES.length;i++){
+        var neg = NEGATION_PHRASES[i];
+        var re = new RegExp('\\b'+escapeRegex(neg)+'\\s+(?:\\S{1,18}\\s+){0,2}$','i');
+        if(re.test(before)){ isNegated = true; break; }
+      }
+
+      var appIds = KEYWORD_DICT[kw];
+      appIds.forEach(function(id){
+        if(isNegated) excluded[id] = true;
+        else scores[id] = (scores[id]||0) + 1;
+      });
+      idx += kwLower.length;
+    }
+  });
+  // Bỏ apps bị phủ định
+  Object.keys(excluded).forEach(function(id){ delete scores[id]; });
+  // Sort: score desc, then popular first
+  var ranked = Object.keys(scores).map(function(id){
+    var a = getApp(id);
+    return { id:id, score:scores[id], popular: a&&a.popular?1:0 };
+  });
+  ranked.sort(function(a,b){
+    if(b.score !== a.score) return b.score - a.score;
+    return b.popular - a.popular;
+  });
+  return ranked;
+}
+
+/**
+ * Parse lương từ câu free-form. Returns {value, currency} hoặc null.
+ */
+function parseSalaryFromText(text){
+  if(!text) return null;
+  var t = text.toLowerCase();
+  // VND: "25 triệu", "25tr", "25 củ"
+  var mTr = t.match(/(\d+(?:[.,]\d+)?)\s*(triệu|trieu|tr|củ|cu)(?![a-z])/);
+  if(mTr){
+    var n = parseFloat(mTr[1].replace(',','.'));
+    if(n>0 && n<10000) return { value: Math.round(n*1000000), currency:'VND' };
+  }
+  // USD: "$2000", "2000 usd", "2000 đô"
+  var mUSD = t.match(/\$\s*(\d+(?:[.,]\d+)?)|(\d+(?:[.,]\d+)?)\s*(?:usd|đô|do|dollar)\b/);
+  if(mUSD){
+    var raw = mUSD[1] || mUSD[2];
+    if(raw){
+      var n2 = parseFloat(raw.replace(',','.'));
+      if(n2>0 && n2<1000000) return { value:n2, currency:'USD' };
+    }
+  }
+  // VND đầy đủ: "25.000.000" / "25,000,000"
+  var mFull = t.match(/(\d{1,3}(?:[.,]\d{3}){2,})(?:\s*(?:vnd|đ|đồng|dong|₫))?/);
+  if(mFull){
+    var rawV = mFull[1].replace(/[.,]/g,'');
+    var nV = parseFloat(rawV);
+    if(nV >= 1000000) return { value:nV, currency:'VND' };
+  }
+  return null;
+}
+
+/**
+ * Render section #suggestions theo S.suggestions.
+ */
+function renderSuggestions(){
+  var sec = document.getElementById('suggestions');
+  var grid = document.getElementById('suggestions-grid');
+  var emptyEl = document.getElementById('suggestions-empty');
+  var titleEl = document.getElementById('suggestions-title');
+  if(!sec || !grid) return;
+  if(!S.suggestions || !S.suggestions.length){
+    grid.innerHTML='';
+    return;
+  }
+  var top = S.suggestions.slice(0,12);
+  if(titleEl){
+    titleEl.innerHTML = 'Đây là <em class="em">' + top.length + ' app</em> phù hợp với bạn';
+  }
+  if(emptyEl) emptyEl.style.display='none';
+  grid.innerHTML = top.map(function(s){
+    var app = getApp(s.id); if(!app) return '';
+    var inCart = S.cart.indexOf(app.id) !== -1;
+    var tIdx = inCart ? activeTierIdx(app) : cheapestPaidTierIdx(app);
+    var tier = app.tiers[tIdx];
+    var priceLabel = fmtTierPrice(tier);
+    var perLabel = tier && tier.price>0 ? (tier.perUser?'/người·th':'/tháng') : '';
+    var iconBg = app.logo && app.logo.indexOf('icons/')===0 ? '#fff' : app.color;
+    var markHtml = app.logo
+      ? '<div class="sug-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
+      : '<div class="sug-mark" style="background:'+app.color+'">'+app.initials+'</div>';
+    var scoreHtml = s.score > 1 ? '<span class="sug-score">'+s.score+' match</span>' : '';
+    var addLabel = inCart ? '✓ Bỏ chọn' : '+ Thêm';
+    return '<article class="sug-card'+(inCart?' in-cart':'')+'" data-id="'+app.id+'">'+
+      '<div class="sug-top">'+markHtml+
+      '<div class="sug-info"><div class="sug-name">'+app.name+'</div><div class="sug-cat">'+app.cat+'</div></div>'+
+      scoreHtml+'</div>'+
+      '<p class="sug-desc">'+app.desc+'</p>'+
+      '<div class="sug-foot">'+
+      '<div class="sug-price">'+priceLabel+(perLabel?'<span class="per">'+perLabel+'</span>':'')+'</div>'+
+      '<button class="sug-add'+(inCart?' is-in-cart':'')+'" data-add="'+app.id+'" type="button">'+addLabel+'</button>'+
+      '</div></article>';
+  }).join('');
+  // Click card body → mở modal
+  grid.querySelectorAll('.sug-card').forEach(function(c){
+    c.addEventListener('click',function(){ openModal(c.dataset.id); });
+  });
+  // Click + Thêm / Bỏ → toggle cart
+  grid.querySelectorAll('.sug-add').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var id = btn.dataset.add;
+      var idx = S.cart.indexOf(id);
+      if(idx === -1){
+        S.cart.push(id);
+        var app = getApp(id);
+        if(app){
+          var ti = cheapestPaidTierIdx(app);
+          S.cartTiers[id] = ti;
+        }
+      } else {
+        S.cart.splice(idx,1);
+        delete S.cartTiers[id];
+      }
+      renderAll();
+    });
+  });
+}
+
 /* ── MODAL ─────────────────────────────────────────────────────────────── */
 function openModal(appId){
   var app=getApp(appId);
@@ -2373,7 +2762,7 @@ function selectModalPlan(idx){
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
-function renderAll(){renderApps();renderProfessions();renderCartBar();renderCartPopover();renderSalary();renderRecommendations();}
+function renderAll(){renderApps();renderCartBar();renderCartPopover();renderSalary();renderRecommendations();renderSuggestions();}
 
 /* ── EXCHANGE RATE ─────────────────────────────────────────────────────── */
 function fetchRate(){
@@ -2427,7 +2816,7 @@ document.addEventListener('keydown',function(e){
 document.getElementById('btn-cart-clear').addEventListener('click',function(){S.cart=[];S.cartTiers={};renderAll();});
 document.getElementById('btn-cart-detail').addEventListener('click',function(){
   if(S.cart.length===0) return;
-  var target = document.getElementById('recs') || document.getElementById('professions');
+  var target = document.getElementById('recs') || document.getElementById('apps');
   if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 });
 document.getElementById('modal-close').addEventListener('click',closeModal);
@@ -2468,6 +2857,66 @@ document.getElementById('modal-overlay').addEventListener('click',function(e){if
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape' && pop.classList.contains('is-open')) closePop();
   });
+})();
+
+/* ── Job describe — analyze button + chips ─────────────────────────────── */
+(function(){
+  var ta=document.getElementById('job-describe-input');
+  var btn=document.getElementById('btn-analyze-job');
+  var chips=document.querySelectorAll('#hd-chips .hd-chip');
+  var parsedEl=document.getElementById('hd-parsed');
+  var sec=document.getElementById('suggestions');
+  var emptyEl=document.getElementById('suggestions-empty');
+  if(!ta || !btn) return;
+
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      ta.value=c.dataset.fill||'';
+      analyzeAndShow();
+    });
+  });
+  btn.addEventListener('click',analyzeAndShow);
+  ta.addEventListener('keydown',function(e){
+    if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); analyzeAndShow(); }
+  });
+
+  function analyzeAndShow(){
+    var text=(ta.value||'').trim();
+    if(!text){
+      S.suggestions=[];
+      if(sec) sec.style.display='none';
+      if(parsedEl){ parsedEl.style.display='none'; parsedEl.innerHTML=''; }
+      renderAll();
+      return;
+    }
+    // 1. Parse salary từ câu mô tả → fill ô lương nếu có
+    var sal=parseSalaryFromText(text);
+    var heroIn=document.getElementById('salary-hero');
+    var heroCur=document.getElementById('salary-cur-hero');
+    var salaryMsg='';
+    if(sal && heroIn){
+      if(heroCur) heroCur.value=sal.currency;
+      var locale=sal.currency==='USD'?'en-US':'vi-VN';
+      heroIn.value=sal.value.toLocaleString(locale);
+      salaryMsg='<svg class="hdp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Đã đọc được lương trong câu: <strong>'+heroIn.value+' '+sal.currency+'</strong> — cập nhật ô lương phía trên.';
+    }
+    // 2. Run keyword analysis
+    var results=analyzeDescription(text);
+    S.suggestions=results;
+    // 3. Update UI
+    if(parsedEl){
+      if(salaryMsg){ parsedEl.innerHTML=salaryMsg; parsedEl.style.display='flex'; }
+      else { parsedEl.style.display='none'; parsedEl.innerHTML=''; }
+    }
+    if(sec){
+      sec.style.display='';
+      if(results.length===0 && emptyEl) emptyEl.style.display='';
+      else if(emptyEl) emptyEl.style.display='none';
+    }
+    renderAll();
+    // 4. Scroll xuống section gợi ý
+    setTimeout(function(){ if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'}); },80);
+  }
 })();
 
 /* Tweaks */
@@ -2552,7 +3001,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
     });
   });
   // Scroll spy: update active based on which section is in view
-  var sections=['apps','recs','professions'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var sections=['apps','recs'].map(function(id){return document.getElementById(id);}).filter(Boolean);
   var observer=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if(entry.isIntersecting){
