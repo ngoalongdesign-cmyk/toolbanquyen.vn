@@ -506,6 +506,68 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .salary-warn.caution { background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#f59e0b; }
 .salary-warn.danger { background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#ef4444; }
 
+/* ─── Recommendations panel ─────────────────────────────────────── */
+.rec-panel {
+  background:var(--card);border:1px solid var(--border-2);border-radius:20px;
+  padding:32px 32px 24px;position:relative;overflow:hidden;
+}
+[data-theme="light"] .rec-panel { box-shadow:var(--shadow-soft); }
+.rec-panel::before {
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(800px 360px at 100% 0%,rgba(34,197,94,.08),transparent 60%);
+}
+.rec-head { display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:20px;position:relative;flex-wrap:wrap; }
+.rec-head-left { flex:1;min-width:240px; }
+.rec-eyebrow { font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px; }
+.rec-h2 { font-size:26px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin:0; }
+.rec-h2 .em { color:var(--accent);font-style:normal; }
+.rec-savings-total {
+  background:var(--accent-soft);border:1px solid color-mix(in oklab,var(--accent) 30%,transparent);
+  padding:10px 16px;border-radius:14px;display:none;flex-direction:column;align-items:flex-end;min-width:160px;
+}
+.rec-savings-total.is-on { display:flex; }
+.rec-savings-total .lbl { font-size:10.5px;font-weight:600;color:var(--text-2);letter-spacing:0.06em;text-transform:uppercase; }
+.rec-savings-total .val { font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px; }
+.rec-savings-total .per { font-size:11px;font-weight:500;color:var(--text-3);margin-left:1px; }
+
+.rec-list { display:flex;flex-direction:column;gap:12px;position:relative; }
+.rec-card {
+  display:flex;align-items:flex-start;gap:14px;padding:16px 18px;
+  background:var(--bg-elev);border:1px solid var(--border-2);border-radius:14px;
+  transition:border-color .15s,transform .15s;
+}
+.rec-card:hover { border-color:color-mix(in oklab,var(--border) 50%,var(--accent)); }
+.rec-card.rec-overlap { border-left:3px solid #f59e0b; }
+.rec-card.rec-downgrade { border-left:3px solid var(--accent); }
+.rec-card.rec-warning { border-left:3px solid #ef4444; }
+.rec-icon {
+  width:36px;height:36px;border-radius:10px;background:var(--card);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 auto;
+}
+.rec-content { flex:1;min-width:0; }
+.rec-card-title { font-size:14px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px; }
+.rec-card-body { font-size:12.5px;color:var(--text-2);line-height:1.55; }
+.rec-savings {
+  display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--accent);
+  background:var(--accent-soft);padding:3px 10px;border-radius:999px;
+}
+.rec-action {
+  flex:0 0 auto;height:36px;padding:0 14px;font-size:12.5px;font-weight:600;border-radius:10px;
+  background:var(--accent);color:#08120c;border:none;cursor:pointer;transition:filter .15s,transform .15s;align-self:center;white-space:nowrap;
+}
+.rec-action:hover { filter:brightness(0.92);transform:translateY(-1px); }
+.rec-action.alt { background:var(--card);color:var(--text);border:1px solid var(--border); }
+.rec-action.alt:hover { border-color:var(--accent);color:var(--accent); }
+.rec-empty { font-size:13px;color:var(--text-3);font-style:italic;padding:24px 0;text-align:center; }
+.rec-empty.is-hidden { display:none; }
+
+@media (max-width:560px) {
+  .rec-panel { padding:24px 20px 18px; }
+  .rec-h2 { font-size:21px; }
+  .rec-card { flex-wrap:wrap;gap:10px; }
+  .rec-action { width:100%;height:38px; }
+}
+
 /* ─── Profession cards ───────────────────────────────────────────── */
 .prof-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
 @media (max-width:900px) { .prof-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
@@ -611,9 +673,37 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .modal-body { padding:20px 24px 24px; }
 .modal-desc { font-size:13.5px;color:var(--text-2);line-height:1.65;margin-bottom:20px; }
 
-/* Plan cards — horizontal scroll, N tiers */
+/* Plan cards — horizontal scroll wrapper for fade hint */
+.modal-plans-wrap { position:relative;margin-bottom:20px; }
+.modal-plans-wrap::before,
+.modal-plans-wrap::after {
+  content:'';position:absolute;top:0;bottom:14px;width:36px;pointer-events:none;
+  z-index:2;transition:opacity .2s;
+}
+.modal-plans-wrap::before {
+  left:0;background:linear-gradient(90deg,var(--card) 20%,transparent);opacity:0;
+}
+.modal-plans-wrap::after {
+  right:0;background:linear-gradient(-90deg,var(--card) 20%,transparent);opacity:0;
+}
+.modal-plans-wrap.can-scroll-left::before { opacity:1; }
+.modal-plans-wrap.can-scroll-right::after { opacity:1; }
+.modal-plans-hint {
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;
+  background:var(--accent);color:#08120c;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;
+  box-shadow:0 4px 12px rgba(0,0,0,.18);
+  pointer-events:none;z-index:3;opacity:0;transition:opacity .2s;
+}
+.modal-plans-hint.left { left:6px; }
+.modal-plans-hint.right { right:6px; }
+.modal-plans-wrap.can-scroll-left .modal-plans-hint.left { opacity:0.85; }
+.modal-plans-wrap.can-scroll-right .modal-plans-hint.right { opacity:0.85; }
+
 .modal-plans {
-  display:flex;flex-wrap:nowrap;gap:10px;margin-bottom:20px;
+  display:flex;flex-wrap:nowrap;gap:10px;
   overflow-x:auto;overflow-y:visible;padding:10px 2px 14px;
   scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
   scrollbar-width:thin;scrollbar-color:var(--border) transparent;
@@ -671,7 +761,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 #tweaks .tw-close { width:22px;height:22px;border-radius:6px;color:var(--text-2); }
 #tweaks .tw-close:hover { background:var(--bg-elev); }
 
-footer { padding:80px 0 80px;text-align:center;color:var(--text-3);font-size:12.5px; }
+footer { padding:80px 0 100px;text-align:center;color:var(--text-3);font-size:12.5px; }
+footer .footer-inner { max-width:720px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:8px; }
+footer .footer-row { line-height:1.6; }
+footer .footer-meta { font-size:11.5px;color:var(--text-3); }
+footer .footer-meta strong { color:var(--text-2);font-weight:600; }
+footer .footer-disclaimer { font-size:11px;color:var(--text-3);opacity:0.85;margin-top:8px;line-height:1.55; }
 footer .dot-sep { margin:0 8px;opacity:.5; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" defer></script>
@@ -692,6 +787,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </a>
     <nav class="nav" id="main-nav">
       <a href="#apps" class="is-active" data-section="apps">Tất cả app</a>
+      <a href="#recs" data-section="recs">Đề xuất</a>
       <a href="#professions" data-section="professions">Bộ tool theo nghề</a>
       <a href="#skills" data-section="skills">Gợi ý tool</a>
     </nav>
@@ -864,6 +960,25 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
   </div>
 </section>
 
+<!-- ─── ĐỀ XUẤT TỐI ƯU ─────────────────────────────────────────────────── -->
+<section class="sec" id="recs">
+  <div class="container">
+    <div class="rec-panel" id="rec-panel">
+      <div class="rec-head">
+        <div class="rec-head-left">
+          <div class="rec-eyebrow">Đề xuất tối ưu</div>
+          <h2 class="rec-h2">Tool tự phân tích <em class="em">giúp bạn tiết kiệm</em></h2>
+        </div>
+        <div class="rec-savings-total" id="rec-savings-total"></div>
+      </div>
+      <div class="rec-list" id="rec-list"></div>
+      <div class="rec-empty" id="rec-empty">
+        Chọn ít nhất 1 app vào danh sách tính giá để xem đề xuất tối ưu chi phí.
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── BỘ TOOL THEO NGHỀ ─────────────────────────────────────────────── -->
 <section class="sec" id="professions">
   <div class="container">
@@ -934,7 +1049,22 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 </main>
 
 <footer>
-  toolbanquyen.vn <span class="dot-sep">·</span> tính giá tool bản quyền cho người Việt <span class="dot-sep">·</span> v3 · 05/2026
+  <div class="footer-inner">
+    <div class="footer-row">
+      <strong>toolbanquyen.vn</strong> <span class="dot-sep">·</span> tính giá tool bản quyền cho người Việt
+    </div>
+    <div class="footer-row footer-meta">
+      <span id="footer-rate">Tỉ giá USD/VND đang cập nhật…</span>
+      <span class="dot-sep">·</span>
+      <span>Cập nhật giá: <strong>16/05/2026</strong></span>
+      <span class="dot-sep">·</span>
+      <span>v4</span>
+    </div>
+    <div class="footer-row footer-disclaimer">
+      Giá tham khảo tại thời điểm cập nhật và có thể thay đổi theo chính sách của từng nhà cung cấp.
+      Vui lòng kiểm tra giá chính thức trước khi quyết định mua.
+    </div>
+  </div>
 </footer>
 
 <!-- ─── Cart bar ──────────────────────────────────────────────────────── -->
@@ -992,20 +1122,26 @@ var APPS = [
   {id:'figma',name:'Figma',cat:'Design',color:'#F24E1E',initials:'F',popular:true,
    logo:'icons/figma-color.svg',url:'https://figma.com/pricing',
    desc:'Thiết kế UI/UX cộng tác thời gian thực, prototyping, design system toàn diện.',
-   tiers:{
-     personal:{label:'Professional',price:15,popular:true,features:['File & project không giới hạn','Version history 30 ngày','Custom fonts & variables','Dev Mode (inspect code)']},
-     team:{label:'Organization',price:45,features:['Shared component libraries','Team analytics','SSO & guest access','Advanced prototyping']},
-     enterprise:{label:'Enterprise',price:75,features:['Advanced security audit','Dedicated success manager','Custom MSA','SSO + SCIM provisioning']}
-   }},
+   tiers:[
+     {id:'starter',label:'Starter',price:0,features:['3 file Figma + 3 FigJam','Unlimited collaborator','Plugin marketplace','Mobile + Desktop app','Phù hợp cá nhân/học sinh']},
+     {id:'professional',label:'Professional',price:15,perUser:true,popular:true,features:['File & project không giới hạn','Version history 30 ngày','Custom fonts & variables','Dev Mode (inspect code)','Team libraries']},
+     {id:'organization',label:'Organization',price:45,perUser:true,features:['Shared component libraries','Org-wide design system','SSO + guest access','Team analytics','Branching cho design']},
+     {id:'enterprise',label:'Enterprise',price:75,perUser:true,features:['Advanced security audit','Dedicated success manager','Custom MSA','SCIM provisioning','Workspaces multiple']}
+   ]},
   {id:'adobe-cc',name:'Adobe Creative Cloud',cat:'Design',color:'#CC0000',initials:'Ac',popular:false,
    logo:'icons/adobe-creative-cloud-cc.svg',url:'https://www.adobe.com/creativecloud/plans.html',
    includes:['photoshop','illustrator','indesign','after effects','premiere pro','lightroom','xd','audition','animate','dreamweaver','acrobat','character animator'],
    desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
-   tiers:{
-     personal:{label:'Single App',price:29.99,features:['1 app Adobe tuỳ chọn','100GB cloud storage','Adobe Fonts đầy đủ','Portfolio website']},
-     team:{label:'All Apps',price:59.99,popular:true,features:['20+ app Creative Cloud','100GB/người dùng','Adobe Express Premium','Stock & Fonts không giới hạn']},
-     enterprise:{label:'Enterprise',price:89.99,features:['Admin console tập trung','VIP licensing','Advanced compliance','Global admin & support']}
-   }},
+   tiers:[
+     {id:'photo-20gb',label:'Photography 20GB',price:9.99,features:['Photoshop + Lightroom','20GB cloud storage','Adobe Fonts đầy đủ','Lightroom mobile + web','Behance + Portfolio']},
+     {id:'photo-1tb',label:'Photography 1TB',price:19.99,features:['Photoshop + Lightroom Classic','1TB cloud storage','Mọi tính năng Photography 20GB','Generative AI credits cơ bản']},
+     {id:'single-app',label:'Single App',price:22.99,features:['1 app Adobe tuỳ chọn','100GB cloud storage','Adobe Fonts đầy đủ','Stock images preview','Generative credits cơ bản']},
+     {id:'all-apps',label:'All Apps',price:59.99,popular:true,features:['20+ app Creative Cloud','100GB cloud storage','Adobe Express Premium','Adobe Firefly (generative AI)','Stock & Fonts không giới hạn']},
+     {id:'student',label:'All Apps (HS/SV)',price:19.99,note:'Cần verify học sinh/SV',features:['Mọi thứ trong All Apps','Giảm ~67% năm đầu','Cần verify mỗi năm','Email .edu hoặc giấy tờ']},
+     {id:'teams-single',label:'Teams Single',price:33.99,perUser:true,features:['1 app cho team','Admin console','Centralized licensing','100GB/người dùng','24/7 tech support']},
+     {id:'teams-all',label:'Teams All Apps',price:89.99,perUser:true,features:['Mọi app cho team','Admin console + billing','24/7 tech support','Stock & Fonts đầy đủ','Easy license reassign']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Admin console tập trung','VIP licensing','SSO + advanced compliance','Custom MSA','Global support 24/7']}
+   ]},
   {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
    logo:'icons/canva.svg',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
@@ -1050,14 +1186,17 @@ var APPS = [
      {id:'business',label:'ChatGPT & Codex Business',price:19.8,priceVND:519000,perUser:true,popular:false,features:['Mọi thứ trong Plus và Business Codex','Quyền truy cập tốt nhất các mô hình','60+ ứng dụng dữ liệu (Slack, Drive, GitHub…)','GPT tùy chỉnh, phân tích dữ liệu, canvas','SAML SSO + MFA, không đào tạo trên dữ liệu','GDPR, CCPA, SOC 2 Type 2']},
      {id:'enterprise',label:'Enterprise',price:null,note:'Mức giá tùy chỉnh',features:['Cửa sổ ngữ cảnh mở rộng + tệp lớn','SCIM, EKM, xác minh & kiểm soát quyền','Quyền riêng tư dữ liệu nâng cao','Lưu trữ dữ liệu tại 10 khu vực','Hỗ trợ ưu tiên 24/7, SLA','Hóa đơn & ưu đãi theo số lượng']}
    ]},
-  {id:'claude',name:'Claude Pro',cat:'AI',color:'#C25C3A',initials:'Cl',popular:true,
-   logo:'icons/claude-logo.svg',url:'https://claude.ai',
+  {id:'claude',name:'Claude',cat:'AI',color:'#C25C3A',initials:'Cl',popular:true,
+   logo:'icons/claude-logo.svg',url:'https://claude.ai/upgrade',
    desc:'AI assistant của Anthropic — phân tích sâu, viết lách, code, xử lý file dài.',
-   tiers:{
-     personal:{label:'Pro',price:20,popular:true,features:['Claude 3.5 Sonnet + Opus','5x usage so với free','Projects workspace','Priority access lúc cao điểm']},
-     team:{label:'Team',price:30,features:['Shared projects','Admin controls','Higher rate limits','Team workspace & billing']},
-     enterprise:{label:'Enterprise',price:null,features:['Unlimited usage','SSO + SCIM','Audit logs','Custom agreements & SLA']}
-   }},
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Claude Sonnet 4.5 (giới hạn)','Web + iOS + Android','Phân tích PDF, hình ảnh','~30 tin nhắn/5 giờ','Projects cơ bản']},
+     {id:'pro',label:'Pro',price:20,popular:true,features:['Sử dụng 5x so với Free','Claude Opus 4 + Sonnet 4.5','Projects workspace đầy đủ','Ưu tiên giờ cao điểm','Truy cập tính năng mới sớm','Code execution + extended thinking']},
+     {id:'max-5x',label:'Max 5x',price:100,features:['Sử dụng 5x so với Pro','Computer Use beta','Không bị giới hạn giờ cao điểm','Tất cả Projects features','Hỗ trợ ưu tiên']},
+     {id:'max-20x',label:'Max 20x',price:200,features:['Sử dụng 20x so với Pro','Claude Code đầy đủ','Mô hình mới nhất sớm nhất','Mọi tính năng Max 5x','Hỗ trợ ưu tiên cao']},
+     {id:'team',label:'Team',price:30,perUser:true,note:'Tối thiểu 5 thành viên',features:['Shared Projects toàn team','Admin controls + billing','Higher rate limits per user','Không train trên dữ liệu','Centralized billing']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM provisioning','Audit logs đầy đủ','Custom agreements & SLA','Data residency options','Dedicated CSM']}
+   ]},
   {id:'midjourney',name:'Midjourney',cat:'AI',color:'#2D2D44',initials:'MJ',popular:true,
    logo:'icons/Midjourney--Streamline-Svg-Logos.svg',
    desc:'Tạo ảnh AI chất lượng cao nhất — concept art, branding, minh hoạ sáng tạo.',
@@ -1077,11 +1216,14 @@ var APPS = [
   {id:'cursor',name:'Cursor',cat:'Development',color:'#7C3AED',initials:'Cu',popular:true,
    logo:'icons/cursor.svg',url:'https://cursor.com/pricing',
    desc:'IDE tích hợp AI — autocomplete thông minh, chat với codebase, refactor tự động.',
-   tiers:{
-     personal:{label:'Pro',price:20,popular:true,features:['500 fast requests/tháng','GPT-4o + Claude 3.5 access','Chat với toàn bộ codebase','Unlimited slow requests']},
-     team:{label:'Business',price:40,features:['Team admin dashboard','Invoice billing','Priority support','Usage analytics']},
-     enterprise:{label:'Enterprise',price:null,features:['SSO + audit logs','Custom model selection','SLA guarantee','Dedicated support']}
-   }},
+   tiers:[
+     {id:'hobby',label:'Hobby',price:0,features:['Pro 2 tuần trial','2000 completion/tháng','50 slow premium request/tháng','Models: GPT-4o-mini, GPT-4.1-mini','Phù hợp side project']},
+     {id:'pro',label:'Pro',price:20,popular:true,features:['Completions không giới hạn','500 fast premium request/tháng','Claude 4 Sonnet, GPT-5, o3','Background agents','Bugbot pull request review']},
+     {id:'pro-plus',label:'Pro+',price:60,features:['3x usage so với Pro','Models cao cấp ưu tiên','Unlimited completions','Tất cả tính năng Pro','Ưu tiên queue']},
+     {id:'ultra',label:'Ultra',price:200,features:['20x usage so với Pro','Background agents không giới hạn','Truy cập sớm features mới','Mọi model đỉnh + ưu tiên','Hỗ trợ ưu tiên cao']},
+     {id:'business',label:'Business',price:40,perUser:true,features:['Mọi tính năng Pro','Privacy mode toàn org','SSO Google/Microsoft','Admin dashboard','Centralized billing']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Custom data retention','99.9% SLA','Dedicated support','Audit log đầy đủ']}
+   ]},
   {id:'github-copilot',name:'GitHub Copilot',cat:'Development',color:'#181717',initials:'GH',popular:true,
    logo:'icons/copilot-color.svg',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
@@ -1109,11 +1251,13 @@ var APPS = [
   {id:'notion',name:'Notion',cat:'Productivity',color:'#333',initials:'N',popular:true,
    logo:'icons/notion.svg',url:'https://notion.so/pricing',
    desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
-   tiers:{
-     personal:{label:'Plus',price:10,popular:true,features:['Unlimited pages & blocks','Version history 30 ngày','Guests tối đa 10 người','API access đầy đủ']},
-     team:{label:'Business',price:18,features:['Unlimited guests','Advanced permissions','Workspace analytics','Bulk PDF export']},
-     enterprise:{label:'Enterprise',price:null,features:['SSO + SCIM provisioning','Audit log','Customer success manager','SAML 2.0']}
-   }},
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Cá nhân không giới hạn pages','Tích hợp với app khác','Lịch sử 7 ngày','Khách tối đa 10','API access cơ bản']},
+     {id:'plus',label:'Plus',price:10,perUser:true,popular:true,features:['Unlimited file uploads','Lịch sử 30 ngày','Khách không giới hạn','Custom Notion Sites','100 automation/tháng']},
+     {id:'business',label:'Business',price:18,perUser:true,features:['SAML SSO','Private team space','Bulk PDF export','Lịch sử 90 ngày','Advanced permissions']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SCIM + advanced security','Audit log đầy đủ','Workspace analytics','Customer success manager','Custom data retention']},
+     {id:'ai-addon',label:'Notion AI (add-on)',price:10,perUser:true,note:'Add-on, cộng vào gói chính',features:['Q&A trên toàn workspace','Tạo và sửa nội dung','Auto-summary & translation','Action items từ meeting','Có thể add vào mọi gói']}
+   ]},
   {id:'linear',name:'Linear',cat:'Productivity',color:'#5E6AD2',initials:'Li',popular:false,
    logo:'icons/linear.svg',
    desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
@@ -1366,6 +1510,183 @@ function bindIntent(){
     var ids=this.dataset.apps?this.dataset.apps.split(','):[];
     ids.forEach(function(id){if(S.cart.indexOf(id)===-1)S.cart.push(id);});
     renderAll();
+  });
+}
+
+/* ── RECOMMENDATION ENGINE ────────────────────────────────────────────── */
+// Overlap groups — apps phục vụ cùng mục đích, user thường chỉ cần 1
+var OVERLAP_GROUPS = {
+  'ai-chat':      {label:'AI Chatbot',      apps:['chatgpt','claude','gemini','deepseek','grok']},
+  'ai-search':    {label:'AI Search',       apps:['perplexity','chatgpt']},
+  'seo':          {label:'SEO Tool',        apps:['ahrefs','semrush']},
+  'video-edit':   {label:'Video Editor',    apps:['premiere','davinci','capcut','descript']},
+  'ai-video':     {label:'AI Video Gen',    apps:['runway','kling']},
+  'design-ui':    {label:'UI/UX Design',    apps:['figma','sketch']},
+  'task-mgmt':    {label:'Project Mgmt',    apps:['linear','clickup']},
+  'ai-code':      {label:'AI Coding',       apps:['cursor','github-copilot']}
+};
+
+function findFreeTierIdx(app){
+  if(!app||!app.tiers) return -1;
+  for(var i=0;i<app.tiers.length;i++){
+    if(app.tiers[i].price===0) return i;
+  }
+  return -1;
+}
+
+function getRecommendations(){
+  var recs=[];
+  if(!S.cart.length) return recs;
+
+  // 1. OVERLAP: nhiều app cùng category → suggest giữ 1
+  Object.keys(OVERLAP_GROUPS).forEach(function(gKey){
+    var g=OVERLAP_GROUPS[gKey];
+    var inCart=g.apps.filter(function(id){return S.cart.indexOf(id)!==-1;});
+    if(inCart.length<2) return;
+    // Tính tổng giá hiện tại của các app này
+    var totalUSD=inCart.reduce(function(s,id){var a=getApp(id);return a?s+(appPrice(a)||0):s;},0);
+    // Cheapest paid app trong nhóm
+    var cheapestId=null,cheapestPrice=Infinity;
+    inCart.forEach(function(id){
+      var a=getApp(id);var p=appPrice(a);
+      if(p>0 && p<cheapestPrice){cheapestPrice=p;cheapestId=id;}
+    });
+    var keepPrice=cheapestId?cheapestPrice:0;
+    var savings=Math.max(0,totalUSD-keepPrice);
+    var appNames=inCart.map(function(id){return getApp(id).name;});
+    if(savings>0){
+      recs.push({
+        type:'overlap',
+        priority:1,
+        title:'Trùng năng: '+inCart.length+' app cùng là '+g.label,
+        body:'Bạn đang chọn '+appNames.join(', ')+'. Các app này phục vụ cùng mục đích, đa số user chỉ cần 1. Cân nhắc giữ '+getApp(cheapestId).name+' và bỏ phần còn lại (hoặc dùng Free tier).',
+        savingsUSD:savings,
+        keepApp:cheapestId,
+        removeApps:inCart.filter(function(id){return id!==cheapestId;})
+      });
+    }
+  });
+
+  // 2. DOWNGRADE: app trên tier paid mà có Free tier
+  S.cart.forEach(function(id){
+    var a=getApp(id);if(!a) return;
+    var curIdx=activeTierIdx(a);
+    var curTier=a.tiers[curIdx];
+    if(!curTier || !curTier.price) return; // skip free or contact
+    var freeIdx=findFreeTierIdx(a);
+    if(freeIdx<0 || freeIdx===curIdx) return;
+    recs.push({
+      type:'downgrade',
+      priority:2,
+      title:a.name+' có gói Free',
+      body:'Bạn đang chọn '+a.name+' '+curTier.label+'. Nếu nhu cầu cơ bản, gói Free có thể đủ. Bạn có thể nâng cấp sau khi cần.',
+      savingsUSD:curTier.price * (curTier.perUser?1:1),
+      appId:id,
+      toTierIdx:freeIdx
+    });
+  });
+
+  // 3. SALARY OVER-BUDGET: cart > 15% salary → flag
+  var salaryEl=document.getElementById('salary-input');
+  if(salaryEl && salaryEl.value){
+    var rawSalary=parseFloat(salaryEl.value.replace(/[^0-9.]/g,''))||0;
+    var salaryCur=document.getElementById('salary-cur');
+    var curSalary=salaryCur?salaryCur.value:'VND';
+    var salaryUSD=curSalary==='VND'?(rawSalary/S.rate):rawSalary;
+    if(salaryUSD>0){
+      var totalUSD=cartTotal();
+      var pct=(totalUSD/salaryUSD)*100;
+      if(pct>=10){
+        recs.push({
+          type:'warning',
+          priority:0,
+          title:'Bạn đang chi '+pct.toFixed(1)+'% lương cho phần mềm',
+          body:pct>=20
+            ?'Mức này quá cao — đa số chuyên gia khuyên giữ chi phí tool dưới 5-10% thu nhập. Cân nhắc cắt giảm theo gợi ý bên dưới.'
+            :'Mức này vẫn an toàn nhưng nên review định kỳ. Xem các gợi ý tối ưu bên dưới để giảm thêm.',
+          savingsUSD:0,
+          isInfo:true
+        });
+      }
+    }
+  }
+
+  // Sắp xếp: priority (thấp = trước), rồi savings (cao = trước)
+  return recs.sort(function(a,b){
+    if(b.priority!==a.priority) return a.priority-b.priority;
+    return b.savingsUSD-a.savingsUSD;
+  });
+}
+
+function renderRecommendations(){
+  var panel=document.getElementById('rec-panel');
+  var list=document.getElementById('rec-list');
+  var emptyEl=document.getElementById('rec-empty');
+  var totalEl=document.getElementById('rec-savings-total');
+  if(!panel||!list) return;
+
+  if(!S.cart.length){
+    list.innerHTML='';
+    if(emptyEl) emptyEl.classList.remove('is-hidden');
+    if(totalEl) totalEl.classList.remove('is-on');
+    return;
+  }
+  if(emptyEl) emptyEl.classList.add('is-hidden');
+
+  var recs=getRecommendations();
+  if(!recs.length){
+    list.innerHTML='<div class="rec-card rec-downgrade"><div class="rec-icon">✓</div><div class="rec-content"><div class="rec-card-title">Tối ưu rồi!</div><div class="rec-card-body">Cart hiện tại không có đề xuất tiết kiệm. Setup gọn gàng, không có app trùng và đang dùng tier phù hợp.</div></div></div>';
+    if(totalEl) totalEl.classList.remove('is-on');
+    return;
+  }
+
+  // Tổng savings
+  var totalSavings=recs.reduce(function(s,r){return s+(r.savingsUSD||0);},0);
+  if(totalEl){
+    if(totalSavings>0){
+      totalEl.classList.add('is-on');
+      totalEl.innerHTML='<span class="lbl">Có thể tiết kiệm</span><span class="val">'+fmtTotal(totalSavings)+'<span class="per">/th</span></span>';
+    } else {
+      totalEl.classList.remove('is-on');
+    }
+  }
+
+  list.innerHTML=recs.slice(0,5).map(function(r){
+    var iconMap={overlap:'⚠️',downgrade:'💰',warning:'🚨'};
+    var savingsHtml=r.savingsUSD>0?'<div class="rec-savings">Tiết kiệm '+fmtTotal(r.savingsUSD)+'/tháng</div>':'';
+    var actionHtml='';
+    if(r.type==='downgrade'){
+      actionHtml='<button class="rec-action" data-action="downgrade" data-app="'+r.appId+'" data-tier="'+r.toTierIdx+'">Đổi sang Free</button>';
+    } else if(r.type==='overlap'){
+      actionHtml='<button class="rec-action alt" data-action="remove-overlap" data-keep="'+r.keepApp+'" data-remove="'+r.removeApps.join(',')+'">Áp dụng đề xuất</button>';
+    }
+    return '<div class="rec-card rec-'+r.type+'">'+
+      '<div class="rec-icon">'+(iconMap[r.type]||'💡')+'</div>'+
+      '<div class="rec-content">'+
+        '<div class="rec-card-title">'+r.title+'</div>'+
+        '<div class="rec-card-body">'+r.body+'</div>'+
+        savingsHtml+
+      '</div>'+
+      actionHtml+
+    '</div>';
+  }).join('');
+
+  // Bind action buttons
+  list.querySelectorAll('.rec-action').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var act=btn.dataset.action;
+      if(act==='downgrade'){
+        S.cartTiers[btn.dataset.app]=Number(btn.dataset.tier);
+        renderAll();
+      } else if(act==='remove-overlap'){
+        var removeIds=btn.dataset.remove.split(',');
+        removeIds.forEach(function(id){
+          var idx=S.cart.indexOf(id);
+          if(idx>=0){S.cart.splice(idx,1);delete S.cartTiers[id];}
+        });
+        renderAll();
+      }
+    });
   });
 }
 
@@ -1767,7 +2088,11 @@ function buildModal(app){
     '</div>'+
     '<div class="modal-body">'+
       '<p class="modal-desc">'+app.desc+'</p>'+
-      '<div class="modal-plans">'+plansHtml+'</div>'+
+      '<div class="modal-plans-wrap" id="modal-plans-wrap">'+
+        '<div class="modal-plans-hint left">‹</div>'+
+        '<div class="modal-plans-hint right">›</div>'+
+        '<div class="modal-plans" id="modal-plans">'+plansHtml+'</div>'+
+      '</div>'+
       '<button class="modal-add-btn'+(inCart?' remove':'')+'" id="modal-add-btn">'+
         (inCart?'✕ Bỏ khỏi danh sách':'✓ Chọn để tính chi phí')+
       '</button>'+
@@ -1781,6 +2106,21 @@ function buildModal(app){
     else{delete S.cartTiers[app.id];}
     toggleCart(app.id);buildModal(app);
   });
+  // Scroll affordance: fade gradient + arrow hint based on scroll position
+  var scroller=document.getElementById('modal-plans');
+  var wrap=document.getElementById('modal-plans-wrap');
+  if(scroller && wrap){
+    var updateScrollHint=function(){
+      var maxScroll=scroller.scrollWidth-scroller.clientWidth;
+      wrap.classList.toggle('can-scroll-left', scroller.scrollLeft>4);
+      wrap.classList.toggle('can-scroll-right', scroller.scrollLeft<maxScroll-4);
+    };
+    scroller.addEventListener('scroll',updateScrollHint);
+    setTimeout(updateScrollHint,30);
+    // Scroll active plan card into view
+    var active=scroller.querySelector('.plan-card.is-active');
+    if(active) active.scrollIntoView({inline:'center',block:'nearest',behavior:'auto'});
+  }
 }
 function selectModalPlan(idx){
   S.modalTier=Number(idx);
@@ -1789,19 +2129,24 @@ function selectModalPlan(idx){
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
-function renderAll(){renderApps();renderProfessions();renderChips();renderCartBar();renderSalary();renderIntentPreview();}
+function renderAll(){renderApps();renderProfessions();renderChips();renderCartBar();renderSalary();renderIntentPreview();renderRecommendations();}
 
 /* ── EXCHANGE RATE ─────────────────────────────────────────────────────── */
 function fetchRate(){
+  var fr=document.getElementById('footer-rate');
   fetch('https://api.exchangerate-api.com/v4/latest/USD')
     .then(function(r){return r.json();})
     .then(function(d){
       if(d.rates&&d.rates.VND){
         S.rate=Math.round(d.rates.VND);
-        document.getElementById('rate-display').textContent=S.rate.toLocaleString('vi-VN')+' ₫';
+        var disp=document.getElementById('rate-display');
+        if(disp) disp.textContent=S.rate.toLocaleString('vi-VN')+' ₫';
+        if(fr) fr.innerHTML='Tỉ giá: <strong>1 USD = '+S.rate.toLocaleString('vi-VN')+' đ</strong> (live)';
         renderAll();
       }
-    }).catch(function(){});
+    }).catch(function(){
+      if(fr) fr.innerHTML='Tỉ giá: <strong>1 USD = '+S.rate.toLocaleString('vi-VN')+' đ</strong> (cached)';
+    });
 }
 
 /* ── EVENTS ────────────────────────────────────────────────────────────── */
