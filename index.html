@@ -661,7 +661,7 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
   position: relative;
   flex-shrink: 0;
   width: 52px; height: 52px;
-  background: #fff;
+  /* bg đặt qua class .has-logo — theme-aware */
   border-radius: 10px;
   padding: 8px;
   display: flex; align-items: center; justify-content: center;
@@ -805,6 +805,12 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 .card.in-cart { border-color:var(--accent); }
 .card-top { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
 .app-mark { width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:0 0 40px;color:#fff;overflow:hidden;letter-spacing:-0.01em; }
+/* Logo container — đồng bộ theme-aware bg cho mọi logo (.has-logo class) */
+.app-mark.has-logo, .cpi-mark.has-logo, .sug-mark.has-logo, .logo-cell.has-logo { background: #ffffff; }
+[data-theme="light"] .app-mark.has-logo,
+[data-theme="light"] .cpi-mark.has-logo,
+[data-theme="light"] .sug-mark.has-logo,
+[data-theme="light"] .logo-cell.has-logo { background: #f4f5f7; border: 1px solid rgba(0,0,0,0.04); }
 .app-mark img { width:100%;height:100%;object-fit:contain;padding:8px;box-sizing:border-box; }
 .modal-app-mark img { width:100%;height:100%;object-fit:contain;padding:10px;box-sizing:border-box; }
 .app-name { font-weight:600;font-size:14.5px;letter-spacing:-0.01em; }
@@ -1794,7 +1800,7 @@ var APPS = [
      enterprise:{label:'Enterprise',price:null,features:['White labeling toàn org','SSO + SCIM','Permission cấp cao','Dedicated success team']}
    }},
   {id:'buffer',name:'Buffer',cat:'Marketing',color:'#2D9CDB',initials:'Bu',popular:false,
-   logo:'https://cdn.simpleicons.org/buffer/ffffff',url:'https://buffer.com/pricing',
+   logo:'https://cdn.simpleicons.org/buffer',url:'https://buffer.com/pricing',
    desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
    tiers:{
      personal:{label:'Essentials',price:6,popular:true,features:['3 channel mạng xã hội','Lên lịch & first comment','Analytics cơ bản','AI Assistant viết caption']},
@@ -1810,7 +1816,7 @@ var APPS = [
      enterprise:{label:'Advanced',price:449,features:['Backlink history full','10000 credit/tháng','100 dự án','API access (5K row/ngày)']}
    }},
   {id:'semrush',name:'Semrush',cat:'Marketing',color:'#FF642D',initials:'Se',popular:false,
-   logo:'https://cdn.simpleicons.org/semrush/ffffff',url:'https://www.semrush.com/pricing/',
+   logo:'https://cdn.simpleicons.org/semrush',url:'https://www.semrush.com/pricing/',
    desc:'Marketing platform — SEO, PPC, social media, content, competitor analysis.',
    tiers:{
      personal:{label:'Pro',price:140,popular:true,features:['5 dự án + 500 keyword','SEO, PPC & social media basic','Position tracking hàng ngày','Site Audit 100K trang']},
@@ -1902,7 +1908,7 @@ var APPS = [
      {id:'student',label:'Student (Edu)',price:0,note:'Email .edu',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew năm']}
    ]},
   {id:'sketchup',name:'SketchUp',cat:'Architecture',color:'#005F9E',initials:'Sk',popular:true,
-   logo:'https://cdn.simpleicons.org/sketchup/ffffff',url:'https://www.sketchup.com/plans-and-pricing',
+   logo:'https://cdn.simpleicons.org/sketchup',url:'https://www.sketchup.com/plans-and-pricing',
    desc:'3D modeling dễ học — phổ biến nhất tại VN cho kiến trúc, nội thất, concept nhanh.',
    tiers:[
      {id:'free',label:'Free',price:0,features:['SketchUp Web (browser)','10GB Trimble Connect','Cá nhân, phi thương mại','Phù hợp học việc']},
@@ -1911,7 +1917,7 @@ var APPS = [
      {id:'studio',label:'Studio',price:62.42,note:'$749/năm — Win only',features:['Mọi tính năng Pro','V-Ray for SketchUp đầy đủ','Scan Essentials','Phù hợp render chất lượng cao']}
    ]},
   {id:'rhino',name:'Rhinoceros 3D',cat:'Architecture',color:'#801010',initials:'Rh',popular:false,
-   logo:'https://cdn.simpleicons.org/rhinoceros/ffffff',url:'https://www.rhino3d.com/sales/',
+   logo:'https://cdn.simpleicons.org/rhinoceros',url:'https://www.rhino3d.com/sales/',
    desc:'NURBS modeling chính xác — kiến trúc parametric, công nghiệp, jewelry với Grasshopper.',
    tiers:[
      {id:'commercial',label:'Commercial',price:30,note:'Mua đứt $995 (≈3 năm)',features:['Rhino 8 license vĩnh viễn','Grasshopper visual scripting','Windows + Mac trong 1 license','Update minor miễn phí']},
@@ -2020,7 +2026,7 @@ var APPS = [
      {id:'business-premium',label:'Business Premium',price:25.20,perUser:true,features:['Mọi tính năng Standard','Intune device mgmt','Advanced security','Defender for business','Conditional access']}
    ]},
   {id:'google-workspace',name:'Google Workspace',cat:'Productivity',color:'#4285F4',initials:'GW',popular:true,
-   url:'https://workspace.google.com/pricing.html',
+   logo:'icons/google-workspace.svg',url:'https://workspace.google.com/pricing.html',
    includes:['gmail','drive','docs','sheets','slides','meet','calendar'],
    desc:'Bộ cloud office của Google — Gmail business, Drive, Docs, Sheets, Slides. Phổ biến VN startup + freelancer.',
    tiers:[
@@ -2416,9 +2422,9 @@ function renderApps(){
     var priceLabel=fmtTierPrice(tier);
     var prefix=(!inCart && app.tiers.length>1 && tier && tier.price>0)?'<span class="price-prefix">Từ </span>':'';
     var perLabel=tier&&tier.price>0?(tier.perUser?'/người·th':'/tháng'):'';
-    var iconBg=app.logo&&app.logo.indexOf('icons/')=== 0?'#fff':app.color;
+    // Logo → class has-logo (CSS theme-aware bg). Initials → inline bg = app.color
     var markHtml=app.logo
-      ?'<div class="app-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="'+app.name+'" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
+      ?'<div class="app-mark has-logo"><img src="'+app.logo+'" alt="'+app.name+'" onerror="this.parentNode.classList.remove(\'has-logo\');this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
       :'<div class="app-mark" style="background:'+app.color+'">'+app.initials+'</div>';
     // Star icon for popular apps
     var starHtml = app.popular ? '<svg class="app-popular-star" viewBox="0 0 24 24" fill="currentColor" aria-label="Phổ biến"><title>App phổ biến</title><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>' : '';
@@ -2624,9 +2630,8 @@ function renderCartPopover(){
     if(tier && tier.price===0) priceCls+=' is-free';
     if(tier && tier.price===null) priceCls+=' is-contact';
     var perLabel=(tier && tier.price>0)?(tier.perUser?'<span class="per">/người·th</span>':'<span class="per">/tháng</span>'):'';
-    var iconBg=app.logo&&app.logo.indexOf('icons/')===0?'#fff':app.color;
     var markHtml=app.logo
-      ?'<div class="cpi-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
+      ?'<div class="cpi-mark has-logo"><img src="'+app.logo+'" alt="" onerror="this.parentNode.classList.remove(\'has-logo\');this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
       :'<div class="cpi-mark" style="background:'+app.color+'">'+app.initials+'</div>';
     var tierLabel=tier?tier.label:'';
     return '<div class="cart-popover-item" data-id="'+app.id+'">'+
@@ -3187,9 +3192,8 @@ function renderSuggestions(){
     var tier = app.tiers[tIdx];
     var priceLabel = fmtTierPrice(tier);
     var perLabel = tier && tier.price>0 ? (tier.perUser?'/người·th':'/tháng') : '';
-    var iconBg = app.logo && app.logo.indexOf('icons/')===0 ? '#fff' : app.color;
     var markHtml = app.logo
-      ? '<div class="sug-mark" style="background:'+iconBg+'"><img src="'+app.logo+'" alt="" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
+      ? '<div class="sug-mark has-logo"><img src="'+app.logo+'" alt="" onerror="this.parentNode.classList.remove(\'has-logo\');this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"></div>'
       : '<div class="sug-mark" style="background:'+app.color+'">'+app.initials+'</div>';
     var scoreHtml = s.score > 1 ? '<span class="sug-score">'+s.score+' match</span>' : '';
     var addLabel = inCart ? '✓ Bỏ chọn' : '+ Thêm';
@@ -3322,14 +3326,15 @@ function buildModal(app){
   }
 
   /* Icon */
-  var iconBg=app.logo&&app.logo.indexOf('icons/')===0?'#fff':app.color;
   var iconHtml=app.logo
-    ?'<img src="'+app.logo+'" alt="" onerror="this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"/>'
+    ?'<img src="'+app.logo+'" alt="" onerror="this.parentNode.classList.remove(\'has-logo\');this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"/>'
     :app.initials;
+  var markClass = app.logo ? 'modal-app-mark has-logo' : 'modal-app-mark';
+  var markStyle = app.logo ? '' : ' style="background:'+app.color+'"';
 
   document.getElementById('modal-content').innerHTML=
     '<div class="modal-header">'+
-      '<div class="modal-app-mark" style="background:'+iconBg+'">'+iconHtml+'</div>'+
+      '<div class="'+markClass+'"'+markStyle+'>'+iconHtml+'</div>'+
       '<div><div class="modal-app-name">'+app.name+'</div><div class="modal-app-cat">'+app.cat+'</div></div>'+
     '</div>'+
     '<div class="modal-body">'+
@@ -3850,8 +3855,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
         : (price % 1 === 0 ? '$' + price : '$' + price.toFixed(2));
       priceLabel = '<span class="lt-price">' + displayCur + '/th</span>';
     }
-    var iconBg = a.logo && a.logo.indexOf('icons/') === 0 ? '#fff' : (a.color || '#fff');
-    return '<a class="logo-cell" data-app="' + a.id + '" href="#" tabindex="-1" style="background:' + iconBg + '">' +
+    return '<a class="logo-cell has-logo" data-app="' + a.id + '" href="#" tabindex="-1">' +
       '<img src="' + a.logo + '" alt="' + a.name + '" loading="lazy"/>' +
       '<span class="logo-tip">' + a.name + ' ' + priceLabel + '</span>' +
     '</a>';
