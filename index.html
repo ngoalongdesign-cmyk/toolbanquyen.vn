@@ -246,7 +246,37 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .hero-calc { display:none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-calc { animation: none; opacity:1; transform: rotate(-4deg); }
+  .hero-calc, .hero-calc-m { animation: none; opacity:1; transform: rotate(-4deg); }
+}
+
+/* ─── Mobile-only floating calculator (inside describe banner) ───── */
+.hero-calc-m { display: none; }
+@media (max-width: 768px) {
+  .hero-describe { position: relative; }
+  .hero-describe .hd-row { justify-content: flex-start; }
+  .hero-calc-m {
+    display: block;
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 110px;
+    height: 110px;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url('images/calculator-dark-toolbanquyen.vn.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
+    opacity: 0;
+    transform: rotate(-4deg) translateY(12px);
+    animation: calcEntry .7s cubic-bezier(.2,.8,.2,1) .3s forwards,
+               calcFloat 5s ease-in-out 1s infinite;
+  }
+  [data-theme="light"] .hero-calc-m {
+    background-image: url('images/calculator-light-toolbanquyen.vn.png');
+    filter: drop-shadow(0 6px 12px rgba(20,60,30,.2));
+  }
 }
 
 /* Shared cell chrome */
@@ -410,7 +440,7 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 }
 .hd-textarea:focus { border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft); }
 .hd-textarea::placeholder { color:var(--text-3); }
-.hd-row { display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;flex-wrap:wrap; }
+.hd-row { display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:10px;flex-wrap:wrap; }
 .hd-chips { display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0; }
 .hd-chip {
   font-size:11.5px;font-weight:500;color:var(--text-2);
@@ -1107,6 +1137,37 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 .rec-empty { font-size:13px;color:var(--text-3);font-style:italic;padding:24px 0;text-align:center; }
 .rec-empty.is-hidden { display:none; }
 
+/* ─── Use case toggle (Cá nhân / Freelance / DN khấu trừ VAT) ───────── */
+.usecase-toggle {
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin:0 0 18px;padding:12px 14px;
+  background:var(--bg-elev);border:1px solid var(--border-2);border-radius:14px;
+  position:relative;
+}
+.uc-label {
+  font-size:12px;font-weight:700;color:var(--text-2);
+  letter-spacing:0.02em;text-transform:uppercase;margin-right:4px;
+}
+.uc-pill {
+  font-size:12.5px;font-weight:500;color:var(--text-2);
+  background:var(--card);border:1px solid var(--border-2);
+  padding:6px 12px;border-radius:999px;cursor:pointer;
+  transition:all .15s ease;white-space:nowrap;letter-spacing:-0.003em;
+}
+.uc-pill:hover { border-color:var(--accent);color:var(--accent);background:var(--accent-soft); }
+.uc-pill.is-on {
+  background:var(--accent);color:#08120c;border-color:var(--accent);font-weight:700;
+}
+.uc-hint {
+  flex-basis:100%;margin:6px 0 0;
+  font-size:11.5px;color:var(--text-3);line-height:1.5;letter-spacing:-0.002em;
+}
+@media (max-width: 560px) {
+  .usecase-toggle { padding:10px 12px;gap:6px; }
+  .uc-label { font-size:11px;flex-basis:100%;margin:0 0 4px; }
+  .uc-pill { font-size:12px;padding:5px 10px; }
+}
+
 /* ─── VAT note + Verdict cards (máy giải thích chi phí) ─────────────── */
 .vat-note {
   margin:0 0 14px;
@@ -1539,18 +1600,13 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
             <span class="hd-label">Mô tả nhanh nghề/nhu cầu để mình gợi ý app phù hợp</span>
             <textarea id="job-describe-input" class="hd-textarea" placeholder="Ví dụ: Tôi là UI/UX designer cần app vẽ giao diện + AI hỗ trợ viết, lương 25 triệu." rows="2" autocomplete="off"></textarea>
             <div class="hd-row">
-              <div class="hd-chips" id="hd-chips">
-                <button class="hd-chip" type="button" data-fill="Tôi là UI/UX designer làm app, cần Figma và AI hỗ trợ thiết kế.">UX Designer</button>
-                <button class="hd-chip" type="button" data-fill="Tôi là kỹ sư phần mềm, viết code fullstack và deploy web.">Software Engineer</button>
-                <button class="hd-chip" type="button" data-fill="Tôi là kiến trúc sư, cần CAD, BIM, render 3D dự án.">Kiến trúc sư</button>
-                <button class="hd-chip" type="button" data-fill="Tôi làm content creator, edit video TikTok và viết caption.">Content Creator</button>
-              </div>
               <button type="button" class="hd-analyze" id="btn-analyze-job">
                 Gợi ý ngay
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
             </div>
             <div class="hd-parsed" id="hd-parsed" style="display:none"></div>
+            <div class="hero-calc-m" aria-hidden="true"></div>
           </div>
         </div>
 
@@ -1652,6 +1708,13 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
 
     <div class="rec-panel" id="rec-panel">
+      <div class="usecase-toggle" id="usecase-toggle" role="radiogroup" aria-label="Mục đích sử dụng">
+        <span class="uc-label">Mục đích sử dụng:</span>
+        <button type="button" class="uc-pill is-on" data-uc="personal" aria-pressed="true">Cá nhân</button>
+        <button type="button" class="uc-pill" data-uc="freelance" aria-pressed="false">Freelance kiếm tiền</button>
+        <button type="button" class="uc-pill" data-uc="business-vat" aria-pressed="false">Doanh nghiệp (khấu trừ VAT)</button>
+        <p class="uc-hint" id="uc-hint">Cá nhân học, hobby — ngưỡng cảnh báo nghiêm.</p>
+      </div>
       <div class="rec-head">
         <div class="rec-head-left">
           <div class="rec-eyebrow">Đề xuất tối ưu</div>
@@ -2341,7 +2404,8 @@ var ALTERNATIVES_MAP = {
 var VERDICT_THRESHOLDS = {
   'personal':  [1, 3, 7, 15],    // <1=safe, 1-3=reasonable, 3-7=caution, 7-15=high, >15=overload
   'freelance': [2, 5, 12, 25],   // nới cho freelance vì có ROI
-  'team':      [3, 7, 15, 30]    // chia per-user nên cao hơn
+  'team':      [3, 7, 15, 30],   // chia per-user nên cao hơn
+  'business-vat':[3, 7, 15, 30]  // doanh nghiệp đăng ký VAT — khấu trừ được, threshold lỏng như team
 };
 
 var SEVERITY_INFO = {
@@ -3958,7 +4022,7 @@ function fetchRate(){
 }
 
 /* ── LocalStorage persist ──────────────────────────────────────────────── */
-var LS_KEYS = { theme:'tbq:theme', currency:'tbq:currency' };
+var LS_KEYS = { theme:'tbq:theme', currency:'tbq:currency', useCase:'tbq:useCase' };
 function saveLocalState(){
   try {
     localStorage.setItem(LS_KEYS.theme, document.documentElement.dataset.theme || 'dark');
@@ -3971,6 +4035,8 @@ function loadLocalState(){
     if(t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
     var c = localStorage.getItem(LS_KEYS.currency);
     if(c === 'USD' || c === 'VND') S.currency = c;
+    var u = localStorage.getItem(LS_KEYS.useCase);
+    if(u === 'personal' || u === 'freelance' || u === 'business-vat') S.useCase = u;
   } catch(e){}
 }
 function syncCurrencyToggle(){
@@ -4075,22 +4141,15 @@ document.getElementById('modal-overlay').addEventListener('click',function(e){if
   });
 })();
 
-/* ── Job describe — analyze button + chips ─────────────────────────────── */
+/* ── Job describe — analyze button ─────────────────────────────────────── */
 (function(){
   var ta=document.getElementById('job-describe-input');
   var btn=document.getElementById('btn-analyze-job');
-  var chips=document.querySelectorAll('#hd-chips .hd-chip');
   var parsedEl=document.getElementById('hd-parsed');
   var sec=document.getElementById('suggestions');
   var emptyEl=document.getElementById('suggestions-empty');
   if(!ta || !btn) return;
 
-  chips.forEach(function(c){
-    c.addEventListener('click',function(){
-      ta.value=c.dataset.fill||'';
-      analyzeAndShow();
-    });
-  });
   btn.addEventListener('click',analyzeAndShow);
   ta.addEventListener('keydown',function(e){
     if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); analyzeAndShow(); }
@@ -4375,8 +4434,58 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   renderHeroLogos();
 })();
 
+/* ── Use case toggle (Cá nhân / Freelance / DN khấu trừ VAT) ─────────── */
+(function(){
+  var grp = document.getElementById('usecase-toggle');
+  if(!grp) return;
+  var pills = grp.querySelectorAll('.uc-pill');
+  var hintEl = document.getElementById('uc-hint');
+  var vatEl = document.getElementById('vat-note');
+  var HINTS = {
+    'personal':    'Cá nhân học, hobby — ngưỡng cảnh báo nghiêm để bạn không chi quá tay.',
+    'freelance':   'Bạn có doanh thu từ app — ngưỡng nới hơn vì app sinh ra ROI.',
+    'business-vat':'Doanh nghiệp đăng ký VAT — khấu trừ được, tool bỏ 10% VAT khỏi giá.'
+  };
+  var VAT_TEXT = {
+    'default':     'Giá đã bao gồm <strong>10% VAT</strong> mà thẻ VN bị charge tự động.',
+    'business-vat':'Đã <strong>loại VAT 10%</strong> vì doanh nghiệp khấu trừ được.'
+  };
+
+  function syncUI(uc){
+    pills.forEach(function(b){
+      var on = (b.dataset.uc === uc);
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if(hintEl) hintEl.textContent = HINTS[uc] || HINTS['personal'];
+    if(vatEl) vatEl.innerHTML = (uc === 'business-vat') ? VAT_TEXT['business-vat'] : VAT_TEXT['default'];
+  }
+  function applyUC(uc){
+    S.useCase = uc;
+    syncUI(uc);
+    try{ localStorage.setItem(LS_KEYS.useCase, uc); }catch(e){}
+    renderAll();
+  }
+
+  grp.addEventListener('click', function(e){
+    var btn = e.target.closest('.uc-pill');
+    if(!btn || !btn.dataset.uc) return;
+    applyUC(btn.dataset.uc);
+  });
+
+  // Initial UI state — đọc localStorage trực tiếp, không call renderAll
+  // (INIT block sẽ chạy renderAll sau khi load đầy đủ state)
+  var saved = 'personal';
+  try {
+    var u = localStorage.getItem(LS_KEYS.useCase);
+    if(u && HINTS[u]) saved = u;
+  } catch(e){}
+  S.useCase = saved;
+  syncUI(saved);
+})();
+
 /* ── INIT ── */
-loadLocalState();        // Restore theme + currency from localStorage
+loadLocalState();        // Restore theme + currency + useCase from localStorage
 normalizeTiers();
 decodeShareURL();        // Restore cart + salary từ URL hash nếu có
 syncCurrencyToggle();    // Update USD/VND segment UI (after possible URL override)
