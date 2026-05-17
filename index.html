@@ -833,6 +833,34 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 
 /* ─── Tabs ───────────────────────────────────────────────────────── */
 .tabs-wrap { display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px;border-bottom:1px solid var(--border-2); }
+
+/* ─── Billing cycle toggle (Tháng / Năm) ──────────────────────────── */
+.billing-row {
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin:0 0 16px;padding:10px 14px;
+  background:var(--bg-elev);border:1px solid var(--border-2);border-radius:10px;
+  flex-wrap:wrap;
+}
+.billing-hint { font-size:12px;color:var(--text-3);letter-spacing:-0.002em;line-height:1.5; }
+.billing-hint strong { color:var(--accent);font-weight:700; }
+.billing-toggle {
+  display:flex;gap:2px;
+  background:var(--card);border:1px solid var(--border-2);border-radius:8px;padding:2px;
+  flex-shrink:0;
+}
+.bill-pill {
+  font-size:12.5px;font-weight:600;color:var(--text-2);
+  background:transparent;border:none;cursor:pointer;
+  padding:6px 14px;border-radius:6px;letter-spacing:-0.003em;
+  transition:all .15s ease;white-space:nowrap;
+}
+.bill-pill:hover { color:var(--text); }
+.bill-pill.is-on { background:var(--accent);color:#08120c;font-weight:700; }
+@media (max-width: 560px) {
+  .billing-row { padding:10px 12px; }
+  .billing-hint { font-size:11.5px;flex-basis:100%; }
+  .bill-pill { font-size:12px;padding:5px 11px; }
+}
 .tabs { display:flex;flex-wrap:wrap;gap:0; }
 .tab {
   position:relative;display:inline-flex;align-items:center;gap:8px;
@@ -1510,6 +1538,18 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 .plan-price-big .per { font-size:11px;font-weight:500;color:var(--text-3);margin-left:1px; }
 .plan-price-big.free { color:var(--accent);font-size:18px; }
 .plan-price-big.contact { color:var(--text-3);font-size:14px;font-weight:600; }
+.pp-cycle-tag {
+  display:inline-block;margin-left:6px;vertical-align:middle;
+  font-size:9.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  padding:2px 6px;border-radius:4px;
+  background:var(--accent-soft);color:var(--accent);
+}
+.plan-save-note {
+  font-size:11px;font-weight:500;color:var(--text-3);
+  letter-spacing:-0.002em;line-height:1.45;
+  margin-top:6px;
+}
+.plan-save-note strong { color:var(--accent);font-weight:700; }
 .plan-note { font-size:10.5px;color:var(--text-3);font-style:italic;line-height:1.4;margin-top:-2px; }
 .plan-feats { list-style:none;padding:0;margin:6px 0 0;display:flex;flex-direction:column;gap:4px; }
 .plan-feats li { font-size:11px;color:var(--text-2);display:flex;align-items:flex-start;gap:5px;line-height:1.4; }
@@ -1750,6 +1790,13 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input type="text" id="search-input" placeholder="Tìm app theo tên, mô tả..." aria-label="Tìm app" autocomplete="off"/>
         <kbd class="search-kbd" aria-hidden="true">⌘K</kbd>
+      </div>
+    </div>
+    <div class="billing-row">
+      <span class="billing-hint">Đa số app SaaS có discount <strong>17-25%</strong> khi billing năm thay vì tháng</span>
+      <div class="billing-toggle" id="billing-toggle" role="radiogroup" aria-label="Chu kỳ thanh toán">
+        <button type="button" class="bill-pill is-on" data-bill="monthly" aria-pressed="true">Theo tháng</button>
+        <button type="button" class="bill-pill" data-bill="annual" aria-pressed="false">Theo năm</button>
       </div>
     </div>
     <p class="apps-hint" id="apps-hint">💡 Click <strong>pill gói giá</strong> trên mỗi card để thêm app vào danh sách. Click lại để bỏ chọn.</p>
@@ -2430,14 +2477,76 @@ var OVERLAP_GROUPS = {
 /* ── VAT (Thuế GTGT) — VN charge 10% trên SaaS nước ngoài tự động ─────── */
 var VAT_RATE = 0.10;
 
+/* ── ANNUAL DISCOUNTS — % off khi billing năm thay vì tháng ──────────────
+ * Key: '<appId>/<tierId>' · Value: discount fraction (0.20 = 20% off)
+ * Patch vào tier objects qua applyAnnualDiscounts() sau khi load APPS. */
+var ANNUAL_DISCOUNTS = {
+  // Design
+  'figma/professional':       0.20,   // $15→$12 ($144/yr)
+  'sketch/standard':          0.25,   // $12→$9 ($108/yr typical)
+  'webflow/basic':            0.22,   // $18→$14 annual
+  'framer/basic':             0.25,   // $20→$15 annual
+  'canva/pro':                0.33,   // $14.99→$10 ($119.99/yr)
+  // Adobe
+  'adobe-cc/single-app':      0.13,   // $22.99→$19.99 annual prepay
+  'adobe-cc/all-apps':        0.083,  // $59.99→$54.99 annual prepay
+  'premiere/single':          0.13,   // same Adobe Single App rule
+  // AI
+  'chatgpt/plus':             0.167,  // $20→$16.67 ($200/yr)
+  'claude/pro':               0.167,  // $20→$16.67 ($200/yr)
+  'cursor/pro':               0.20,   // $20→$16 ($192/yr)
+  'github-copilot/individual':0.167,  // $10→$8.33 ($100/yr)
+  'runway/standard':          0.20,   // $15→$12 ($144/yr)
+  // Productivity
+  'notion/plus':              0.20,   // $10→$8 ($96/yr)
+  'notion/business':          0.167,  // $18→$15 ($180/yr)
+  'ms365/personal':           0.165,  // $9.99→$8.33 ($99.99/yr)
+  'ms365/family':             0.166,  // $12.99→$10.83 ($129.99/yr)
+  'google-workspace/starter': 0.167,  // $7.20→$6 annual
+  'google-workspace/standard':0.167,  // $14.40→$12 annual
+  // Misc
+  'clickup/unlimited':        0.286,  // $7→$5 annual (28.6% off)
+  'jetbrains/all-products':   0.074,  // ~$26.90→$24.90 small annual discount
+  'loom/business':            0.20    // $12.50→$10 annual typical
+};
+
+/* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
+function applyAnnualDiscounts(){
+  if(typeof APPS === 'undefined' || !Array.isArray(APPS)) return;
+  APPS.forEach(function(app){
+    if(!app.tiers) return;
+    app.tiers.forEach(function(t){
+      var key = app.id + '/' + t.id;
+      if(ANNUAL_DISCOUNTS[key]){
+        t.annualSave = ANNUAL_DISCOUNTS[key];
+      }
+    });
+  });
+}
+
 /* Giá VND thực user phải trả (đã cộng VAT 10% mặc định).
  * useCase 'business-vat' → bỏ VAT vì doanh nghiệp khấu trừ được. */
 function effectivePriceVND(tier, useCase){
   if(!tier || tier.price === null) return null;
   if(tier.price === 0) return 0;
-  var baseVND = tier.priceVND || Math.round(tier.price * S.rate);
+  var usdPerMonth = effectivePriceUSD(tier);
+  if(usdPerMonth == null) return null;
+  if(usdPerMonth === 0) return 0;
+  var baseVND = Math.round(usdPerMonth * S.rate);
   if(useCase === 'business-vat') return baseVND;
   return Math.round(baseVND * (1 + VAT_RATE));
+}
+
+/* Effective USD/month theo billing cycle hiện tại.
+ * tier.annualSave (0..1) = discount khi billing annual.
+ * Annual mode → price * (1 - annualSave). Default monthly = nguyên giá. */
+function effectivePriceUSD(tier){
+  if(!tier || tier.price === null) return null;
+  if(tier.price === 0) return 0;
+  if(S.billingCycle === 'annual' && tier.annualSave){
+    return +(tier.price * (1 - tier.annualSave)).toFixed(2);
+  }
+  return tier.price;
 }
 
 /* ── ALTERNATIVES MAP — paid app → free/cheap alternatives ─────────────── */
@@ -2863,7 +2972,8 @@ var S = {
   showAll:false,    // pagination: false = limit 12 app, true = show all
   suggestions:[],   // [{id, score, popular}] from analyzeDescription
   modalApp:null,
-  modalTier:0       // currently-selected tier idx in open modal
+  modalTier:0,      // currently-selected tier idx in open modal
+  billingCycle:'monthly'  // 'monthly' | 'annual' — affects all price calculations
 };
 
 /* ── HELPERS ───────────────────────────────────────────────────────────── */
@@ -2924,12 +3034,12 @@ function lightestPriceLabel(app){
   if(!t) return '';
   if(t.price === null) return 'Liên hệ';
   if(t.price === 0) return 'Free';
+  var usd = effectivePriceUSD(t);
   var vatMul = (S.useCase === 'business-vat') ? 1 : (1 + VAT_RATE);
   if(S.currency === 'VND'){
-    var vnd = t.priceVND || Math.round(t.price * S.rate);
-    return fmtVND(Math.round(vnd * vatMul));
+    return fmtVND(Math.round(usd * S.rate * vatMul));
   }
-  return '$' + (t.price % 1 === 0 ? t.price : t.price.toFixed(2));
+  return '$' + (usd % 1 === 0 ? usd : usd.toFixed(2));
 }
 /* Get the tier currently selected for app — cartTiers idx, else default */
 function activeTierIdx(app){
@@ -2941,7 +3051,7 @@ function appPrice(app,tierIdx){
   if(typeof tierIdx!=='number') tierIdx=activeTierIdx(app);
   var t=app.tiers[tierIdx];
   if(!t||t.price===null) return null;
-  return t.price;
+  return effectivePriceUSD(t);  // dùng giá theo billing cycle hiện tại
 }
 function fmtUSD(n){return n%1===0?'$'+n:'$'+n.toFixed(2);}
 function fmtVND(n){return n.toLocaleString('vi-VN')+' ₫';}
@@ -2950,9 +3060,10 @@ function fmtTierPrice(tier){
   if(!tier) return fmtPrice(null);
   if(tier.price===null) return fmtPrice(null);
   if(tier.price===0) return fmtPrice(0);
-  // priceVND override → use it directly (no conversion)
-  if(tier.priceVND && S.currency==='VND') return fmtVND(tier.priceVND);
-  return fmtPrice(tier.price);
+  var usd = effectivePriceUSD(tier);  // theo billing cycle hiện tại
+  // priceVND override: chỉ apply cho monthly mode (priceVND không có annual variant)
+  if(tier.priceVND && S.currency==='VND' && S.billingCycle === 'monthly') return fmtVND(tier.priceVND);
+  return fmtPrice(usd);
 }
 function fmtPrice(usd){
   if(usd===null)return '<span style="font-size:13px;color:var(--text-3)">Liên hệ</span>';
@@ -3028,10 +3139,14 @@ function renderApps(){
       var priceTip;
       if(t.price === null) priceTip = 'Liên hệ';
       else if(t.price === 0) priceTip = 'Miễn phí';
-      else if(S.currency === 'VND'){
-        priceTip = t.priceVND ? fmtVND(t.priceVND) : fmtVND(Math.round(t.price * S.rate));
-      } else {
-        priceTip = fmtUSD(t.price);
+      else {
+        var tipUsd = effectivePriceUSD(t);
+        if(S.currency === 'VND'){
+          // priceVND override chỉ valid cho monthly mode
+          priceTip = (t.priceVND && S.billingCycle === 'monthly') ? fmtVND(t.priceVND) : fmtVND(Math.round(tipUsd * S.rate));
+        } else {
+          priceTip = fmtUSD(tipUsd);
+        }
       }
       var perTip = t.price > 0 ? (t.perUser ? '/người·th' : '/tháng') : '';
       pillsHtml += '<button class="tier-pill'+(isActive?' is-active':'')+(t.popular?' is-popular':'')+'" data-app="'+app.id+'" data-tier="'+idx+'" type="button" title="'+label+' — '+priceTip+perTip+'">'+label+'</button>';
@@ -3936,7 +4051,29 @@ function buildModal(app){
     else if(t.price===0) priceHtml='<div class="plan-price-big free">Miễn phí</div>';
     else {
       var per=t.perUser?'/người·th':'/th';
-      priceHtml='<div class="plan-price-big">'+fmtTierPrice(t)+'<span class="per">'+per+'</span></div>';
+      var cycleTag = (S.billingCycle === 'annual' && t.annualSave)
+        ? '<span class="pp-cycle-tag">annual</span>'
+        : '';
+      priceHtml='<div class="plan-price-big">'+fmtTierPrice(t)+'<span class="per">'+per+'</span>'+cycleTag+'</div>';
+
+      // Secondary line: show alternative billing cycle
+      if(t.annualSave){
+        var savePct = Math.round(t.annualSave * 100);
+        if(S.billingCycle === 'monthly'){
+          // Show annual savings preview
+          var annualUSD = +(t.price * (1 - t.annualSave)).toFixed(2);
+          var annualLabel = (S.currency === 'VND')
+            ? fmtVND(Math.round(annualUSD * S.rate))
+            : '$' + (annualUSD % 1 === 0 ? annualUSD : annualUSD.toFixed(2));
+          priceHtml += '<div class="plan-save-note">Trả năm: <strong>'+annualLabel+'/mo</strong> · giảm '+savePct+'%</div>';
+        } else {
+          // Annual mode — show what monthly would be
+          var monthlyLabel = (S.currency === 'VND')
+            ? (t.priceVND ? fmtVND(t.priceVND) : fmtVND(Math.round(t.price * S.rate)))
+            : '$' + (t.price % 1 === 0 ? t.price : t.price.toFixed(2));
+          priceHtml += '<div class="plan-save-note">Lẻ tháng: '+monthlyLabel+'/mo · bạn đang tiết kiệm '+savePct+'%</div>';
+        }
+      }
     }
     var featsHtml=t.features&&t.features.length
       ?'<ul class="plan-feats">'+t.features.map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul>':'';
@@ -4146,7 +4283,7 @@ function fetchRate(){
 }
 
 /* ── LocalStorage persist ──────────────────────────────────────────────── */
-var LS_KEYS = { theme:'tbq:theme', currency:'tbq:currency', useCase:'tbq:useCase' };
+var LS_KEYS = { theme:'tbq:theme', currency:'tbq:currency', useCase:'tbq:useCase', billing:'tbq:billing' };
 function saveLocalState(){
   try {
     localStorage.setItem(LS_KEYS.theme, document.documentElement.dataset.theme || 'dark');
@@ -4161,6 +4298,8 @@ function loadLocalState(){
     if(c === 'USD' || c === 'VND') S.currency = c;
     var u = localStorage.getItem(LS_KEYS.useCase);
     if(u === 'personal' || u === 'freelance' || u === 'business-vat') S.useCase = u;
+    var b = localStorage.getItem(LS_KEYS.billing);
+    if(b === 'monthly' || b === 'annual') S.billingCycle = b;
   } catch(e){}
 }
 function syncCurrencyToggle(){
@@ -4614,9 +4753,47 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   syncUI(saved);
 })();
 
+/* ── Billing cycle toggle (Tháng / Năm) ─────────────────────────────── */
+(function(){
+  var grp = document.getElementById('billing-toggle');
+  if(!grp) return;
+  var pills = grp.querySelectorAll('.bill-pill');
+
+  function syncUI(cycle){
+    pills.forEach(function(b){
+      var on = (b.dataset.bill === cycle);
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function applyBilling(cycle){
+    S.billingCycle = cycle;
+    syncUI(cycle);
+    try{ localStorage.setItem(LS_KEYS.billing, cycle); }catch(e){}
+    renderAll();
+  }
+
+  grp.addEventListener('click', function(e){
+    var btn = e.target.closest('.bill-pill');
+    if(!btn || !btn.dataset.bill) return;
+    applyBilling(btn.dataset.bill);
+  });
+
+  // Restore from localStorage (loadLocalState đã set S.billingCycle nếu có)
+  var current = (S.billingCycle === 'annual') ? 'annual' : 'monthly';
+  // Đọc lại trực tiếp phòng trường hợp IIFE chạy trước loadLocalState
+  try {
+    var b = localStorage.getItem(LS_KEYS.billing);
+    if(b === 'monthly' || b === 'annual') current = b;
+  } catch(e){}
+  S.billingCycle = current;
+  syncUI(current);
+})();
+
 /* ── INIT ── */
-loadLocalState();        // Restore theme + currency + useCase from localStorage
+loadLocalState();        // Restore theme + currency + useCase + billing from localStorage
 normalizeTiers();
+applyAnnualDiscounts();  // Patch tier objects với annualSave từ ANNUAL_DISCOUNTS map
 decodeShareURL();        // Restore cart + salary từ URL hash nếu có
 syncCurrencyToggle();    // Update USD/VND segment UI (after possible URL override)
 fetchRate();
