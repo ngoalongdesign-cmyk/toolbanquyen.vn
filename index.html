@@ -1549,6 +1549,55 @@ footer .footer-row { line-height:1.6; }
 footer .footer-meta { font-size:11.5px;color:var(--text-3); }
 footer .footer-meta strong { color:var(--text-2);font-weight:600; }
 footer .footer-disclaimer { font-size:11px;color:var(--text-3);opacity:0.85;margin-top:8px;line-height:1.55; }
+footer .footer-actions { display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:4px; }
+footer .footer-link {
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;border:none;cursor:pointer;
+  color:var(--accent);font-weight:600;font-size:12px;
+  padding:4px 0;letter-spacing:-0.003em;
+  transition:opacity .15s ease;
+}
+footer .footer-link:hover { opacity:0.75; }
+footer .footer-link-inline { color:var(--accent);text-decoration:none;font-weight:500; }
+footer .footer-link-inline:hover { text-decoration:underline; }
+footer .footer-version { font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:var(--text-3);letter-spacing:0.04em; }
+
+/* ─── Modal verified badge (trust signal) ────────────────────────── */
+.modal-verified {
+  display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:-4px 0 18px;padding:6px 10px;
+  background:var(--accent-soft);
+  border:1px solid color-mix(in oklab, var(--accent) 25%, var(--border));
+  border-radius:8px;
+  font-size:11.5px;color:var(--text-2);letter-spacing:-0.002em;
+}
+.modal-verified svg { color:var(--accent);flex-shrink:0; }
+.modal-verified strong { color:var(--text);font-weight:700; }
+.modal-verified .mv-sep { color:var(--text-3);opacity:0.6; }
+.modal-verified .mv-src { color:var(--accent);text-decoration:none;font-weight:600; }
+.modal-verified .mv-src:hover { text-decoration:underline; }
+
+/* ─── Methodology modal content ──────────────────────────────────── */
+.meth-modal { padding:32px 32px 28px;max-width:680px; }
+.meth-title { font-size:24px;font-weight:800;letter-spacing:-0.022em;margin:0 0 8px;color:var(--text); }
+.meth-lede { font-size:14px;color:var(--text-2);line-height:1.55;margin:0 0 24px;letter-spacing:-0.003em; }
+.meth-h3 { font-size:14px;font-weight:700;letter-spacing:-0.005em;margin:22px 0 8px;color:var(--text); }
+.meth-h3:first-of-type { margin-top:0; }
+.meth-p { font-size:13px;line-height:1.65;color:var(--text-2);margin:0 0 8px;letter-spacing:-0.002em; }
+.meth-p strong { color:var(--text);font-weight:700; }
+.meth-p em { font-style:italic;color:var(--text-3); }
+.meth-ul { margin:8px 0 12px;padding-left:18px; }
+.meth-ul li { font-size:12.5px;line-height:1.7;color:var(--text-2);margin-bottom:4px; }
+.meth-ul li strong { color:var(--text);font-weight:600; }
+.meth-foot {
+  margin-top:24px;padding:12px 14px;
+  background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:6px;
+  font-size:12.5px;color:var(--text-2);line-height:1.6;letter-spacing:-0.002em;
+}
+@media (max-width: 560px) {
+  .meth-modal { padding:24px 20px; }
+  .meth-title { font-size:20px; }
+}
 footer .dot-sep { margin:0 8px;opacity:.5; }
 </style>
 </head>
@@ -1624,7 +1673,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
           </div>
         </div>
 
-        <p class="hero-trust">Miễn phí · Không quảng cáo · Không lưu data</p>
+        <p class="hero-trust">Miễn phí · Không quảng cáo · Không lưu data lương</p>
 
       </div>
 
@@ -1756,13 +1805,22 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     <div class="footer-row footer-meta">
       <span id="footer-rate">Tỉ giá USD/VND đang cập nhật…</span>
       <span class="dot-sep">·</span>
-      <span>Cập nhật giá: <strong>16/05/2026</strong></span>
+      <span>Nguồn tỉ giá: <a href="https://www.vietcombank.com.vn/exchangerates" target="_blank" rel="noopener" class="footer-link-inline">Vietcombank</a></span>
       <span class="dot-sep">·</span>
-      <span>v4</span>
+      <span>Giá app verified: <strong id="footer-verified-date">16/05/2026</strong></span>
+    </div>
+    <div class="footer-row footer-actions">
+      <button type="button" class="footer-link" id="btn-methodology">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Phương pháp & nguồn dữ liệu
+      </button>
+      <span class="dot-sep">·</span>
+      <span class="footer-version">v4.1</span>
     </div>
     <div class="footer-row footer-disclaimer">
       Giá tham khảo tại thời điểm cập nhật và có thể thay đổi theo chính sách của từng nhà cung cấp.
       Vui lòng kiểm tra giá chính thức trước khi quyết định mua.
+      Tool không lưu dữ liệu lương — chỉ thu thập lượt truy cập ẩn danh qua Cloudflare Web Analytics.
     </div>
   </div>
 </footer>
@@ -3825,6 +3883,48 @@ function closeModal(){
   ov.classList.remove('is-open');ov.setAttribute('aria-hidden','true');
   S.modalApp=null;
 }
+
+/* Methodology modal — explains tool logic + data sources */
+function openMethodologyModal(){
+  var verifiedDate = (document.getElementById('footer-verified-date')||{}).textContent || '16/05/2026';
+  document.getElementById('modal-content').innerHTML =
+    '<div class="meth-modal">'+
+      '<h2 class="meth-title">Phương pháp tính & nguồn dữ liệu</h2>'+
+      '<p class="meth-lede">Tool không phải calculator đơn thuần — là máy giải thích chi phí. Đây là logic phía sau từng con số.</p>'+
+
+      '<h3 class="meth-h3">1. Cách tính % lương</h3>'+
+      '<p class="meth-p">Tổng giá tháng (USD) × tỉ giá Vietcombank hôm nay × <strong>1.10 VAT</strong> (VN charge tự động cho SaaS nước ngoài) ÷ lương = % lương.</p>'+
+      '<p class="meth-p">Doanh nghiệp đăng ký VAT khấu trừ được → tool tự bỏ 10% khi bạn chọn use case "Doanh nghiệp".</p>'+
+
+      '<h3 class="meth-h3">2. Ngưỡng cảnh báo (5 severity)</h3>'+
+      '<p class="meth-p">Mỗi app được đánh giá theo % lương, với ngưỡng tùy use case:</p>'+
+      '<ul class="meth-ul">'+
+        '<li><strong>Cá nhân học/hobby:</strong> &lt;1% AN TOÀN · 1-3% HỢP LÝ · 3-7% CAO · 7-15% RẤT CAO · &gt;15% QUÁ TẢI</li>'+
+        '<li><strong>Freelance có ROI:</strong> &lt;2% / 2-5% / 5-12% / 12-25% / &gt;25%</li>'+
+        '<li><strong>Doanh nghiệp:</strong> &lt;3% / 3-7% / 7-15% / 15-30% / &gt;30%</li>'+
+      '</ul>'+
+      '<p class="meth-p">Ngưỡng nghiêm hơn cho cá nhân vì không có ROI trực tiếp từ app.</p>'+
+
+      '<h3 class="meth-h3">3. Cách chọn alternatives</h3>'+
+      '<p class="meth-p">Mỗi paid app có 2-6 alternative được curate tay theo tiêu chí: ưu tiên Free, sau đó cheap, sau đó mua đứt. Match feature 70%+. Tool ưu tiên đề xuất alternative có Free tier khi swap.</p>'+
+
+      '<h3 class="meth-h3">4. Nguồn giá</h3>'+
+      '<p class="meth-p">Giá lấy thủ công từ trang chính thức từng app (Adobe.com, OpenAI.com, Figma.com...). Verified gần nhất: <strong>'+verifiedDate+'</strong>. Tỉ giá USD/VND cập nhật live theo <a href="https://www.vietcombank.com.vn/exchangerates" target="_blank" rel="noopener" style="color:var(--accent)">Vietcombank</a> mỗi lần load trang.</p>'+
+
+      '<h3 class="meth-h3">5. Privacy</h3>'+
+      '<p class="meth-p">Tool <strong>không lưu lương</strong> bạn nhập — số chỉ tồn tại trong session browser. URL share encode salary + cart vào hash, không gửi server.</p>'+
+      '<p class="meth-p">Tool có thu thập lượt truy cập ẩn danh qua <strong>Cloudflare Web Analytics</strong> (không cookie, không fingerprint, không PII) để biết bao nhiêu người dùng tool.</p>'+
+
+      '<h3 class="meth-h3">6. Limitation</h3>'+
+      '<p class="meth-p">Tool không tính: <em>billing annual prepay discount</em> (đang trong roadmap), <em>student/edu pricing</em>, <em>regional pricing</em> (một số app có giá VN khác US), <em>tax invoice</em> cho doanh nghiệp.</p>'+
+      '<p class="meth-p">Verdict là gợi ý, không phải tư vấn tài chính. Bạn tự quyết.</p>'+
+
+      '<div class="meth-foot">Có app nào thiếu hoặc giá lạc hậu? Mention <strong>toolbanquyen.vn</strong> trên FB hoặc email maker (sẽ thêm vào footer sau).</div>'+
+    '</div>';
+  var ov=document.getElementById('modal-overlay');
+  ov.classList.add('is-open');ov.setAttribute('aria-hidden','false');
+}
+
 function buildModal(app){
   var inCart=S.cart.indexOf(app.id)!==-1;
 
@@ -3863,6 +3963,15 @@ function buildModal(app){
   var markClass = app.logo ? 'modal-app-mark has-logo' : 'modal-app-mark';
   var markStyle = app.logo ? '' : ' style="background:'+app.color+'"';
 
+  // Verified badge — global date từ footer
+  var verifiedDate = (document.getElementById('footer-verified-date')||{}).textContent || '16/05/2026';
+  var verifiedBadge =
+    '<div class="modal-verified" title="Giá lấy từ trang chính thức, verified tay">'+
+      '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>'+
+      'Giá verified <strong>'+verifiedDate+'</strong>'+
+      (app.url ? ' <span class="mv-sep">·</span> <a href="'+app.url+'" target="_blank" rel="noopener" class="mv-src">Trang chính thức ↗</a>' : '')+
+    '</div>';
+
   document.getElementById('modal-content').innerHTML=
     '<div class="modal-header">'+
       '<div class="'+markClass+'"'+markStyle+'>'+iconHtml+'</div>'+
@@ -3870,6 +3979,7 @@ function buildModal(app){
     '</div>'+
     '<div class="modal-body">'+
       '<p class="modal-desc">'+app.desc+'</p>'+
+      verifiedBadge+
       '<div class="modal-plans-wrap" id="modal-plans-wrap">'+
         '<div class="modal-plans-hint left">‹</div>'+
         '<div class="modal-plans-hint right">›</div>'+
@@ -4100,6 +4210,12 @@ document.getElementById('btn-cart-detail').addEventListener('click',function(){
 });
 document.getElementById('modal-close').addEventListener('click',closeModal);
 document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+/* Methodology modal trigger từ footer */
+(function(){
+  var btn = document.getElementById('btn-methodology');
+  if(btn) btn.addEventListener('click', openMethodologyModal);
+})();
 
 /* ── Cart popover toggle ───────────────────────────────────────────────── */
 (function(){
@@ -4514,6 +4630,27 @@ body[data-nav="pill"] .nav a:hover,body[data-nav="pill"] .nav a.is-active{backgr
 body[data-tab="soft"] .tab.is-on{background:var(--accent-soft);border-radius:8px;}
 body[data-tab="soft"] .tab.is-on::after{display:none;}
 </style>
+
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Cloudflare Web Analytics — privacy-first traffic tracking
+  Không cookie, không fingerprint, không PII. Đếm lượt truy cập ẩn danh.
+
+  CÁCH 1 (recommended cho Cloudflare Pages users — không cần code):
+    1. Vào dash.cloudflare.com
+    2. Pages → chọn project toolbanquyen-vn
+    3. Settings → Web Analytics → Enable
+    4. CF tự inject beacon. Không cần edit file này.
+
+  CÁCH 2 (manual injection nếu standalone domain):
+    1. dash.cloudflare.com → Web Analytics → Add a site → toolbanquyen.vn
+    2. Copy token được generate
+    3. Uncomment script bên dưới, thay TOKEN_HERE bằng token thật
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<!--
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "TOKEN_HERE"}'></script>
+-->
 
 </body>
 </html>

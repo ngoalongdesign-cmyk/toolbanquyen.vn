@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<title>Logo full — preview</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,sans-serif;background:#1a2622;color:#e8f0ea}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+  h1{font-size:22px;margin:0 0 6px;letter-spacing:-0.02em}
+  .sub{color:rgba(255,255,255,.6);font-size:13px;margin:0 0 28px;line-height:1.55}
+  .row{margin-bottom:20px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+  .label{padding:14px 20px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05)}
+  .panel{padding:48px 32px;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+  .dark-bg{background:#0a1410}
+  .light-bg{background:#f4f7f2}
+  .green-bg{background:#21BE5D}
+  .grey-bg{background:#cccccc}
+  .logo-large img{height:80px;display:block}
+  .logo-medium img{height:48px;display:block}
+  .logo-small img{height:28px;display:block}
+  .sizebar{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .sizebar span{font-size:10px;color:rgba(0,0,0,.45);font-family:ui-monospace,monospace;letter-spacing:0.06em;text-transform:uppercase}
+  .dark-bg .sizebar span{color:rgba(255,255,255,.45)}
+  .green-bg .sizebar span{color:rgba(8,18,12,.5)}
+  .grey-bg .sizebar span{color:rgba(0,0,0,.45)}
+  code{font-family:ui-monospace,monospace;font-size:12px;background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px}
+  .files{margin-top:32px;padding:18px 22px;background:rgba(33,190,93,.06);border:1px solid rgba(33,190,93,.25);border-radius:12px;font-size:13px;line-height:1.7}
+  .files strong{color:#21BE5D}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>toolbanquyen — full logo preview</h1>
+  <p class="sub">2 file SVG xuất ra: <code>logo-full.svg</code> (cho light bg) và <code>logo-full-inverse.svg</code> (cho dark bg). Text đã outline thành path, không cần font.</p>
+
+  <!-- logo-full.svg trên các nền sáng -->
+  <div class="row">
+    <div class="label">logo-full.svg · text dark · cho NỀN SÁNG</div>
+    <div class="panel light-bg">
+      <div class="sizebar logo-large"><img src="logo-full.svg" alt="logo"/><span>80px</span></div>
+      <div class="sizebar logo-medium"><img src="logo-full.svg" alt="logo"/><span>48px</span></div>
+      <div class="sizebar logo-small"><img src="logo-full.svg" alt="logo"/><span>28px</span></div>
+    </div>
+    <div class="panel grey-bg">
+      <div class="sizebar logo-medium"><img src="logo-full.svg" alt="logo"/><span>48px / grey #ccc</span></div>
+    </div>
+    <div class="panel green-bg">
+      <div class="sizebar logo-medium"><img src="logo-full.svg" alt="logo"/><span>48px / accent green</span></div>
+    </div>
+  </div>
+
+  <!-- logo-full-inverse.svg trên các nền tối -->
+  <div class="row">
+    <div class="label">logo-full-inverse.svg · text light · cho NỀN TỐI</div>
+    <div class="panel dark-bg">
+      <div class="sizebar logo-large"><img src="logo-full-inverse.svg" alt="logo"/><span>80px</span></div>
+      <div class="sizebar logo-medium"><img src="logo-full-inverse.svg" alt="logo"/><span>48px</span></div>
+      <div class="sizebar logo-small"><img src="logo-full-inverse.svg" alt="logo"/><span>28px</span></div>
+    </div>
+    <div class="panel" style="background:#0e1a14">
+      <div class="sizebar logo-medium"><img src="logo-full-inverse.svg" alt="logo"/><span>48px / theme dark</span></div>
+    </div>
+  </div>
+
+  <div class="files">
+    <strong>2 file đã xuất:</strong>
+    <ul style="margin:8px 0 0;padding-left:20px">
+      <li><code>C:\Users\MaRa\toolbanquyen.vn\logo-full.svg</code> — 5KB, text dark <code>#0e1a14</code></li>
+      <li><code>C:\Users\MaRa\toolbanquyen.vn\logo-full-inverse.svg</code> — 5KB, text light <code>#e8f0ea</code></li>
+    </ul>
+    <p style="margin:12px 0 0">Cả 2 đều: viewBox 503×120, icon scale 0.19, wordmark Cabinet Grotesk ExtraBold outlined, baseline-x-height-center alignment.</p>
+  </div>
+</div>
+</body>
+</html>
