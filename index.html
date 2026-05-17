@@ -269,7 +269,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Salary CTA */
 .hero-cta { max-width: 540px; margin: 0 0 28px; }
 .hs-wrap {
-  display: grid; grid-template-columns: auto 1fr auto auto;
+  display: grid; grid-template-columns: auto 1fr auto;
   align-items: stretch;
   background: var(--bg-elev);
   border: 1px solid var(--border);
@@ -347,9 +347,11 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
   border-color: color-mix(in oklab, var(--accent) 35%, var(--border));
   background: var(--card);
 }
-.hd-head { display:flex;flex-direction:column;gap:2px;margin-bottom:10px; }
-.hd-label { font-size:12.5px;font-weight:600;color:var(--text);letter-spacing:-0.005em; }
-.hd-hint { font-size:11.5px;color:var(--text-3); }
+.hd-label {
+  display:block;
+  font-size:12.5px;font-weight:600;color:var(--text);letter-spacing:-0.005em;
+  margin-bottom:10px;
+}
 .hd-textarea {
   width:100%;min-height:62px;padding:10px 12px;resize:vertical;
   background:var(--bg-elev);border:1px solid var(--border-2);border-radius:10px;
@@ -1396,18 +1398,11 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
               <option value="VND">VND</option>
               <option value="USD">USD</option>
             </select>
-            <button type="button" class="hs-go" id="hs-go-btn">
-              Tính ngay
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
           </div>
 
           <div class="hero-describe" id="hero-describe">
-            <div class="hd-head">
-              <span class="hd-label">Hoặc mô tả nghề + nhu cầu, để mình gợi ý bộ tool</span>
-              <span class="hd-hint">Có thể ghi lương ngay trong câu — VD "25 triệu" / "$1500"</span>
-            </div>
-            <textarea id="job-describe-input" class="hd-textarea" placeholder="Ví dụ: Tôi là UI/UX designer, cần app vẽ giao diện và AI hỗ trợ viết. Lương 25 triệu/tháng." rows="2" autocomplete="off"></textarea>
+            <span class="hd-label">Mô tả nhanh nghề/nhu cầu để mình gợi ý app phù hợp</span>
+            <textarea id="job-describe-input" class="hd-textarea" placeholder="Ví dụ: Tôi là UI/UX designer cần app vẽ giao diện + AI hỗ trợ viết, lương 25 triệu." rows="2" autocomplete="off"></textarea>
             <div class="hd-row">
               <div class="hd-chips" id="hd-chips">
                 <button class="hd-chip" type="button" data-fill="Tôi là UI/UX designer làm app, cần Figma và AI hỗ trợ thiết kế.">UX Designer</button>
@@ -1457,7 +1452,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <!-- ═══ Cell C: Logo marquee — 2 hàng scroll ngược chiều ═══ -->
       <div class="bento-cell cell-grid">
         <div class="grid-head">
-          <span id="hero-grid-count">Toàn bộ 41 app bản quyền</span>
+          <span id="hero-grid-count">Toàn bộ 47 app bản quyền</span>
           <a href="#apps" class="arr" aria-label="Xem tất cả">→</a>
         </div>
         <div class="logo-marquee" id="hero-logo-grid">
@@ -1502,7 +1497,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="tabs-wrap">
       <div class="tabs" role="tablist" id="cat-tabs">
-        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">41</span></button>
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">47</span></button>
         <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
         <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
         <button class="tab" data-cat="Architecture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>Kiến trúc</button>
@@ -1966,7 +1961,7 @@ var APPS = [
      {id:'ultimate',label:'Ultimate',price:49.99,features:['Mọi thứ trong Standard','Symphony Color tools','NEXIS storage support','Pro Tools | Carbon support']}
    ]},
   {id:'finalcut',name:'Final Cut Pro',cat:'Video',color:'#111111',initials:'FC',popular:false,
-   logo:'https://cdn.simpleicons.org/finalcutpro/ffffff',url:'https://www.apple.com/final-cut-pro/',
+   logo:'icons/final-cut-pro.png',url:'https://www.apple.com/final-cut-pro/',
    desc:'Editor chuyên nghiệp của Apple — mua đứt, chỉ macOS, tối ưu chip M-series.',
    tiers:[
      {id:'mac',label:'Mac (mua đứt)',price:24.92,popular:true,note:'Mua đứt $299',features:['Mua 1 lần dùng vĩnh viễn','Chỉ macOS','Object Tracker AI','Update miễn phí trọn đời']},
@@ -1998,20 +1993,77 @@ var APPS = [
      {id:'annual',label:'Annual',price:67,popular:true,note:'$799/năm',features:['Tiết kiệm ~46% vs Monthly','Mọi tính năng C4D','Bao gồm Redshift CPU','Cập nhật phiên bản đầy đủ']},
      {id:'maxon-one',label:'Maxon One',price:147,note:'$1,769/năm',features:['Cinema 4D + Redshift + Red Giant','Forger + ZBrush','Trapcode + Universe','Bộ đầy đủ cho studio']},
      {id:'edu',label:'Educational',price:0,note:'1 năm miễn phí HS/SV',features:['Maxon One Edu miễn phí','Cần email .edu','Phi thương mại','Renew năm']}
+   ]},
+
+  /* ─── Design alternatives & creative ─── */
+  {id:'coreldraw',name:'CorelDraw',cat:'Design',color:'#7FBA00',initials:'CD',popular:false,
+   url:'https://www.coreldraw.com/en/product/coreldraw/',
+   desc:'Bộ thiết kế đồ hoạ vector — illustration, layout, photo edit, web. Alternative Illustrator phổ biến tại VN.',
+   tiers:[
+     {id:'essentials',label:'Essentials',price:8.25,note:'$99/năm — bản cơ bản',features:['Vector + photo cơ bản','Phù hợp cá nhân, học việc','Không tính năng pro','Chỉ Windows']},
+     {id:'annual',label:'Annual',price:22.42,popular:true,note:'$269/năm',features:['Suite đầy đủ CorelDRAW + Photo-Paint','AfterShot HDR + Font Manager','Hỗ trợ Windows + Mac','AI-powered tools (Image Enhance)']},
+     {id:'perpetual',label:'Perpetual',price:45.75,note:'Mua đứt $549 (~2 năm dùng)',features:['Mua 1 lần, dùng vĩnh viễn','Cùng tính năng Annual','Không bao gồm update major','Phù hợp studio in-house']},
+     {id:'edu',label:'Education',price:0,note:'HS/SV/GV — verify',features:['Miễn phí cho học sinh','Đầy đủ suite','Phi thương mại','Renew năm']}
+   ]},
+  {id:'affinity',name:'Affinity Suite',cat:'Design',color:'#1B72BE',initials:'Af',popular:true,
+   url:'https://affinity.serif.com/',
+   includes:['designer','photo','publisher'],
+   desc:'Bộ thiết kế chuyên nghiệp mua đứt — Designer (vector), Photo (raster), Publisher (layout). Alternative Adobe không subscription.',
+   tiers:[
+     {id:'individual',label:'Individual App',price:5.83,note:'$69.99 mua đứt 1 app',features:['Chọn 1 trong 3 app','Mua 1 lần, vĩnh viễn','1 platform (Mac/Win/iPad)','Update major free in V2']},
+     {id:'universal',label:'Universal License',price:13.75,popular:true,note:'$164.99 mua đứt — 3 app, đa nền tảng',features:['Designer + Photo + Publisher','Cài Mac + Win + iPad','Mua 1 lần dùng vĩnh viễn','Update major V2 miễn phí']},
+     {id:'edu',label:'Education',price:0,note:'Discount 50%+ cho HS/SV',features:['Giá giảm sâu','Đầy đủ tính năng','Cần email .edu','Mua 1 lần']}
+   ]},
+  {id:'procreate',name:'Procreate',cat:'Design',color:'#000000',initials:'Pc',popular:true,
+   url:'https://procreate.com/',
+   desc:'App vẽ trên iPad cực mạnh — minh hoạ, art, concept. Mua đứt, không subscription. Phổ biến với artist VN.',
+   tiers:[
+     {id:'ipad',label:'Procreate (iPad)',price:1.08,popular:true,note:'$12.99 mua đứt',features:['Brush engine số 1 cho iPad','Layers, mask, blend modes','Animation Assist (frame-by-frame)','Export PSD compatible']},
+     {id:'pocket',label:'Pocket (iPhone)',price:0.42,note:'$4.99 mua đứt',features:['Bản gọn cho iPhone','Vẽ on-the-go','Đầy đủ brush engine','Sync với iPad']},
+     {id:'dreams',label:'Dreams (Animation)',price:1.67,note:'$19.99 mua đứt — iPad animation',features:['Animation pro cho iPad','Timeline + keyframe','Workflow Disney-grade','Compatible với Procreate']}
+   ]},
+  {id:'blender',name:'Blender',cat:'Architecture',color:'#F5792A',initials:'Bl',popular:true,
+   url:'https://www.blender.org/',
+   desc:'3D mã nguồn mở miễn phí — modeling, sculpting, animation, render, VFX. Cạnh tranh Maya/3ds Max.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí mãi mãi','Mọi tính năng pro','Modeling + Sculpting + Animation','Cycles/Eevee render engine']},
+     {id:'studio',label:'Blender Studio',price:11.50,note:'Cloud subscription — assets/training',features:['Cloud asset library (4000+)','Training & courses','Behind-the-scenes Open Movies','Hỗ trợ Blender Foundation']}
+   ]},
+  {id:'webflow',name:'Webflow',cat:'Development',color:'#4353FF',initials:'Wf',popular:false,
+   url:'https://webflow.com/pricing',
+   desc:'No-code website builder pro — designer build site như dev. Visual editor + code export.',
+   tiers:[
+     {id:'starter',label:'Starter',price:0,features:['Free unlimited project','Webflow.io subdomain','2 page max','Phù hợp prototype, học việc']},
+     {id:'basic',label:'Basic',price:14,features:['Custom domain','25K visits/month','No CMS','Phù hợp landing page']},
+     {id:'cms',label:'CMS',price:23,popular:true,features:['CMS đầy đủ (2000 items)','100K visits/month','3 content editor','Phù hợp blog/portfolio']},
+     {id:'business',label:'Business',price:39,features:['10000 CMS items','250K visits/month','10 content editor','Form file upload + memberships']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Custom traffic + items','SSO + advanced security','Localization','Dedicated CSM']}
+   ]},
+  {id:'mailchimp',name:'Mailchimp',cat:'Marketing',color:'#FFE01B',initials:'Mc',popular:false,
+   url:'https://mailchimp.com/pricing/marketing/',
+   desc:'Email marketing — newsletter, automation, segment, audience analytics. Phổ biến với creator/startup VN.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['500 contact, 1000 email/tháng','Templates cơ bản','Marketing CRM cơ bản','Mailchimp branding']},
+     {id:'essentials',label:'Essentials',price:13,popular:true,features:['5000 contact','5x send limit','A/B testing','Loại bỏ Mailchimp branding']},
+     {id:'standard',label:'Standard',price:20,features:['10000 contact','Customer journey builder','Advanced segmentation','Retargeting ads']},
+     {id:'premium',label:'Premium',price:350,features:['Unlimited audience','Advanced reporting','Phone support','Multivariate testing']}
    ]}
 ];
 
 /* ── RECOMMENDATION ENGINE ────────────────────────────────────────────── */
 // Overlap groups — apps phục vụ cùng mục đích, user thường chỉ cần 1
 var OVERLAP_GROUPS = {
-  'ai-chat':      {label:'AI Chatbot',      apps:['chatgpt','claude','gemini','deepseek','grok']},
-  'ai-search':    {label:'AI Search',       apps:['perplexity','chatgpt']},
-  'seo':          {label:'SEO Tool',        apps:['ahrefs','semrush']},
-  'video-edit':   {label:'Video Editor',    apps:['premiere','davinci','capcut','descript']},
-  'ai-video':     {label:'AI Video Gen',    apps:['runway','kling']},
-  'design-ui':    {label:'UI/UX Design',    apps:['figma','sketch']},
-  'task-mgmt':    {label:'Project Mgmt',    apps:['linear','clickup']},
-  'ai-code':      {label:'AI Coding',       apps:['cursor','github-copilot']}
+  'ai-chat':      {label:'AI Chatbot',         apps:['chatgpt','claude','gemini','deepseek','grok']},
+  'ai-search':    {label:'AI Search',          apps:['perplexity','chatgpt']},
+  'seo':          {label:'SEO Tool',           apps:['ahrefs','semrush']},
+  'video-edit':   {label:'Video Editor',       apps:['premiere','davinci','capcut','descript','avid','finalcut']},
+  'ai-video':     {label:'AI Video Gen',       apps:['runway','kling']},
+  'design-ui':    {label:'UI/UX Design',       apps:['figma','sketch']},
+  'design-suite': {label:'Graphic Design Pro', apps:['adobe-cc','affinity','coreldraw']},
+  'task-mgmt':    {label:'Project Mgmt',       apps:['linear','clickup']},
+  'ai-code':      {label:'AI Coding',          apps:['cursor','github-copilot']},
+  'no-code-web':  {label:'No-code Web',        apps:['webflow','framer']},
+  '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino']}
 };
 
 function findFreeTierIdx(app){
@@ -2571,7 +2623,16 @@ var KEYWORD_DICT = {
   'canva':['canva'],
   'framer':['framer'],
   'graphic':['adobe-cc','canva','figma'],
-  'thiết kế đồ họa':['adobe-cc','canva','figma'],
+  'thiết kế đồ họa':['adobe-cc','coreldraw','affinity','canva','figma'],
+  'thiet ke do hoa':['adobe-cc','coreldraw','affinity','canva','figma'],
+  'vector':['adobe-cc','coreldraw','affinity','figma'],
+  'coreldraw':['coreldraw'],
+  'corel':['coreldraw'],
+  'corel draw':['coreldraw'],
+  'affinity':['affinity'],
+  'mua đứt':['affinity','procreate','rhino','blender','finalcut'],
+  'mua dut':['affinity','procreate','rhino','blender','finalcut'],
+  'one-time':['affinity','procreate','rhino','blender','finalcut'],
   'thiet ke do hoa':['adobe-cc','canva','figma'],
   'design web':['figma','framer','sketch'],
   'web design':['figma','framer','sketch'],
@@ -2610,7 +2671,20 @@ var KEYWORD_DICT = {
   'dựng hình':['lumion','twinmotion','enscape','rhino','sketchup','cinema4d'],
   'dung hinh':['lumion','twinmotion','enscape','rhino','sketchup','cinema4d'],
   'render 3d':['lumion','twinmotion','enscape','cinema4d','rhino'],
-  '3d':['rhino','sketchup','cinema4d','lumion','twinmotion'],
+  '3d':['blender','rhino','sketchup','cinema4d','lumion','twinmotion'],
+  'blender':['blender'],
+  '3d free':['blender'],
+  '3d miễn phí':['blender'],
+  '3d mien phi':['blender'],
+  'open source':['blender','deepseek'],
+  'modeling':['blender','rhino','sketchup','cinema4d'],
+  'sculpting':['blender','procreate'],
+  'webflow':['webflow'],
+  'no-code':['webflow','framer'],
+  'no code':['webflow','framer'],
+  'nocode':['webflow','framer'],
+  'landing page':['webflow','framer'],
+  'website builder':['webflow','framer'],
   'mô hình 3d':['rhino','sketchup','cinema4d'],
   'mo hinh 3d':['rhino','sketchup','cinema4d'],
   'parametric':['rhino'],
@@ -2715,7 +2789,14 @@ var KEYWORD_DICT = {
   'concept art':['midjourney'],
   'minh hoạ':['midjourney','adobe-cc'],
   'minh hoa':['midjourney','adobe-cc'],
-  'illustration':['midjourney','adobe-cc'],
+  'illustration':['midjourney','procreate','adobe-cc','affinity'],
+  'procreate':['procreate'],
+  'vẽ ipad':['procreate'],
+  've ipad':['procreate'],
+  'ipad drawing':['procreate'],
+  'digital painting':['procreate','adobe-cc'],
+  'comic':['procreate','adobe-cc'],
+  'manga':['procreate','adobe-cc'],
   'fanart':['midjourney'],
   'character design':['midjourney','adobe-cc'],
   // ── AI VIDEO ──
@@ -2794,9 +2875,12 @@ var KEYWORD_DICT = {
   'creator':['capcut','canva','claude','buffer','notion'],
   'sáng tạo nội dung':['capcut','canva','claude','buffer'],
   'sang tao noi dung':['capcut','canva','claude','buffer'],
-  'email marketing':['buffer','chatgpt','canva'],
-  'edm':['canva','chatgpt'],
-  'newsletter':['canva','chatgpt'],
+  'email marketing':['mailchimp','buffer','chatgpt','canva'],
+  'mailchimp':['mailchimp'],
+  'newsletter':['mailchimp','canva','chatgpt'],
+  'gửi email':['mailchimp','chatgpt'],
+  'gui email':['mailchimp','chatgpt'],
+  'edm':['mailchimp','canva','chatgpt'],
   'thư điện tử':['chatgpt','claude'],
   'thu dien tu':['chatgpt','claude'],
 
