@@ -1130,6 +1130,9 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
   transition:all .15s;cursor:pointer;
 }
 .vc-alt-chip:hover { border-color:var(--accent);color:var(--accent);background:var(--accent-soft); }
+.vc-alt-chip .vac-price { font-weight:500;color:var(--text-3);font-size:11px;margin-left:2px; }
+.vc-alt-chip .vac-price.is-free { color:var(--accent);font-weight:700; }
+.vc-alt-chip:hover .vac-price { color:var(--accent); }
 @media (max-width:560px) {
   .vc-top { flex-wrap:wrap; }
   .vc-badge { order:3;margin-top:4px; }
@@ -2557,7 +2560,9 @@ function renderVerdicts(){
     var priceLabel = fmtVND(vd.priceVND);
     var altChips = vd.alternatives.slice(0,4).map(function(a){
       var altApp = getApp(a.id); if(!altApp) return '';
-      return '<button class="vc-alt-chip" data-swap-from="'+app.id+'" data-swap-to="'+altApp.id+'" type="button" title="'+a.reason+'">→ '+altApp.name+'</button>';
+      var altPriceLabel = lightestPriceLabel(altApp);
+      var priceCls = (altPriceLabel === 'Free') ? ' is-free' : '';
+      return '<button class="vc-alt-chip" data-swap-from="'+app.id+'" data-swap-to="'+altApp.id+'" type="button" title="'+a.reason+'">→ '+altApp.name+' <span class="vac-price'+priceCls+'">· '+altPriceLabel+'</span></button>';
     }).join('');
     var altRow = altChips ? '<div class="vc-alts"><span class="vc-alts-label">Lựa chọn nhẹ hơn:</span>'+altChips+'</div>' : '';
     html += '<div class="vc-card '+vd.info.cls+'" data-app="'+app.id+'">' +
@@ -2588,7 +2593,7 @@ function renderVerdicts(){
       if(S.cart.indexOf(toId) === -1){
         S.cart.push(toId);
         var toApp = getApp(toId);
-        if(toApp) S.cartTiers[toId] = cheapestPaidTierIdx(toApp);
+        if(toApp) S.cartTiers[toId] = lightestTierIdx(toApp);  // ưu tiên Free tier
       }
       renderAll();
       if(typeof showToast === 'function') showToast('Đã đổi sang ' + (getApp(toId) || {name:toId}).name);
@@ -2724,6 +2729,28 @@ function cheapestPaidTierIdx(app){
     if(t.price>0 && t.price<bestPrice){bestPrice=t.price;bestIdx=i;}
   });
   return bestIdx>=0?bestIdx:0;
+}
+/* "Tier nhẹ nhất" — Free trước nếu có, fallback cheapest paid. Dùng cho swap alternative. */
+function lightestTierIdx(app){
+  if(!app || !app.tiers || !app.tiers.length) return 0;
+  for(var i=0;i<app.tiers.length;i++){
+    if(app.tiers[i] && app.tiers[i].price === 0) return i;
+  }
+  return cheapestPaidTierIdx(app);
+}
+/* Label preview cho tier nhẹ nhất — hiển trên alt chip để user biết trước khi click. */
+function lightestPriceLabel(app){
+  var idx = lightestTierIdx(app);
+  var t = app.tiers && app.tiers[idx];
+  if(!t) return '';
+  if(t.price === null) return 'Liên hệ';
+  if(t.price === 0) return 'Free';
+  var vatMul = (S.useCase === 'business-vat') ? 1 : (1 + VAT_RATE);
+  if(S.currency === 'VND'){
+    var vnd = t.priceVND || Math.round(t.price * S.rate);
+    return fmtVND(Math.round(vnd * vatMul));
+  }
+  return '$' + (t.price % 1 === 0 ? t.price : t.price.toFixed(2));
 }
 /* Get the tier currently selected for app — cartTiers idx, else default */
 function activeTierIdx(app){
