@@ -1452,7 +1452,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <!-- ═══ Cell C: Logo marquee — 2 hàng scroll ngược chiều ═══ -->
       <div class="bento-cell cell-grid">
         <div class="grid-head">
-          <span id="hero-grid-count">Toàn bộ 47 app bản quyền</span>
+          <span id="hero-grid-count">Toàn bộ 52 app bản quyền</span>
           <a href="#apps" class="arr" aria-label="Xem tất cả">→</a>
         </div>
         <div class="logo-marquee" id="hero-logo-grid">
@@ -1497,7 +1497,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="tabs-wrap">
       <div class="tabs" role="tablist" id="cat-tabs">
-        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">47</span></button>
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">52</span></button>
         <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
         <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
         <button class="tab" data-cat="Architecture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>Kiến trúc</button>
@@ -1833,14 +1833,6 @@ var APPS = [
      team:{label:'All Apps',price:59.99,popular:true,features:['20+ app Creative Cloud','Bao gồm After Effects, Audition','Generative Fill (Firefly)','Stock & Fonts không giới hạn']},
      enterprise:{label:'Enterprise',price:89.99,features:['Admin console + VIP licensing','SSO + advanced compliance','Dedicated CSM','Custom MSA & invoice']}
    }},
-  {id:'descript',name:'Descript',cat:'Video',color:'#6B21A8',initials:'Ds',popular:false,
-   url:'https://www.descript.com/pricing',
-   desc:'Edit video bằng text — AI transcript, remove filler words, screen recorder.',
-   tiers:{
-     personal:{label:'Hobbyist',price:12,features:['10 giờ transcription/tháng','Watermark khi export','1080p export','Screen + camera recorder']},
-     team:{label:'Creator',price:24,popular:true,features:['30 giờ transcription/tháng','Không watermark','4K export','AI voice cloning cơ bản']},
-     enterprise:{label:'Business',price:40,features:['40 giờ transcription/tháng','Brand template','Advanced collab + role','Priority support 24/7']}
-   }},
   {id:'runway',name:'Runway ML',cat:'Video',color:'#222',initials:'Rw',popular:false,
    logo:'icons/runway.svg',url:'https://runwayml.com/pricing',
    desc:'AI video generation & editing — Gen-3, inpainting, motion tracking, VFX.',
@@ -1952,14 +1944,6 @@ var APPS = [
    ]},
 
   /* ─── Filmmaking (bổ sung Video category) ─── */
-  {id:'avid',name:'Avid Media Composer',cat:'Video',color:'#0F3F66',initials:'Av',popular:false,
-   url:'https://www.avid.com/media-composer',
-   desc:'Editor chuẩn Hollywood — TV/film post-production, project lớn nhiều giờ footage.',
-   tiers:[
-     {id:'first',label:'First (Free)',price:0,features:['Avid First miễn phí','Tính năng edit cơ bản','4 video / 8 audio track','Watermark khi export']},
-     {id:'standard',label:'Standard',price:24.99,popular:true,features:['Edit unlimited track','Avid Cloud collaboration','Bao gồm Sibelius Notation','PhraseFind + ScriptSync']},
-     {id:'ultimate',label:'Ultimate',price:49.99,features:['Mọi thứ trong Standard','Symphony Color tools','NEXIS storage support','Pro Tools | Carbon support']}
-   ]},
   {id:'finalcut',name:'Final Cut Pro',cat:'Video',color:'#111111',initials:'FC',popular:false,
    logo:'icons/final-cut-pro.png',url:'https://www.apple.com/final-cut-pro/',
    desc:'Editor chuyên nghiệp của Apple — mua đứt, chỉ macOS, tối ưu chip M-series.',
@@ -1967,23 +1951,6 @@ var APPS = [
      {id:'mac',label:'Mac (mua đứt)',price:24.92,popular:true,note:'Mua đứt $299',features:['Mua 1 lần dùng vĩnh viễn','Chỉ macOS','Object Tracker AI','Update miễn phí trọn đời']},
      {id:'ipad',label:'iPad (yearly)',price:4.99,note:'$49/năm',features:['App trên iPad Pro/Air','Multi-cam edit','Trial 1 tháng miễn phí','Tích hợp với Mac']},
      {id:'edu',label:'Pro Apps Bundle Edu',price:16.58,note:'$199 — 5 app',features:['Final Cut + Motion + Compressor','Logic Pro + MainStage','HS/SV/GV','Tiết kiệm ~50%']}
-   ]},
-  {id:'frame-io',name:'Frame.io',cat:'Video',color:'#73E300',initials:'Fi',popular:false,
-   url:'https://frame.io/pricing',
-   desc:'Video review collab — share, comment frame-by-frame với khách hàng và team.',
-   tiers:[
-     {id:'free',label:'Free',price:0,features:['2 project, 5 collaborator','Cloud storage 2GB','Frame-accurate comment','Phù hợp freelancer thử']},
-     {id:'pro',label:'Pro',price:15,perUser:true,popular:true,features:['Unlimited project','250GB storage / user','Custom branding','Camera-to-cloud (C2C)']},
-     {id:'team',label:'Team',price:25,perUser:true,features:['1TB storage / user','Brand kit','Review pages tuỳ chỉnh','SSO Google']},
-     {id:'enterprise',label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log','C2C device control','Dedicated CSM']}
-   ]},
-  {id:'redgiant',name:'Red Giant Complete',cat:'Video',color:'#E63B26',initials:'RG',popular:false,
-   url:'https://www.maxon.net/en/red-giant-complete',
-   desc:'Bộ plugin VFX/motion cho After Effects, Premiere — Trapcode, Magic Bullet, Universe.',
-   tiers:[
-     {id:'monthly',label:'Monthly',price:107,features:['Trapcode + Magic Bullet + Universe','VFX Suite + PluralEyes','Bản quyền theo user','Update đầy đủ']},
-     {id:'annual',label:'Annual',price:67,popular:true,note:'$799/năm',features:['Tiết kiệm ~37% vs Monthly','Mọi plugin Red Giant','Bao gồm Cineware','Phù hợp motion designer']},
-     {id:'edu',label:'Education',price:24.92,note:'$299/năm — HS/SV/GV',features:['Đầy đủ plugin','Phi thương mại','Cần xác minh edu','Renew năm']}
    ]},
   {id:'cinema4d',name:'Cinema 4D',cat:'Video',color:'#011A6A',initials:'C4',popular:false,
    url:'https://www.maxon.net/en/cinema-4d',
@@ -2005,7 +1972,7 @@ var APPS = [
      {id:'perpetual',label:'Perpetual',price:45.75,note:'Mua đứt $549 (~2 năm dùng)',features:['Mua 1 lần, dùng vĩnh viễn','Cùng tính năng Annual','Không bao gồm update major','Phù hợp studio in-house']},
      {id:'edu',label:'Education',price:0,note:'HS/SV/GV — verify',features:['Miễn phí cho học sinh','Đầy đủ suite','Phi thương mại','Renew năm']}
    ]},
-  {id:'affinity',name:'Affinity Suite',cat:'Design',color:'#1B72BE',initials:'Af',popular:true,
+  {id:'affinity',name:'Affinity Suite',cat:'Design',color:'#1B72BE',initials:'Af',popular:false,
    url:'https://affinity.serif.com/',
    includes:['designer','photo','publisher'],
    desc:'Bộ thiết kế chuyên nghiệp mua đứt — Designer (vector), Photo (raster), Publisher (layout). Alternative Adobe không subscription.',
@@ -2039,14 +2006,99 @@ var APPS = [
      {id:'business',label:'Business',price:39,features:['10000 CMS items','250K visits/month','10 content editor','Form file upload + memberships']},
      {id:'enterprise',label:'Enterprise',price:null,features:['Custom traffic + items','SSO + advanced security','Localization','Dedicated CSM']}
    ]},
-  {id:'mailchimp',name:'Mailchimp',cat:'Marketing',color:'#FFE01B',initials:'Mc',popular:false,
-   url:'https://mailchimp.com/pricing/marketing/',
-   desc:'Email marketing — newsletter, automation, segment, audience analytics. Phổ biến với creator/startup VN.',
+
+  /* ─── VN Tier 1: Office essentials (MS 365, Google Workspace, Zoom) ─── */
+  {id:'ms365',name:'Microsoft 365',cat:'Productivity',color:'#D83B01',initials:'M',popular:true,
+   url:'https://www.microsoft.com/en/microsoft-365/business/compare-all-plans',
+   includes:['word','excel','powerpoint','outlook','onenote','onedrive','teams'],
+   desc:'Bộ Office chuẩn — Word, Excel, PowerPoint, Outlook, Teams. Gần như mọi công ty/office worker VN đều dùng.',
    tiers:[
-     {id:'free',label:'Free',price:0,features:['500 contact, 1000 email/tháng','Templates cơ bản','Marketing CRM cơ bản','Mailchimp branding']},
-     {id:'essentials',label:'Essentials',price:13,popular:true,features:['5000 contact','5x send limit','A/B testing','Loại bỏ Mailchimp branding']},
-     {id:'standard',label:'Standard',price:20,features:['10000 contact','Customer journey builder','Advanced segmentation','Retargeting ads']},
-     {id:'premium',label:'Premium',price:350,features:['Unlimited audience','Advanced reporting','Phone support','Multivariate testing']}
+     {id:'personal',label:'Personal',price:9.99,popular:true,features:['1 user','1TB OneDrive','Word/Excel/PowerPoint full','Office mobile + desktop','Outlook email']},
+     {id:'family',label:'Family',price:12.99,note:'Share 6 user',features:['6 user share','6TB cloud (1TB/user)','Mọi app Personal','Family Safety','Premium templates']},
+     {id:'business-basic',label:'Business Basic',price:7.20,perUser:true,features:['Web + mobile only','1TB OneDrive','Email business','Teams + SharePoint','No desktop install']},
+     {id:'business-standard',label:'Business Standard',price:14.40,perUser:true,features:['Desktop + web + mobile','Mọi tính năng Basic','Outlook business email','Teams + webinars','PowerPoint Designer']},
+     {id:'business-premium',label:'Business Premium',price:25.20,perUser:true,features:['Mọi tính năng Standard','Intune device mgmt','Advanced security','Defender for business','Conditional access']}
+   ]},
+  {id:'google-workspace',name:'Google Workspace',cat:'Productivity',color:'#4285F4',initials:'GW',popular:true,
+   url:'https://workspace.google.com/pricing.html',
+   includes:['gmail','drive','docs','sheets','slides','meet','calendar'],
+   desc:'Bộ cloud office của Google — Gmail business, Drive, Docs, Sheets, Slides. Phổ biến VN startup + freelancer.',
+   tiers:[
+     {id:'starter',label:'Business Starter',price:7,perUser:true,popular:true,features:['Custom email domain','30GB cloud/user','Docs/Sheets/Slides','Meet 100 người · 60 phút','Security cơ bản']},
+     {id:'standard',label:'Business Standard',price:14,perUser:true,features:['Mọi tính năng Starter','2TB cloud/user','Meet 150 người · ghi âm','AppSheet (no-code app)','Vault export']},
+     {id:'plus',label:'Business Plus',price:22,perUser:true,features:['5TB cloud/user','Meet 500 + attendance','Vault e-discovery','Advanced endpoint mgmt']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Unlimited cloud','Meet 1000 người','S/MIME encryption','Advanced DLP + SSO']}
+   ]},
+  {id:'zoom',name:'Zoom Workplace',cat:'Productivity',color:'#0B5CFF',initials:'Z',popular:true,
+   url:'https://zoom.us/pricing',
+   desc:'App họp online chuẩn doanh nghiệp — meeting, webinar, chat. Cực phổ biến VN từ 2020.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['40 phút/meeting','100 người tối đa','Whiteboard cơ bản','Mail + Calendar','AI Companion essentials']},
+     {id:'pro',label:'Pro',price:13.32,perUser:true,popular:true,features:['30 giờ/meeting','100 người','Cloud recording 5GB','Mail + Calendar','AI Companion full']},
+     {id:'business',label:'Business',price:18.32,perUser:true,features:['300 người','SSO + managed domain','Cloud recording unlimited','Phone support','Brandable URL']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['1000 người','Webinar 1000 attendee','Zoom Phone bundled','Unlimited cloud storage']}
+   ]},
+
+  /* ─── VN Tier 2: Creator/Dev specific ─── */
+  {id:'jetbrains',name:'JetBrains IDE',cat:'Development',color:'#FE2857',initials:'JB',popular:true,
+   url:'https://www.jetbrains.com/products/',
+   includes:['intellij','webstorm','phpstorm','pycharm','rubymine','clion','goland','rider'],
+   desc:'Bộ IDE chuyên nghiệp — IntelliJ, WebStorm, PhpStorm, PyCharm... Dev VN nghiêm túc đều dùng.',
+   tiers:[
+     {id:'individual-single',label:'Single IDE',price:8.25,note:'$99/năm cho 1 IDE',features:['1 IDE chọn 1 (PhpStorm/WebStorm…)','AI Assistant','Update license + bug fix','Cá nhân, mua bằng tên mình']},
+     {id:'individual-all',label:'All Products',price:24.90,popular:true,note:'$249/năm — mọi IDE',features:['Tất cả IDE JetBrains','AI Assistant + 100K credit','Bao gồm Fleet (collab IDE)','Cá nhân']},
+     {id:'business',label:'All Products (Org)',price:77.90,perUser:true,note:'$779/user/năm',features:['Tất cả IDE cho team','Centralized billing','License pool','Org-wide admin']},
+     {id:'edu',label:'Education',price:0,note:'Free cho HS/SV/GV',features:['Đầy đủ Ultimate IDE','Cần verify .edu','Phi thương mại','Renew năm']}
+   ]},
+  {id:'clipstudio',name:'Clip Studio Paint',cat:'Design',color:'#00C0BC',initials:'CS',popular:true,
+   url:'https://www.clipstudio.net/en/purchase/',
+   desc:'App vẽ manga/comic chuyên nghiệp — brush engine mạnh, panel tool. Manga artist VN dùng nhiều.',
+   tiers:[
+     {id:'pro-monthly',label:'Pro Monthly',price:0.99,features:['Đầy đủ illustration','Layers + brushes','Animation 24 frames','PC/Mac/iPad']},
+     {id:'pro-perpetual',label:'Pro (Mua đứt)',price:4.17,popular:true,note:'$49.99 mua đứt',features:['Mua 1 lần, dùng vĩnh viễn','Đầy đủ illustration','1 platform (Win/Mac)','Không update major free']},
+     {id:'ex-monthly',label:'EX Monthly',price:8.49,features:['Đầy đủ Pro','Multi-page management (manga)','Story editor','Bulk text/page export']},
+     {id:'ex-perpetual',label:'EX (Mua đứt)',price:18.33,note:'$219.99 mua đứt',features:['Đầy đủ EX','1 platform','Manga/webtoon pro features','Không update major free']}
+   ]},
+  {id:'loom',name:'Loom',cat:'Productivity',color:'#625DF5',initials:'Lm',popular:false,
+   url:'https://www.loom.com/pricing',
+   desc:'Screen recording + camera bubble — async work, tutorial, bug report. Phổ biến VN tech worker + content creator.',
+   tiers:[
+     {id:'starter',label:'Starter',price:0,features:['25 video/người','5 phút/video tối đa','Comment cơ bản','Screen + cam recording']},
+     {id:'business',label:'Business',price:12.50,perUser:true,popular:true,features:['Unlimited video + time','Drawing tools','Custom branding','Engagement insights']},
+     {id:'business-ai',label:'Business AI',price:20,perUser:true,features:['Mọi tính năng Business','AI transcription + summary','Auto chapters','Translation 50+ ngôn ngữ']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Advanced security','Custom data retention','Dedicated CSM']}
+   ]},
+  {id:'telegram',name:'Telegram Premium',cat:'Productivity',color:'#0088CC',initials:'Tg',popular:false,
+   url:'https://telegram.org/premium',
+   desc:'Chat + community — VN gen Z + tech worker dùng cực nhiều. Premium: 4GB upload, ad-free, sticker exclusive.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['Chat đầy đủ tính năng','Group lên tới 200K member','Channel + bot','Cloud sync unlimited','2GB upload limit']},
+     {id:'premium',label:'Premium',price:4.99,features:['4GB upload','Ad-free','Exclusive emoji + sticker','Animated profile','Faster download + 4x cloud']}
+   ]},
+
+  /* ─── VN Tier 3: Mobile/Free creator tools ─── */
+  {id:'inshot',name:'InShot Pro',cat:'Video',color:'#1FCFCF',initials:'IS',popular:true,
+   url:'https://inshot.com/',
+   desc:'App edit video + ảnh trên mobile — phổ biến cực mạnh VN cho TikTok/Instagram creator.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Edit video cơ bản','Watermark khi export','Music library giới hạn','Ads in-app']},
+     {id:'monthly',label:'Pro Monthly',price:3.99,features:['Không watermark','Music library đầy đủ','Premium effects + filter','Không ads']},
+     {id:'annual',label:'Pro Annual',price:1.25,popular:true,note:'$14.99/năm',features:['Tiết kiệm ~70% vs Monthly','Mọi tính năng Pro','Phù hợp creator daily','Cancel anytime']},
+     {id:'lifetime',label:'Lifetime',price:1.50,note:'$35.99 mua đứt',features:['Mua 1 lần dùng vĩnh viễn','Mọi tính năng Pro','Không renew','Cho creator dài hạn']}
+   ]},
+  {id:'krita',name:'Krita',cat:'Design',color:'#3DB1FF',initials:'Kr',popular:false,
+   url:'https://krita.org/',
+   desc:'App vẽ + paint mã nguồn mở — alternative Photoshop cho concept art, illustration, comic. Free hoàn toàn.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['Mã nguồn mở GPL','Brush engine mạnh','Animation frame-by-frame','PC/Mac/Linux + Android beta']},
+     {id:'donate',label:'Donate (optional)',price:null,note:'Hỗ trợ project',features:['Không required','Hỗ trợ KDE foundation','Same features as Free','Tax-deductible']}
+   ]},
+  {id:'sketchbook',name:'Sketchbook',cat:'Design',color:'#22B14C',initials:'Sb',popular:false,
+   url:'https://www.sketchbook.com/',
+   desc:'App vẽ Autodesk — brush engine pro, UI gọn. Free hoàn toàn từ 2018 cho cá nhân.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['Đầy đủ tính năng cá nhân','PC + Mac + iPad + Android','Layers + brushes pro','Phi thương mại OK']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Liên hệ Autodesk','License cho team','Commercial use','Volume discount']}
    ]}
 ];
 
@@ -2056,14 +2108,16 @@ var OVERLAP_GROUPS = {
   'ai-chat':      {label:'AI Chatbot',         apps:['chatgpt','claude','gemini','deepseek','grok']},
   'ai-search':    {label:'AI Search',          apps:['perplexity','chatgpt']},
   'seo':          {label:'SEO Tool',           apps:['ahrefs','semrush']},
-  'video-edit':   {label:'Video Editor',       apps:['premiere','davinci','capcut','descript','avid','finalcut']},
+  'video-edit':   {label:'Video Editor',       apps:['premiere','davinci','capcut','finalcut']},
   'ai-video':     {label:'AI Video Gen',       apps:['runway','kling']},
   'design-ui':    {label:'UI/UX Design',       apps:['figma','sketch']},
   'design-suite': {label:'Graphic Design Pro', apps:['adobe-cc','affinity','coreldraw']},
+  'drawing-art':  {label:'Drawing/Art tool',   apps:['procreate','clipstudio','krita','sketchbook']},
   'task-mgmt':    {label:'Project Mgmt',       apps:['linear','clickup']},
   'ai-code':      {label:'AI Coding',          apps:['cursor','github-copilot']},
   'no-code-web':  {label:'No-code Web',        apps:['webflow','framer']},
-  '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino']}
+  '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino']},
+  'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']}
 };
 
 function findFreeTierIdx(app){
@@ -2872,7 +2926,72 @@ var KEYWORD_DICT = {
   'caption':['chatgpt','claude','canva'],
   'quảng cáo':['canva','buffer','ahrefs','semrush'],
   'quang cao':['canva','buffer','ahrefs','semrush'],
-  'creator':['capcut','canva','claude','buffer','notion'],
+  'creator':['capcut','canva','claude','buffer','notion','inshot'],
+  // ── Office essentials VN ──
+  'office':['ms365','google-workspace'],
+  'word':['ms365'],
+  'excel':['ms365'],
+  'powerpoint':['ms365'],
+  'outlook':['ms365'],
+  'microsoft 365':['ms365'],
+  'microsoft office':['ms365'],
+  'ms 365':['ms365'],
+  'gmail':['google-workspace'],
+  'google docs':['google-workspace'],
+  'google sheets':['google-workspace'],
+  'google drive':['google-workspace'],
+  'google meet':['google-workspace','zoom'],
+  'google workspace':['google-workspace'],
+  'workspace':['google-workspace','notion'],
+  'spreadsheet':['ms365','google-workspace'],
+  'bảng tính':['ms365','google-workspace'],
+  'bang tinh':['ms365','google-workspace'],
+  'họp online':['zoom','google-workspace'],
+  'hop online':['zoom','google-workspace'],
+  'video call':['zoom','google-workspace'],
+  'video conference':['zoom','google-workspace'],
+  'zoom':['zoom'],
+  'meeting':['zoom','google-workspace'],
+  'webinar':['zoom'],
+  // ── Dev IDE ──
+  'ide':['jetbrains','cursor'],
+  'jetbrains':['jetbrains'],
+  'phpstorm':['jetbrains'],
+  'webstorm':['jetbrains'],
+  'intellij':['jetbrains'],
+  'pycharm':['jetbrains'],
+  'goland':['jetbrains'],
+  'rider':['jetbrains'],
+  'java':['jetbrains'],
+  'php':['jetbrains'],
+  'python':['jetbrains'],
+  // ── Drawing/Art tools VN ──
+  'clip studio':['clipstudio'],
+  'clipstudio':['clipstudio'],
+  'csp':['clipstudio'],
+  'webtoon':['clipstudio','procreate'],
+  'truyện tranh':['clipstudio','procreate'],
+  'truyen tranh':['clipstudio','procreate'],
+  'krita':['krita'],
+  'sketchbook':['sketchbook'],
+  'free drawing':['krita','sketchbook'],
+  'vẽ free':['krita','sketchbook'],
+  've free':['krita','sketchbook'],
+  // ── Screen rec / chat ──
+  'loom':['loom'],
+  'screen recording':['loom'],
+  'ghi màn hình':['loom'],
+  'ghi man hinh':['loom'],
+  'tutorial':['loom'],
+  'telegram':['telegram'],
+  'chat group':['telegram'],
+  'community chat':['telegram'],
+  // ── Mobile creator ──
+  'inshot':['inshot'],
+  'mobile video':['inshot','capcut'],
+  'edit mobile':['inshot','capcut'],
+  'tiktok edit':['capcut','inshot'],
+  'reels edit':['capcut','inshot'],
   'sáng tạo nội dung':['capcut','canva','claude','buffer'],
   'sang tao noi dung':['capcut','canva','claude','buffer'],
   'email marketing':['mailchimp','buffer','chatgpt','canva'],
