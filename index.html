@@ -891,10 +891,8 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 }
 .apps-hint strong { color:var(--text);font-weight:700; }
 .apps-hint.is-hidden { display:none; }
-.grid-apps { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px; }
-@media (max-width:1100px) { .grid-apps { grid-template-columns:repeat(3,minmax(0,1fr)); } }
-@media (max-width:820px)  { .grid-apps { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (max-width:520px)  { .grid-apps { grid-template-columns:1fr; } }
+.grid-apps { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px; }
+@media (max-width:720px)  { .grid-apps { grid-template-columns:1fr; } }
 
 /* ─── Apps "Xem thêm" pagination ──────────────────────────────────────── */
 .apps-more-wrap { display:flex;justify-content:center;margin-top:28px; }
@@ -1057,6 +1055,24 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
   box-shadow:0 0 0 1.5px var(--card);
 }
 .tier-pill.is-active.is-popular::before { display:none; }
+/* Hide extra pills by default — show when parent .card-tiers is-expanded */
+.tier-pill.is-extra { display:none; }
+.card-tiers.is-expanded .tier-pill.is-extra { display:inline-flex; }
+/* "+N gói khác" expander pill */
+.tier-pill-more {
+  font-size:11px;font-weight:600;letter-spacing:-0.003em;
+  padding:5px 11px;border-radius:999px;
+  background:transparent;border:1px dashed var(--border);
+  color:var(--text-3);white-space:nowrap;cursor:pointer;
+  transition:all .15s ease;
+}
+.tier-pill-more:hover {
+  color:var(--accent);border-color:var(--accent);background:var(--accent-soft);
+  border-style:solid;
+}
+.card-tiers.is-expanded .tier-pill-more {
+  color:var(--text-2);border-style:solid;
+}
 .card-price {
   font-size:20px;font-weight:700;letter-spacing:-0.025em;
   font-variant-numeric:tabular-nums;line-height:1.15;
@@ -2969,7 +2985,7 @@ var S = {
   rate:26199,
   filter:'all',
   search:'',
-  showAll:false,    // pagination: false = limit 12 app, true = show all
+  showAll:false,    // pagination: false = limit 8 app (4 rows × 2 cards), true = show all
   suggestions:[],   // [{id, score, popular}] from analyzeDescription
   modalApp:null,
   modalTier:0,      // currently-selected tier idx in open modal
@@ -3098,8 +3114,8 @@ function renderApps(){
     return 0;
   });
   document.getElementById('count-badge').textContent=list.length;
-  // ── Pagination: default 12 app, "Xem thêm" expand ─────────────────────
-  var LIMIT = 12;
+  // ── Pagination: default 8 app (4 rows × 2 cards), "Xem thêm" expand ──
+  var LIMIT = 8;
   var totalCount = list.length;
   var displayList = list;
   var truncated = false;
@@ -3131,10 +3147,15 @@ function renderApps(){
       var fullList = app.includes.map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join(', ');
       includesHtml = '<div class="app-includes-line" title="Gồm '+app.includes.length+' app: '+fullList+'"><strong>Gồm:</strong> ' + firstThree.join(', ') + (moreCount?' <span class="incmore">+'+moreCount+'</span>':'') + '</div>';
     }
-    // Tier pills — click to pick + add. Click active pill → remove from cart.
+    // Tier pills — show first 4 + "+N gói khác" expander nếu nhiều hơn
+    var TIER_VISIBLE = 4;
+    var totalTiers = app.tiers.length;
+    var hasMore = totalTiers > TIER_VISIBLE;
+    var hiddenCount = hasMore ? (totalTiers - TIER_VISIBLE) : 0;
     var pillsHtml = '<div class="card-tiers" role="group" aria-label="Chọn gói">';
     app.tiers.forEach(function(t, idx){
       var isActive = inCart && (tierIdx === idx);
+      var isExtra = idx >= TIER_VISIBLE;
       var label = t.label || ('Gói '+(idx+1));
       var priceTip;
       if(t.price === null) priceTip = 'Liên hệ';
@@ -3149,8 +3170,11 @@ function renderApps(){
         }
       }
       var perTip = t.price > 0 ? (t.perUser ? '/người·th' : '/tháng') : '';
-      pillsHtml += '<button class="tier-pill'+(isActive?' is-active':'')+(t.popular?' is-popular':'')+'" data-app="'+app.id+'" data-tier="'+idx+'" type="button" title="'+label+' — '+priceTip+perTip+'">'+label+'</button>';
+      pillsHtml += '<button class="tier-pill'+(isActive?' is-active':'')+(t.popular?' is-popular':'')+(isExtra?' is-extra':'')+'" data-app="'+app.id+'" data-tier="'+idx+'" type="button" title="'+label+' — '+priceTip+perTip+'">'+label+'</button>';
     });
+    if(hasMore){
+      pillsHtml += '<button class="tier-pill-more" data-app="'+app.id+'" type="button" aria-expanded="false">+'+hiddenCount+' gói khác</button>';
+    }
     pillsHtml += '</div>';
     return '<article class="card'+(inCart?' in-cart':'')+(app.popular?' is-popular':'')+'" data-id="'+app.id+'">' +
       '<div class="card-top">'+markHtml+
@@ -3185,6 +3209,25 @@ function renderApps(){
       renderAll();
     });
   });
+  // Pill "+N gói khác" → expand/collapse hidden tier pills inline
+  document.querySelectorAll('#apps-grid .tier-pill-more').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var tiers = btn.closest('.card-tiers');
+      if(!tiers) return;
+      var expanded = tiers.classList.toggle('is-expanded');
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btn.textContent = expanded ? 'Ẩn bớt' : ('+' + btn.dataset.hidden + ' gói khác');
+      // Lưu hidden count vào dataset để toggle back đúng
+      if(!btn.dataset.hidden) {
+        var match = btn.textContent.match(/\+(\d+)/);
+        if(match) btn.dataset.hidden = match[1];
+      }
+    });
+    // Save count khi render lần đầu
+    var m = btn.textContent.match(/\+(\d+)/);
+    if(m) btn.dataset.hidden = m[1];
+  });
   // Xem chi tiết → mở modal
   document.querySelectorAll('#apps-grid .btn-card-detail').forEach(function(btn){
     btn.addEventListener('click', function(e){
@@ -3192,10 +3235,10 @@ function renderApps(){
       openModal(btn.dataset.detail);
     });
   });
-  // Click card body (không phải pill/detail) → mở modal
+  // Click card body (không phải pill/detail/expander) → mở modal
   document.querySelectorAll('#apps-grid .card').forEach(function(c){
     c.addEventListener('click', function(e){
-      if(e.target.closest('.tier-pill') || e.target.closest('.btn-card-detail')) return;
+      if(e.target.closest('.tier-pill') || e.target.closest('.tier-pill-more') || e.target.closest('.btn-card-detail')) return;
       openModal(c.dataset.id);
     });
   });
