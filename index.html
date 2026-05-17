@@ -3,8 +3,19 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="description" content="So sánh và tính chi phí 25+ công cụ bản quyền phổ biến. Xem giá cá nhân, team, doanh nghiệp theo USD và VND thực tế."/>
-<title>Tính giá Tool BQ — toolbanquyen.vn</title>
+<meta name="description" content="Tính chi phí app bản quyền theo % lương. Cảnh báo khi quá tải, gợi ý alternative rẻ hơn. 52+ app phổ biến tại Việt Nam, tỉ giá USD/VND live."/>
+<title>Lương bạn nuôi bao nhiêu app? — toolbanquyen.vn</title>
+
+<!-- Open Graph / Social sharing -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Lương bạn nuôi bao nhiêu app?"/>
+<meta property="og:description" content="Tính chi phí app bản quyền theo % lương. Cảnh báo khi quá tải, gợi ý alternative rẻ hơn. 52+ app phổ biến tại Việt Nam."/>
+<meta property="og:url" content="https://toolbanquyen.vn/"/>
+<meta property="og:site_name" content="toolbanquyen.vn"/>
+<meta property="og:locale" content="vi_VN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Lương bạn nuôi bao nhiêu app?"/>
+<meta name="twitter:description" content="Tính chi phí app bản quyền theo % lương. Cảnh báo khi quá tải, gợi ý alternative rẻ hơn."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet"/>
@@ -1044,6 +1055,78 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
 .rec-empty { font-size:13px;color:var(--text-3);font-style:italic;padding:24px 0;text-align:center; }
 .rec-empty.is-hidden { display:none; }
 
+/* ─── VAT note + Verdict cards (máy giải thích chi phí) ─────────────── */
+.vat-note {
+  display:flex;align-items:center;gap:8px;
+  margin:0 0 18px;padding:10px 14px;
+  background:var(--accent-soft);border:1px solid color-mix(in oklab,var(--accent) 20%,transparent);
+  border-radius:10px;
+  font-size:12.5px;color:var(--text-2);line-height:1.5;
+}
+.vat-note svg { width:14px;height:14px;color:var(--accent);flex-shrink:0; }
+.vat-note strong { color:var(--text);font-weight:700; }
+
+.verdict-section { margin-bottom:22px; }
+.verdict-section:empty { margin-bottom:0; }
+.verdict-head {
+  font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text-2);margin-bottom:12px;
+}
+.verdict-head .vh-count { color:var(--text-3);font-weight:500;letter-spacing:0.04em;text-transform:none; }
+.verdict-list { display:flex;flex-direction:column;gap:10px; }
+.vc-card {
+  background:var(--bg-elev);border:1px solid var(--border-2);border-radius:14px;
+  padding:14px 16px;
+  border-left-width:4px;
+  transition:transform .15s,border-color .15s;
+}
+.vc-card.sev-safe       { border-left-color:#22c55e; }
+.vc-card.sev-reasonable { border-left-color:#22c55e; }
+.vc-card.sev-caution    { border-left-color:#f59e0b; }
+.vc-card.sev-high       { border-left-color:#fb923c; }
+.vc-card.sev-overload   { border-left-color:#ef4444; }
+.vc-card:hover { transform:translateY(-1px); }
+.vc-top { display:flex;align-items:center;gap:12px;margin-bottom:10px; }
+.vc-mark {
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;overflow:hidden;
+}
+.vc-mark img { width:60%;height:60%;object-fit:contain;pointer-events:none; }
+.vc-info { flex:1;min-width:0; }
+.vc-name { font-size:14px;font-weight:700;letter-spacing:-0.005em;line-height:1.3; }
+.vc-tier { font-weight:500;color:var(--text-2);font-size:13px; }
+.vc-price { font-size:12.5px;color:var(--text-2);margin-top:2px;font-variant-numeric:tabular-nums; }
+.vc-price strong { color:var(--text);font-weight:700; }
+.vc-badge {
+  flex-shrink:0;padding:4px 10px;border-radius:999px;
+  font-size:10.5px;font-weight:700;letter-spacing:0.04em;
+  display:inline-flex;align-items:center;gap:3px;
+}
+.vc-badge.sev-safe       { background:rgba(34,197,94,.15);color:#22c55e; }
+.vc-badge.sev-reasonable { background:rgba(34,197,94,.15);color:#22c55e; }
+.vc-badge.sev-caution    { background:rgba(245,158,11,.15);color:#f59e0b; }
+.vc-badge.sev-high       { background:rgba(251,146,60,.15);color:#fb923c; }
+.vc-badge.sev-overload   { background:rgba(239,68,68,.15);color:#ef4444; }
+.vc-copy { font-size:13px;color:var(--text);line-height:1.55;margin-bottom:10px;letter-spacing:-0.005em; }
+.vc-alts {
+  display:flex;align-items:center;flex-wrap:wrap;gap:6px;
+  padding-top:10px;border-top:1px dashed var(--border-2);
+}
+.vc-alts-label { font-size:11.5px;color:var(--text-3);font-weight:500;margin-right:4px; }
+.vc-alt-chip {
+  font-size:11.5px;font-weight:600;
+  padding:5px 11px;border-radius:999px;
+  background:var(--card);border:1px solid var(--border-2);
+  color:var(--text-2);
+  transition:all .15s;cursor:pointer;
+}
+.vc-alt-chip:hover { border-color:var(--accent);color:var(--accent);background:var(--accent-soft); }
+@media (max-width:560px) {
+  .vc-top { flex-wrap:wrap; }
+  .vc-badge { order:3;margin-top:4px; }
+}
+
 @media (max-width:560px) {
   .rec-panel { padding:24px 20px 18px; }
   .rec-h2 { font-size:21px; }
@@ -1390,10 +1473,10 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
           Cập nhật giá tháng 5/2026
         </div>
 
-        <h1 class="hero-title">Bao nhiêu là<br/><em>vừa đủ</em>?</h1>
+        <h1 class="hero-title">Lương bạn nuôi<br/><em>bao nhiêu app</em>?</h1>
 
         <p class="hero-lede">
-          Tick app đang dùng — hệ thống tính ngay <strong>tổng chi phí</strong> và <strong>% lương</strong> bị ăn mỗi tháng.
+          Bạn dùng app gì? Lương bao nhiêu? Tool tính ngay nếu mua bản quyền thì chi phí chiếm <strong>% thu nhập</strong>, có <strong>hợp lý không</strong>, và có <strong>lựa chọn nhẹ hơn</strong> không.
         </p>
 
         <div class="hero-cta">
@@ -1458,7 +1541,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <!-- ═══ Cell C: Logo marquee — 2 hàng scroll ngược chiều ═══ -->
       <div class="bento-cell cell-grid">
         <div class="grid-head">
-          <span id="hero-grid-count">Toàn bộ 52 app bản quyền</span>
+          <span id="hero-grid-count">Toàn bộ 59 app bản quyền</span>
           <a href="#apps" class="arr" aria-label="Xem tất cả">→</a>
         </div>
         <div class="logo-marquee" id="hero-logo-grid">
@@ -1503,7 +1586,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="tabs-wrap">
       <div class="tabs" role="tablist" id="cat-tabs">
-        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">52</span></button>
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">59</span></button>
         <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
         <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
         <button class="tab" data-cat="Architecture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>Kiến trúc</button>
@@ -1543,6 +1626,11 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         </div>
         <div class="rec-savings-total" id="rec-savings-total"></div>
       </div>
+      <div class="vat-note" id="vat-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>Giá đã bao gồm <strong>10% VAT</strong> mà thẻ VN bị charge tự động khi mua từ Adobe/Microsoft/OpenAI/v.v.</span>
+      </div>
+      <div class="verdict-section" id="verdict-section"></div>
       <div class="rec-list" id="rec-list"></div>
       <div class="rec-empty" id="rec-empty">
         Chọn ít nhất 1 app vào danh sách tính giá để xem đề xuất tối ưu chi phí.
@@ -2105,6 +2193,54 @@ var APPS = [
    tiers:[
      {id:'free',label:'Free',price:0,popular:true,features:['Đầy đủ tính năng cá nhân','PC + Mac + iPad + Android','Layers + brushes pro','Phi thương mại OK']},
      {id:'enterprise',label:'Enterprise',price:null,features:['Liên hệ Autodesk','License cho team','Commercial use','Volume discount']}
+   ]},
+
+  /* ─── FREE alternatives — quan trọng cho verdict engine ─── */
+  {id:'photopea',name:'Photopea',cat:'Design',color:'#18a497',initials:'Pp',popular:false,
+   url:'https://www.photopea.com/',
+   desc:'Photoshop trên trình duyệt — free, mở file PSD trực tiếp. Alternative chính cho Photoshop khi cần edit ảnh thỉnh thoảng.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí trên browser','Mở/lưu PSD/AI/Sketch','Layers + masks + brushes','Có quảng cáo nhỏ']},
+     {id:'premium',label:'Premium',price:5,note:'$40/năm — bỏ quảng cáo',features:['Không quảng cáo','Bonus cloud storage','Same features as Free','Hỗ trợ project']}
+   ]},
+  {id:'gimp',name:'GIMP',cat:'Design',color:'#5C5543',initials:'Gi',popular:false,
+   url:'https://www.gimp.org/',
+   desc:'GNU Image Manipulation Program — alternative Photoshop free, desktop, mã nguồn mở GPL.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí GPL','Win/Mac/Linux native','Layers, masks, scripting','Cộng đồng plugin lớn']}
+   ]},
+  {id:'inkscape',name:'Inkscape',cat:'Design',color:'#000000',initials:'Ik',popular:false,
+   url:'https://inkscape.org/',
+   desc:'Vector editor mã nguồn mở — alternative Illustrator + CorelDraw free, hỗ trợ SVG native đầy đủ.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí GPL','SVG native','Win/Mac/Linux','Đầy đủ vector tools']}
+   ]},
+  {id:'obsidian',name:'Obsidian',cat:'Productivity',color:'#7C3AED',initials:'Ob',popular:false,
+   url:'https://obsidian.md/',
+   desc:'Note + knowledge management local-first — markdown, link graph, plugins. Alternative Notion miễn phí cho cá nhân.',
+   tiers:[
+     {id:'free',label:'Free Personal',price:0,popular:true,features:['100% miễn phí cá nhân','Local files, không cloud','1000+ community plugins','Graph view + backlinks']},
+     {id:'commercial',label:'Commercial',price:4.17,note:'$50/user/năm cho doanh nghiệp',features:['Same features as Free','License thương mại','Hỗ trợ ưu tiên','Phù hợp company use']},
+     {id:'sync',label:'Sync (addon)',price:4,note:'$4/mo cloud sync',features:['End-to-end encrypted sync','Đa thiết bị','Version history 12 tháng','Add-on optional']},
+     {id:'publish',label:'Publish (addon)',price:8,note:'$8/mo public site',features:['Publish notes như website','Custom domain','SEO ready','Add-on optional']}
+   ]},
+  {id:'logseq',name:'Logseq',cat:'Productivity',color:'#002B36',initials:'Lg',popular:false,
+   url:'https://logseq.com/',
+   desc:'Outliner kiến thức mã nguồn mở — block-based như Roam Research, free + local, alternative Notion miễn phí.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí AGPL','Outline + block reference','Local files (markdown)','Win/Mac/Linux/iOS/Android']}
+   ]},
+  {id:'audacity',name:'Audacity',cat:'Video',color:'#0000CC',initials:'Au',popular:false,
+   url:'https://www.audacityteam.org/',
+   desc:'Edit audio mã nguồn mở free — podcast, music, voice. Đủ cho creator + dev làm tutorial.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí GPL','Multi-track edit + effects','Win/Mac/Linux','Plugin VST3 support']}
+   ]},
+  {id:'obs',name:'OBS Studio',cat:'Video',color:'#302E31',initials:'OS',popular:false,
+   url:'https://obsproject.com/',
+   desc:'Streaming + screen recording miễn phí — chuẩn Twitch/YouTube, alternative Loom cho tutorial.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí GPL','Multi-source compositing','Stream Twitch/YouTube native','Win/Mac/Linux']}
    ]}
 ];
 
@@ -2125,6 +2261,184 @@ var OVERLAP_GROUPS = {
   '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino']},
   'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']}
 };
+
+/* ── VAT (Thuế GTGT) — VN charge 10% trên SaaS nước ngoài tự động ─────── */
+var VAT_RATE = 0.10;
+
+/* Giá VND thực user phải trả (đã cộng VAT 10% mặc định).
+ * useCase 'business-vat' → bỏ VAT vì doanh nghiệp khấu trừ được. */
+function effectivePriceVND(tier, useCase){
+  if(!tier || tier.price === null) return null;
+  if(tier.price === 0) return 0;
+  var baseVND = tier.priceVND || Math.round(tier.price * S.rate);
+  if(useCase === 'business-vat') return baseVND;
+  return Math.round(baseVND * (1 + VAT_RATE));
+}
+
+/* ── ALTERNATIVES MAP — paid app → free/cheap alternatives ─────────────── */
+var ALTERNATIVES_MAP = {
+  'adobe-cc':   [{id:'photopea',reason:'Free browser, mở PSD trực tiếp'},{id:'gimp',reason:'Free desktop alternative Photoshop'},{id:'inkscape',reason:'Free, thay Illustrator'},{id:'affinity',reason:'Mua đứt $164.99 cho 3 app'},{id:'canva',reason:'Free tier cho design nghiệp dư'},{id:'krita',reason:'Free, painting + illustration'}],
+  'chatgpt':    [{id:'deepseek',reason:'Free, reasoning ngang ChatGPT cho code/math'},{id:'claude',reason:'Free tier 30 message/5h'},{id:'gemini',reason:'Free, tích hợp Google'}],
+  'claude':     [{id:'chatgpt',reason:'Free GPT Instant tier'},{id:'deepseek',reason:'Free hoàn toàn, mạnh reasoning'},{id:'gemini',reason:'Free, context dài'}],
+  'cursor':     [{id:'github-copilot',reason:'Free tier 2000 completion/tháng'},{id:'jetbrains',reason:'JetBrains có AI Assistant free trial'}],
+  'github-copilot':[{id:'cursor',reason:'Free Hobby tier'},{id:'deepseek',reason:'Free API cho code'}],
+  'premiere':   [{id:'davinci',reason:'Free, color grading Hollywood chuẩn'},{id:'capcut',reason:'Free, edit nhanh social'},{id:'inshot',reason:'Free, mobile-first'}],
+  'finalcut':   [{id:'davinci',reason:'Free, đa nền tảng'},{id:'capcut',reason:'Free, dễ dùng'}],
+  'ms365':      [{id:'google-workspace',reason:'Free Gmail + Docs/Sheets/Slides + 15GB Drive'},{id:'notion',reason:'Free Personal đầy đủ wiki + DB'},{id:'obsidian',reason:'Free local-first markdown'}],
+  'google-workspace':[{id:'ms365',reason:'Personal $9.99 1TB OneDrive'},{id:'notion',reason:'Free, integrated wiki + DB'}],
+  'notion':     [{id:'obsidian',reason:'Free local-first markdown vĩnh viễn'},{id:'logseq',reason:'Free outliner block-based'}],
+  'figma':      [{id:'sketch',reason:'$12/mo, Mac-only'},{id:'framer',reason:'Free Starter, design + publish'}],
+  'cinema4d':   [{id:'blender',reason:'Free, đầy đủ 3D pipeline'}],
+  'rhino':      [{id:'blender',reason:'Free, modeling đa năng (no parametric chuẩn Rhino)'}],
+  'procreate':  [{id:'krita',reason:'Free desktop, brush engine pro'},{id:'sketchbook',reason:'Free Autodesk, đa nền tảng'}],
+  'clipstudio': [{id:'krita',reason:'Free, brush engine illustration'},{id:'procreate',reason:'$12.99 mua đứt iPad'}],
+  'ahrefs':     [{id:'semrush',reason:'$140/mo Pro tier cạnh tranh'}],
+  'semrush':    [{id:'ahrefs',reason:'$129/mo Lite tier'}],
+  'autocad':    [{id:'sketchup',reason:'Free Web tier'},{id:'blender',reason:'Free, concept arch'}],
+  'revit':      [{id:'sketchup',reason:'Studio $749/yr — BIM Lite + render'},{id:'blender',reason:'Free, modeling đủ'}],
+  'lumion':     [{id:'twinmotion',reason:'Free non-commercial, Pro $445/yr rẻ hơn'},{id:'enscape',reason:'$708/yr plugin Revit/SketchUp/Rhino'}],
+  'loom':       [{id:'obs',reason:'Free, record + stream đầy đủ'}],
+  'runway':     [{id:'kling',reason:'$8/mo basic tier'}],
+  'linear':     [{id:'notion',reason:'Free, kanban + sprint built-in'},{id:'clickup',reason:'Free Forever đầy đủ PM cơ bản'}],
+  'clickup':    [{id:'notion',reason:'Free, flexible DB'},{id:'linear',reason:'$8/mo, dev-team focus'}],
+  'midjourney': [{id:'chatgpt',reason:'DALL·E trong ChatGPT Plus đủ cho most cases'},{id:'canva',reason:'Magic Media Free tier'}],
+  'coreldraw':  [{id:'inkscape',reason:'Free, vector full'},{id:'affinity',reason:'Designer mua đứt $69.99'}],
+  'jetbrains':  [{id:'cursor',reason:'$20/mo, AI-first IDE'},{id:'github-copilot',reason:'Free tier cho VSCode'}]
+};
+
+/* ── VERDICT ENGINE — thresholds + per-app rules ──────────────────────── */
+/* Thresholds % lương cho 5 severity levels theo use case */
+var VERDICT_THRESHOLDS = {
+  'personal':  [1, 3, 7, 15],    // <1=safe, 1-3=reasonable, 3-7=caution, 7-15=high, >15=overload
+  'freelance': [2, 5, 12, 25],   // nới cho freelance vì có ROI
+  'team':      [3, 7, 15, 30]    // chia per-user nên cao hơn
+};
+
+var SEVERITY_INFO = {
+  'safe':       {label:'AN TOÀN',  cls:'sev-safe',     icon:'✓'},
+  'reasonable': {label:'HỢP LÝ',  cls:'sev-reasonable',icon:'✓'},
+  'caution':    {label:'CAO',     cls:'sev-caution',  icon:'!'},
+  'high':       {label:'RẤT CAO', cls:'sev-high',     icon:'!!'},
+  'overload':   {label:'QUÁ TẢI', cls:'sev-overload', icon:'⚠'}
+};
+
+var DEFAULT_VERDICT_COPY = {
+  'safe':       'Không đáng kể — chi phí này không ảnh hưởng ngân sách.',
+  'reasonable': 'Mức an toàn nếu app cần thiết hằng ngày. Tiếp tục dùng OK.',
+  'caution':    'Hợp lý nếu cần app này, nhưng nên review định kỳ. Có alternative rẻ hơn nếu muốn.',
+  'high':       'Cao cho cá nhân. Chỉ đáng nếu công việc trực tiếp tạo doanh thu từ app này.',
+  'overload':   'Quá tải. Cần downgrade tier hoặc thay alternative ngay.'
+};
+
+/* Per-app custom rules — override default verdict cho app/tier có context riêng.
+ * Key: 'appId' hoặc 'appId/tierId'. minSeverity = severity floor; maxSeverity = ceiling. */
+var APP_VERDICT_RULES = {
+  'adobe-cc/all-apps': {
+    copy: 'All Apps là tier đắt nhất Adobe ($60/mo). Hợp lý nếu dùng >3 app Adobe hằng ngày (Photoshop + Illustrator + Premiere + ...). Nếu chỉ dùng 1-2 app, Single App $22.99 rẻ hơn nhiều.',
+    minSeverity: 'caution'
+  },
+  'adobe-cc/single-app': {
+    copy: 'Single App phù hợp khi chỉ cần 1 app Adobe cụ thể. Cân nhắc Affinity ($69.99 mua đứt 1 app) nếu cần dài hạn.',
+    maxSeverity: 'caution'
+  },
+  'chatgpt/plus': {
+    copy: 'ROI cao cho user dùng AI hằng ngày. Free tier ChatGPT cũng đủ nếu nhu cầu nhẹ — cân nhắc DeepSeek free cho code/math.',
+    maxSeverity: 'reasonable'
+  },
+  'chatgpt/pro': {
+    copy: 'Pro $109/mo dành cho power user (5-20x usage). Quá tải với cá nhân — Plus $20/mo đủ cho 95% nhu cầu.',
+    minSeverity: 'high'
+  },
+  'claude/pro': {
+    copy: 'Claude Pro mạnh cho writing/analysis dài. ROI cao nếu dùng hằng ngày. Free tier đủ cho nhẹ.',
+    maxSeverity: 'reasonable'
+  },
+  'claude/max-5x': {
+    copy: 'Max 5x $100/mo cao — chỉ đáng nếu công việc viết/code AI cường độ cao.',
+    minSeverity: 'high'
+  },
+  'cursor/ultra': {
+    copy: 'Ultra $200/mo cho dev pro chạy nhiều background agent. Pro $20 đủ cho 95% case.',
+    minSeverity: 'high'
+  },
+  'midjourney/standard': {
+    copy: 'Midjourney là tool nghệ thuật. Cao với user không phải artist — Canva Magic Media + DALL·E trong ChatGPT đủ cho marketing thông thường.',
+    minSeverity: 'caution'
+  },
+  'midjourney/pro': {
+    copy: 'Pro $60 chỉ đáng nếu artist chuyên gen AI art cao tần suất. Standard $30 đã đủ cho hầu hết freelance.',
+    minSeverity: 'high'
+  },
+  'figma/professional': {
+    copy: 'Industry standard UX. ROI cao cho UI/UX designer. Free tier cũng OK cho freelance ít project.',
+    maxSeverity: 'reasonable'
+  },
+  'figma/organization': {
+    copy: 'Organization $45/user/mo cho team lớn cần design system. Cao với team nhỏ — Professional đủ.',
+    minSeverity: 'caution'
+  },
+  'jetbrains/individual-all': {
+    copy: 'All Products $249/yr ROI cao nếu dev nhiều ngôn ngữ. Single IDE $99/yr đủ nếu chỉ làm 1 stack.',
+    maxSeverity: 'reasonable'
+  },
+  'ms365/personal': {
+    copy: 'Standard cho Office worker VN. Free Google Workspace là alternative chính nếu không cần Word/Excel offline.',
+    maxSeverity: 'reasonable'
+  },
+  'notion/plus': {
+    copy: 'Plus $10/user/mo cho workspace có guest collab. Free Personal đủ cho cá nhân. Obsidian free là alternative offline.',
+    maxSeverity: 'reasonable'
+  },
+  'capcut/pro': {
+    copy: 'Pro $10 ROI cao cho creator. Free tier có watermark nhưng đủ cho người mới.',
+    maxSeverity: 'reasonable'
+  }
+};
+
+/* Tính severity từ % lương + use case */
+function getSeverity(pct, useCase){
+  var t = VERDICT_THRESHOLDS[useCase] || VERDICT_THRESHOLDS['personal'];
+  if(pct < t[0]) return 'safe';
+  if(pct < t[1]) return 'reasonable';
+  if(pct < t[2]) return 'caution';
+  if(pct < t[3]) return 'high';
+  return 'overload';
+}
+
+var SEVERITY_ORDER = ['safe','reasonable','caution','high','overload'];
+function clampSeverity(sev, min, max){
+  var idx = SEVERITY_ORDER.indexOf(sev);
+  if(min){ var minIdx = SEVERITY_ORDER.indexOf(min); if(idx < minIdx) idx = minIdx; }
+  if(max){ var maxIdx = SEVERITY_ORDER.indexOf(max); if(idx > maxIdx) idx = maxIdx; }
+  return SEVERITY_ORDER[idx];
+}
+
+/* Get verdict object cho 1 app trong cart */
+function getAppVerdict(app, tierIdx, salaryVND, useCase){
+  if(!app || !app.tiers || !app.tiers[tierIdx]) return null;
+  var tier = app.tiers[tierIdx];
+  if(tier.price === null || tier.price === 0) return null;  // free/contact — skip verdict
+  var priceVND = effectivePriceVND(tier, useCase);
+  if(!priceVND || !salaryVND) return null;
+  var pct = (priceVND / salaryVND) * 100;
+  var sev = getSeverity(pct, useCase);
+  // Check app/tier specific rule
+  var ruleKey = app.id + '/' + tier.id;
+  var rule = APP_VERDICT_RULES[ruleKey] || APP_VERDICT_RULES[app.id];
+  var copy = DEFAULT_VERDICT_COPY[sev];
+  if(rule){
+    sev = clampSeverity(sev, rule.minSeverity, rule.maxSeverity);
+    copy = rule.copy || DEFAULT_VERDICT_COPY[sev];
+  }
+  return {
+    severity: sev,
+    info: SEVERITY_INFO[sev],
+    pct: pct,
+    priceVND: priceVND,
+    copy: copy,
+    alternatives: (ALTERNATIVES_MAP[app.id] || []).filter(function(a){ return getApp(a.id); })
+  };
+}
 
 function findFreeTierIdx(app){
   if(!app||!app.tiers) return -1;
@@ -2196,7 +2510,9 @@ function getRecommendations(){
     if(rawSalary>0){
       var totalUSD=cartTotal();
       // toolCost ở cùng đơn vị với salary để so sánh
-      var toolCostInSal=curSalary==='VND'?Math.round(totalUSD*S.rate):totalUSD;
+      // Apply VAT 10% (mặc định) cho VN user — doanh nghiệp VAT-registered có thể subtract sau
+      var vatMul = (S.useCase === 'business-vat') ? 1 : (1 + VAT_RATE);
+      var toolCostInSal=curSalary==='VND'?Math.round(totalUSD*S.rate*vatMul):(totalUSD*vatMul);
       var pct=(toolCostInSal/rawSalary)*100;
       if(pct>=10){
         recs.push({
@@ -2217,6 +2533,82 @@ function getRecommendations(){
   return recs.sort(function(a,b){
     if(b.priority!==a.priority) return a.priority-b.priority;
     return b.savingsUSD-a.savingsUSD;
+  });
+}
+
+/* Render verdict cards — phân tích từng app trong cart với severity + alternatives */
+function renderVerdicts(){
+  var section = document.getElementById('verdict-section');
+  var vatNote = document.getElementById('vat-note');
+  if(!section) return;
+  var sal = (typeof getSalary === 'function') ? getSalary() : null;
+  var salaryVND = sal ? (sal.currency === 'USD' ? Math.round(sal.value * S.rate) : sal.value) : 0;
+  // Hide nếu cart trống hoặc chưa nhập lương
+  if(!S.cart.length || salaryVND <= 0){
+    section.innerHTML = '';
+    if(vatNote) vatNote.style.display = 'none';
+    return;
+  }
+  if(vatNote) vatNote.style.display = '';
+  var useCase = S.useCase || 'personal';
+  var verdicts = S.cart.map(function(id){
+    var app = getApp(id); if(!app) return null;
+    var tIdx = activeTierIdx(app);
+    var v = getAppVerdict(app, tIdx, salaryVND, useCase);
+    if(!v) return null;
+    return { app:app, tier:app.tiers[tIdx], verdict:v };
+  }).filter(Boolean);
+  if(!verdicts.length){ section.innerHTML=''; return; }
+  // Sort: nặng nhất trước
+  verdicts.sort(function(a,b){ return SEVERITY_ORDER.indexOf(b.verdict.severity) - SEVERITY_ORDER.indexOf(a.verdict.severity); });
+  var html = '<div class="verdict-head">Phân tích từng app · <span class="vh-count">'+verdicts.length+' app trong danh sách</span></div>';
+  html += '<div class="verdict-list">';
+  verdicts.forEach(function(v){
+    var app = v.app, tier = v.tier, vd = v.verdict;
+    var iconBg = app.logo ? '' : ' style="background:'+app.color+'"';
+    var markClass = app.logo ? 'vc-mark has-logo' : 'vc-mark';
+    var markInner = app.logo
+      ? '<img src="'+app.logo+'" alt="" onerror="this.parentNode.classList.remove(\'has-logo\');this.parentNode.style.background=\''+app.color+'\';this.parentNode.innerHTML=\''+app.initials+'\';"/>'
+      : app.initials;
+    var priceLabel = fmtVND(vd.priceVND);
+    var altChips = vd.alternatives.slice(0,4).map(function(a){
+      var altApp = getApp(a.id); if(!altApp) return '';
+      return '<button class="vc-alt-chip" data-swap-from="'+app.id+'" data-swap-to="'+altApp.id+'" type="button" title="'+a.reason+'">→ '+altApp.name+'</button>';
+    }).join('');
+    var altRow = altChips ? '<div class="vc-alts"><span class="vc-alts-label">Lựa chọn nhẹ hơn:</span>'+altChips+'</div>' : '';
+    html += '<div class="vc-card '+vd.info.cls+'" data-app="'+app.id+'">' +
+      '<div class="vc-top">' +
+        '<div class="'+markClass+'"'+iconBg+'>'+markInner+'</div>' +
+        '<div class="vc-info">' +
+          '<div class="vc-name">'+app.name+' <span class="vc-tier">— '+(tier.label||'')+'</span></div>' +
+          '<div class="vc-price">'+priceLabel+' · chiếm <strong>'+vd.pct.toFixed(1)+'%</strong> lương</div>' +
+        '</div>' +
+        '<div class="vc-badge '+vd.info.cls+'">'+vd.info.icon+' '+vd.info.label+'</div>' +
+      '</div>' +
+      '<div class="vc-copy">'+vd.copy+'</div>' +
+      altRow +
+    '</div>';
+  });
+  html += '</div>';
+  section.innerHTML = html;
+  // Bind alt chip click — swap app trong cart
+  section.querySelectorAll('.vc-alt-chip').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var fromId = btn.dataset.swapFrom;
+      var toId = btn.dataset.swapTo;
+      var fromIdx = S.cart.indexOf(fromId);
+      if(fromIdx !== -1){
+        S.cart.splice(fromIdx, 1);
+        delete S.cartTiers[fromId];
+      }
+      if(S.cart.indexOf(toId) === -1){
+        S.cart.push(toId);
+        var toApp = getApp(toId);
+        if(toApp) S.cartTiers[toId] = cheapestPaidTierIdx(toApp);
+      }
+      renderAll();
+      if(typeof showToast === 'function') showToast('Đã đổi sang ' + (getApp(toId) || {name:toId}).name);
+    });
   });
 }
 
@@ -2550,7 +2942,9 @@ function renderSalary(){
   if(!sal){el.innerHTML='<div class="salary-empty">Nhập lương ở đầu trang để xem % bị ăn</div>';return;}
   var salCur=info.currency;
   var totalUSD=cartTotal();
-  var toolCostInSal=salCur==='VND'?Math.round(totalUSD*S.rate):totalUSD;
+  // Cộng VAT 10% (VN charge tự động) — doanh nghiệp VAT-registered có thể subtract
+  var vatMul = (S.useCase === 'business-vat') ? 1 : (1 + VAT_RATE);
+  var toolCostInSal=salCur==='VND'?Math.round(totalUSD*S.rate*vatMul):(totalUSD*vatMul);
   var remaining=Math.max(0,sal-toolCostInSal);
   var pct=((toolCostInSal/sal)*100).toFixed(1);
   var fmt=function(n){return salCur==='VND'?fmtVND(n):'$'+n.toFixed(0);};
@@ -2594,7 +2988,9 @@ function renderCartBar(){
     var _csi=getSalary();
     var sal=_csi.value;
     var salCur=_csi.currency;
-    var cost=salCur==='VND'?Math.round(total*S.rate):total;
+    // VAT 10% — cart-bar % cũng include VAT để consistent với verdict
+    var vatMul = (S.useCase === 'business-vat') ? 1 : (1 + VAT_RATE);
+    var cost=salCur==='VND'?Math.round(total*S.rate*vatMul):(total*vatMul);
     if(sal&&sal>0&&cost>0){
       var pct=((cost/sal)*100).toFixed(1);
       var cls=pct<5?'ok':pct<10?'caution':'danger';
@@ -3380,7 +3776,7 @@ function selectModalPlan(idx){
 }
 
 /* ── RENDER ALL ────────────────────────────────────────────────────────── */
-function renderAll(){renderApps();renderCartBar();renderCartPopover();renderSalary();renderRecommendations();renderSuggestions();updateShareURL();}
+function renderAll(){renderApps();renderCartBar();renderCartPopover();renderSalary();renderVerdicts();renderRecommendations();renderSuggestions();updateShareURL();}
 
 /* ── SHARE URL STATE ───────────────────────────────────────────────────── */
 function encodeShareURL(){
