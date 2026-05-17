@@ -1577,7 +1577,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
           <!-- rendered by JS -->
         </div>
         <div class="table-foot">
-          <a href="#apps">+24 app khác →</a>
+          <a href="#apps" id="hero-table-more">+54 app khác →</a>
           <span>1 USD = <strong id="rate-display-table">26.158 ₫</strong></span>
         </div>
       </div>
@@ -4261,6 +4261,9 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   function renderHeroTable(){
     var body = document.getElementById('hero-table-body');
     if (!body) return;
+    // Update "+N app khác" link dynamic theo APPS.length
+    var moreLink = document.getElementById('hero-table-more');
+    if(moreLink && typeof APPS !== 'undefined') moreLink.textContent = '+' + (APPS.length - FEATURED.length) + ' app khác →';
     var rate = currentRate();
     body.innerHTML = FEATURED.map(function(a){
       var vnd = Math.round(a.usd * rate);
