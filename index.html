@@ -249,16 +249,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .hero-calc, .hero-calc-m { animation: none; opacity:1; transform: rotate(-4deg); }
 }
 
-/* ─── Mobile-only floating calculator (inside describe banner) ───── */
+/* ─── Mobile-only floating calculator (góc trên-phải Cell A) ───── */
 .hero-calc-m { display: none; }
 @media (max-width: 768px) {
-  .hero-describe { position: relative; }
-  .hero-describe .hd-row { justify-content: flex-start; }
+  /* Title trên cao hơn calc để không bị che */
+  .cell-title .hero-title,
+  .cell-title .hero-cta,
+  .cell-title .hero-trust { position: relative; z-index: 2; }
   .hero-calc-m {
     display: block;
     position: absolute;
-    right: 6px;
-    bottom: 6px;
+    top: 14px;
+    right: 14px;
     width: 110px;
     height: 110px;
     z-index: 1;
@@ -269,7 +271,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     background-repeat: no-repeat;
     filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
     opacity: 0;
-    transform: rotate(-4deg) translateY(12px);
+    transform: rotate(-4deg) translateY(-10px);
     animation: calcEntry .7s cubic-bezier(.2,.8,.2,1) .3s forwards,
                calcFloat 5s ease-in-out 1s infinite;
   }
@@ -277,6 +279,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     background-image: url('images/calculator-light-toolbanquyen.vn.png');
     filter: drop-shadow(0 6px 12px rgba(20,60,30,.2));
   }
+}
+@media (max-width: 400px) {
+  .hero-calc-m { width: 92px; height: 92px; top: 12px; right: 12px; }
 }
 
 /* Shared cell chrome */
@@ -333,8 +338,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-wrap: balance;
 }
 .hero-title em { font-style: normal; color: var(--accent); }
+.hero-title .m-only { display: none; }
 @media (max-width: 1079px) {
   .hero-title { font-size: clamp(40px, 8vw, 64px); }
+}
+@media (max-width: 768px) {
+  .hero-title .m-only { display: inline; }
 }
 
 .hero-lede {
@@ -1580,7 +1589,8 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
 
       <!-- ═══ Cell A: Title + CTA ═══ -->
       <div class="bento-cell cell-title">
-        <h1 class="hero-title">Lương bạn nuôi<br/><em>bao nhiêu app</em>?</h1>
+        <div class="hero-calc-m" aria-hidden="true"></div>
+        <h1 class="hero-title">Lương bạn <br class="m-only"/>nuôi<br/><em>bao nhiêu app</em>?</h1>
 
         <p class="hero-lede">
           Bạn dùng app gì? Lương bao nhiêu? Tool tính ngay nếu mua bản quyền thì chi phí chiếm <strong>% thu nhập</strong>, có <strong>hợp lý không</strong>, và có <strong>lựa chọn nhẹ hơn</strong> không.
@@ -1606,7 +1616,6 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
               </button>
             </div>
             <div class="hd-parsed" id="hd-parsed" style="display:none"></div>
-            <div class="hero-calc-m" aria-hidden="true"></div>
           </div>
         </div>
 
