@@ -2112,9 +2112,9 @@ var APPS = [
    logo:'icons/linear.svg',url:'https://linear.app/pricing',
    desc:'Project management cho dev team — issue tracking, sprint, roadmap siêu mượt.',
    tiers:{
-     personal:{label:'Basic',price:10,popular:true,perUser:true,note:'Annual billing only',features:['Unlimited issues','Cycles + sprints','File upload 25MB','Slack & GitHub integration']},
-     team:{label:'Business',price:16,perUser:true,note:'Cut from $50 → $29 → $16 in 2025-2026',features:['Triage Intelligence AI','Advanced analytics','Roadmaps','Sub-team & SLA']},
-     enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit logs','Data residency','Custom workflow','24/7 support']}
+     personal:{label:'Basic',price:12,popular:true,perUser:true,note:'$10/user annual ($12 monthly)',features:['Unlimited issues','5 teams','Unlimited file uploads','Admin roles']},
+     team:{label:'Business',price:18,perUser:true,note:'$16/user annual ($18 monthly). Cut from $50 in 2025',features:['Triage Intelligence AI','Linear Agent automations beta','Code Intelligence beta','Linear Insights','Linear Asks','Zendesk/Intercom integrations']},
+     enterprise:{label:'Enterprise',price:null,note:'Annual billing only',features:['SAML SSO + SCIM','Audit logs','Granular admin','Custom org modeling','24/7 priority']}
    }},
   {id:'clickup',name:'ClickUp',cat:'Productivity',color:'#7B68EE',initials:'CU',popular:false,
    logo:'icons/clickup.svg',url:'https://clickup.com/pricing',
@@ -2328,12 +2328,11 @@ var APPS = [
    logo:'icons/webflow-icon.svg',url:'https://webflow.com/pricing',
    desc:'No-code website builder pro — designer build site như dev. Visual editor + code export.',
    tiers:[
-     {id:'starter',label:'Starter (Free)',price:0,features:['Webflow.io subdomain','2 page max','Phù hợp prototype']},
-     {id:'basic',label:'Basic (per site)',price:15,note:'Restructured May 13 2026',features:['Custom domain','25K visits/month','No CMS','Phù hợp landing page']},
-     {id:'cms',label:'Premium (per site)',popular:true,price:25,note:'Replaces CMS+Business tiers',features:['20,000 CMS items','40 collections','100K visits/month','AI credits included']},
-     {id:'business',label:'Team (all-in-one)',price:2500,note:'Per month, annual contract. Bundles 10 seats',features:['10 seats + 100 CMS','Localization','AEO agents','Premium CDN']},
-     {id:'agency',label:'Workspace Full Seat',price:39,perUser:true,note:'Limited Seat $15, Free Seat $0',features:['Designer + dev access','Multi-site management','Team workspace','Limited seat $15/Free $0 cho viewers']},
-     {id:'enterprise',label:'Enterprise',price:null,features:['Custom traffic','SSO + security','Custom integrations','Dedicated CSM']}
+     {id:'starter',label:'Starter (Free)',price:0,features:['Webflow.io subdomain','Limited CMS','2 static pages','1GB bandwidth','50 form submissions','Webflow AI + MCP server']},
+     {id:'basic',label:'Basic (per site)',price:25,note:'$15/mo billed yearly. Restructured May 13/2026',features:['Custom domain','300 static pages','10GB bandwidth','Unlimited form submissions','Password protection','No CMS']},
+     {id:'cms',label:'Premium (per site)',popular:true,price:39,note:'$25/mo billed yearly. NEW tier — replaces CMS+Business',features:['Everything in Basic','Webflow CMS đầy đủ','50GB bandwidth','Code components','Site search','Form file upload']},
+     {id:'business',label:'Team (Platform plan)',price:2500,note:'Per month, annual contract bắt buộc',features:['Site + Workspace','Webflow Localization','AEO agents (soon)','Publishing workflows','Foundational governance','Enhanced security','Priority support']},
+     {id:'enterprise',label:'Enterprise',price:null,note:'Add-ons riêng: Optimize $9-379/mo, Analyze $9-12/mo, Localization $9-35/mo',features:['Custom traffic','Granular permissions','Custom roles','Advanced governance','Dedicated CSM','Enhanced SLAs']}
    ]},
 
   /* ─── VN Tier 1: Office essentials (MS 365, Google Workspace, Zoom) ─── */
@@ -2353,10 +2352,10 @@ var APPS = [
    includes:['gmail','drive','docs','sheets','slides','meet','calendar'],
    desc:'Bộ cloud office của Google — Gmail business, Drive, Docs, Sheets, Slides. Phổ biến VN startup + freelancer.',
    tiers:[
-     {id:'starter',label:'Business Starter',price:7,perUser:true,popular:true,features:['Custom email domain','30GB cloud/user','Docs/Sheets/Slides','Meet 100 người · 60 phút','Security cơ bản']},
-     {id:'standard',label:'Business Standard',price:14,perUser:true,features:['Mọi tính năng Starter','2TB cloud/user','Meet 150 người · ghi âm','AppSheet (no-code app)','Vault export']},
-     {id:'plus',label:'Business Plus',price:22,perUser:true,features:['5TB cloud/user','Meet 500 + attendance','Vault e-discovery','Advanced endpoint mgmt']},
-     {id:'enterprise',label:'Enterprise',price:null,features:['Unlimited cloud','Meet 1000 người','S/MIME encryption','Advanced DLP + SSO']}
+     {id:'starter',label:'Business Starter',price:8.40,perUser:true,popular:true,note:'$7 annual. Promo "Giảm 50% cho 12 tháng" cho new customer',features:['Custom email domain','30GB cloud/user','Docs/Sheets/Slides','Gemini AI trong Gmail','Meet 100 người, 60 phút']},
+     {id:'standard',label:'Business Standard',price:16.80,perUser:true,note:'$14 annual',features:['Mọi tính năng Starter','2TB cloud/user','Gemini AI đầy đủ','NotebookLM Plus','Meet 150 người + recording']},
+     {id:'plus',label:'Business Plus',price:26.40,perUser:true,note:'$22 annual',features:['5TB cloud/user','Meet 500 + attendance','Vault e-discovery + DLP','Advanced endpoint mgmt']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['5TB+ unlimited','Meet 1000','S/MIME encryption','Advanced security','Cloud Identity']}
    ]},
   {id:'zoom',name:'Zoom Workplace',cat:'Productivity',color:'#0B5CFF',initials:'Z',popular:true,
    logo:'icons/zoom.svg',url:'https://zoom.us/pricing',
@@ -2624,7 +2623,8 @@ var ANNUAL_DISCOUNTS = {
   // Design
   'figma/professional':       0.20,   // $15→$12 ($144/yr)
   'sketch/standard':          0.25,   // $12→$9 ($108/yr typical)
-  'webflow/basic':            0.22,   // $18→$14 annual
+  'webflow/basic':            0.40,   // $25 monthly → $15 yearly (40% off)
+  'webflow/cms':              0.359,  // $39 monthly → $25 yearly (Premium tier)
   'framer/basic':             0.25,   // $20→$15 annual
   'canva/pro':                0.33,   // $14.99→$10 ($119.99/yr)
   // Adobe
@@ -2639,12 +2639,16 @@ var ANNUAL_DISCOUNTS = {
   'github-copilot/individual':0.167,  // $10→$8.33 ($100/yr)
   'runway/standard':          0.20,   // $15→$12 ($144/yr)
   // Productivity
-  'notion/plus':              0.20,   // $10→$8 ($96/yr)
-  'notion/business':          0.167,  // $18→$15 ($180/yr)
+  'notion/plus':              0.167,  // $12 monthly → $10 yearly
+  'notion/business':          0.167,  // $24 monthly → $20 yearly
   'ms365/personal':           0.165,  // $9.99→$8.33 ($99.99/yr)
   'ms365/family':             0.166,  // $12.99→$10.83 ($129.99/yr)
-  'google-workspace/starter': 0.167,  // $7.20→$6 annual
-  'google-workspace/standard':0.167,  // $14.40→$12 annual
+  'google-workspace/starter': 0.167,  // $8.40 monthly → $7 yearly (verified VN)
+  'google-workspace/standard':0.167,  // $16.80 monthly → $14 yearly
+  'google-workspace/plus':    0.167,  // $26.40 monthly → $22 yearly
+  'linear/personal':          0.167,  // Basic $12 monthly → $10 yearly
+  'linear/team':              0.111,  // Business $18 monthly → $16 yearly
+  'cursor/business':          0.20,   // Teams $40 monthly → $32 yearly
   // Misc
   'clickup/unlimited':        0.286,  // $7→$5 annual (28.6% off)
   'jetbrains/all-products':   0.074,  // ~$26.90→$24.90 small annual discount
@@ -3137,26 +3141,30 @@ var S = {
 /* ── HELPERS ───────────────────────────────────────────────────────────── */
 function getApp(id){return APPS.find(function(a){return a.id===id});}
 
-/* Migration: convert legacy {personal,team,enterprise} object → array of tiers */
+/* Migration: convert legacy object {k: {...}} → array of tiers, preserve ALL keys */
 function normalizeTiers(){
   APPS.forEach(function(app){
     if(Array.isArray(app.tiers)) return;
-    var legacyKeys=['personal','team','enterprise'];
     var arr=[];
-    legacyKeys.forEach(function(k){
+    // Preferred order — known legacy keys first, then any extras alphabetical
+    var orderedKeys=['free','personal','team','enterprise','plus','business','starter','standard','pro','basic'];
+    var seen={};
+    orderedKeys.forEach(function(k){ if(app.tiers[k]){ seen[k]=true; pushTier(k); } });
+    Object.keys(app.tiers).forEach(function(k){ if(!seen[k]) pushTier(k); });
+    function pushTier(k){
       var t=app.tiers[k];
-      if(t){
-        arr.push({
-          id:k,
-          label:t.label||k,
-          price:typeof t.price==='undefined'?null:t.price,
-          priceVND:t.priceVND,
-          perUser:t.perUser,
-          popular:t.popular,
-          features:t.features||[]
-        });
-      }
-    });
+      if(!t) return;
+      arr.push({
+        id:k,
+        label:t.label||k,
+        price:typeof t.price==='undefined'?null:t.price,
+        priceVND:t.priceVND,
+        perUser:t.perUser,
+        popular:t.popular,
+        note:t.note,
+        features:t.features||[]
+      });
+    }
     app.tiers=arr;
   });
 }
