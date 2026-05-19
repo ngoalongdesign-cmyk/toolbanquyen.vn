@@ -2329,19 +2329,20 @@ var APPS = [
   /* ─── Filmmaking (bổ sung Video category) ─── */
   {id:'finalcut',name:'Final Cut Pro',cat:'Video',color:'#111111',initials:'FC',popular:false,
    logo:'icons/final-cut-pro.png',url:'https://www.apple.com/final-cut-pro/',
-   desc:'Editor chuyên nghiệp của Apple — mua đứt, chỉ macOS, tối ưu chip M-series.',
+   desc:'Editor chuyên nghiệp của Apple — chỉ macOS/iPad, tối ưu chip M-series. Từ 2025 có thêm Apple Creator Studio subscription.',
    tiers:[
-     {id:'mac',label:'Mac (mua đứt)',price:24.92,popular:true,note:'Mua đứt $299',features:['Mua 1 lần dùng vĩnh viễn','Chỉ macOS','Object Tracker AI','Update miễn phí trọn đời']},
-     {id:'ipad',label:'iPad (yearly)',price:4.99,note:'$49/năm',features:['App trên iPad Pro/Air','Multi-cam edit','Trial 1 tháng miễn phí','Tích hợp với Mac']},
-     {id:'edu',label:'Pro Apps Bundle Edu',price:16.58,note:'$199 — 5 app',features:['Final Cut + Motion + Compressor','Logic Pro + MainStage','HS/SV/GV','Tiết kiệm ~50%']}
+     {id:'mac',label:'Mac (mua đứt)',price:24.99,popular:true,note:'Mua đứt $299.99 — vẫn còn bán',features:['Mua 1 lần dùng vĩnh viễn','Chỉ macOS','Object Tracker AI','Update miễn phí trọn đời']},
+     {id:'creator-studio',label:'Apple Creator Studio',price:12.99,note:'$12.99/mo hoặc $129/năm. Bundle mới 2025',features:['Final Cut Pro for Mac','Premium assets độc quyền','Future features chỉ cho subscriber','Hủy bất cứ lúc nào']},
+     {id:'ipad',label:'iPad (yearly)',price:4.99,note:'$49/năm hoặc $4.99/tháng',features:['App trên iPad Pro/Air','Multi-cam edit','Trial 1 tháng miễn phí','Tích hợp với Mac']},
+     {id:'edu',label:'Creator Studio Edu',price:2.99,note:'$2.99/mo hoặc $29.99/năm — HS/SV/GV',features:['Final Cut Pro + Logic Pro','Cần xác minh Edu','Pro Apps Bundle cũ ($199) đã bị Apple thay bằng plan này','Phi thương mại']}
    ]},
   {id:'cinema4d',name:'Cinema 4D',cat:'Video',color:'#011A6A',initials:'C4',popular:false,
    logo:'icons/cinema-4d.svg',url:'https://www.maxon.net/en/cinema-4d',
-   desc:'Motion graphics + 3D — chuẩn của Hollywood broadcast, tích hợp After Effects mạnh.',
+   desc:'Motion graphics + 3D — chuẩn của Hollywood broadcast, tích hợp After Effects mạnh. Subscription-only từ 1/1/2024 (không còn perpetual).',
    tiers:[
-     {id:'monthly',label:'Monthly',price:124,features:['Cinema 4D đầy đủ','Mograph + Volumetric','Render Standard + Physical','Cineware bridge']},
-     {id:'annual',label:'Annual',price:67,popular:true,note:'$799/năm',features:['Tiết kiệm ~46% vs Monthly','Mọi tính năng C4D','Bao gồm Redshift CPU','Cập nhật phiên bản đầy đủ']},
-     {id:'maxon-one',label:'Maxon One',price:147,note:'$1,769/năm',features:['Cinema 4D + Redshift + Red Giant','Forger + ZBrush','Trapcode + Universe','Bộ đầy đủ cho studio']},
+     {id:'monthly',label:'Monthly',price:109,features:['Cinema 4D đầy đủ','Mograph + Volumetric','Redshift CPU bao gồm','Hủy linh hoạt theo tháng']},
+     {id:'annual',label:'Annual',price:69.91,popular:true,note:'$839/năm — tiết kiệm ~36% vs Monthly',features:['Mọi tính năng C4D','Bao gồm Redshift CPU','Update phiên bản đầy đủ','Phù hợp dùng dài hạn']},
+     {id:'maxon-one',label:'Maxon One',price:99.91,note:'Annual $1,199/năm. Monthly $149/mo. Save 33% annual vs monthly',features:['C4D + Redshift + Red Giant','ZBrush + Forger','Universe + Trapcode','Bundle cho studio đa năng']},
      {id:'edu',label:'Educational',price:0,note:'1 năm miễn phí HS/SV',features:['Maxon One Edu miễn phí','Cần email .edu','Phi thương mại','Renew năm']}
    ]},
 
@@ -2789,7 +2790,11 @@ var ANNUAL_DISCOUNTS = {
   'pika/pro':                 0.20,   // $35→$28 yearly (-20%)
   'pika/fancy':               0.20,   // $95→$76 yearly (-20%)
   'replit/core':              0.10,   // $20→$18 yearly (save 10%)
-  'replit/pro':               0.10    // $100→$90 yearly (save 10%)
+  'replit/pro':               0.10,   // $100→$90 yearly (save 10%)
+  // Apple Final Cut Pro — added 19/05/2026 (Creator Studio subscription model)
+  'finalcut/creator-studio':  0.172,  // $12.99→$10.75/mo ($129/yr)
+  'finalcut/ipad':            0.182,  // $4.99→$4.08/mo ($49/yr)
+  'finalcut/edu':             0.164   // $2.99→$2.50/mo ($29.99/yr)
 };
 
 /* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
