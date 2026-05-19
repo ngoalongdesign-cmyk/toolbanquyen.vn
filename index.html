@@ -2001,12 +2001,12 @@ var APPS = [
    ]},
   {id:'miro',name:'Miro',cat:'Design',color:'#C4921A',initials:'M',popular:false,
    logo:'icons/miro-icon.svg',url:'https://miro.com/pricing/',
-   desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
+   desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart. AI workflows mới 2026.',
    tiers:{
-     free:{label:'Free (3 boards)',price:0,features:['3 boards','Limited collab','Template community']},
-     personal:{label:'Starter (per member)',price:8,popular:true,note:'$10 monthly. Annual billing',features:['Unlimited boards','Video chat & comment','Talktrack','3000+ templates']},
-     team:{label:'Business (per member)',price:16,note:'$20 monthly',features:['Unlimited editors','Private workspace','Day pass cho khách','Diagram intelligent AI']},
-     enterprise:{label:'Enterprise',price:null,features:['SSO + SCIM','Audit log + DLP','Centralized admin','99.99% SLA']}
+     free:{label:'Free',price:0,features:['Unlimited members, 3 editable boards','5,000+ templates','160+ apps & integrations','10 Miro AI credits/month/team','5 Talktracks recordings']},
+     personal:{label:'Starter (per member)',price:8,popular:true,note:'$8/mo per member · billed annually',features:['Unlimited boards','Unlimited Visitors','High resolution exports','Brand Center & templates','25 Miro AI credits/month/member']},
+     team:{label:'Business (per member)',price:20,note:'$20/mo per member · billed annually. Best for teams',features:['Unlimited workspaces','Unlimited Guests','3,900+ diagramming shapes','Jira/Azure DevOps/Asana integrations','50 Miro AI credits/month/member']},
+     enterprise:{label:'Enterprise',price:null,note:'Custom — từ 30 members trở lên',features:['Flexible license program','SCIM automation','Centralized user management','Enterprise-grade security','Custom Miro AI credits']}
    }},
   {id:'framer',name:'Framer',cat:'Design',color:'#0055FF',initials:'Fr',popular:false,
    logo:'icons/framer-2.svg',url:'https://www.framer.com/pricing',
@@ -2114,12 +2114,13 @@ var APPS = [
    }},
   {id:'clickup',name:'ClickUp',cat:'Productivity',color:'#7B68EE',initials:'CU',popular:false,
    logo:'icons/clickup.svg',url:'https://clickup.com/pricing',
-   desc:'Project management đa năng — task, doc, time tracking, OKR trong một app.',
-   tiers:{
-     personal:{label:'Unlimited',price:10,popular:true,features:['Unlimited storage & task','Custom field & dashboard','Native time tracking','Goal & sprint cơ bản']},
-     team:{label:'Business',price:19,features:['Advanced automation','Custom exporting','Workload management','Advanced dashboard & widget']},
-     enterprise:{label:'Enterprise',price:null,features:['White labeling toàn org','SSO + SCIM','Permission cấp cao','Dedicated success team']}
-   }},
+   desc:'Project management đa năng — task, doc, time tracking, OKR trong một app. Save up to 30% với yearly billing.',
+   tiers:[
+     {id:'free',label:'Free Forever',price:0,features:['60MB Storage','Unlimited Tasks','Two-Factor Auth','Kanban Boards + Sprint Mgmt','In-App Video Recording']},
+     {id:'unlimited',label:'Unlimited',price:10,popular:true,note:'Monthly $10 · Yearly $7/user/mo. Save 30%',features:['Unlimited storage & task','Custom field & dashboard','Native time tracking','Goal & sprint cơ bản','Unlimited Integrations']},
+     {id:'business',label:'Business',price:19,note:'Monthly $19 · Yearly $12/user/mo. Save 37%. Popular',features:['Advanced automation','Custom exporting','Workload management','Advanced dashboard & widget','5K Automations/month']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['White labeling toàn org','SSO + SCIM','Permission cấp cao','Dedicated success team','250K Automations/month']}
+   ]},
   {id:'buffer',name:'Buffer',cat:'Marketing',color:'#2D9CDB',initials:'Bu',popular:false,
    logo:'https://cdn.simpleicons.org/buffer',url:'https://buffer.com/pricing',
    desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
@@ -2423,13 +2424,12 @@ var APPS = [
    ]},
   {id:'zoom',name:'Zoom Workplace',cat:'Productivity',color:'#0B5CFF',initials:'Z',popular:true,
    logo:'icons/zoom.svg',url:'https://zoom.us/pricing',
-   desc:'App họp online chuẩn doanh nghiệp — meeting, webinar, chat. Cực phổ biến VN từ 2020.',
+   desc:'App họp online chuẩn doanh nghiệp — meeting, webinar, chat. Cực phổ biến VN từ 2020. Có VN regional pricing.',
    tiers:[
-     {id:'free',label:'Free',price:0,features:['40 phút/meeting','100 người tối đa','Whiteboard cơ bản','Mail + Calendar','AI Companion essentials']},
-     {id:'pro',label:'Pro',price:13.33,perUser:true,popular:true,note:'$16.99 monthly',features:['30 giờ/meeting','100 người','Cloud recording 5GB','Mail + Calendar','AI Companion full']},
-     {id:'business',label:'Business',price:18.33,perUser:true,note:'$21.99 monthly',features:['300 người','SSO + managed domain','Cloud recording unlimited','Phone support','Brandable URL']},
-     {id:'business-plus',label:'Business Plus',price:22.49,perUser:true,note:'Bundle với Zoom Phone Unlimited',features:['Mọi tính năng Business','Zoom Phone Unlimited','Translated captions','Workspace reservation']},
-     {id:'enterprise',label:'Enterprise',price:null,features:['1000 người','Webinar 1000 attendee','Unlimited cloud','Min 100 hosts']}
+     {id:'free',label:'Cơ bản (Miễn phí)',price:0,features:['40 phút/meeting','100 người tối đa','Whiteboard cơ bản','Mail + Calendar','AI Companion hạn chế']},
+     {id:'pro',label:'Chuyên nghiệp',price:17.28,priceVND:431886,perUser:true,popular:true,note:'Giá VN: 431.886đ/mo · 359.905đ/mo annual (save 16.67%). Chưa gồm VAT',features:['30 giờ/meeting','100 người','Cloud recording 5GB','Mail + Calendar','AI Companion full + ghi chú không giới hạn']},
+     {id:'business',label:'Kinh doanh',price:22.36,priceVND:558986,perUser:true,note:'Giá VN: 558.986đ/mo · 465.822đ/mo annual (save 16.67%). Chưa gồm VAT',features:['300 người','SSO + managed domain','Cloud recording unlimited','Phone support','Brandable URL']},
+     {id:'enterprise',label:'Doanh nghiệp lớn',price:null,features:['1000 người','PBX đầy đủ','Webinars 500-1000','Workspace Reservation','Visitor Management']}
    ]},
 
   /* ─── VN Tier 2: Creator/Dev specific ─── */
@@ -2456,12 +2456,12 @@ var APPS = [
    ]},
   {id:'loom',name:'Loom',cat:'Productivity',color:'#625DF5',initials:'Lm',popular:false,
    logo:'icons/loom.svg',url:'https://www.loom.com/pricing',
-   desc:'Screen recording + camera bubble — async work, tutorial, bug report. Phổ biến VN tech worker + content creator.',
+   desc:'Screen recording + camera bubble — async work, tutorial, bug report. Thuộc Atlassian từ 2023. Phổ biến VN tech worker + content creator.',
    tiers:[
-     {id:'starter',label:'Starter',price:0,features:['25 video/người','5 phút/video tối đa','Comment cơ bản','Screen + cam recording']},
-     {id:'business',label:'Business',price:12.50,perUser:true,popular:true,features:['Unlimited video + time','Drawing tools','Custom branding','Engagement insights']},
-     {id:'business-ai',label:'Business AI',price:20,perUser:true,features:['Mọi tính năng Business','AI transcription + summary','Auto chapters','Translation 50+ ngôn ngữ']},
-     {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Advanced security','Custom data retention','Dedicated CSM']}
+     {id:'starter',label:'Starter',price:0,features:['25 video/người','5 phút/video tối đa','Comment + emoji reactions','Transcription 50+ ngôn ngữ','Unlimited meeting length']},
+     {id:'business',label:'Business',price:18,perUser:true,popular:true,note:'Monthly $18 · Annual $15/user/mo ($180/yr). Save 17%',features:['Unlimited videos + time','Basic waveform editing','Remove Loom branding','Upload/download videos']},
+     {id:'business-ai',label:'Business + AI',price:24,perUser:true,note:'Monthly $24 · Annual $20/user/mo ($240/yr). Save 17%. Most Popular',features:['Mọi tính năng Business','Auto-video enhancement','Advanced editing','Video-to-text automation','Auto-meeting recap emails + notes']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Salesforce integration','99.95% uptime SLA','EBA compliance','Downloadable user insights']}
    ]},
   {id:'telegram',name:'Telegram Premium',cat:'Productivity',color:'#0088CC',initials:'Tg',popular:false,
    logo:'icons/telegram.svg',url:'https://telegram.org/premium',
@@ -2774,9 +2774,14 @@ var ANNUAL_DISCOUNTS = {
   'linear/team':              0.111,  // Business $18 monthly → $16 yearly
   'cursor/business':          0.20,   // Teams $40 monthly → $32 yearly
   // Misc
-  'clickup/unlimited':        0.286,  // $7→$5 annual (28.6% off)
+  'clickup/unlimited':        0.30,   // $10→$7 yearly (save 30%) — verified 19/05/2026
+  'clickup/business':         0.368,  // $19→$12 yearly (save 37%) — verified 19/05/2026
   'jetbrains/all-products':   0.074,  // ~$26.90→$24.90 small annual discount
-  'loom/business':            0.20,   // $12.50→$10 annual typical
+  'loom/business':            0.167,  // $18→$15/user yearly (save 17%) — verified 19/05/2026
+  'loom/business-ai':         0.167,  // $24→$20/user yearly (save 17%) — verified 19/05/2026
+  // Zoom Workplace VN regional — added 19/05/2026
+  'zoom/pro':                 0.1667, // 431.886đ→359.905đ/mo annual (save 16.67%)
+  'zoom/business':            0.1667, // 558.986đ→465.822đ/mo annual (save 16.67%)
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
