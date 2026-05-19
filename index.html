@@ -1872,7 +1872,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <span class="dot-sep">·</span>
       <span>Nguồn tỉ giá: <a href="https://www.vietcombank.com.vn/exchangerates" target="_blank" rel="noopener" class="footer-link-inline">Vietcombank</a></span>
       <span class="dot-sep">·</span>
-      <span>Giá app verified: <strong id="footer-verified-date">16/05/2026</strong></span>
+      <span>Giá app verified: <strong id="footer-verified-date">19/05/2026</strong></span>
     </div>
     <div class="footer-row footer-actions">
       <button type="button" class="footer-link" id="btn-methodology">
@@ -2475,38 +2475,39 @@ var APPS = [
   /* ═══ Cá nhân — Consumer subscriptions ═══════════════════════════════ */
   {id:'spotify',name:'Spotify Premium',cat:'Cá nhân',color:'#1DB954',initials:'S',popular:true,
    url:'https://www.spotify.com/vn-vi/premium/',
-   desc:'Music streaming hàng đầu — 100M+ bài, podcast, không ads. Giá VN regional rẻ hơn US ~60%.',
+   desc:'Music streaming hàng đầu — 100M+ bài, podcast, không ads. Giá VN regional rẻ hơn US ~50%.',
    tiers:[
      {id:'free',label:'Free',price:0,features:['Shuffle play','Có quảng cáo','Skip 6 lần/giờ','Cần online']},
-     {id:'individual',label:'Individual',price:1.99,priceVND:51500,popular:true,note:'Giá VN regional',features:['Không quảng cáo','Skip không giới hạn','Tải offline','320kbps audio','1 tài khoản']},
-     {id:'duo',label:'Duo',price:2.69,priceVND:69500,features:['2 tài khoản Premium','Duo Mix playlist','Cùng địa chỉ nhà']},
-     {id:'family',label:'Family',price:2.96,priceVND:76500,features:['6 tài khoản Premium','Kids safe mode','Family Mix','Tới 6 thành viên']},
-     {id:'student',label:'Student',price:0.99,priceVND:25800,note:'Verify sinh viên',features:['Giảm 50%','Verify SheerID','Đáng tiền nhất nếu là SV']}
+     {id:'individual',label:'Individual',price:2.48,priceVND:65000,popular:true,note:'Giá VN regional',features:['Không quảng cáo','Skip không giới hạn','Tải offline','320kbps audio','1 tài khoản']},
+     {id:'duo',label:'Duo',price:3.24,priceVND:85000,features:['2 tài khoản Premium','Duo Mix playlist','Cùng địa chỉ nhà']},
+     {id:'family',label:'Family',price:3.78,priceVND:99000,features:['6 tài khoản Premium','Kids safe mode','Family Mix','Tới 6 thành viên']},
+     {id:'student',label:'Student',price:1.26,priceVND:33000,note:'Verify sinh viên',features:['Giảm 50% vs Individual','Verify SheerID','Đáng tiền nhất nếu là SV']}
    ]},
   {id:'youtube-premium',name:'YouTube Premium',cat:'Cá nhân',color:'#FF0000',initials:'Y',popular:true,
    url:'https://www.youtube.com/premium',
-   desc:'Bỏ ads YouTube + YouTube Music + tải offline + background play. Giá VN regional discount.',
+   desc:'Bỏ ads YouTube + YouTube Music + tải offline + background play. VN regional (verified 19/05/2026).',
    tiers:[
-     {id:'individual',label:'Individual',price:3.07,priceVND:79000,popular:true,note:'Giá VN regional',features:['Không quảng cáo','Background play','Tải offline','YouTube Music Premium','HD quality']},
-     {id:'family',label:'Family',price:4.61,priceVND:119000,features:['Tới 5 thành viên','Hết tính năng Individual','Cùng địa chỉ nhà']},
-     {id:'student',label:'Student',price:1.69,priceVND:43500,note:'Verify sinh viên',features:['Giảm 45%','Đáng tiền nhất','Verify SheerID']}
+     {id:'lite',label:'Premium Lite',price:1.87,priceVND:49000,note:'Mới — không có YouTube Music',features:['Không quảng cáo hầu hết video','YouTube Kids ad-free','Phát trong nền','Tải offline (hầu hết video)','KHÔNG có YouTube Music ad-free']},
+     {id:'individual',label:'Premium',price:3.02,priceVND:79000,popular:true,features:['Không quảng cáo TẤT CẢ video','Phát trong nền','Tải offline đầy đủ','YouTube Music Premium kèm','HD quality']},
+     {id:'family',label:'Family',price:5.69,priceVND:149000,features:['Tới 5 thành viên','Hết tính năng Premium','Cùng địa chỉ nhà']},
+     {id:'student',label:'Student',price:1.87,priceVND:49000,note:'Verify sinh viên',features:['Giảm ~40% vs Individual','Đáng tiền nhất','Verify SheerID']}
    ]},
   {id:'netflix',name:'Netflix',cat:'Cá nhân',color:'#E50914',initials:'N',popular:true,
    url:'https://www.netflix.com/vn',
-   desc:'Streaming phim/series global — bản VN có sub Việt, nhiều original. Giá VN regional.',
+   desc:'Streaming phim/series global — bản VN có sub Việt, nhiều original. Giá VN regional (verified 19/05/2026).',
    tiers:[
-     {id:'mobile',label:'Mobile',price:2.69,priceVND:70000,features:['Chỉ điện thoại + tablet','SD quality','1 màn hình']},
-     {id:'basic',label:'Basic with Ads',price:4.16,priceVND:108000,popular:true,features:['Mọi thiết bị','SD quality','1 màn hình','Có quảng cáo nhẹ']},
-     {id:'standard',label:'Standard',price:6.49,priceVND:170000,features:['HD quality','2 màn hình cùng lúc','Tải offline đa thiết bị']},
-     {id:'premium',label:'Premium',price:9.92,priceVND:260000,features:['4K Ultra HD + HDR','4 màn hình cùng lúc','Spatial audio']}
+     {id:'mobile',label:'Di động',price:2.82,priceVND:74000,features:['Chỉ điện thoại + máy tính bảng','480p','1 thiết bị xem cùng lúc','Tải xuống 1 thiết bị']},
+     {id:'basic',label:'Cơ bản',price:4.35,priceVND:114000,popular:true,features:['Mọi thiết bị (TV, máy tính...)','720p HD','1 thiết bị xem cùng lúc','Tải xuống 1 thiết bị']},
+     {id:'standard',label:'Tiêu chuẩn',price:8.82,priceVND:231000,features:['1080p Full HD','2 thiết bị xem cùng lúc','Tải xuống 2 thiết bị']},
+     {id:'premium',label:'Cao cấp',price:10.42,priceVND:273000,features:['4K Ultra HD + HDR','Spatial audio','4 thiết bị xem cùng lúc','Tải xuống 6 thiết bị']}
    ]},
   {id:'apple-music',name:'Apple Music',cat:'Cá nhân',color:'#FA243C',initials:'AM',popular:false,
    url:'https://www.apple.com/vn/apple-music/',
    desc:'Music streaming Apple — 100M+ bài, Spatial Audio, Lossless. Tích hợp ecosystem Apple.',
    tiers:[
-     {id:'individual',label:'Individual',price:1.99,priceVND:51500,popular:true,note:'Giá VN regional',features:['100M+ bài hát','Spatial Audio + Lossless','1 tài khoản','Sync iCloud Music Library']},
-     {id:'family',label:'Family',price:3.07,priceVND:79000,features:['Tới 6 thành viên','Family Sharing','Hết tính năng Individual']},
-     {id:'student',label:'Student',price:0.99,priceVND:25800,note:'Verify sinh viên',features:['Giảm 50%','Verify SheerID','+ Apple TV+ free']}
+     {id:'individual',label:'Individual',price:2.48,priceVND:65000,popular:true,note:'Giá VN regional',features:['100M+ bài hát','Spatial Audio + Lossless','1 tài khoản','Sync iCloud Music Library']},
+     {id:'family',label:'Family',price:3.78,priceVND:99000,features:['Tới 6 thành viên','Family Sharing','Hết tính năng Individual']},
+     {id:'student',label:'Student',price:1.34,priceVND:35000,note:'Verify sinh viên',features:['Giảm ~46%','Verify SheerID','+ Apple TV+ free']}
    ]},
   {id:'apple-one',name:'Apple One',cat:'Cá nhân',color:'#A2AAAD',initials:'A1',popular:false,
    url:'https://www.apple.com/vn/apple-one/',
@@ -2715,10 +2716,10 @@ var ALTERNATIVES_MAP = {
   'coreldraw':  [{id:'inkscape',reason:'Free, vector full'},{id:'affinity',reason:'Designer mua đứt $69.99'}],
   'jetbrains':  [{id:'cursor',reason:'$20/mo, AI-first IDE'},{id:'github-copilot',reason:'Free tier cho VSCode'}],
   // Consumer / Cá nhân
-  'spotify':         [{id:'youtube-premium',reason:'Có YouTube Music kèm + bỏ ads YouTube'},{id:'apple-music',reason:'$1.99/mo VN regional cùng giá Spotify'}],
-  'youtube-premium': [{id:'spotify',reason:'$1.99/mo VN regional cho music thuần'},{id:'apple-music',reason:'Music tier rẻ tương đương'}],
+  'spotify':         [{id:'youtube-premium',reason:'79k VND + YouTube Music kèm + bỏ ads YouTube'},{id:'apple-music',reason:'65k VND cùng giá Spotify, hợp Apple ecosystem'}],
+  'youtube-premium': [{id:'spotify',reason:'65k VND cho music thuần, không bao gồm YouTube ad-free'},{id:'apple-music',reason:'65k VND tier rẻ tương đương'}],
   'apple-music':     [{id:'spotify',reason:'Cross-platform, playlist phong phú hơn'},{id:'youtube-premium',reason:'Kèm YouTube ad-free'}],
-  'netflix':         [{id:'vieon',reason:'$1.91/mo VN content + giá rẻ hơn ~30%'},{id:'fpt-play',reason:'$2.29/mo + truyền hình live'},{id:'galaxy-play',reason:'$2.67/mo phim chiếu rạp Việt'}],
+  'netflix':         [{id:'vieon',reason:'50k VND/mo VN content, rẻ hơn ~50%'},{id:'fpt-play',reason:'60k VND/mo + truyền hình K+/V-League'},{id:'galaxy-play',reason:'70k VND/mo phim chiếu rạp Việt'}],
   'apple-one':       [{id:'apple-music',reason:'Nếu chỉ cần Music, mua riêng rẻ hơn'},{id:'icloud-plus',reason:'Nếu chỉ cần storage'}],
   'icloud-plus':     [{id:'google-one',reason:'Cùng tier giá, Android-friendly'},{id:'ms365',reason:'Personal có 1TB OneDrive kèm Office'}],
   'google-one':      [{id:'icloud-plus',reason:'iOS-friendly, cùng tier giá'},{id:'ms365',reason:'1TB OneDrive + Office personal'}],
