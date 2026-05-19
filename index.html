@@ -2355,13 +2355,12 @@ var APPS = [
      {id:'perpetual',label:'Perpetual',price:45.75,note:'Mua đứt $549 (~2 năm dùng)',features:['Mua 1 lần, dùng vĩnh viễn','Cùng tính năng Annual','Không bao gồm update major','Phù hợp studio in-house']},
      {id:'edu',label:'Education',price:0,note:'HS/SV/GV — verify',features:['Miễn phí cho học sinh','Đầy đủ suite','Phi thương mại','Renew năm']}
    ]},
-  {id:'affinity',name:'Affinity (Canva)',cat:'Design',color:'#1B72BE',initials:'Af',popular:true,
+  {id:'affinity',name:'Affinity',cat:'Design',color:'#1B72BE',initials:'Af',popular:true,
    logo:'icons/affinity-logo.svg',url:'https://www.affinity.studio/',
    includes:['designer','photo','publisher'],
-   desc:'MAJOR: Từ Oct 2025 Affinity HOÀN TOÀN MIỄN PHÍ sau khi Canva acquire. V3 unified app gộp Designer + Photo + Publisher thành 1.',
+   desc:'V3 unified app gộp Designer + Photo + Publisher thành 1 — pixel editing, vector, layout. Hoàn toàn miễn phí.',
    tiers:[
-     {id:'free',label:'Affinity V3 (Free)',price:0,popular:true,note:'Free 100% từ 30/10/2025, cần Canva account',features:['Designer + Photo + Publisher trong 1 app','Pixel + Vector + Layout studios','Mac, Win, iPad','Update miễn phí','Không subscription, không one-time']},
-     {id:'with-canva-pro',label:'Affinity + Canva Pro AI',price:15,note:'Cần Canva Pro để bật AI features',features:['Generative fill (Canva AI)','Background removal AI','Magic Studio integration','Tất cả features free V3 + AI từ Canva Pro']}
+     {id:'free',label:'Affinity V3 (Free)',price:0,popular:true,note:'Free 100% từ 30/10/2025',features:['Designer + Photo + Publisher trong 1 app','Pixel + Vector + Layout studios','Mac, Win, iPad','Update miễn phí','Không subscription, không one-time']}
    ]},
   {id:'procreate',name:'Procreate',cat:'Design',color:'#000000',initials:'Pc',popular:true,
    logo:'icons/procreate.svg',url:'https://procreate.com/',
@@ -2834,7 +2833,7 @@ function effectivePriceUSD(tier){
 
 /* ── ALTERNATIVES MAP — paid app → free/cheap alternatives ─────────────── */
 var ALTERNATIVES_MAP = {
-  'adobe-cc':   [{id:'photopea',reason:'Free browser, mở PSD trực tiếp'},{id:'gimp',reason:'Free desktop alternative Photoshop'},{id:'inkscape',reason:'Free, thay Illustrator'},{id:'affinity',reason:'Mua đứt $164.99 cho 3 app'},{id:'canva',reason:'Free tier cho design nghiệp dư'},{id:'krita',reason:'Free, painting + illustration'}],
+  'adobe-cc':   [{id:'photopea',reason:'Free browser, mở PSD trực tiếp'},{id:'gimp',reason:'Free desktop alternative Photoshop'},{id:'inkscape',reason:'Free, thay Illustrator'},{id:'affinity',reason:'FREE V3 — Designer + Photo + Publisher trong 1 app'},{id:'canva',reason:'Free tier cho design nghiệp dư'},{id:'krita',reason:'Free, painting + illustration'}],
   'chatgpt':    [{id:'deepseek',reason:'Free, reasoning ngang ChatGPT cho code/math'},{id:'claude',reason:'Free tier 30 message/5h'},{id:'gemini',reason:'Free, tích hợp Google'}],
   'claude':     [{id:'chatgpt',reason:'Free GPT Instant tier'},{id:'deepseek',reason:'Free hoàn toàn, mạnh reasoning'},{id:'gemini',reason:'Free, context dài'}],
   'cursor':     [{id:'github-copilot',reason:'Free tier 2000 completion/tháng'},{id:'jetbrains',reason:'JetBrains có AI Assistant free trial'}],
@@ -2859,7 +2858,7 @@ var ALTERNATIVES_MAP = {
   'linear':     [{id:'notion',reason:'Free, kanban + sprint built-in'},{id:'clickup',reason:'Free Forever đầy đủ PM cơ bản'}],
   'clickup':    [{id:'notion',reason:'Free, flexible DB'},{id:'linear',reason:'$8/mo, dev-team focus'}],
   'midjourney': [{id:'chatgpt',reason:'DALL·E trong ChatGPT Plus đủ cho most cases'},{id:'canva',reason:'Magic Media Free tier'}],
-  'coreldraw':  [{id:'inkscape',reason:'Free, vector full'},{id:'affinity',reason:'Designer mua đứt $69.99'}],
+  'coreldraw':  [{id:'inkscape',reason:'Free, vector full'},{id:'affinity',reason:'FREE V3, Designer module thay được CorelDraw'}],
   'jetbrains':  [{id:'cursor',reason:'$20/mo, AI-first IDE'},{id:'github-copilot',reason:'Free tier cho VSCode'}],
   // Adobe individual apps — đề xuất bundle CC Pro nếu dùng nhiều + free alternatives
   'photoshop':     [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'photopea',reason:'Free browser, mở PSD trực tiếp'},{id:'gimp',reason:'Free desktop, painting + edit'},{id:'affinity',reason:'FREE V3 (Canva acquisition), thay được Photoshop'}],
