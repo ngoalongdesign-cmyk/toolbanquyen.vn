@@ -2348,13 +2348,22 @@ var APPS = [
 
   /* ─── Design alternatives & creative ─── */
   {id:'coreldraw',name:'CorelDraw',cat:'Design',color:'#7FBA00',initials:'CD',popular:false,
-   logo:'icons/coreldraw-icon.svg',url:'https://www.coreldraw.com/en/product/coreldraw/',
+   logo:'icons/coreldraw-icon.svg',url:'https://www.coreldraw.com/en/pricing/coreldraw/',
    desc:'Bộ thiết kế đồ hoạ vector — illustration, layout, photo edit, web. Alternative Illustrator phổ biến tại VN.',
    tiers:[
-     {id:'essentials',label:'Essentials',price:8.25,note:'$99/năm — bản cơ bản',features:['Vector + photo cơ bản','Phù hợp cá nhân, học việc','Không tính năng pro','Chỉ Windows']},
-     {id:'annual',label:'Annual',price:22.42,popular:true,note:'$269/năm',features:['Suite đầy đủ CorelDRAW + Photo-Paint','AfterShot HDR + Font Manager','Hỗ trợ Windows + Mac','AI-powered tools (Image Enhance)']},
-     {id:'perpetual',label:'Perpetual',price:45.75,note:'Mua đứt $549 (~2 năm dùng)',features:['Mua 1 lần, dùng vĩnh viễn','Cùng tính năng Annual','Không bao gồm update major','Phù hợp studio in-house']},
+     {id:'standard',label:'Standard 2024 (Mua đứt)',price:34.92,note:'$419 mua đứt — bản hobby/home business',features:['Vector + photo cơ bản','Mua 1 lần, dùng vĩnh viễn','Phù hợp cá nhân, học việc','Không có AI tools pro']},
+     {id:'annual',label:'Graphics Suite Annual',price:27.42,popular:true,note:'$329/năm (promo 25% off năm 1) · rack $439/năm. AI credits hàng tháng',features:['CorelDRAW + Photo-Paint đầy đủ','AfterShot HDR + Font Manager','Windows + Mac','Monthly AI credits, exclusive features']},
+     {id:'perpetual',label:'Graphics Suite One-time 2026',price:53.67,note:'Mua đứt $644 (~14 tháng dùng so với annual rack)',features:['Mua 1 lần, dùng vĩnh viễn','Cùng tính năng Annual','Không bao gồm update major','Không có AI credits hàng tháng']},
      {id:'edu',label:'Education',price:0,note:'HS/SV/GV — verify',features:['Miễn phí cho học sinh','Đầy đủ suite','Phi thương mại','Renew năm']}
+   ]},
+  {id:'capture-one',name:'Capture One',cat:'Design',color:'#1A1A1A',initials:'C1',popular:false,
+   logo:'icons/capture-one.svg',url:'https://www.captureone.com/en/pricing',
+   desc:'RAW editor + tethering chuyên nghiệp cho photographer — color grading, sessions, catalog management. Cạnh tranh Lightroom.',
+   tiers:[
+     {id:'pro',label:'Pro (Subscription)',price:28.60,popular:true,note:'Monthly $28.60 · Annual $18.70/mo (save $118.80/năm)',features:['Desktop software cao cấp','Superior color profiles','Outstanding RAW conversion','Industry-leading tethering','Support 550+ máy ảnh']},
+     {id:'all-in-one',label:'All in One',price:39.60,note:'BEST VALUE. Monthly $39.60 · Annual $25.58/mo (save $168.30/năm)',features:['Mọi tính năng Pro','Mobile iOS App (iPad + iPhone)','Full Capture One ecosystem','Online collaboration tools','Free styles included']},
+     {id:'studio',label:'Studio',price:64.90,note:'Monthly $64.90 · Annual $50.32/mo (save $174.90/năm). Cho studio high-volume',features:['Mọi tính năng All in One','Offline collaboration tools','Multiple viewer screens','Automated cropping','Automatic backup, tool locks']},
+     {id:'perpetual',label:'Pro License (Mua đứt)',price:30.16,note:'$361.90 mua đứt — version cố định, không update lớn',features:['Desktop software','Mua 1 lần, dùng vĩnh viễn','Top editing tools','Không nhận update tính năng mới','Phù hợp photographer không cần version mới nhất']}
    ]},
   {id:'affinity',name:'Affinity',cat:'Design',color:'#1B72BE',initials:'Af',popular:true,
    logo:'icons/affinity-logo.svg',url:'https://www.affinity.studio/',
@@ -2367,9 +2376,9 @@ var APPS = [
    logo:'icons/procreate.svg',url:'https://procreate.com/',
    desc:'App vẽ trên iPad cực mạnh — minh hoạ, art, concept. Mua đứt, không subscription. Phổ biến với artist VN.',
    tiers:[
-     {id:'ipad',label:'Procreate (iPad)',price:1.08,popular:true,note:'$12.99 mua đứt',features:['Brush engine số 1 cho iPad','Layers, mask, blend modes','Animation Assist (frame-by-frame)','Export PSD compatible']},
-     {id:'pocket',label:'Pocket (iPhone)',price:0.42,note:'$4.99 mua đứt',features:['Bản gọn cho iPhone','Vẽ on-the-go','Đầy đủ brush engine','Sync với iPad']},
-     {id:'dreams',label:'Dreams (Animation)',price:1.67,note:'$19.99 mua đứt — iPad animation',features:['Animation pro cho iPad','Timeline + keyframe','Workflow Disney-grade','Compatible với Procreate']}
+     {id:'ipad',label:'Procreate (iPad)',price:1.08,priceVND:33250,popular:true,note:'App Store US $12.99 · VN 399.000đ — mua đứt 1 lần (chia 12 tháng amortize)',features:['Brush engine số 1 cho iPad','Layers, mask, blend modes','Animation Assist (frame-by-frame)','Export PSD compatible']},
+     {id:'pocket',label:'Pocket (iPhone)',price:0.42,note:'$4.99 mua đứt App Store US',features:['Bản gọn cho iPhone','Vẽ on-the-go','Đầy đủ brush engine','Sync với iPad']},
+     {id:'dreams',label:'Dreams (Animation)',price:1.67,priceVND:33250,note:'App Store US $19.99 · VN 399.000đ — animation chuyên sâu',features:['Animation pro cho iPad','Timeline + keyframe','Workflow Disney-grade','Compatible với Procreate']}
    ]},
   {id:'blender',name:'Blender',cat:'Architecture',color:'#F5792A',initials:'Bl',popular:true,
    logo:'icons/blender.svg',url:'https://www.blender.org/',
@@ -2438,12 +2447,12 @@ var APPS = [
    ]},
   {id:'clipstudio',name:'Clip Studio Paint',cat:'Design',color:'#00C0BC',initials:'CS',popular:true,
    logo:'icons/clip-studio.svg',url:'https://www.clipstudio.net/en/purchase/',
-   desc:'App vẽ manga/comic chuyên nghiệp — brush engine mạnh, panel tool. Manga artist VN dùng nhiều.',
+   desc:'App vẽ manga/comic chuyên nghiệp — brush engine mạnh, panel tool. Manga artist VN dùng nhiều. KHÔNG có monthly subscription — chỉ 12-month single payment hoặc mua đứt perpetual.',
    tiers:[
-     {id:'pro-monthly',label:'Pro Monthly',price:0.99,features:['Đầy đủ illustration','Layers + brushes','Animation 24 frames','PC/Mac/iPad']},
-     {id:'pro-perpetual',label:'Pro (Mua đứt)',price:4.17,popular:true,note:'$49.99 mua đứt',features:['Mua 1 lần, dùng vĩnh viễn','Đầy đủ illustration','1 platform (Win/Mac)','Không update major free']},
-     {id:'ex-monthly',label:'EX Monthly',price:8.49,features:['Đầy đủ Pro','Multi-page management (manga)','Story editor','Bulk text/page export']},
-     {id:'ex-perpetual',label:'EX (Mua đứt)',price:18.33,note:'$219.99 mua đứt',features:['Đầy đủ EX','1 platform','Manga/webtoon pro features','Không update major free']}
+     {id:'pro-12month',label:'Pro (12 tháng)',price:2.25,note:'$26.99/năm single payment — hết hạn sau 1 năm',features:['Đầy đủ illustration','Layers + brushes','Animation 24 frames','Win/Mac/iPad/Android/iPhone (single device)']},
+     {id:'pro-perpetual',label:'Pro (Mua đứt Ver 5.0)',price:5.25,popular:true,note:'$63.00 mua đứt vĩnh viễn (Windows/macOS). Update Pass $10.99/năm để lên version mới',features:['Mua 1 lần, dùng vĩnh viễn','Không update major free','Windows hoặc macOS (1 platform)','Có thể subscribe Update Pass riêng']},
+     {id:'ex-12month',label:'EX (12 tháng)',price:6.42,note:'$76.99/năm single payment — đầy đủ multi-page',features:['Đầy đủ Pro features','Multi-page management (manga)','Story editor','Bulk text/page export']},
+     {id:'ex-perpetual',label:'EX (Mua đứt Ver 5.0)',price:23.08,note:'$277.00 mua đứt vĩnh viễn (Windows/macOS). Update Pass $31.99/năm',features:['Manga/webtoon pro features','Mua 1 lần','Windows hoặc macOS (1 platform)','Update Pass tùy chọn để lên version mới']}
    ]},
   {id:'loom',name:'Loom',cat:'Productivity',color:'#625DF5',initials:'Lm',popular:false,
    logo:'icons/loom.svg',url:'https://www.loom.com/pricing',
@@ -2714,7 +2723,7 @@ var OVERLAP_GROUPS = {
   'vn-streaming':   {label:'Streaming (VN)',   apps:['netflix','vieon','fpt-play','galaxy-play']},
   'cloud-storage':  {label:'Cloud Storage',    apps:['icloud-plus','google-one']},
   'adobe-individuals':{label:'Adobe individual apps (nên gộp CC Pro nếu nhiều)', apps:['photoshop','illustrator','indesign','after-effects','premiere','lightroom-standalone','adobe-cc']},
-  'photo-edit':     {label:'Photo Editor',     apps:['photoshop','affinity','photopea','gimp']},
+  'photo-edit':     {label:'Photo Editor',     apps:['photoshop','affinity','photopea','gimp','capture-one','lightroom-standalone']},
   'vector-design':  {label:'Vector Design',    apps:['illustrator','affinity','inkscape','coreldraw']}
 };
 
@@ -2794,7 +2803,11 @@ var ANNUAL_DISCOUNTS = {
   // Apple Final Cut Pro — added 19/05/2026 (Creator Studio subscription model)
   'finalcut/creator-studio':  0.172,  // $12.99→$10.75/mo ($129/yr)
   'finalcut/ipad':            0.182,  // $4.99→$4.08/mo ($49/yr)
-  'finalcut/edu':             0.164   // $2.99→$2.50/mo ($29.99/yr)
+  'finalcut/edu':             0.164,  // $2.99→$2.50/mo ($29.99/yr)
+  // Capture One — added 19/05/2026
+  'capture-one/pro':          0.346,  // $28.60→$18.70/mo
+  'capture-one/all-in-one':   0.354,  // $39.60→$25.58/mo
+  'capture-one/studio':       0.225   // $64.90→$50.32/mo
 };
 
 /* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
@@ -2870,7 +2883,7 @@ var ALTERNATIVES_MAP = {
   'illustrator':   [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'inkscape',reason:'Free, vector full chuẩn'},{id:'affinity',reason:'FREE V3, Designer module'},{id:'figma',reason:'Vector + UI design + collab'}],
   'indesign':      [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'affinity',reason:'FREE V3, Publisher module'},{id:'canva',reason:'Layout đơn giản, free tier'}],
   'after-effects': [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'davinci',reason:'Fusion VFX trong Resolve, free'},{id:'blender',reason:'Free, motion + compositing'}],
-  'lightroom-standalone':[{id:'photoshop',reason:'Photography 1TB $19.99 có cả Photoshop + LR'},{id:'capture-one',reason:'Photo edit pro, mua đứt'},{id:'gimp',reason:'Free, edit RAW cơ bản'}],
+  'lightroom-standalone':[{id:'photoshop',reason:'Photography 1TB $19.99 có cả Photoshop + LR'},{id:'capture-one',reason:'Pro $18.70/mo annual, hoặc mua đứt $361.90'},{id:'gimp',reason:'Free, edit RAW cơ bản'}],
   'acrobat-pro':   [{id:'free',reason:'Mac Preview, Chrome PDF viewer đủ cho 80% case'},{id:'foxit',reason:'Foxit PDF Editor rẻ hơn 30%'}],
   // Consumer / Cá nhân
   'spotify':         [{id:'youtube-premium',reason:'79k VND + YouTube Music kèm + bỏ ads YouTube'},{id:'apple-music',reason:'65k VND cùng giá Spotify, hợp Apple ecosystem'}],
