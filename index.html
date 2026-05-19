@@ -1794,7 +1794,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="tabs-wrap">
       <div class="tabs" role="tablist" id="cat-tabs">
-        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">59</span></button>
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">72</span></button>
         <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
         <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
         <button class="tab" data-cat="Architecture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>Kiến trúc</button>
@@ -1802,6 +1802,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         <button class="tab" data-cat="Development"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Dev</button>
         <button class="tab" data-cat="Productivity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Productivity</button>
         <button class="tab" data-cat="Marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-8-3 18-7-7-8-3z"/></svg>Marketing</button>
+        <button class="tab" data-cat="Cá nhân"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Cá nhân</button>
       </div>
       <div class="search-wrap">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -2470,6 +2471,118 @@ var APPS = [
    desc:'Streaming + screen recording miễn phí — chuẩn Twitch/YouTube, alternative Loom cho tutorial.',
    tiers:[
      {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí GPL','Multi-source compositing','Stream Twitch/YouTube native','Win/Mac/Linux']}
+   ]},
+  /* ═══ Cá nhân — Consumer subscriptions ═══════════════════════════════ */
+  {id:'spotify',name:'Spotify Premium',cat:'Cá nhân',color:'#1DB954',initials:'S',popular:true,
+   url:'https://www.spotify.com/vn-vi/premium/',
+   desc:'Music streaming hàng đầu — 100M+ bài, podcast, không ads. Giá VN regional rẻ hơn US ~60%.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Shuffle play','Có quảng cáo','Skip 6 lần/giờ','Cần online']},
+     {id:'individual',label:'Individual',price:1.99,priceVND:51500,popular:true,note:'Giá VN regional',features:['Không quảng cáo','Skip không giới hạn','Tải offline','320kbps audio','1 tài khoản']},
+     {id:'duo',label:'Duo',price:2.69,priceVND:69500,features:['2 tài khoản Premium','Duo Mix playlist','Cùng địa chỉ nhà']},
+     {id:'family',label:'Family',price:2.96,priceVND:76500,features:['6 tài khoản Premium','Kids safe mode','Family Mix','Tới 6 thành viên']},
+     {id:'student',label:'Student',price:0.99,priceVND:25800,note:'Verify sinh viên',features:['Giảm 50%','Verify SheerID','Đáng tiền nhất nếu là SV']}
+   ]},
+  {id:'youtube-premium',name:'YouTube Premium',cat:'Cá nhân',color:'#FF0000',initials:'Y',popular:true,
+   url:'https://www.youtube.com/premium',
+   desc:'Bỏ ads YouTube + YouTube Music + tải offline + background play. Giá VN regional discount.',
+   tiers:[
+     {id:'individual',label:'Individual',price:3.07,priceVND:79000,popular:true,note:'Giá VN regional',features:['Không quảng cáo','Background play','Tải offline','YouTube Music Premium','HD quality']},
+     {id:'family',label:'Family',price:4.61,priceVND:119000,features:['Tới 5 thành viên','Hết tính năng Individual','Cùng địa chỉ nhà']},
+     {id:'student',label:'Student',price:1.69,priceVND:43500,note:'Verify sinh viên',features:['Giảm 45%','Đáng tiền nhất','Verify SheerID']}
+   ]},
+  {id:'netflix',name:'Netflix',cat:'Cá nhân',color:'#E50914',initials:'N',popular:true,
+   url:'https://www.netflix.com/vn',
+   desc:'Streaming phim/series global — bản VN có sub Việt, nhiều original. Giá VN regional.',
+   tiers:[
+     {id:'mobile',label:'Mobile',price:2.69,priceVND:70000,features:['Chỉ điện thoại + tablet','SD quality','1 màn hình']},
+     {id:'basic',label:'Basic with Ads',price:4.16,priceVND:108000,popular:true,features:['Mọi thiết bị','SD quality','1 màn hình','Có quảng cáo nhẹ']},
+     {id:'standard',label:'Standard',price:6.49,priceVND:170000,features:['HD quality','2 màn hình cùng lúc','Tải offline đa thiết bị']},
+     {id:'premium',label:'Premium',price:9.92,priceVND:260000,features:['4K Ultra HD + HDR','4 màn hình cùng lúc','Spatial audio']}
+   ]},
+  {id:'apple-music',name:'Apple Music',cat:'Cá nhân',color:'#FA243C',initials:'AM',popular:false,
+   url:'https://www.apple.com/vn/apple-music/',
+   desc:'Music streaming Apple — 100M+ bài, Spatial Audio, Lossless. Tích hợp ecosystem Apple.',
+   tiers:[
+     {id:'individual',label:'Individual',price:1.99,priceVND:51500,popular:true,note:'Giá VN regional',features:['100M+ bài hát','Spatial Audio + Lossless','1 tài khoản','Sync iCloud Music Library']},
+     {id:'family',label:'Family',price:3.07,priceVND:79000,features:['Tới 6 thành viên','Family Sharing','Hết tính năng Individual']},
+     {id:'student',label:'Student',price:0.99,priceVND:25800,note:'Verify sinh viên',features:['Giảm 50%','Verify SheerID','+ Apple TV+ free']}
+   ]},
+  {id:'apple-one',name:'Apple One',cat:'Cá nhân',color:'#A2AAAD',initials:'A1',popular:false,
+   url:'https://www.apple.com/vn/apple-one/',
+   desc:'Bundle Apple: Music + TV+ + Arcade + iCloud+. Rẻ hơn mua riêng từng dịch vụ ~30%.',
+   tiers:[
+     {id:'individual',label:'Individual',price:16.95,note:'Music + TV+ + Arcade + iCloud+ 50GB',features:['Apple Music Individual','Apple TV+','Apple Arcade','iCloud+ 50GB','Tiết kiệm vs mua riêng']},
+     {id:'family',label:'Family',price:22.95,popular:true,note:'+ iCloud+ 200GB, tới 6 người',features:['Tất cả service Family','iCloud+ 200GB','Tới 6 thành viên','Family Sharing']},
+     {id:'premier',label:'Premier',price:37.95,note:'+ News+ + Fitness+ + 2TB',features:['Mọi Apple service','iCloud+ 2TB','Apple News+','Apple Fitness+','Tới 6 thành viên']}
+   ]},
+  {id:'icloud-plus',name:'iCloud+',cat:'Cá nhân',color:'#017AFF',initials:'iC',popular:true,
+   url:'https://www.apple.com/vn/icloud/',
+   desc:'Storage cloud + Private Relay + Hide my email cho Apple users. Sync ảnh/file/backup iPhone.',
+   tiers:[
+     {id:'free',label:'Free 5GB',price:0,features:['5GB miễn phí','Sync cơ bản','Backup iPhone hạn chế']},
+     {id:'50gb',label:'50GB',price:0.99,popular:true,features:['50GB storage','Hide my email','iCloud Private Relay','Backup iPhone đầy đủ']},
+     {id:'200gb',label:'200GB',price:2.99,features:['200GB storage','Family sharing storage','Custom email domain','Tất cả 50GB features']},
+     {id:'2tb',label:'2TB',price:9.99,features:['2TB storage','Cho user nhiều ảnh/video','Family sharing']},
+     {id:'6tb',label:'6TB',price:29.99,features:['6TB storage','Heavy users']},
+     {id:'12tb',label:'12TB',price:59.99,features:['12TB storage','Pro creators']}
+   ]},
+  {id:'google-one',name:'Google One',cat:'Cá nhân',color:'#4285F4',initials:'G1',popular:false,
+   url:'https://one.google.com/',
+   desc:'Storage Google Drive + Photos + Gmail. Alternative iCloud cho Android, tích hợp Google.',
+   tiers:[
+     {id:'free',label:'Free 15GB',price:0,features:['15GB miễn phí','Drive + Photos + Gmail','Chia cho 3 service']},
+     {id:'100gb',label:'100GB',price:1.99,popular:true,features:['100GB storage','VPN by Google One','Premium support']},
+     {id:'200gb',label:'200GB',price:2.99,features:['200GB storage','Tất cả 100GB features','10% Google Store credit']},
+     {id:'2tb',label:'2TB',price:9.99,features:['2TB storage','Gemini Advanced','Family sharing','VPN included']}
+   ]},
+  {id:'discord-nitro',name:'Discord Nitro',cat:'Cá nhân',color:'#5865F2',initials:'D',popular:false,
+   url:'https://discord.com/nitro',
+   desc:'Nâng cấp Discord — HD streaming, custom emoji, file 500MB, animated avatar, server boost.',
+   tiers:[
+     {id:'basic',label:'Nitro Basic',price:2.99,features:['Custom emoji','50MB file upload','HD streaming','Profile customization']},
+     {id:'nitro',label:'Nitro',price:9.99,popular:true,features:['Tất cả Basic','500MB file upload','4K streaming','2x Server boosts','HD video calls','Animated avatar']}
+   ]},
+  {id:'linkedin-premium',name:'LinkedIn Premium',cat:'Cá nhân',color:'#0A66C2',initials:'Li',popular:false,
+   url:'https://premium.linkedin.com/',
+   desc:'Tài khoản pro LinkedIn — Who viewed, InMail, LinkedIn Learning, top applicant priority.',
+   tiers:[
+     {id:'career',label:'Career',price:29.99,popular:true,note:'Cho job seeker',features:['5 InMail/tháng','LinkedIn Learning','Top applicant','Salary insights','Who viewed profile']},
+     {id:'business',label:'Business',price:59.99,note:'Cho business user',features:['15 InMail/tháng','Unlimited search','Business insights','Hết Career features']},
+     {id:'sales-nav',label:'Sales Navigator',price:99.99,note:'Cho sales pro',features:['Lead recommendations','CRM sync','Advanced search','Real-time alerts']},
+     {id:'recruiter',label:'Recruiter Lite',price:170,note:'Cho recruiter',features:['30 InMail','120 saved searches','3rd-degree network access']}
+   ]},
+  {id:'duolingo',name:'Duolingo Super',cat:'Cá nhân',color:'#58CC02',initials:'Du',popular:false,
+   url:'https://www.duolingo.com/super',
+   desc:'Học ngôn ngữ gamified — 40+ ngôn ngữ, daily streak. Super bỏ ads + offline + unlimited hearts.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['40+ ngôn ngữ','Có quảng cáo','5 hearts/ngày','Daily streak']},
+     {id:'super',label:'Super',price:6.99,popular:true,features:['Không quảng cáo','Unlimited hearts','Tải offline','Progress test','Unlimited mistakes']},
+     {id:'family',label:'Super Family',price:9.99,note:'Tới 6 thành viên',features:['6 tài khoản Super','Hết Super features','Tới 6 thành viên']},
+     {id:'max',label:'Duolingo Max',price:29.99,note:'AI tutor (Roleplay GPT)',features:['Hết Super features','AI Roleplay GPT-4','Explain my Answer','Highest tier']}
+   ]},
+  {id:'vieon',name:'VieON',cat:'Cá nhân',color:'#FF4E5B',initials:'V',popular:false,
+   url:'https://vieon.vn/',
+   desc:'Streaming Việt — phim Việt, K-content, sự kiện thể thao Việt Nam, talkshow. Alt Netflix cho VN content.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Có quảng cáo','SD quality','Hạn chế VIP content']},
+     {id:'vip',label:'VIP',price:1.91,priceVND:50000,popular:true,features:['Không quảng cáo','Full HD','Nội dung VIP','1 thiết bị']},
+     {id:'premium',label:'Premium',price:3.05,priceVND:80000,features:['4K UHD','2 thiết bị cùng lúc','Premium content']}
+   ]},
+  {id:'fpt-play',name:'FPT Play',cat:'Cá nhân',color:'#FF6600',initials:'FP',popular:false,
+   url:'https://fptplay.vn/',
+   desc:'Streaming FPT — phim Việt + thể thao K+/V-League + truyền hình live. Phổ biến gia đình VN.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Có quảng cáo','Hạn chế nội dung','Truyền hình free']},
+     {id:'basic',label:'Basic',price:2.29,priceVND:60000,popular:true,features:['Không quảng cáo','HD quality','Truyền hình K+','Phim Việt']},
+     {id:'premium',label:'Premium',price:4.20,priceVND:110000,features:['4K UHD','Premium content','Thể thao premium','V-League live']}
+   ]},
+  {id:'galaxy-play',name:'Galaxy Play',cat:'Cá nhân',color:'#FFC107',initials:'GP',popular:false,
+   url:'https://galaxyplay.vn/',
+   desc:'Streaming Galaxy — phim chiếu rạp Việt mới + Hollywood + Hàn. Focus phim chiếu rạp post-release.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Có quảng cáo','Hạn chế phim mới']},
+     {id:'vip',label:'VIP',price:2.67,priceVND:70000,popular:true,features:['Không quảng cáo','HD quality','Phim chiếu rạp','Galaxy original']}
    ]}
 ];
 
@@ -2488,7 +2601,10 @@ var OVERLAP_GROUPS = {
   'ai-code':      {label:'AI Coding',          apps:['cursor','github-copilot']},
   'no-code-web':  {label:'No-code Web',        apps:['webflow','framer']},
   '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino']},
-  'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']}
+  'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']},
+  'music-streaming':{label:'Music Streaming',  apps:['spotify','apple-music','youtube-premium']},
+  'vn-streaming':   {label:'Streaming (VN)',   apps:['netflix','vieon','fpt-play','galaxy-play']},
+  'cloud-storage':  {label:'Cloud Storage',    apps:['icloud-plus','google-one']}
 };
 
 /* ── VAT (Thuế GTGT) — VN charge 10% trên SaaS nước ngoài tự động ─────── */
@@ -2524,7 +2640,10 @@ var ANNUAL_DISCOUNTS = {
   // Misc
   'clickup/unlimited':        0.286,  // $7→$5 annual (28.6% off)
   'jetbrains/all-products':   0.074,  // ~$26.90→$24.90 small annual discount
-  'loom/business':            0.20    // $12.50→$10 annual typical
+  'loom/business':            0.20,   // $12.50→$10 annual typical
+  // Consumer
+  'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr)
+  'linkedin-premium/career':  0.33    // $29.99→$19.99 (annual $239.88 vs $359.88)
 };
 
 /* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
@@ -2594,7 +2713,21 @@ var ALTERNATIVES_MAP = {
   'clickup':    [{id:'notion',reason:'Free, flexible DB'},{id:'linear',reason:'$8/mo, dev-team focus'}],
   'midjourney': [{id:'chatgpt',reason:'DALL·E trong ChatGPT Plus đủ cho most cases'},{id:'canva',reason:'Magic Media Free tier'}],
   'coreldraw':  [{id:'inkscape',reason:'Free, vector full'},{id:'affinity',reason:'Designer mua đứt $69.99'}],
-  'jetbrains':  [{id:'cursor',reason:'$20/mo, AI-first IDE'},{id:'github-copilot',reason:'Free tier cho VSCode'}]
+  'jetbrains':  [{id:'cursor',reason:'$20/mo, AI-first IDE'},{id:'github-copilot',reason:'Free tier cho VSCode'}],
+  // Consumer / Cá nhân
+  'spotify':         [{id:'youtube-premium',reason:'Có YouTube Music kèm + bỏ ads YouTube'},{id:'apple-music',reason:'$1.99/mo VN regional cùng giá Spotify'}],
+  'youtube-premium': [{id:'spotify',reason:'$1.99/mo VN regional cho music thuần'},{id:'apple-music',reason:'Music tier rẻ tương đương'}],
+  'apple-music':     [{id:'spotify',reason:'Cross-platform, playlist phong phú hơn'},{id:'youtube-premium',reason:'Kèm YouTube ad-free'}],
+  'netflix':         [{id:'vieon',reason:'$1.91/mo VN content + giá rẻ hơn ~30%'},{id:'fpt-play',reason:'$2.29/mo + truyền hình live'},{id:'galaxy-play',reason:'$2.67/mo phim chiếu rạp Việt'}],
+  'apple-one':       [{id:'apple-music',reason:'Nếu chỉ cần Music, mua riêng rẻ hơn'},{id:'icloud-plus',reason:'Nếu chỉ cần storage'}],
+  'icloud-plus':     [{id:'google-one',reason:'Cùng tier giá, Android-friendly'},{id:'ms365',reason:'Personal có 1TB OneDrive kèm Office'}],
+  'google-one':      [{id:'icloud-plus',reason:'iOS-friendly, cùng tier giá'},{id:'ms365',reason:'1TB OneDrive + Office personal'}],
+  'discord-nitro':   [{id:'free',reason:'Discord free đủ 99% nhu cầu chat'}],
+  'linkedin-premium':[{id:'free',reason:'LinkedIn free đủ job hunt cơ bản'}],
+  'duolingo':        [{id:'free',reason:'Duolingo free đủ học cơ bản với ads'}],
+  'vieon':           [{id:'fpt-play',reason:'Phổ biến hơn, có thể thao K+/V-League'},{id:'galaxy-play',reason:'Focus phim chiếu rạp mới'}],
+  'fpt-play':        [{id:'vieon',reason:'Nhiều phim Việt + K-content'},{id:'netflix',reason:'Global content nhưng đắt hơn'}],
+  'galaxy-play':     [{id:'netflix',reason:'Catalog rộng hơn'},{id:'vieon',reason:'Rẻ hơn + VN content'}]
 };
 
 /* ── VERDICT ENGINE — thresholds + per-app rules ──────────────────────── */
