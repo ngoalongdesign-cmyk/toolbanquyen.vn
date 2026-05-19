@@ -2207,6 +2207,63 @@ var APPS = [
      team:{label:'Pro',price:28,features:['3000 credit/tháng','Không watermark, ưu tiên queue','Kling 2.0 Master','Motion brush + camera control']},
      enterprise:{label:'Premier',price:58,features:['8000 credit/tháng','Generation 1080p','API access (qua liên hệ)','Phù hợp creator chuyên nghiệp']}
    }},
+  {id:'elevenlabs',name:'ElevenLabs',cat:'AI',color:'#000000',initials:'EL',popular:true,
+   logo:'icons/elevenlabs.svg',url:'https://elevenlabs.io/pricing',
+   desc:'AI voice generation — TTS, voice cloning, dubbing 30+ ngôn ngữ. Tiêu chuẩn voiceover creator VN.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['10k credits/tháng','Text to Speech + Speech to Text','Sound Effects, Voice Design','Không commercial license']},
+     {id:'starter',label:'Starter',price:6,note:'Annual save ~17% ($60/năm)',features:['30k credits/tháng','Commercial license','Instant Voice Cloning','20 projects Studio']},
+     {id:'creator',label:'Creator',price:22,popular:true,note:'Annual $18.33/mo. First month 50% off promo — rack rate $22',features:['121k credits/tháng','Professional Voice Cloning','Music commercial use','Dubbing Studio']},
+     {id:'pro',label:'Pro',price:99,note:'Annual $82.5/mo (~17% off)',features:['600k credits/tháng','44.1kHz PCM audio API','192kbps quality','Higher concurrency']},
+     {id:'scale',label:'Scale',price:299,note:'Annual $249.17/mo. For Businesses',features:['3 workspace seats','Team collaboration','3 Professional Voice Clones','Everything in Pro']},
+     {id:'business',label:'Business',price:990,note:'Annual $825/mo',features:['10 workspace seats','10 Professional Voice Clones','Low-latency TTS 5¢/min','Everything in Scale']}
+   ]},
+  {id:'suno',name:'Suno AI',cat:'AI',color:'#FF1B6B',initials:'Su',popular:true,
+   logo:'icons/suno.svg',url:'https://suno.com/pricing',
+   desc:'AI music generation — tạo bài hát có lời từ prompt. Viral trên TikTok, creator VN dùng nhiều.',
+   tiers:[
+     {id:'free',label:'Free Plan',price:0,features:['50 credits/ngày (~10 bài)','Access v4.5-all model','Upload tối đa 8 min audio','Không commercial use']},
+     {id:'pro',label:'Pro Plan',price:10,popular:true,note:'Annual $8/mo (save 20%). Most Popular',features:['2,500 credits/tháng (~500 bài)','Commercial use rights','v5.5 model + advanced editing','Upload 30 min, 10 songs cùng lúc']},
+     {id:'premier',label:'Premier Plan',price:30,note:'Annual $24/mo (save 20%). Best Value',features:['10,000 credits/tháng (~2,000 bài)','Suno Studio access','Custom voice tuning','Mọi tính năng Pro']}
+   ]},
+  {id:'heygen',name:'HeyGen',cat:'AI',color:'#7E4BFF',initials:'HG',popular:false,
+   logo:'icons/heygen.svg',url:'https://www.heygen.com/pricing',
+   desc:'AI video avatar — tạo video người thật từ ảnh + script. Marketing, training, sales explainer.',
+   tiers:[
+     {id:'free',label:'Miễn phí',price:0,features:['1 video/tháng, tối đa 3 phút','500+ avatar stock','Xuất 720p','Có watermark']},
+     {id:'creator',label:'Người sáng tạo',price:29,popular:true,note:'Annual $24/mo (~17% off). Cá nhân',features:['Video không giới hạn (tối đa 30 phút)','1 Avatar tùy chỉnh','700+ avatar stock','175+ ngôn ngữ, xuất 1080p']},
+     {id:'pro',label:'Pro',price:99,note:'Annual $79/mo (~20% off)',features:['Generative 10× Creator','5 hình đại diện tùy chỉnh','Xuất 4K','Mở rộng thương hiệu, SAML/SSO']},
+     {id:'business',label:'Kinh doanh',price:149,note:'Annual $119/mo (~20% off). Cho team',features:['Video tối đa 60 phút','Xuất 4K, xử lý nhanh','Avatar IV mở rộng','Ghế phụ $20/người']},
+     {id:'enterprise',label:'Doanh nghiệp',price:null,features:['Video không giới hạn thời lượng','Bảo mật đẳng cấp doanh nghiệp','SCORM, MFA','CSM riêng + SLA']}
+   ]},
+  {id:'descript',name:'Descript',cat:'Video',color:'#5A1E5C',initials:'Ds',popular:false,
+   logo:'icons/descript.svg',url:'https://www.descript.com/pricing',
+   desc:'Video/podcast editor AI — edit bằng cách edit transcript. Studio Sound, Overdub voice cloning.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Text-based editing','AI tools demo','Watermark khi export','1 user']},
+     {id:'hobbyist',label:'Hobbyist',price:24,note:'Annual $16/mo (~33% off)',features:['10 media hours/tháng','400 AI credits/tháng','Export 1080p không watermark','Underlord AI video co-editor']},
+     {id:'creator',label:'Creator',price:35,popular:true,note:'Annual $24/mo (~31% off). Most Popular',features:['30 media hours/tháng','800 AI credits','Export 4K','20+ AI tools, royalty-free media']},
+     {id:'business',label:'Business',price:65,note:'Annual $50/mo (~23% off)',features:['40 media hours/tháng','1500 AI credits','Brand Studio team-wide','Translate + dub 30+ ngôn ngữ']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SSO/SCIM','Custom AI credits','Flexible licensing','Priority SLA']}
+   ]},
+  {id:'pika',name:'Pika',cat:'AI',color:'#1A1A1A',initials:'Pk',popular:false,
+   logo:'icons/pika.svg',url:'https://pika.art/pricing',
+   desc:'AI video generation — alternative cho Runway/Kling. Pika 2.5, Pikaffects, Pikascenes.',
+   tiers:[
+     {id:'basic',label:'Basic (Free)',price:0,features:['80 credits/tháng','Pika 2.5 480p only','Image-to-Video','Có watermark']},
+     {id:'standard',label:'Standard',price:10,note:'Annual $8/mo (save 20%)',features:['700 credits/tháng','All resolutions','Pikaframes, Pikascenes, Pikaffects','Fast generations']},
+     {id:'pro',label:'Pro',price:35,popular:true,note:'Annual $28/mo (save 20%). Best value',features:['2300 credits/tháng','Faster generations','Không watermark','Commercial use']},
+     {id:'fancy',label:'Fancy',price:95,note:'Annual $76/mo (save 20%)',features:['6000 credits/tháng','Fastest generations','Mọi tính năng Pro','Phù hợp studio']}
+   ]},
+  {id:'replit',name:'Replit',cat:'Development',color:'#F26207',initials:'Rp',popular:false,
+   logo:'icons/replit.svg',url:'https://replit.com/pricing',
+   desc:'Vibe-coding online IDE + AI Agent. Build app full-stack từ prompt, deploy ngay trong browser.',
+   tiers:[
+     {id:'starter',label:'Starter (Free)',price:0,features:['Free daily Agent credits','Built-in database','Slides/videos/animations','1 public project']},
+     {id:'core',label:'Replit Core',price:20,popular:true,note:'Annual $18/mo (save 10%)',features:['$20 monthly credits','5 collaborators','2 agents parallel','Unlimited workspaces, không Made with Replit badge']},
+     {id:'pro',label:'Replit Pro',price:100,note:'Annual $90/mo (save 10%)',features:['$100 monthly credits','15 collaborators','10 agents parallel','Database rollbacks 28 ngày, premium support']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Custom seat limits','SSO/SAML','Dedicated support','VPC peering, single-tenant']}
+   ]},
 
   /* ─── Architecture ─── */
   {id:'autocad',name:'AutoCAD',cat:'Architecture',color:'#E51937',initials:'AC',popular:false,
@@ -2639,8 +2696,12 @@ var OVERLAP_GROUPS = {
   'ai-chat':      {label:'AI Chatbot',         apps:['chatgpt','claude','gemini','deepseek','grok']},
   'ai-search':    {label:'AI Search',          apps:['perplexity','chatgpt']},
   'seo':          {label:'SEO Tool',           apps:['ahrefs','semrush']},
-  'video-edit':   {label:'Video Editor',       apps:['premiere','davinci','capcut','finalcut']},
-  'ai-video':     {label:'AI Video Gen',       apps:['runway','kling']},
+  'video-edit':   {label:'Video Editor',       apps:['premiere','davinci','capcut','finalcut','descript']},
+  'ai-video':     {label:'AI Video Gen',       apps:['runway','kling','pika']},
+  'ai-voice':     {label:'AI Voice/TTS',       apps:['elevenlabs']},
+  'ai-music':     {label:'AI Music Gen',       apps:['suno']},
+  'ai-avatar':    {label:'AI Video Avatar',    apps:['heygen']},
+  'vibe-coding':  {label:'AI Code/Build',      apps:['replit','cursor']},
   'design-ui':    {label:'UI/UX Design',       apps:['figma','sketch']},
   'design-suite': {label:'Graphic Design Pro', apps:['adobe-cc','affinity','coreldraw']},
   'drawing-art':  {label:'Drawing/Art tool',   apps:['procreate','clipstudio','krita','sketchbook']},
@@ -2710,7 +2771,26 @@ var ANNUAL_DISCOUNTS = {
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
-  'linkedin-premium/career':  0.33    // $29.99→$19.99 (annual $239.88 vs $359.88)
+  'linkedin-premium/career':  0.33,   // $29.99→$19.99 (annual $239.88 vs $359.88)
+  // AI Voice/Music/Video Avatar — added 19/05/2026
+  'elevenlabs/starter':       0.167,  // $6→$5 yearly
+  'elevenlabs/creator':       0.167,  // $22→$18.33 yearly
+  'elevenlabs/pro':           0.167,  // $99→$82.5 yearly
+  'elevenlabs/scale':         0.167,  // $299→$249.17 yearly
+  'elevenlabs/business':      0.167,  // $990→$825 yearly
+  'suno/pro':                 0.20,   // $10→$8 (save 20%)
+  'suno/premier':             0.20,   // $30→$24 (save 20%)
+  'heygen/creator':           0.172,  // $29→$24 yearly (~17% off)
+  'heygen/pro':               0.202,  // $99→$79 yearly (~20% off)
+  'heygen/business':          0.201,  // $149→$119 yearly (~20% off)
+  'descript/hobbyist':        0.333,  // $24→$16 yearly (~33% off)
+  'descript/creator':         0.314,  // $35→$24 yearly (~31% off)
+  'descript/business':        0.231,  // $65→$50 yearly (~23% off)
+  'pika/standard':            0.20,   // $10→$8 yearly (-20%)
+  'pika/pro':                 0.20,   // $35→$28 yearly (-20%)
+  'pika/fancy':               0.20,   // $95→$76 yearly (-20%)
+  'replit/core':              0.10,   // $20→$18 yearly (save 10%)
+  'replit/pro':               0.10    // $100→$90 yearly (save 10%)
 };
 
 /* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
