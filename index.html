@@ -1872,7 +1872,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <span class="dot-sep">·</span>
       <span>Nguồn tỉ giá: <a href="https://www.vietcombank.com.vn/exchangerates" target="_blank" rel="noopener" class="footer-link-inline">Vietcombank</a></span>
       <span class="dot-sep">·</span>
-      <span>Giá app verified: <strong id="footer-verified-date">19/05/2026 (Batch 1)</strong></span>
+      <span>Đã cập nhật: <strong id="footer-verified-date">19/05/2026</strong></span>
     </div>
     <div class="footer-row footer-actions">
       <button type="button" class="footer-link" id="btn-methodology">
@@ -1883,10 +1883,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <span class="footer-version">v4.1</span>
     </div>
     <div class="footer-row footer-disclaimer">
-      <strong>~10 app phổ biến nhất đã verify tay từ trang chính thức</strong> (Adobe, Spotify, Netflix, YouTube, ChatGPT, Claude, Figma, Notion, Cursor, Google Workspace, Webflow, Linear).
-      Các app còn lại lấy data từ Claude AI có thể outdated 3-12 tháng.
-      <strong>Vui lòng kiểm tra giá chính thức trên trang nhà cung cấp trước khi mua.</strong>
-      Tool không lưu dữ liệu lương — chỉ thu thập lượt truy cập ẩn danh qua Cloudflare Web Analytics.
+      Giá tham khảo tại thời điểm cập nhật. Vui lòng kiểm tra trang chính thức trước khi mua.
     </div>
   </div>
 </footer>
@@ -4343,9 +4340,9 @@ function buildModal(app){
   // Verified badge — global date từ footer
   var verifiedDate = (document.getElementById('footer-verified-date')||{}).textContent || '16/05/2026';
   var verifiedBadge =
-    '<div class="modal-verified" title="Giá lấy từ trang chính thức, verified tay">'+
+    '<div class="modal-verified" title="Giá lấy từ trang chính thức">'+
       '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>'+
-      'Giá verified <strong>'+verifiedDate+'</strong>'+
+      'Đã cập nhật <strong>'+verifiedDate+'</strong>'+
       (app.url ? ' <span class="mv-sep">·</span> <a href="'+app.url+'" target="_blank" rel="noopener" class="mv-src">Trang chính thức ↗</a>' : '')+
     '</div>';
 
