@@ -1967,7 +1967,7 @@ var APPS = [
    desc:'Thiết kế UI/UX cộng tác thời gian thực, prototyping, design system toàn diện.',
    tiers:[
      {id:'starter',label:'Starter',price:0,features:['3 file Figma + 3 FigJam','Unlimited collaborator','Plugin marketplace','Mobile + Desktop app','Phù hợp cá nhân/học sinh']},
-     {id:'professional',label:'Professional (Full seat)',price:16,perUser:true,popular:true,note:'$15/seat annual. Dev seat $12-35, Collab seat $3-5',features:['File & project không giới hạn','Version history 30 ngày','Custom fonts & variables','Dev Mode','Figma Make + Slides included']},
+     {id:'professional',label:'Professional (Full seat)',price:16,perUser:true,popular:true,note:'$20/seat monthly · $16 annual. Dev seat $12, Collab seat $3 (annual)',features:['File & project không giới hạn','+ 3,000 AI credits/mo','Version history 30 ngày','Dev Mode + Figma MCP server','Branching']},
      {id:'organization',label:'Organization (Full seat)',price:55,perUser:true,note:'Annual only',features:['Shared component libraries','Org-wide design system','SSO + guest access','Branching','Team analytics']},
      {id:'enterprise',label:'Enterprise (Full seat)',price:90,perUser:true,note:'Annual only',features:['Advanced security audit','SCIM provisioning','Workspaces multiple','Custom MSA','Dedicated success']}
    ]},
@@ -1976,14 +1976,17 @@ var APPS = [
    includes:['photoshop','illustrator','indesign','after effects','premiere pro','lightroom','xd','audition','animate','dreamweaver','acrobat','character animator'],
    desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
    tiers:[
-     {id:'photo-20gb',label:'Photography 20GB (legacy)',price:14.99,note:'Discontinued Jan 2025 — existing subscribers only',features:['Photoshop + Lightroom','20GB cloud storage','Adobe Fonts đầy đủ','Annual = $9.99/mo']},
-     {id:'photo-1tb',label:'Photography 1TB',price:19.99,features:['Photoshop + Lightroom Classic','1TB cloud storage','Generative AI credits cơ bản']},
-     {id:'single-app',label:'Single App',price:22.99,features:['1 app Adobe tuỳ chọn','100GB cloud storage','Adobe Fonts đầy đủ','Stock preview']},
-     {id:'all-apps-standard',label:'CC Standard',price:54.99,note:'Desktop only, no mobile/web/iPad',features:['20+ app desktop','100GB cloud','Firefly AI credits cơ bản','Không có mobile/iPad apps']},
-     {id:'all-apps',label:'CC Pro (All Apps)',price:69.99,popular:true,note:'Replaced All Apps $59.99 Jun 2025',features:['20+ app Creative Cloud','Full mobile + iPad + web access','100GB cloud storage','Firefly AI credits tăng','Adobe Express Premium','Stock & Fonts đầy đủ']},
-     {id:'student',label:'CC Pro (HS/SV)',price:19.99,note:'Năm đầu, sau full price',features:['Mọi thứ trong CC Pro','Giảm ~71% năm đầu','Cần verify .edu mỗi năm']},
-     {id:'teams-single',label:'Teams Single App',price:37.99,perUser:true,features:['1 app cho team','Admin console','Centralized licensing']},
-     {id:'teams-all',label:'Teams All Apps',price:99.99,perUser:true,features:['Mọi app cho team','Admin console + billing','24/7 tech support']},
+     {id:'photo-1tb',label:'Photography 1TB',price:19.99,features:['Photoshop + Lightroom Classic','1TB cloud storage','Mobile + iPad apps','Generative AI credits']},
+     {id:'single-app',label:'Single App',price:22.99,note:'1 app: Photoshop / Illustrator / Premiere / Ae...',features:['1 app Adobe tuỳ chọn','100GB cloud storage','Adobe Fonts','Promo $9.19 khi giảm 60% năm đầu']},
+     {id:'lightroom',label:'Lightroom (standalone)',price:11.99,note:'Adobe VN: thường giảm 50% năm đầu',features:['Lightroom + 1TB cloud','Mobile + iPad','Sync ảnh đa thiết bị']},
+     {id:'acrobat-pro',label:'Acrobat Pro',price:19.99,note:'PDF chuyên nghiệp standalone',features:['Edit + chuyển đổi PDF','Ký điện tử','Bao gồm Acrobat AI Assistant']},
+     {id:'all-apps-standard',label:'CC Standard',price:52.99,note:'Desktop only, no mobile/iPad apps',features:['20+ app desktop','100GB cloud','Không có mobile/iPad']},
+     {id:'all-apps',label:'CC Pro (Personal)',price:33.99,popular:true,note:'Adobe VN giá list. Promo $20.39 3 tháng đầu',features:['20+ app Creative Cloud','Full mobile + iPad + web','100GB cloud storage','Firefly AI credits','Adobe Express Premium','Stock & Fonts đầy đủ']},
+     {id:'firefly-standard',label:'Firefly Standard',price:8.49,note:'AI image gen Adobe',features:['2,000 credits/tháng','Generative fill','Text-to-image','Audio + video AI']},
+     {id:'firefly-pro',label:'Firefly Pro',price:16.99,note:'+ Adobe Express Premium',features:['4,000 credits/tháng','Bao gồm Express Premium','Web + mobile design','High-volume generation']},
+     {id:'student',label:'CC Pro (HS/SV)',price:18.99,note:'Sau năm đầu (năm 1 chỉ $7.99 promo)',features:['Mọi thứ trong CC Pro','Verify .edu mỗi năm','Năm đầu giảm 75%']},
+     {id:'teams-single',label:'Teams Single App',price:35.99,perUser:true,features:['1 app cho team','Admin console','Centralized licensing']},
+     {id:'teams-all',label:'Teams CC Pro',price:99.99,perUser:true,note:'$69.99 first year promo (30% off)',features:['Mọi app cho team','Admin console + billing','24/7 tech support','Per seat']},
      {id:'enterprise',label:'Enterprise',price:null,features:['Custom MSA','SSO + SCIM','Global support 24/7']}
    ]},
   {id:'canva',name:'Canva Pro',cat:'Design',color:'#7D2AE8',initials:'C',popular:true,
@@ -2024,13 +2027,13 @@ var APPS = [
    logo:'icons/chatgpt-6.svg',url:'https://openai.com/chatgpt/pricing',
    desc:'AI chatbot mạnh nhất từ OpenAI — GPT-5.5, DALL·E, Code Interpreter, voice.',
    tiers:[
-     {id:'free',label:'Free',price:0,features:['GPT-5.5 Instant giới hạn','Có quảng cáo (từ Feb 2026 ở US)','Nghiên cứu sâu giới hạn','Bộ nhớ giới hạn']},
-     {id:'go',label:'Go',price:8,note:'$8/mo có ads, US first',features:['GPT-5.5 Instant','Nhiều tin nhắn hơn Free','Tăng cường tạo ảnh','Có quảng cáo nhẹ']},
-     {id:'plus',label:'Plus',price:20,popular:true,features:['GPT-5.5 Thinking','Mở rộng tin nhắn','Tạo ảnh phức tạp','Deep Research giới hạn','GPT tùy chỉnh','Codex mở rộng']},
-     {id:'pro-100',label:'Pro $100 (mid-tier)',price:100,note:'Mid-tier launched Apr 9 2026',features:['5x Plus usage limits','GPT-5.5 Pro','Suy luận sâu','Tải tệp lớn','Tạo ảnh nhiều hơn']},
-     {id:'pro',label:'Pro $200 (top)',price:200,note:'Top tier — 20x limits',features:['20x Plus usage','GPT-5.5 Pro full','1M-token context','Sora video generation','Deep Research 250 runs/mo','Codex tối đa']},
-     {id:'business',label:'Business (per seat)',price:25,perUser:true,note:'$20/seat annual, min 2 seats',features:['Mọi tính năng Plus','Admin console + SCIM','SAML SSO + MFA','Không train trên data','SOC 2 Type 2 compliance']},
-     {id:'enterprise',label:'Enterprise',price:null,note:'Custom — min ~150 users',features:['Context window mở rộng','EKM + advanced security','Data residency 10 vùng','SLA + 24/7 support']}
+     {id:'free',label:'Free',price:0,features:['GPT-5.5 Instant giới hạn','Nghiên cứu sâu giới hạn','Bộ nhớ giới hạn','Hạn chế Codex']},
+     {id:'go',label:'Go',price:5,priceVND:132000,note:'Có thể có quảng cáo (verified VN)',features:['Tăng cường GPT-5.5 Instant','Nhiều tin nhắn hơn Free','Tải lên nhiều hơn','Tạo ảnh nhiều hơn','Bộ nhớ nhiều hơn']},
+     {id:'plus',label:'Plus',price:20,priceVND:522500,popular:true,features:['GPT-5.5 Thinking','Mở rộng tin nhắn','Tạo ảnh phức tạp','Deep Research + Agent mode','Projects + GPT tùy chỉnh','Codex mở rộng']},
+     {id:'pro',label:'Pro',price:109,priceVND:2849000,note:'Tăng gấp đôi Codex đến 31/5/2026 (VN promo)',features:['5-20x Plus usage','GPT-5.5 Pro suy luận','GPT-5.3 + tải tệp không giới hạn','Số Codex tối đa','Tạo ảnh không giới hạn','Agent mode tối đa']},
+     {id:'business-codex',label:'Business Codex',price:null,note:'Bảng giá usage-based',features:['Software engineering AI','Auto code review + security','Auto desktop tasks','Multi-agent cloud','SAML SSO + MFA','GDPR, SOC 2 Type 2']},
+     {id:'business',label:'Business (ChatGPT & Codex)',price:25,priceVND:649000,perUser:true,note:'$20/seat annual ($25 monthly). Min 2 seats',features:['Tất cả Plus + Business Codex','60+ app integrations','GPT tùy chỉnh + analytics','SAML SSO + MFA','Không train trên data','SOC 2 Type 2']},
+     {id:'enterprise',label:'Enterprise',price:null,note:'Custom — min ~150 users',features:['Context window mở rộng','SCIM + EKM','Data residency 10 vùng','24/7 priority support','SLA']}
    ]},
   {id:'claude',name:'Claude',cat:'AI',color:'#C25C3A',initials:'Cl',popular:true,
    logo:'icons/claude-logo.svg',url:'https://claude.ai/upgrade',
@@ -2764,7 +2767,7 @@ var DEFAULT_VERDICT_COPY = {
  * Key: 'appId' hoặc 'appId/tierId'. minSeverity = severity floor; maxSeverity = ceiling. */
 var APP_VERDICT_RULES = {
   'adobe-cc/all-apps': {
-    copy: 'CC Pro $69.99/mo (đã raise từ $59.99 Jun 2025). Hợp lý nếu dùng >3 app Adobe. Nếu chỉ cần desktop, CC Standard $54.99 rẻ hơn. Chỉ 1 app → Single App $22.99 hoặc Affinity FREE.',
+    copy: 'CC Pro Personal $33.99/mo (Adobe VN). Hợp lý nếu dùng >3 app Adobe. Nếu chỉ cần desktop, CC Standard $52.99 rẻ hơn. Chỉ 1 app → Single App $22.99 hoặc Affinity FREE.',
     minSeverity: 'caution'
   },
   'adobe-cc/single-app': {
@@ -2775,12 +2778,8 @@ var APP_VERDICT_RULES = {
     copy: 'ROI cao cho user AI hằng ngày. Free tier ChatGPT (có ads US từ Feb 2026) đủ nếu nhẹ — cân nhắc DeepSeek free cho code/math.',
     maxSeverity: 'reasonable'
   },
-  'chatgpt/pro-100': {
-    copy: 'Pro $100 mid-tier (Apr 2026). 5x Plus limits. Hợp lý cho power user nhưng không cần Sora/1M context. Plus $20 đủ cho 90% người.',
-    minSeverity: 'high'
-  },
   'chatgpt/pro': {
-    copy: 'Pro $200/mo top tier — 20x Plus limits + Sora video + 1M context. Chỉ đáng nếu công việc AI cường độ cao. Plus $20 đủ cho 95% case.',
+    copy: 'Pro $109/mo dành cho power user (5-20x Plus usage). Quá tải với cá nhân — Plus $20/mo đủ cho 95% nhu cầu. VN promo "tăng gấp đôi Codex" đến 31/5/2026.',
     minSeverity: 'high'
   },
   'claude/pro': {
