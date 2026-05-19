@@ -1872,7 +1872,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <span class="dot-sep">·</span>
       <span>Nguồn tỉ giá: <a href="https://www.vietcombank.com.vn/exchangerates" target="_blank" rel="noopener" class="footer-link-inline">Vietcombank</a></span>
       <span class="dot-sep">·</span>
-      <span>Đã cập nhật: <strong id="footer-verified-date">22/05/2026</strong></span>
+      <span>Đã cập nhật: <strong id="footer-verified-date">19/05/2026</strong></span>
     </div>
     <div class="footer-row footer-actions">
       <button type="button" class="footer-link" id="btn-methodology">
@@ -1993,11 +1993,12 @@ var APPS = [
   {id:'sketch',name:'Sketch',cat:'Design',color:'#C4741A',initials:'S',popular:false,
    logo:'icons/sketch-2.svg',url:'https://www.sketch.com/pricing/',
    desc:'Công cụ thiết kế UI/UX dành riêng cho macOS — gọn nhẹ, nhanh, plugin ecosystem mạnh.',
-   tiers:{
-     personal:{label:'Standard',price:12,popular:true,features:['Mac app native + Web app','Real-time collab + prototyping','Plugin marketplace (1000+)','Cloud sync không giới hạn']},
-     team:{label:'Business',price:20,features:['Permissions cấp Workspace','SSO Google/Microsoft','Shared libraries','Workspace analytics']},
-     enterprise:{label:'Enterprise',price:30,features:['SAML SSO + SCIM','Audit logs đầy đủ','Custom integration','Dedicated CSM']}
-   }},
+   tiers:[
+     {id:'mac-only',label:'Mac-only License',price:10,note:'$120 mua đứt — 1 năm updates, không cloud collab',features:['Native Mac app — mua đứt','Offline-first, lưu local','1 năm updates miễn phí','Không cloud, không sharing']},
+     {id:'standard',label:'Standard',price:14,popular:true,note:'$14 monthly · $12 billed yearly',features:['Mac app + Web app','Real-time collaboration','Unlimited documents + viewers','Version history','Free developer handoff']},
+     {id:'professional',label:'Professional',price:24,note:'Per Editor, billed yearly — no monthly option',features:['Mọi tính năng Standard','Single Sign-On (SSO)','Project archiving','Permissions groups']},
+     {id:'enterprise',label:'Enterprise',price:44,note:'Per Editor, billed yearly. Min 15+ editors',features:['Mọi tính năng Professional','SCIM provisioning','BYOK encryption','Dedicated support + CSM','Custom reviews & terms']}
+   ]},
   {id:'miro',name:'Miro',cat:'Design',color:'#C4921A',initials:'M',popular:false,
    logo:'icons/miro-icon.svg',url:'https://miro.com/pricing/',
    desc:'Whiteboard cộng tác trực tuyến — brainstorm, wireframe, workshop, flowchart.',
@@ -2051,12 +2052,12 @@ var APPS = [
    }},
   {id:'perplexity',name:'Perplexity Pro',cat:'AI',color:'#20B2AA',initials:'Px',popular:false,
    logo:'icons/perplexity-color-1-.svg',url:'https://www.perplexity.ai/pro',
-   desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time.',
-   tiers:{
-     personal:{label:'Pro',price:20,popular:true,features:['300+ Pro search/ngày','Chọn model: GPT-4o, Claude, Sonar','Upload file & phân tích','Spaces (workspace cá nhân)']},
-     team:{label:'Enterprise',price:null,features:['Shared workspace + Spaces','Admin & user provisioning','SSO + SCIM','Billing tập trung']},
-     enterprise:{label:'Enterprise',price:null,features:['Custom data retention','Audit log đầy đủ','Dedicated success manager','99.9% SLA']}
-   }},
+   desc:'AI search engine — tìm kiếm có trích nguồn, tổng hợp thông tin real-time. Tích hợp Perplexity Computer (agent) + Sonar API.',
+   tiers:[
+     {id:'pro',label:'Pro',price:20,popular:true,note:'$17/mo billed annually ($200/yr)',features:['Unlimited Pro searches','GPT-5.2, Claude Opus 4.6, Gemini 3 Pro, Sonar 2','Perplexity Computer (agent automation)','Deep investigations + Labs','Comet Plus included (premium publishers)','Upload + analyze files']},
+     {id:'max',label:'Max',price:200,note:'$167/mo billed annually ($2000/yr) — power user',features:['Mọi tính năng Pro','Unlimited Labs (dashboards, apps)','Sora 2 Pro video generation','10000 monthly credits Computer','Perplexity Model Council compare','Early access to new products']},
+     {id:'enterprise',label:'Enterprise Pro',price:40,perUser:true,note:'Per user/month',features:['Shared Spaces + workspace','SSO + SCIM provisioning','Admin controls + billing','Data retention controls','Audit log + SOC 2']}
+   ]},
   {id:'cursor',name:'Cursor',cat:'Development',color:'#7C3AED',initials:'Cu',popular:true,
    logo:'icons/cursor.svg',url:'https://cursor.com/pricing',
    desc:'IDE tích hợp AI — autocomplete thông minh, chat với codebase, refactor tự động.',
@@ -2168,11 +2169,12 @@ var APPS = [
    }},
   {id:'davinci',name:'DaVinci Resolve',cat:'Video',color:'#B03A2E',initials:'DV',popular:false,
    logo:'icons/davinci-resolve-12.svg',url:'https://www.blackmagicdesign.com/products/davinciresolve',
-   desc:'Professional color grading + post-production — tiêu chuẩn Hollywood. Free version đủ 95% use cases.',
-   tiers:{
-     personal:{label:'Free',price:0,popular:true,features:['FULL editor (90% Studio features)','Export tới UHD 4K','Fusion VFX cơ bản','Free forever']},
-     team:{label:'Studio (one-time $295)',price:24.58,note:'Mua đứt $295 lifetime, không subscription',features:['Neural engine AI','4K+ resolution','Advanced effects','HDR grading','Free updates forever']}
-   }},
+   desc:'Professional color grading + post-production — tiêu chuẩn Hollywood. Free version đủ 95% use cases. VN order: S$412.50 (gồm VAT 10%) qua Blackmagic SEA.',
+   tiers:[
+     {id:'free',label:'Free',price:0,popular:true,features:['FULL editor (90% Studio features)','Export tới UHD 4K','Fusion VFX cơ bản','Color grading chuyên nghiệp','Free forever — không expire']},
+     {id:'rental',label:'Studio Monthly Rental',price:30,note:'Mới 2025 — short-term/project-based',features:['Toàn bộ Studio features','Hủy bất cứ lúc nào','Hợp cho project ngắn hạn','Hết tháng = mất quyền truy cập']},
+     {id:'studio',label:'Studio (one-time $295)',price:24.58,note:'Mua đứt $295 lifetime — VN: ~S$412.50 (gồm VAT 10%)',features:['Neural engine AI','4K/8K + HDR grading','Advanced Fairlight + Fusion','Free updates forever (gồm v20+)','Tiết kiệm sau 10 tháng so rental']}
+   ]},
   {id:'gemini',name:'Google Gemini',cat:'AI',color:'#4285F4',initials:'Ge',popular:false,
    logo:'icons/google-gemini.svg',url:'https://gemini.google.com/advanced',
    desc:'AI assistant của Google — tích hợp sâu Google Workspace, search, multimodal.',
@@ -2332,12 +2334,13 @@ var APPS = [
 
   /* ─── VN Tier 1: Office essentials (MS 365, Google Workspace, Zoom) ─── */
   {id:'ms365',name:'Microsoft 365',cat:'Productivity',color:'#D83B01',initials:'M',popular:true,
-   logo:'icons/microsoft-365.svg',url:'https://www.microsoft.com/en/microsoft-365/business/compare-all-plans',
+   logo:'icons/microsoft-365.svg',url:'https://www.microsoft.com/vi-vn/microsoft-365/buy/compare-all-microsoft-365-products',
    includes:['word','excel','powerpoint','outlook','onenote','onedrive','teams'],
-   desc:'Bộ Office chuẩn — Word, Excel, PowerPoint, Outlook, Teams. Gần như mọi công ty/office worker VN đều dùng.',
+   desc:'Bộ Office chuẩn — Word, Excel, PowerPoint, Outlook, Teams + Copilot AI. Có VN regional pricing (rẻ hơn US ~15%).',
    tiers:[
-     {id:'personal',label:'Personal',price:9.99,popular:true,features:['1 user','1TB OneDrive','Word/Excel/PowerPoint full','Office mobile + desktop','Outlook email']},
-     {id:'family',label:'Family',price:12.99,note:'Share 6 user',features:['6 user share','6TB cloud (1TB/user)','Mọi app Personal','Family Safety','Premium templates']},
+     {id:'personal',label:'Personal',price:9.99,priceVND:210000,popular:true,note:'VN: 210k/tháng · 2.099k/năm. Annual save 16.7%',features:['1 user, 5 thiết bị cùng lúc','1TB OneDrive bảo mật','Word/Excel/PowerPoint/Outlook','Copilot AI integrations','Editor video 4K + Clipchamp']},
+     {id:'family',label:'Family',price:12.99,priceVND:260000,note:'VN: 260k/tháng · 2.599k/năm. 1-6 người (AI chỉ owner)',features:['1-6 user share (AI chỉ chủ sở hữu)','6TB cloud (1TB/người)','Mọi app + tính năng Personal','Family Safety','Premium templates']},
+     {id:'premium',label:'Premium',price:19.99,priceVND:510000,note:'VN: 510k/tháng · 5.099k/năm. Tier MỚI — AI Copilot cao cấp',features:['Mọi tính năng Family +','Copilot usage cao gấp nhiều lần','Truy cập tính năng AI Premium-only','AI image generation mở rộng','Cho power user dùng AI nhiều']},
      {id:'business-basic',label:'Business Basic',price:6,perUser:true,note:'Sẽ tăng lên $7 từ Jul 2026',features:['Web + mobile only','1TB OneDrive','Email business','Teams + SharePoint','No desktop install']},
      {id:'business-standard',label:'Business Standard',price:12.50,perUser:true,note:'Sẽ tăng lên $14 từ Jul 2026. $15 monthly',features:['Desktop + web + mobile','Mọi tính năng Basic','Outlook business email','Teams + webinars','PowerPoint Designer']},
      {id:'business-premium',label:'Business Premium',price:22,perUser:true,features:['Mọi tính năng Standard','Intune device mgmt','Advanced security','Defender for business','Conditional access']}
@@ -2663,7 +2666,7 @@ var VAT_RATE = 0.10;
 var ANNUAL_DISCOUNTS = {
   // Design
   'figma/professional':       0.20,   // $15→$12 ($144/yr)
-  'sketch/standard':          0.25,   // $12→$9 ($108/yr typical)
+  'sketch/standard':          0.143,  // $14→$12 ($144/yr) — verified sketch.com 19/05/2026
   'webflow/basic':            0.40,   // $25 monthly → $15 yearly (40% off)
   'webflow/cms':              0.359,  // $39 monthly → $25 yearly (Premium tier)
   'framer/basic':             0.25,   // $20→$15 annual
@@ -2689,8 +2692,11 @@ var ANNUAL_DISCOUNTS = {
   // Productivity
   'notion/plus':              0.167,  // $12 monthly → $10 yearly
   'notion/business':          0.167,  // $24 monthly → $20 yearly
-  'ms365/personal':           0.165,  // $9.99→$8.33 ($99.99/yr)
-  'ms365/family':             0.166,  // $12.99→$10.83 ($129.99/yr)
+  'ms365/personal':           0.167,  // VN: 210k→175k/mo (2.099k/yr) — verified microsoft.com/vi-vn 19/05/2026
+  'ms365/family':             0.167,  // VN: 260k→217k/mo (2.599k/yr) — verified 19/05/2026
+  'ms365/premium':            0.167,  // VN: 510k→425k/mo (5.099k/yr) — NEW tier May 2026
+  'perplexity/pro':           0.15,   // $20→$17 ($200/yr) — verified perplexity.ai/pro 19/05/2026
+  'perplexity/max':           0.165,  // $200→$167 ($2000/yr) — NEW tier 2026
   'google-workspace/starter': 0.167,  // $8.40 monthly → $7 yearly (verified VN)
   'google-workspace/standard':0.167,  // $16.80 monthly → $14 yearly
   'google-workspace/plus':    0.167,  // $26.40 monthly → $22 yearly
@@ -2702,7 +2708,8 @@ var ANNUAL_DISCOUNTS = {
   'jetbrains/all-products':   0.074,  // ~$26.90→$24.90 small annual discount
   'loom/business':            0.20,   // $12.50→$10 annual typical
   // Consumer
-  'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr)
+  'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
+  'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
   'linkedin-premium/career':  0.33    // $29.99→$19.99 (annual $239.88 vs $359.88)
 };
 
