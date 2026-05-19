@@ -1872,7 +1872,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <span class="dot-sep">·</span>
       <span>Nguồn tỉ giá: <a href="https://www.vietcombank.com.vn/exchangerates" target="_blank" rel="noopener" class="footer-link-inline">Vietcombank</a></span>
       <span class="dot-sep">·</span>
-      <span>Đã cập nhật: <strong id="footer-verified-date">19/05/2026</strong></span>
+      <span>Đã cập nhật: <strong id="footer-verified-date">22/05/2026</strong></span>
     </div>
     <div class="footer-row footer-actions">
       <button type="button" class="footer-link" id="btn-methodology">
@@ -1985,9 +1985,10 @@ var APPS = [
    logo:'icons/canva.svg',url:'https://www.canva.com/pricing/',
    desc:'Thiết kế graphic dễ dàng — template phong phú, xuất file đẹp cho mọi nền tảng.',
    tiers:{
-     personal:{label:'Pro',price:15,popular:true,features:['100GB cloud storage','Magic Studio AI (toàn bộ)','Background Remover & Magic Resize','610K+ template Premium']},
-     team:{label:'Teams (5 người)',price:30,features:['Brand Kit không giới hạn','Real-time collab + comment','Approval workflow','Phân quyền nội bộ']},
-     enterprise:{label:'Enterprise',price:null,features:['SSO + SAML','Brand controls toàn organization','Advanced analytics','24/7 priority support']}
+     free:{label:'Miễn phí',price:0,features:['Hơn 1.000 loại thiết kế','1,6 triệu mẫu','5GB cloud','Giới hạn AI cơ bản']},
+     personal:{label:'Pro (Cá nhân)',price:5.72,priceVND:150000,popular:true,note:'Giá VN regional. Annual 1,3 triệu/năm = ~108k/mo (save 28%)',features:['Công cụ AI cao cấp','3.6 triệu mẫu Premium','141 triệu ảnh/video','100GB cloud','Quyền truy cập Affinity']},
+     team:{label:'Kinh doanh (per user)',price:8.02,priceVND:210000,perUser:true,note:'Giá VN regional per user. Annual 2,1 triệu/năm = ~175k/mo (save 17%). Min 3 seats',features:['Cộng tác đội nhóm','500GB cloud','Phê duyệt brand kit','Affinity + Leonardo.AI','100 brand kit']},
+     enterprise:{label:'Doanh nghiệp',price:null,features:['Kiểm soát bảo mật cấp doanh nghiệp','SCIM + SSO','1000 brand kit','Quản lý đa đội','1TB cloud']}
    }},
   {id:'sketch',name:'Sketch',cat:'Design',color:'#C4741A',initials:'S',popular:false,
    logo:'icons/sketch-2.svg',url:'https://www.sketch.com/pricing/',
@@ -2071,9 +2072,11 @@ var APPS = [
    logo:'icons/copilot-color.svg',url:'https://github.com/features/copilot/plans',
    desc:'AI pair programmer tích hợp mọi IDE — hoàn thành code, giải thích, fix bug.',
    tiers:{
-     personal:{label:'Individual',price:10,popular:true,features:['Code completion (mọi IDE)','Copilot Chat trong IDE','Pull request summary','Truy cập GPT-4o-mini & Claude']},
-     team:{label:'Business',price:19,features:['Mọi tính năng Individual','Policy management cấp org','User management','Audit log']},
-     enterprise:{label:'Enterprise',price:39,features:['Custom model fine-tune','IP indemnity đầy đủ','SAML SSO + SCIM','24/7 priority support']}
+     free:{label:'Free',price:0,features:['50 agent mode/chat requests/mo','2,000 completions/mo','Access to Haiku 4.5, GPT-5 mini','Copilot CLI']},
+     personal:{label:'Pro (Individual)',price:10,popular:true,note:'Most popular cho dev cá nhân',features:['Mọi tính năng Free','Copilot cloud agent','Copilot code review','Claude & Codex on GitHub/VS Code','300 premium requests','Unlimited agent mode + GPT-5 mini']},
+     plus:{label:'Pro+ (Individual)',price:39,note:'NEW tier — 5x premium requests',features:['Mọi tính năng Pro','5x as many premium requests','Access all models (Claude Opus 4.7)','Access to GitHub Spark']},
+     team:{label:'Business',price:19,features:['Mọi tính năng Pro','Policy management cấp org','User management','Audit log','SCIM']},
+     enterprise:{label:'Enterprise',price:39,features:['Custom model fine-tune','3.33x premium requests vs Business','IP indemnity','SAML SSO + SCIM','24/7 priority support']}
    }},
   {id:'vercel',name:'Vercel',cat:'Development',color:'#333',initials:'Vc',popular:false,
    logo:'icons/vercel.svg',url:'https://vercel.com/pricing',
@@ -2144,8 +2147,8 @@ var APPS = [
    logo:'icons/capcut-3.svg',url:'https://www.capcut.com/pricing',
    desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
    tiers:{
-     personal:{label:'Pro',price:10,popular:true,features:['Cloud storage 100GB','AI effect & template Premium','Background remover, auto reframe','Export 4K không watermark']},
-     team:{label:'Business',price:20,features:['Shared team workspace','Brand kit + asset chung','Commercial license đầy đủ','Multi-seat billing']},
+     personal:{label:'Pro (Cá nhân)',price:11.07,priceVND:290000,popular:true,note:'Giá VN regional. Annual 1,89 triệu/năm = ~157k/mo (save 46%)',features:['650 điểm tín dụng AI/tháng','Cloud storage 100GB','AI effect & template Premium','Background remover, auto reframe','Export 4K không watermark']},
+     team:{label:'Teams (per user)',price:10.11,priceVND:265000,perUser:true,note:'Giá VN regional per user. Min 2 seats, annual ~50% off',features:['Shared team workspace','Brand kit chung','Commercial license','Multi-seat billing','Sáng tạo với Teams']},
      enterprise:{label:'Enterprise',price:null,features:['SSO + admin console','Advanced licensing','Priority CSM','Custom contract']}
    }},
   {id:'premiere',name:'Adobe Premiere Pro',cat:'Video',color:'#9999FF',initials:'Pr',popular:false,
@@ -2368,7 +2371,9 @@ var APPS = [
    tiers:[
      {id:'individual-single',label:'IntelliJ Ultimate (Individual)',price:16.58,note:'$199/năm. Other IDEs $99-149/year',features:['1 IDE Ultimate (IntelliJ/PhpStorm/WebStorm…)','AI Assistant','Update + bug fix','Cá nhân, mua bằng tên mình']},
      {id:'individual-all',label:'All Products (Individual)',price:24.92,popular:true,note:'$299/năm — 11 IDE + tools',features:['Tất cả IDE JetBrains','AI Assistant','Fleet, dotMemory, dotTrace','Cá nhân']},
-     {id:'business',label:'All Products (Org)',price:81.58,perUser:true,note:'$979/user/year',features:['Tất cả IDE cho team','Centralized billing','License pool','Org-wide admin']},
+     {id:'business',label:'All Products (Org)',price:97.90,perUser:true,note:'$979/user/year annual ($97.90 monthly). Save 2 months = 17%',features:['Tất cả IDE cho team','Centralized billing','License pool','Org-wide admin']},
+     {id:'business-single',label:'IntelliJ Ultimate (Org)',price:71.90,perUser:true,note:'$719/user/year annual ($71.90 monthly)',features:['1 IDE Ultimate cho team','Admin console','License pool']},
+     {id:'business-dotnet',label:'dotUltimate (Org)',price:60.90,perUser:true,note:'$609/user/year annual ($60.90 monthly)',features:['.NET + game dev toolkit cho team','Admin console']},
      {id:'edu',label:'Education',price:0,note:'Free cho HS/SV/GV/OSS maintainer',features:['Đầy đủ Ultimate IDE','Cần verify .edu','Phi thương mại','Renew năm']}
    ]},
   {id:'clipstudio',name:'Clip Studio Paint',cat:'Design',color:'#00C0BC',initials:'CS',popular:true,
@@ -2547,24 +2552,24 @@ var APPS = [
      {id:'family',label:'Family',price:3.78,priceVND:99000,features:['Tới 6 thành viên','Family Sharing','Hết tính năng Individual']},
      {id:'student',label:'Student',price:1.34,priceVND:35000,note:'Verify sinh viên',features:['Giảm ~46%','Verify SheerID','+ Apple TV+ free']}
    ]},
-  {id:'apple-one',name:'Apple One',cat:'Cá nhân',color:'#A2AAAD',initials:'A1',popular:false,
+  {id:'apple-one',name:'Apple One',cat:'Cá nhân',color:'#A2AAAD',initials:'A1',popular:true,
    logo:'icons/apple-one.svg',url:'https://www.apple.com/vn/apple-one/',
-   desc:'Bundle Apple: Music + TV+ + Arcade + iCloud+. Rẻ hơn mua riêng từng dịch vụ ~30%.',
+   desc:'Bundle Apple: Music + TV+ + Arcade + iCloud+. VN regional RẺ HẲN US ~45% — tiết kiệm 203k-247k/tháng vs mua riêng.',
    tiers:[
-     {id:'individual',label:'Individual',price:16.95,note:'Music + TV+ + Arcade + iCloud+ 50GB',features:['Apple Music Individual','Apple TV+','Apple Arcade','iCloud+ 50GB','Tiết kiệm vs mua riêng']},
-     {id:'family',label:'Family',price:22.95,popular:true,note:'+ iCloud+ 200GB, tới 6 người',features:['Tất cả service Family','iCloud+ 200GB','Tới 6 thành viên','Family Sharing']},
-     {id:'premier',label:'Premier',price:37.95,note:'+ News+ + Fitness+ + 2TB',features:['Mọi Apple service','iCloud+ 2TB','Apple News+','Apple Fitness+','Tới 6 thành viên']}
+     {id:'individual',label:'Cá Nhân',price:9.12,priceVND:239000,popular:true,note:'Giá VN regional, US $19.95. Save 203k/th vs mua riêng',features:['Apple Music Individual','Apple TV+','Apple Arcade','iCloud+ 50GB','Tiết kiệm 203k/th vs lẻ']},
+     {id:'family',label:'Gia Đình',price:10.65,priceVND:279000,note:'Giá VN regional. Save 247k/th vs lẻ. Tới 6 người',features:['Tất cả service Family','iCloud+ 200GB','Tới 6 thành viên','Family Sharing','Save 247k/th vs lẻ']},
+     {id:'premier',label:'Premier (chỉ US/UK/CA/AU)',price:37.95,note:'VN chưa có Premier tier — chỉ hiện trên iOS một số nước',features:['Mọi Apple service','iCloud+ 2TB','Apple News+','Apple Fitness+','Tới 6 thành viên']}
    ]},
   {id:'icloud-plus',name:'iCloud+',cat:'Cá nhân',color:'#017AFF',initials:'iC',popular:true,
    logo:'icons/icloud-plus.svg',url:'https://www.apple.com/vn/icloud/',
    desc:'Storage cloud + Private Relay + Hide my email cho Apple users. Sync ảnh/file/backup iPhone.',
    tiers:[
      {id:'free',label:'Free 5GB',price:0,features:['5GB miễn phí','Sync cơ bản','Backup iPhone hạn chế']},
-     {id:'50gb',label:'50GB',price:0.99,popular:true,features:['50GB storage','Hide my email','iCloud Private Relay','Backup iPhone đầy đủ']},
-     {id:'200gb',label:'200GB',price:2.99,features:['200GB storage','Family sharing storage','Custom email domain','Tất cả 50GB features']},
-     {id:'2tb',label:'2TB',price:9.99,features:['2TB storage','Cho user nhiều ảnh/video','Family sharing']},
-     {id:'6tb',label:'6TB',price:29.99,features:['6TB storage','Heavy users']},
-     {id:'12tb',label:'12TB',price:59.99,features:['12TB storage','Pro creators']}
+     {id:'50gb',label:'50GB',price:0.73,priceVND:19000,popular:true,note:'Giá VN regional, rẻ hơn US ~25%',features:['50GB storage','Hide my email','iCloud Private Relay','Backup iPhone đầy đủ']},
+     {id:'200gb',label:'200GB',price:2.63,priceVND:69000,note:'Giá VN regional',features:['200GB storage','Family sharing storage','Custom email domain','Tất cả 50GB features']},
+     {id:'2tb',label:'2TB',price:9.50,priceVND:249000,note:'Giá VN regional',features:['2TB storage','Cho user nhiều ảnh/video','Family sharing']},
+     {id:'6tb',label:'6TB',price:28.59,priceVND:749000,note:'Giá VN regional',features:['6TB storage','Heavy users']},
+     {id:'12tb',label:'12TB',price:57.21,priceVND:1499000,note:'Giá VN regional',features:['12TB storage','Pro creators']}
    ]},
   {id:'google-one',name:'Google One',cat:'Cá nhân',color:'#4285F4',initials:'G1',popular:false,
    logo:'icons/google-one.svg',url:'https://one.google.com/',
@@ -2662,7 +2667,8 @@ var ANNUAL_DISCOUNTS = {
   'webflow/basic':            0.40,   // $25 monthly → $15 yearly (40% off)
   'webflow/cms':              0.359,  // $39 monthly → $25 yearly (Premium tier)
   'framer/basic':             0.25,   // $20→$15 annual
-  'canva/pro':                0.33,   // $14.99→$10 ($119.99/yr)
+  'canva/personal':           0.28,   // VN: 150k → 108k/mo annual (1.3M/year)
+  'canva/team':               0.167,  // VN: 210k → 175k/mo annual (2.1M/year per user)
   // Adobe
   'adobe-cc/single-app':      0.13,   // $22.99→$19.99 annual prepay
   'adobe-cc/all-apps':        0.083,  // $69.99 monthly → annual prepay save ~8%
@@ -2674,6 +2680,12 @@ var ANNUAL_DISCOUNTS = {
   'cursor/pro':               0.20,   // $20→$16 ($192/yr)
   'github-copilot/individual':0.167,  // $10→$8.33 ($100/yr)
   'runway/standard':          0.20,   // $15→$12 ($144/yr)
+  'midjourney/personal':      0.20,   // Basic $10→$8 (Yearly 20% off)
+  'midjourney/team':          0.20,   // Standard $30→$24
+  'midjourney/enterprise':    0.20,   // Pro $60→$48
+  'midjourney/mega':          0.20,   // Mega $120→$96
+  'capcut/personal':          0.457,  // VN: 290k → 157k/mo annual (46% off)
+  'capcut/team':              0.50,   // VN: 265k → 132k/mo annual per user
   // Productivity
   'notion/plus':              0.167,  // $12 monthly → $10 yearly
   'notion/business':          0.167,  // $24 monthly → $20 yearly
