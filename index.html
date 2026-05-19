@@ -2481,32 +2481,32 @@ var APPS = [
      {id:'photography',label:'Photography 1TB (+ Lightroom)',price:19.99,note:'Rẻ hơn nếu cần thêm Lightroom',features:['Photoshop + Lightroom + LR Classic','1TB cloud storage','Mobile + iPad apps','Generative AI credits']}
    ]},
   {id:'illustrator',name:'Illustrator',cat:'Design',color:'#FF9A00',initials:'Ai',popular:true,
-   logo:'icons/adobe-illustrator-cc-icon.svg',url:'https://www.adobe.com/products/illustrator.html',
+   url:'https://www.adobe.com/products/illustrator.html',
    desc:'Vector graphics chuẩn ngành — logo, illustration, typography, packaging design.',
    tiers:[
      {id:'single',label:'Single App',price:22.99,popular:true,note:'Annual paid monthly. Adobe VN promo $9.19 giảm 60% năm đầu',features:['Vector design + typography','100GB cloud storage','Adobe Fonts','AI-powered vector tools','Illustrator iPad app']}
    ]},
   {id:'indesign',name:'InDesign',cat:'Design',color:'#FF3366',initials:'Id',popular:false,
-   logo:'icons/adobe-indesign-cc-icon.svg',url:'https://www.adobe.com/products/indesign.html',
+   url:'https://www.adobe.com/products/indesign.html',
    desc:'Layout publishing chuẩn — sách, tạp chí, brochure, eBook interactive, PDF chuyên nghiệp.',
    tiers:[
      {id:'single',label:'Single App',price:22.99,popular:true,note:'Adobe VN promo $9.19 giảm 60% năm đầu',features:['Print + digital layout','Adobe Fonts','100GB cloud storage','Interactive PDF + eBook export','Real-time collab']}
    ]},
   {id:'after-effects',name:'After Effects',cat:'Video',color:'#9999FF',initials:'Ae',popular:false,
-   logo:'icons/adobe-after-effects-cc-icon.svg',url:'https://www.adobe.com/products/aftereffects.html',
+   url:'https://www.adobe.com/products/aftereffects.html',
    desc:'Motion graphics + VFX chuẩn ngành — animation, compositing, visual effects cho film/TV/web.',
    tiers:[
      {id:'single',label:'Single App',price:22.99,popular:true,note:'Adobe VN promo $9.19 giảm 60% năm đầu',features:['Motion graphics + VFX','3D animation','Particle + simulation effects','Tích hợp Premiere Pro','100GB cloud']}
    ]},
   {id:'lightroom-standalone',name:'Lightroom',cat:'Design',color:'#0B1F4D',initials:'Lr',popular:false,
-   logo:'icons/adobe-lightroom-cc.svg',url:'https://www.adobe.com/products/photoshop-lightroom.html',
+   url:'https://www.adobe.com/products/photoshop-lightroom.html',
    desc:'Photo organize + edit cloud-native cho photographer mobile-first. Sync ảnh giữa thiết bị.',
    tiers:[
      {id:'standalone',label:'Lightroom (1TB)',price:11.99,popular:true,note:'1TB cloud, KHÔNG có Lightroom Classic. Adobe VN promo giảm 50% năm đầu',features:['1TB cloud storage','Sync mobile + iPad + desktop','AI-powered organize','RAW editing đầy đủ','Adobe Sensei AI search']},
      {id:'photography',label:'Photography 1TB (+ Photoshop)',price:19.99,note:'Có thêm Photoshop + LR Classic',features:['Lightroom + Photoshop + LR Classic','1TB cloud','Desktop + mobile + iPad','Rẻ hơn $8 so với mua riêng cả 2']}
    ]},
   {id:'acrobat-pro',name:'Acrobat Pro',cat:'Productivity',color:'#FB0F00',initials:'Ac',popular:true,
-   logo:'icons/adobe-acrobat-pro-cc-icon.svg',url:'https://www.adobe.com/acrobat/pricing.html',
+   url:'https://www.adobe.com/acrobat/pricing.html',
    desc:'PDF tool chuẩn doanh nghiệp — edit, sign, convert, OCR. SẢN PHẨM RIÊNG, không phải tier của Adobe CC.',
    tiers:[
      {id:'standard',label:'Acrobat Standard (Individual)',price:14.99,note:'Cơ bản hơn Pro — không có AI Assistant + redact',features:['Edit + chuyển đổi PDF cơ bản','Ký điện tử','Form fill','Export PDF']},
@@ -2515,7 +2515,7 @@ var APPS = [
    ]},
   /* ═══ Cá nhân — Consumer subscriptions ═══════════════════════════════ */
   {id:'spotify',name:'Spotify Premium',cat:'Cá nhân',color:'#1DB954',initials:'S',popular:true,
-   url:'https://www.spotify.com/vn-vi/premium/',
+   logo:'icons/spotify.svg',url:'https://www.spotify.com/vn-vi/premium/',
    desc:'Music streaming hàng đầu — 100M+ bài, podcast, không ads. Giá VN regional rẻ hơn US ~50%.',
    tiers:[
      {id:'free',label:'Free',price:0,features:['Shuffle play','Có quảng cáo','Skip 6 lần/giờ','Cần online']},
@@ -2525,7 +2525,7 @@ var APPS = [
      {id:'student',label:'Student',price:1.26,priceVND:33000,note:'Verify sinh viên',features:['Giảm 50% vs Individual','Verify SheerID','Đáng tiền nhất nếu là SV']}
    ]},
   {id:'youtube-premium',name:'YouTube Premium',cat:'Cá nhân',color:'#FF0000',initials:'Y',popular:true,
-   url:'https://www.youtube.com/premium',
+   logo:'icons/youtube-premium.svg',url:'https://www.youtube.com/premium',
    desc:'Bỏ ads YouTube + YouTube Music + tải offline + background play. VN regional (verified 19/05/2026).',
    tiers:[
      {id:'lite',label:'Premium Lite',price:1.87,priceVND:49000,note:'Mới — không có YouTube Music',features:['Không quảng cáo hầu hết video','YouTube Kids ad-free','Phát trong nền','Tải offline (hầu hết video)','KHÔNG có YouTube Music ad-free']},
@@ -2534,7 +2534,7 @@ var APPS = [
      {id:'student',label:'Student',price:1.87,priceVND:49000,note:'Verify sinh viên',features:['Giảm ~40% vs Individual','Đáng tiền nhất','Verify SheerID']}
    ]},
   {id:'netflix',name:'Netflix',cat:'Cá nhân',color:'#E50914',initials:'N',popular:true,
-   url:'https://www.netflix.com/vn',
+   logo:'icons/netflix.svg',url:'https://www.netflix.com/vn',
    desc:'Streaming phim/series global — bản VN có sub Việt, nhiều original. Giá VN regional (verified 19/05/2026).',
    tiers:[
      {id:'mobile',label:'Di động',price:2.82,priceVND:74000,features:['Chỉ điện thoại + máy tính bảng','480p','1 thiết bị xem cùng lúc','Tải xuống 1 thiết bị']},
@@ -2543,7 +2543,7 @@ var APPS = [
      {id:'premium',label:'Cao cấp',price:10.42,priceVND:273000,features:['4K Ultra HD + HDR','Spatial audio','4 thiết bị xem cùng lúc','Tải xuống 6 thiết bị']}
    ]},
   {id:'apple-music',name:'Apple Music',cat:'Cá nhân',color:'#FA243C',initials:'AM',popular:false,
-   url:'https://www.apple.com/vn/apple-music/',
+   logo:'icons/apple-music.svg',url:'https://www.apple.com/vn/apple-music/',
    desc:'Music streaming Apple — 100M+ bài, Spatial Audio, Lossless. Tích hợp ecosystem Apple.',
    tiers:[
      {id:'individual',label:'Individual',price:2.48,priceVND:65000,popular:true,note:'Giá VN regional',features:['100M+ bài hát','Spatial Audio + Lossless','1 tài khoản','Sync iCloud Music Library']},
@@ -2551,7 +2551,7 @@ var APPS = [
      {id:'student',label:'Student',price:1.34,priceVND:35000,note:'Verify sinh viên',features:['Giảm ~46%','Verify SheerID','+ Apple TV+ free']}
    ]},
   {id:'apple-one',name:'Apple One',cat:'Cá nhân',color:'#A2AAAD',initials:'A1',popular:false,
-   url:'https://www.apple.com/vn/apple-one/',
+   logo:'icons/apple-one.svg',url:'https://www.apple.com/vn/apple-one/',
    desc:'Bundle Apple: Music + TV+ + Arcade + iCloud+. Rẻ hơn mua riêng từng dịch vụ ~30%.',
    tiers:[
      {id:'individual',label:'Individual',price:16.95,note:'Music + TV+ + Arcade + iCloud+ 50GB',features:['Apple Music Individual','Apple TV+','Apple Arcade','iCloud+ 50GB','Tiết kiệm vs mua riêng']},
@@ -2559,7 +2559,7 @@ var APPS = [
      {id:'premier',label:'Premier',price:37.95,note:'+ News+ + Fitness+ + 2TB',features:['Mọi Apple service','iCloud+ 2TB','Apple News+','Apple Fitness+','Tới 6 thành viên']}
    ]},
   {id:'icloud-plus',name:'iCloud+',cat:'Cá nhân',color:'#017AFF',initials:'iC',popular:true,
-   url:'https://www.apple.com/vn/icloud/',
+   logo:'icons/icloud-plus.svg',url:'https://www.apple.com/vn/icloud/',
    desc:'Storage cloud + Private Relay + Hide my email cho Apple users. Sync ảnh/file/backup iPhone.',
    tiers:[
      {id:'free',label:'Free 5GB',price:0,features:['5GB miễn phí','Sync cơ bản','Backup iPhone hạn chế']},
@@ -2570,7 +2570,7 @@ var APPS = [
      {id:'12tb',label:'12TB',price:59.99,features:['12TB storage','Pro creators']}
    ]},
   {id:'google-one',name:'Google One',cat:'Cá nhân',color:'#4285F4',initials:'G1',popular:false,
-   url:'https://one.google.com/',
+   logo:'icons/google-one.svg',url:'https://one.google.com/',
    desc:'Storage Google Drive + Photos + Gmail. Alternative iCloud cho Android, tích hợp Google.',
    tiers:[
      {id:'free',label:'Free 15GB',price:0,features:['15GB miễn phí','Drive + Photos + Gmail','Chia cho 3 service']},
@@ -2579,14 +2579,14 @@ var APPS = [
      {id:'2tb',label:'2TB',price:9.99,features:['2TB storage','Gemini Advanced','Family sharing','VPN included']}
    ]},
   {id:'discord-nitro',name:'Discord Nitro',cat:'Cá nhân',color:'#5865F2',initials:'D',popular:false,
-   url:'https://discord.com/nitro',
+   logo:'icons/discord-nitro.svg',url:'https://discord.com/nitro',
    desc:'Nâng cấp Discord — HD streaming, custom emoji, file 500MB, animated avatar, server boost.',
    tiers:[
      {id:'basic',label:'Nitro Basic',price:2.99,features:['Custom emoji','50MB file upload','HD streaming','Profile customization']},
      {id:'nitro',label:'Nitro',price:9.99,popular:true,features:['Tất cả Basic','500MB file upload','4K streaming','2x Server boosts','HD video calls','Animated avatar']}
    ]},
   {id:'linkedin-premium',name:'LinkedIn Premium',cat:'Cá nhân',color:'#0A66C2',initials:'Li',popular:false,
-   url:'https://premium.linkedin.com/',
+   logo:'icons/linkedin-premium.svg',url:'https://premium.linkedin.com/',
    desc:'Tài khoản pro LinkedIn — Who viewed, InMail, LinkedIn Learning, top applicant priority.',
    tiers:[
      {id:'career',label:'Career',price:29.99,popular:true,note:'Cho job seeker',features:['5 InMail/tháng','LinkedIn Learning','Top applicant','Salary insights','Who viewed profile']},
@@ -2595,7 +2595,7 @@ var APPS = [
      {id:'recruiter',label:'Recruiter Lite',price:170,note:'Cho recruiter',features:['30 InMail','120 saved searches','3rd-degree network access']}
    ]},
   {id:'duolingo',name:'Duolingo Super',cat:'Cá nhân',color:'#58CC02',initials:'Du',popular:false,
-   url:'https://www.duolingo.com/super',
+   logo:'icons/duolingo.svg',url:'https://www.duolingo.com/super',
    desc:'Học ngôn ngữ gamified — 40+ ngôn ngữ, daily streak. Super bỏ ads + offline + unlimited hearts.',
    tiers:[
      {id:'free',label:'Free',price:0,features:['40+ ngôn ngữ','Có quảng cáo','5 hearts/ngày','Daily streak']},
@@ -2612,7 +2612,7 @@ var APPS = [
      {id:'premium',label:'Premium',price:3.05,priceVND:80000,features:['4K UHD','2 thiết bị cùng lúc','Premium content']}
    ]},
   {id:'fpt-play',name:'FPT Play',cat:'Cá nhân',color:'#FF6600',initials:'FP',popular:false,
-   url:'https://fptplay.vn/',
+   logo:'icons/fpt-play.svg',url:'https://fptplay.vn/',
    desc:'Streaming FPT — phim Việt + thể thao K+/V-League + truyền hình live. Phổ biến gia đình VN.',
    tiers:[
      {id:'free',label:'Free',price:0,features:['Có quảng cáo','Hạn chế nội dung','Truyền hình free']},
@@ -2620,7 +2620,7 @@ var APPS = [
      {id:'premium',label:'Premium',price:4.20,priceVND:110000,features:['4K UHD','Premium content','Thể thao premium','V-League live']}
    ]},
   {id:'galaxy-play',name:'Galaxy Play',cat:'Cá nhân',color:'#FFC107',initials:'GP',popular:false,
-   url:'https://galaxyplay.vn/',
+   logo:'icons/galaxy-play.svg',url:'https://galaxyplay.vn/',
    desc:'Streaming Galaxy — phim chiếu rạp Việt mới + Hollywood + Hàn. Focus phim chiếu rạp post-release.',
    tiers:[
      {id:'free',label:'Free',price:0,features:['Có quảng cáo','Hạn chế phim mới']},
