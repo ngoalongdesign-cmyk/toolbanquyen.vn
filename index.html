@@ -1794,7 +1794,7 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="tabs-wrap">
       <div class="tabs" role="tablist" id="cat-tabs">
-        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">72</span></button>
+        <button class="tab is-on" data-cat="all">Tất cả <span class="count" id="count-badge">78</span></button>
         <button class="tab" data-cat="Design"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg>Design</button>
         <button class="tab" data-cat="AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>AI</button>
         <button class="tab" data-cat="Architecture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg>Kiến trúc</button>
@@ -1883,8 +1883,9 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
       <span class="footer-version">v4.1</span>
     </div>
     <div class="footer-row footer-disclaimer">
-      Giá tham khảo tại thời điểm cập nhật và có thể thay đổi theo chính sách của từng nhà cung cấp.
-      Vui lòng kiểm tra giá chính thức trước khi quyết định mua.
+      <strong>~10 app phổ biến nhất đã verify tay từ trang chính thức</strong> (Adobe, Spotify, Netflix, YouTube, ChatGPT, Claude, Figma, Notion, Cursor, Google Workspace, Webflow, Linear).
+      Các app còn lại lấy data từ Claude AI có thể outdated 3-12 tháng.
+      <strong>Vui lòng kiểm tra giá chính thức trên trang nhà cung cấp trước khi mua.</strong>
       Tool không lưu dữ liệu lương — chỉ thu thập lượt truy cập ẩn danh qua Cloudflare Web Analytics.
     </div>
   </div>
@@ -1976,16 +1977,10 @@ var APPS = [
    includes:['photoshop','illustrator','indesign','after effects','premiere pro','lightroom','xd','audition','animate','dreamweaver','acrobat','character animator'],
    desc:'Bộ công cụ sáng tạo đầy đủ: Photoshop, Illustrator, Premiere, After Effects…',
    tiers:[
-     {id:'photo-1tb',label:'Photography 1TB',price:19.99,features:['Photoshop + Lightroom Classic','1TB cloud storage','Mobile + iPad apps','Generative AI credits']},
-     {id:'single-app',label:'Single App',price:22.99,note:'1 app: Photoshop / Illustrator / Premiere / Ae...',features:['1 app Adobe tuỳ chọn','100GB cloud storage','Adobe Fonts','Promo $9.19 khi giảm 60% năm đầu']},
-     {id:'lightroom',label:'Lightroom (standalone)',price:11.99,note:'Adobe VN: thường giảm 50% năm đầu',features:['Lightroom + 1TB cloud','Mobile + iPad','Sync ảnh đa thiết bị']},
-     {id:'acrobat-pro',label:'Acrobat Pro',price:19.99,note:'PDF chuyên nghiệp standalone',features:['Edit + chuyển đổi PDF','Ký điện tử','Bao gồm Acrobat AI Assistant']},
-     {id:'all-apps-standard',label:'CC Standard',price:52.99,note:'Desktop only, no mobile/iPad apps',features:['20+ app desktop','100GB cloud','Không có mobile/iPad']},
-     {id:'all-apps',label:'CC Pro (Personal)',price:33.99,popular:true,note:'Adobe VN giá list. Promo $20.39 3 tháng đầu',features:['20+ app Creative Cloud','Full mobile + iPad + web','100GB cloud storage','Firefly AI credits','Adobe Express Premium','Stock & Fonts đầy đủ']},
-     {id:'firefly-standard',label:'Firefly Standard',price:8.49,note:'AI image gen Adobe',features:['2,000 credits/tháng','Generative fill','Text-to-image','Audio + video AI']},
-     {id:'firefly-pro',label:'Firefly Pro',price:16.99,note:'+ Adobe Express Premium',features:['4,000 credits/tháng','Bao gồm Express Premium','Web + mobile design','High-volume generation']},
+     {id:'photo-1tb',label:'Photography 1TB',price:19.99,note:'Photoshop + Lightroom + Classic + 1TB',features:['Photoshop + Lightroom + LR Classic','1TB cloud storage','Mobile + iPad apps','Generative AI credits']},
+     {id:'single-app',label:'Single App (1 app any)',price:22.99,note:'1 app Adobe tuỳ chọn: InDesign / Audition / Animate / Dreamweaver / XD...',features:['1 app Adobe','100GB cloud storage','Adobe Fonts','Cho app KHÔNG có card riêng (Photoshop/Illustrator/Premiere... có card riêng)']},
+     {id:'all-apps',label:'CC Pro (Personal)',price:33.99,popular:true,note:'Adobe VN giá list — promo $20.39 cho 3 tháng đầu',features:['20+ app Creative Cloud','Full mobile + iPad + web','100GB cloud storage','Firefly AI credits','Adobe Express Premium','Stock & Fonts đầy đủ']},
      {id:'student',label:'CC Pro (HS/SV)',price:18.99,note:'Sau năm đầu (năm 1 chỉ $7.99 promo)',features:['Mọi thứ trong CC Pro','Verify .edu mỗi năm','Năm đầu giảm 75%']},
-     {id:'teams-single',label:'Teams Single App',price:35.99,perUser:true,features:['1 app cho team','Admin console','Centralized licensing']},
      {id:'teams-all',label:'Teams CC Pro',price:99.99,perUser:true,note:'$69.99 first year promo (30% off)',features:['Mọi app cho team','Admin console + billing','24/7 tech support','Per seat']},
      {id:'enterprise',label:'Enterprise',price:null,features:['Custom MSA','SSO + SCIM','Global support 24/7']}
    ]},
@@ -2477,6 +2472,47 @@ var APPS = [
    tiers:[
      {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí GPL','Multi-source compositing','Stream Twitch/YouTube native','Win/Mac/Linux']}
    ]},
+  /* ═══ Adobe individual apps — tách từ Adobe CC ═══════════════════════ */
+  {id:'photoshop',name:'Photoshop',cat:'Design',color:'#001E36',initials:'Ps',popular:true,
+   logo:'icons/adobe-photoshop-2.svg',url:'https://www.adobe.com/products/photoshop.html',
+   desc:'Photo editor chuẩn ngành — composite, retouch, digital painting. Sản phẩm Adobe phổ biến nhất.',
+   tiers:[
+     {id:'single',label:'Single App',price:22.99,popular:true,note:'Annual plan paid monthly. Adobe VN promo $9.19 giảm 60% năm đầu',features:['100GB cloud storage','Adobe Fonts đầy đủ','Generative Fill (Firefly)','Photoshop iPad app','Mobile + Desktop']},
+     {id:'photography',label:'Photography 1TB (+ Lightroom)',price:19.99,note:'Rẻ hơn nếu cần thêm Lightroom',features:['Photoshop + Lightroom + LR Classic','1TB cloud storage','Mobile + iPad apps','Generative AI credits']}
+   ]},
+  {id:'illustrator',name:'Illustrator',cat:'Design',color:'#FF9A00',initials:'Ai',popular:true,
+   logo:'icons/adobe-illustrator-cc-icon.svg',url:'https://www.adobe.com/products/illustrator.html',
+   desc:'Vector graphics chuẩn ngành — logo, illustration, typography, packaging design.',
+   tiers:[
+     {id:'single',label:'Single App',price:22.99,popular:true,note:'Annual paid monthly. Adobe VN promo $9.19 giảm 60% năm đầu',features:['Vector design + typography','100GB cloud storage','Adobe Fonts','AI-powered vector tools','Illustrator iPad app']}
+   ]},
+  {id:'indesign',name:'InDesign',cat:'Design',color:'#FF3366',initials:'Id',popular:false,
+   logo:'icons/adobe-indesign-cc-icon.svg',url:'https://www.adobe.com/products/indesign.html',
+   desc:'Layout publishing chuẩn — sách, tạp chí, brochure, eBook interactive, PDF chuyên nghiệp.',
+   tiers:[
+     {id:'single',label:'Single App',price:22.99,popular:true,note:'Adobe VN promo $9.19 giảm 60% năm đầu',features:['Print + digital layout','Adobe Fonts','100GB cloud storage','Interactive PDF + eBook export','Real-time collab']}
+   ]},
+  {id:'after-effects',name:'After Effects',cat:'Video',color:'#9999FF',initials:'Ae',popular:false,
+   logo:'icons/adobe-after-effects-cc-icon.svg',url:'https://www.adobe.com/products/aftereffects.html',
+   desc:'Motion graphics + VFX chuẩn ngành — animation, compositing, visual effects cho film/TV/web.',
+   tiers:[
+     {id:'single',label:'Single App',price:22.99,popular:true,note:'Adobe VN promo $9.19 giảm 60% năm đầu',features:['Motion graphics + VFX','3D animation','Particle + simulation effects','Tích hợp Premiere Pro','100GB cloud']}
+   ]},
+  {id:'lightroom-standalone',name:'Lightroom',cat:'Design',color:'#0B1F4D',initials:'Lr',popular:false,
+   logo:'icons/adobe-lightroom-cc.svg',url:'https://www.adobe.com/products/photoshop-lightroom.html',
+   desc:'Photo organize + edit cloud-native cho photographer mobile-first. Sync ảnh giữa thiết bị.',
+   tiers:[
+     {id:'standalone',label:'Lightroom (1TB)',price:11.99,popular:true,note:'1TB cloud, KHÔNG có Lightroom Classic. Adobe VN promo giảm 50% năm đầu',features:['1TB cloud storage','Sync mobile + iPad + desktop','AI-powered organize','RAW editing đầy đủ','Adobe Sensei AI search']},
+     {id:'photography',label:'Photography 1TB (+ Photoshop)',price:19.99,note:'Có thêm Photoshop + LR Classic',features:['Lightroom + Photoshop + LR Classic','1TB cloud','Desktop + mobile + iPad','Rẻ hơn $8 so với mua riêng cả 2']}
+   ]},
+  {id:'acrobat-pro',name:'Acrobat Pro',cat:'Productivity',color:'#FB0F00',initials:'Ac',popular:true,
+   logo:'icons/adobe-acrobat-pro-cc-icon.svg',url:'https://www.adobe.com/acrobat/pricing.html',
+   desc:'PDF tool chuẩn doanh nghiệp — edit, sign, convert, OCR. SẢN PHẨM RIÊNG, không phải tier của Adobe CC.',
+   tiers:[
+     {id:'standard',label:'Acrobat Standard (Individual)',price:14.99,note:'Cơ bản hơn Pro — không có AI Assistant + redact',features:['Edit + chuyển đổi PDF cơ bản','Ký điện tử','Form fill','Export PDF']},
+     {id:'standalone',label:'Acrobat Pro (Individual)',price:19.99,popular:true,note:'Annual paid monthly',features:['Edit + convert + OCR','Acrobat AI Assistant','Ký điện tử + redact','Compress + share PDF','Mobile + Desktop + Web']},
+     {id:'teams',label:'Acrobat Pro for Teams',price:23.99,perUser:true,features:['Mọi tính năng Individual','Admin console','Centralized billing','Volume licensing','SSO + SCIM']}
+   ]},
   /* ═══ Cá nhân — Consumer subscriptions ═══════════════════════════════ */
   {id:'spotify',name:'Spotify Premium',cat:'Cá nhân',color:'#1DB954',initials:'S',popular:true,
    url:'https://www.spotify.com/vn-vi/premium/',
@@ -2610,7 +2646,10 @@ var OVERLAP_GROUPS = {
   'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']},
   'music-streaming':{label:'Music Streaming',  apps:['spotify','apple-music','youtube-premium']},
   'vn-streaming':   {label:'Streaming (VN)',   apps:['netflix','vieon','fpt-play','galaxy-play']},
-  'cloud-storage':  {label:'Cloud Storage',    apps:['icloud-plus','google-one']}
+  'cloud-storage':  {label:'Cloud Storage',    apps:['icloud-plus','google-one']},
+  'adobe-individuals':{label:'Adobe individual apps (nên gộp CC Pro nếu nhiều)', apps:['photoshop','illustrator','indesign','after-effects','premiere','lightroom-standalone','adobe-cc']},
+  'photo-edit':     {label:'Photo Editor',     apps:['photoshop','affinity','photopea','gimp']},
+  'vector-design':  {label:'Vector Design',    apps:['illustrator','affinity','inkscape','coreldraw']}
 };
 
 /* ── VAT (Thuế GTGT) — VN charge 10% trên SaaS nước ngoài tự động ─────── */
@@ -2726,6 +2765,13 @@ var ALTERNATIVES_MAP = {
   'midjourney': [{id:'chatgpt',reason:'DALL·E trong ChatGPT Plus đủ cho most cases'},{id:'canva',reason:'Magic Media Free tier'}],
   'coreldraw':  [{id:'inkscape',reason:'Free, vector full'},{id:'affinity',reason:'Designer mua đứt $69.99'}],
   'jetbrains':  [{id:'cursor',reason:'$20/mo, AI-first IDE'},{id:'github-copilot',reason:'Free tier cho VSCode'}],
+  // Adobe individual apps — đề xuất bundle CC Pro nếu dùng nhiều + free alternatives
+  'photoshop':     [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'photopea',reason:'Free browser, mở PSD trực tiếp'},{id:'gimp',reason:'Free desktop, painting + edit'},{id:'affinity',reason:'FREE V3 (Canva acquisition), thay được Photoshop'}],
+  'illustrator':   [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'inkscape',reason:'Free, vector full chuẩn'},{id:'affinity',reason:'FREE V3, Designer module'},{id:'figma',reason:'Vector + UI design + collab'}],
+  'indesign':      [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'affinity',reason:'FREE V3, Publisher module'},{id:'canva',reason:'Layout đơn giản, free tier'}],
+  'after-effects': [{id:'adobe-cc',reason:'CC Pro $33.99 nếu cần >2 Adobe apps'},{id:'davinci',reason:'Fusion VFX trong Resolve, free'},{id:'blender',reason:'Free, motion + compositing'}],
+  'lightroom-standalone':[{id:'photoshop',reason:'Photography 1TB $19.99 có cả Photoshop + LR'},{id:'capture-one',reason:'Photo edit pro, mua đứt'},{id:'gimp',reason:'Free, edit RAW cơ bản'}],
+  'acrobat-pro':   [{id:'free',reason:'Mac Preview, Chrome PDF viewer đủ cho 80% case'},{id:'foxit',reason:'Foxit PDF Editor rẻ hơn 30%'}],
   // Consumer / Cá nhân
   'spotify':         [{id:'youtube-premium',reason:'79k VND + YouTube Music kèm + bỏ ads YouTube'},{id:'apple-music',reason:'65k VND cùng giá Spotify, hợp Apple ecosystem'}],
   'youtube-premium': [{id:'spotify',reason:'65k VND cho music thuần, không bao gồm YouTube ad-free'},{id:'apple-music',reason:'65k VND tier rẻ tương đương'}],
