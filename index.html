@@ -2296,11 +2296,12 @@ var APPS = [
   /* ─── Architecture ─── */
   {id:'autocad',name:'AutoCAD',cat:'Architecture',color:'#E51937',initials:'AC',popular:false,
    logo:'icons/autocad-icon.svg',url:'https://www.autodesk.com/products/autocad/overview',
-   desc:'CAD industry standard — drafting 2D/3D, bản vẽ kỹ thuật cho kiến trúc, xây dựng, cơ khí.',
+   desc:'CAD industry standard — drafting 2D/3D, bản vẽ kỹ thuật cho kiến trúc, xây dựng, cơ khí. Có Autodesk AI assist.',
    tiers:[
-     {id:'monthly',label:'Monthly',price:255,features:['AutoCAD đầy đủ + 7 toolset chuyên ngành','AutoCAD Web + Mobile','Hỗ trợ chính thức Autodesk','Renew tháng linh hoạt']},
-     {id:'annual',label:'Annual',price:160,popular:true,note:'Trả năm $1,920',features:['Tiết kiệm ~37% so với Monthly','Mọi tính năng Monthly','Bao gồm Autodesk Drive','Hỗ trợ ưu tiên']},
-     {id:'3year',label:'3-Year',price:135,note:'Trả 3 năm $4,860',features:['Giá khoá trong 3 năm','Tiết kiệm tối đa','Phù hợp studio kiến trúc','Quản lý license tập trung']},
+     {id:'monthly',label:'Monthly',price:260,features:['AutoCAD đầy đủ + 7 toolset chuyên ngành','AutoCAD Web + Mobile','Hỗ trợ chính thức Autodesk','Renew tháng linh hoạt']},
+     {id:'annual',label:'Annual',price:175,popular:true,note:'$2,095/năm — Best value',features:['Tiết kiệm ~33% vs Monthly','Mọi tính năng Monthly','Bao gồm Autodesk Drive','Hỗ trợ ưu tiên','Powered by Autodesk AI']},
+     {id:'3year',label:'3-Year',price:175,note:'$6,285/3-năm = $2,095/năm (giá per-year = Annual, chỉ commit dài)',features:['Giá khoá trong 3 năm','Không giảm thêm vs Annual','Phù hợp studio commit dài hạn','Quản lý license tập trung']},
+     {id:'flex',label:'Flex (Pay-per-use)',price:null,note:'$300 cho 100 tokens minimum. 7 tokens/day cho AutoCAD + 1 toolset',features:['Pay-per-use tokens','Tối thiểu 100 tokens ($300)','Phù hợp dùng thỉnh thoảng','Mua thêm toolset = thêm tokens']},
      {id:'student',label:'Student (Edu)',price:0,note:'Email .edu / xác minh sinh viên',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew mỗi năm']}
    ]},
   {id:'revit',name:'Autodesk Revit',cat:'Architecture',color:'#0696D7',initials:'Rv',popular:false,
@@ -2313,13 +2314,19 @@ var APPS = [
      {id:'student',label:'Student (Edu)',price:0,note:'Email .edu',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew năm']}
    ]},
   {id:'sketchup',name:'SketchUp',cat:'Architecture',color:'#005F9E',initials:'Sk',popular:true,
-   logo:'https://cdn.simpleicons.org/sketchup',url:'https://www.sketchup.com/plans-and-pricing',
-   desc:'3D modeling dễ học — phổ biến nhất tại VN cho kiến trúc, nội thất, concept nhanh.',
+   logo:'https://cdn.simpleicons.org/sketchup',url:'https://www.sketchup.com/en/plans-and-pricing/sketchup',
+   desc:'3D modeling dễ học — phổ biến nhất tại VN cho kiến trúc, nội thất, concept nhanh. Trimble owned. Pro tier có cả Monthly + Annual, Studio chỉ Annual.',
    tiers:[
-     {id:'free',label:'Free',price:0,features:['SketchUp Web (browser)','10GB Trimble Connect','Cá nhân, phi thương mại','Phù hợp học việc']},
-     {id:'go',label:'Go',price:9.92,note:'$119/năm',features:['SketchUp Web + iPad','Cloud storage','3D Warehouse access','Phù hợp người dùng nhẹ']},
-     {id:'pro',label:'Pro',price:29.92,popular:true,note:'$359/năm',features:['SketchUp Desktop (Win + Mac)','LayOut (bản vẽ 2D)','Style Builder','Trimble Connect Business']},
-     {id:'studio',label:'Studio',price:62.42,note:'$749/năm — Win only',features:['Mọi tính năng Pro','V-Ray for SketchUp đầy đủ','Scan Essentials','Phù hợp render chất lượng cao']}
+     {id:'free',label:'Free (Web only)',price:0,features:['SketchUp Web (browser)','Trimble Connect basic','Cá nhân, phi thương mại','Phù hợp học việc']},
+     {id:'go-monthly',label:'Go Monthly',price:19.99,perUser:true,note:'Cho iPad + Web, billed monthly',features:['iPad and web-based 3D modelers','Access to 3D Warehouse','Photoreal Materials','Cloud storage']},
+     {id:'go-annual',label:'Go Annual',price:10.75,perUser:true,note:'$129/năm. Save 46% vs Monthly',features:['Mọi tính năng Go Monthly','Trimble Connect cloud','Free essential 3D design iPad & web','Phù hợp cá nhân nhẹ']},
+     {id:'pro-monthly',label:'Pro Monthly',price:99.99,perUser:true,note:'Desktop full, billed monthly',features:['Desktop 3D modeler Win + Mac','2D design documentation với LayOut','Quick climate insights with PreDesign','1000+ extensions','Style Builder']},
+     {id:'pro-annual',label:'Pro Annual',price:33.25,perUser:true,popular:true,note:'$399/năm. Save 67% vs Monthly. Most Popular',features:['Mọi tính năng Pro Monthly','Trimble Connect Business','Phù hợp pro designer','Complete toolkit cho professional design']},
+     {id:'studio-annual',label:'Studio Annual',price:68.25,perUser:true,note:'$819/năm — Win only. CHỈ có Annual, không Monthly',features:['Mọi tính năng Pro','Revit-to-SketchUp importer','Model on 3D point clouds + document in 2D','High-quality photorealistic visuals (V-Ray)','Export rendered animations + 360° panoramas']},
+     {id:'pro-scan',label:'Pro Scan Annual (Advanced)',price:41.58,perUser:true,note:'$499/năm — Annual only. Win-only modeler',features:['Mọi tính năng Pro Annual','Point cloud import with Scan Essentials','Model on 3D point clouds + document in 2D','A complete scan to 3D solution','Phù hợp surveying workflow']},
+     {id:'pro-advanced',label:'Pro Advanced Workflows Annual',price:45.75,perUser:true,note:'$549/năm — Annual only. Win-only modeler',features:['Mọi tính năng Pro Scan','Revit-to-SketchUp importer','Complete 3D toolset for interoperable workflows','Phù hợp team architecture đa platform']},
+     {id:'teams',label:'For Teams',price:null,note:'Contact SketchUp',features:['Team management','Centralized billing','Volume licensing','Custom workflow']},
+     {id:'reseller',label:'Find a Reseller',price:null,note:'Contact reseller VN',features:['Mua qua đại lý chính thức','Hỗ trợ tiếng Việt','Hóa đơn VAT đầy đủ','Tư vấn cho studio']}
    ]},
   {id:'rhino',name:'Rhinoceros 3D',cat:'Architecture',color:'#801010',initials:'Rh',popular:false,
    logo:'https://cdn.simpleicons.org/rhinoceros',url:'https://www.rhino3d.com/sales/',
@@ -2330,12 +2337,17 @@ var APPS = [
      {id:'lab',label:'Lab License',price:30,note:'$975/30 máy/năm',features:['Cài 30 máy phòng lab','Cho trường đại học','Quản lý tập trung','Renew năm']}
    ]},
   {id:'lumion',name:'Lumion',cat:'Architecture',color:'#00B5E2',initials:'Lm',popular:false,
-   logo:'icons/lumion.svg',url:'https://lumion.com/buy',
-   desc:'Real-time render kiến trúc — biến SketchUp/Revit thành ảnh + video chất lượng cao trong giây.',
+   logo:'icons/lumion.svg',url:'https://lumion.com/product/buy',
+   desc:'Real-time render kiến trúc — biến SketchUp/Revit/Archicad thành ảnh + video chất lượng cao trong giây. Restructure 4/2025: bỏ Standard, có View/Pro/Studio. Subscription only.',
    tiers:[
-     {id:'standard',label:'Standard',price:42,note:'$1,499/năm',features:['5000+ object & material','Real-time render','Phong cảnh + nước + cây cối','Export HD video']},
-     {id:'pro',label:'Pro',price:84,popular:true,note:'$2,999/năm',features:['Mọi tính năng Standard','Ray tracing đầy đủ','Phantom render đẹp hơn','LiveSync với SketchUp/Revit/Rhino']},
-     {id:'edu',label:'Education',price:0,note:'Cho trường, GV',features:['Miễn phí cho institution','Đầy đủ tính năng Pro','Cấp qua đăng ký','Renew năm']}
+     {id:'view',label:'View (1-year)',price:19,perUser:true,note:'Annual $229/năm (€199). Plugin trong SketchUp/Revit/Archicad. Named-user license',features:['Conceptual design plugin','Real-time ray tracing','Sun studies + time of day','Up to 4K image renders','Direct upload to Lumion Cloud']},
+     {id:'pro',label:'Pro (1-year)',price:96,perUser:true,popular:true,note:'Annual $1,149/năm (€999). Named-user license. Standalone renderer',features:['Detailed visualization solution','10,000+ models and materials','Fine-detail nature assets','Full PBR material workflow','AI image upscaler','Atmospheric and post effects','Lumion Cloud included']},
+     {id:'studio',label:'Studio (1-year)',price:108,perUser:true,note:'Annual €1,299/năm. Floating license (share team) + Bundle. BEST VALUE',features:['Mọi tính năng View + Pro','Floating seat license (share team)','Use on multiple computers','Share across teams','24/7 premium support','AI material generator','Priority access to new tools']},
+     {id:'view-3year',label:'View (3-year)',price:15,perUser:true,note:'Save 20% vs 1-year (€13/mo). Billed upfront €478',features:['Mọi tính năng View 1-year','Renews mỗi 3 năm','Locked-in rate','Best for solo designer dài hạn']},
+     {id:'pro-3year',label:'Pro (3-year)',price:76,perUser:true,note:'Save 20% vs 1-year (€67/mo). Billed upfront €2,398',features:['Mọi tính năng Pro 1-year','3-year commit','Best for pro freelancer','Bundled support']},
+     {id:'studio-3year',label:'Studio (3-year)',price:96,perUser:true,note:'Save 20% vs 1-year (€87/mo). Billed upfront €3,118',features:['Mọi tính năng Studio 1-year','3-year team commit','Phù hợp studio kiến trúc','Lowest TCO for teams']},
+     {id:'custom',label:'Custom (Enterprise)',price:null,features:['Volume licensing options','Premium support + onboarding','Flexible setup cho large org','Guidance tailored to your team']},
+     {id:'edu',label:'Education (Faculty/Student)',price:0,note:'Cho trường, GV, SV — đăng ký qua Lumion',features:['Lumion Faculty (floating)','Lumion Student (named-user)','Đầy đủ tính năng Pro','Cấp qua institution']}
    ]},
   {id:'twinmotion',name:'Twinmotion',cat:'Architecture',color:'#00DB7E',initials:'Tm',popular:false,
    logo:'icons/twinmotion.svg',url:'https://www.twinmotion.com/pricing',
@@ -2850,6 +2862,9 @@ var ANNUAL_DISCOUNTS = {
   // Grok (xAI) — added 19/05/2026
   'grok/supergrok':           0.167,  // $30→$25/mo ($300/yr). Save 17%
   'grok/x-premium-plus':      0.177,  // $40→$32.92/mo ($395/yr). Save 17.7%
+  // SketchUp — added 19/05/2026 (Go + Pro có cả monthly và annual)
+  'sketchup/go-monthly':      0.462,  // $19.99→$10.75 yearly. Save 46%
+  'sketchup/pro-monthly':     0.668,  // $99.99→$33.25 yearly. Save 67%
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
