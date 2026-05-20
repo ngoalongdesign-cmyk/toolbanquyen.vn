@@ -2706,13 +2706,16 @@ var APPS = [
      {id:'12tb',label:'12TB',price:57.21,priceVND:1499000,note:'Giá VN regional',features:['12TB storage','Pro creators']}
    ]},
   {id:'google-one',name:'Google One',cat:'Cá nhân',color:'#4285F4',initials:'G1',popular:false,
-   logo:'icons/google-one.svg',url:'https://one.google.com/',
-   desc:'Storage Google Drive + Photos + Gmail. Alternative iCloud cho Android, tích hợp Google.',
+   logo:'icons/google-one.svg',url:'https://one.google.com/about/plans',
+   desc:'Storage Google Drive + Photos + Gmail. Restructure 2026: tách Storage tier (Lite/Basic/Standard) và AI tier (AI Plus/AI Pro). VN regional pricing. Annual save up to 16%.',
    tiers:[
      {id:'free',label:'Free 15GB',price:0,features:['15GB miễn phí','Drive + Photos + Gmail','Chia cho 3 service']},
-     {id:'100gb',label:'100GB',price:1.99,popular:true,features:['100GB storage','VPN by Google One','Premium support']},
-     {id:'200gb',label:'200GB',price:2.99,features:['200GB storage','Tất cả 100GB features','10% Google Store credit']},
-     {id:'2tb',label:'2TB',price:9.99,features:['2TB storage','Gemini Advanced','Family sharing','VPN included']}
+     {id:'lite',label:'Lite (30GB)',price:0.76,priceVND:19000,note:'VN: 19.000đ/tháng · Yearly 190.000đ/năm (save 16%). NEW tier 2026 — Đề xuất Google',features:['30GB storage','Tổng dùng cho Photos + Drive + Gmail','Phù hợp user nhẹ','Chia sẻ tối đa 5 người']},
+     {id:'basic',label:'Basic (100GB)',price:1.80,priceVND:45000,popular:true,note:'VN: 45.000đ/tháng · Yearly 450.000đ/năm (save 90k)',features:['100GB storage','Drive + Photos + Gmail','Chia sẻ tối đa 5 người','Premium support']},
+     {id:'standard',label:'Standard (200GB)',price:2.76,priceVND:69000,note:'VN: 69.000đ/tháng · Yearly 690.000đ/năm. Storage only, KHÔNG có AI',features:['200GB storage','Drive + Photos + Gmail','Chia sẻ tối đa 5 người','10% Google Store credit']},
+     {id:'ai-plus-200',label:'Google AI Plus (200GB)',price:5.28,priceVND:132000,note:'VN: 132.000đ/tháng · Yearly 1.319.000đ/năm. Storage 200GB + Gemini AI Plus',features:['200GB storage','Gemini AI Plus (2× usage Free)','Flash Thinking model','Google Flow access','Gemini trong Gmail','NotebookLM mở rộng']},
+     {id:'ai-plus-2tb',label:'Google AI Plus (2TB)',price:9.00,priceVND:225000,note:'VN: 225.000đ/tháng · Yearly 2.250.000đ/năm. Storage 2TB + Gemini AI Plus',features:['2TB storage','Mọi tính năng AI Plus 200GB','Gemini Flash Thinking','Flow + NotebookLM','Google Store credit 10%']},
+     {id:'ai-pro-5tb',label:'Google AI Pro (5TB)',price:19.56,priceVND:489000,note:'VN: 489.000đ/tháng · Yearly 5.000.000đ/năm. Storage 5TB + Gemini AI Pro (4× usage)',features:['5TB storage','Gemini AI Pro (4× usage Free)','Deep Research, Gemini 3 Pro','YouTube Premium Lite (Cá nhân)','NotebookLM cao cấp','Gemini trong Gmail/Tài liệu/Vids']}
    ]},
   {id:'discord-nitro',name:'Discord Nitro',cat:'Cá nhân',color:'#5865F2',initials:'D',popular:false,
    logo:'icons/discord-nitro.svg',url:'https://discord.com/nitro',
@@ -2723,21 +2726,22 @@ var APPS = [
    ]},
   {id:'linkedin-premium',name:'LinkedIn Premium',cat:'Cá nhân',color:'#0A66C2',initials:'Li',popular:false,
    logo:'icons/linkedin-premium.svg',url:'https://premium.linkedin.com/',
-   desc:'Tài khoản pro LinkedIn — Who viewed, InMail, LinkedIn Learning, top applicant priority.',
+   desc:'Tài khoản pro LinkedIn — Who viewed, InMail, LinkedIn Learning, top applicant priority. Có VN regional pricing chính thức.',
    tiers:[
-     {id:'career',label:'Career',price:29.99,popular:true,note:'Cho job seeker',features:['5 InMail/tháng','LinkedIn Learning','Top applicant','Salary insights','Who viewed profile']},
-     {id:'business',label:'Business',price:59.99,note:'Cho business user',features:['15 InMail/tháng','Unlimited search','Business insights','Hết Career features']},
-     {id:'sales-nav',label:'Sales Navigator',price:99.99,note:'Cho sales pro',features:['Lead recommendations','CRM sync','Advanced search','Real-time alerts']},
-     {id:'recruiter',label:'Recruiter Lite',price:170,note:'Cho recruiter',features:['30 InMail','120 saved searches','3rd-degree network access']}
+     {id:'career',label:'Sự nghiệp (Career)',price:29.99,priceVND:738150,popular:true,note:'VN rack: 738.150đ/tháng (current promo 33% off năm 1 — tool dùng rack)',features:['5 InMail/tháng','LinkedIn Learning','Top applicant','Salary insights','Who viewed profile','Phù hợp job seeker']},
+     {id:'business',label:'Kinh doanh (Business)',price:59.99,priceVND:1476300,note:'VN rack: 1.476.300đ/tháng',features:['15 InMail/tháng','Unlimited search','Business insights','Mọi tính năng Career','Phát triển mạng lưới']},
+     {id:'sales-nav',label:'Sales Navigator Core',price:116.27,priceVND:2906620,note:'VN rack: 2.906.620đ/tháng (~$116.27)',features:['50 InMail/tháng','Lead recommendations','Advanced search','Real-time alerts','CRM sync','Phù hợp sales pro']},
+     {id:'recruiter',label:'Recruiter Lite',price:164.78,priceVND:4119150,note:'VN rack: 4.119.150đ/tháng (~$165)',features:['30 InMail/tháng','120 saved searches','3rd-degree network access','20+ bộ lọc tìm kiếm','Phù hợp recruiter']}
    ]},
   {id:'duolingo',name:'Duolingo Super',cat:'Cá nhân',color:'#58CC02',initials:'Du',popular:false,
    logo:'icons/duolingo.svg',url:'https://www.duolingo.com/super',
-   desc:'Học ngôn ngữ gamified — 40+ ngôn ngữ, daily streak. Super bỏ ads + offline + unlimited hearts.',
+   desc:'Học ngôn ngữ gamified — 40+ ngôn ngữ, daily streak. Super bỏ ads + offline + unlimited hearts. VN regional pricing: rack monthly 309k đ.',
    tiers:[
-     {id:'free',label:'Free',price:0,features:['40+ ngôn ngữ','Có quảng cáo','5 hearts/ngày','Daily streak']},
-     {id:'super',label:'Super',price:6.99,popular:true,features:['Không quảng cáo','Unlimited hearts','Tải offline','Progress test','Unlimited mistakes']},
-     {id:'family',label:'Super Family',price:9.99,note:'Tới 6 thành viên',features:['6 tài khoản Super','Hết Super features','Tới 6 thành viên']},
-     {id:'max',label:'Duolingo Max',price:29.99,note:'AI tutor (Roleplay GPT)',features:['Hết Super features','AI Roleplay GPT-4','Explain my Answer','Highest tier']}
+     {id:'free',label:'Free',price:0,features:['40+ ngôn ngữ','Có quảng cáo','5 hearts/ngày','Daily streak','Trial 7 ngày Super miễn phí']},
+     {id:'super-monthly',label:'Super (1 tháng)',price:12.36,priceVND:309000,note:'VN rack: 309.000đ/tháng. Solo plan',features:['Không quảng cáo','Unlimited hearts','Tải offline','Progress test','Unlimited mistakes']},
+     {id:'super-annual',label:'Super (12 tháng)',price:6.97,priceVND:174167,popular:true,note:'VN: 174.167đ/tháng (2.090.000đ/năm). Save 43.6% vs monthly. Phổ biến nhất',features:['Mọi tính năng Super monthly','Trial 7 ngày miễn phí','Tính phí theo năm','Có thuế phí nếu phát sinh']},
+     {id:'family',label:'Super Family (12 tháng)',price:9.97,priceVND:249167,note:'VN: 249.167đ/tháng (2.990.000đ/năm). 2-6 thành viên, 12 tháng',features:['Mọi tính năng Super','Tới 6 tài khoản','Mỗi user có progress riêng','Chia phí gia đình','Cost/user: ~41.500đ/tháng']},
+     {id:'max',label:'Duolingo Max',price:29.99,note:'AI tutor (Roleplay GPT). VN giá App Store theo USD',features:['Mọi tính năng Super','AI Roleplay GPT-4','Explain my Answer','Highest tier','Video Calls với AI']}
    ]},
   {id:'vieon',name:'VieON',cat:'Cá nhân',color:'#FF4E5B',initials:'V',popular:false,
    url:'https://vieon.vn/',
@@ -2880,7 +2884,14 @@ var ANNUAL_DISCOUNTS = {
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
-  'linkedin-premium/career':  0.33,   // $29.99→$19.99 (annual $239.88 vs $359.88)
+  'linkedin-premium/career':  0.33,   // $29.99→$19.99 US-based (annual $239.88 vs $359.88)
+  // Google One — added 19/05/2026 (VN regional, tất cả tier save ~16%)
+  'google-one/lite':          0.167,  // 19k→15.83k/mo (190k/yr). Save 16%
+  'google-one/basic':         0.167,  // 45k→37.5k/mo (450k/yr)
+  'google-one/standard':      0.167,  // 69k→57.5k/mo (690k/yr)
+  'google-one/ai-plus-200':   0.167,  // 132k→110k/mo (1,319k/yr)
+  'google-one/ai-plus-2tb':   0.167,  // 225k→187.5k/mo (2,250k/yr)
+  'google-one/ai-pro-5tb':    0.149,  // 489k→416.67k/mo (5,000k/yr). Save ~15%
   // AI Voice/Music/Video Avatar — added 19/05/2026
   'elevenlabs/starter':       0.167,  // $6→$5 yearly
   'elevenlabs/creator':       0.167,  // $22→$18.33 yearly
