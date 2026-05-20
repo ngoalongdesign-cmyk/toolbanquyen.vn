@@ -1481,7 +1481,12 @@ select option:checked { background-color: var(--accent); color: #08120c; font-we
   transform:translateY(52px) scale(.93);opacity:0;
   transition:transform .42s cubic-bezier(.16,1,.3,1),opacity .3s ease;
   position:relative;max-height:92vh;overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
 }
+.modal-panel::-webkit-scrollbar { width:6px; }
+.modal-panel::-webkit-scrollbar-track { background:transparent; }
+.modal-panel::-webkit-scrollbar-thumb { background:var(--border);border-radius:3px;transition:background .15s; }
+.modal-panel::-webkit-scrollbar-thumb:hover { background:var(--text-3); }
 .modal-overlay.is-open .modal-panel { transform:translateY(0) scale(1);opacity:1; }
 .modal-close {
   position:absolute;top:14px;right:14px;width:32px;height:32px;z-index:2;
@@ -1605,6 +1610,15 @@ footer .footer-row { line-height:1.6; }
 footer .footer-meta { font-size:11.5px;color:var(--text-3); }
 footer .footer-meta strong { color:var(--text-2);font-weight:600; }
 footer .footer-disclaimer { font-size:11px;color:var(--text-3);opacity:0.85;margin-top:8px;line-height:1.55; }
+footer .footer-parent {
+  font-size:11px;color:var(--text-3);margin-top:14px;padding-top:14px;
+  border-top:1px solid var(--border-2);letter-spacing:0.02em;
+}
+footer .footer-parent-link {
+  font-weight:600;letter-spacing:0.08em;color:var(--text-2);
+  transition:color .15s ease;
+}
+footer .footer-parent-link:hover { color:var(--accent); }
 footer .footer-actions { display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:4px; }
 footer .footer-meta { display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0 6px;font-size:11.5px;color:var(--text-3); }
 footer .footer-link {
@@ -1884,6 +1898,9 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
     </div>
     <div class="footer-row footer-disclaimer">
       Giá tham khảo tại thời điểm cập nhật. Vui lòng kiểm tra trang chính thức trước khi mua.
+    </div>
+    <div class="footer-row footer-parent">
+      Một sản phẩm của <a href="https://maralabs.vn" target="_blank" rel="noopener" class="footer-link-inline footer-parent-link">MARA LABS</a>
     </div>
   </div>
 </footer>
@@ -2466,12 +2483,30 @@ var APPS = [
      {id:'business-ai',label:'Business + AI',price:24,perUser:true,note:'Monthly $24 · Annual $20/user/mo ($240/yr). Save 17%. Most Popular',features:['Mọi tính năng Business','Auto-video enhancement','Advanced editing','Video-to-text automation','Auto-meeting recap emails + notes']},
      {id:'enterprise',label:'Enterprise',price:null,features:['SSO + SCIM','Salesforce integration','99.95% uptime SLA','EBA compliance','Downloadable user insights']}
    ]},
+  {id:'slack',name:'Slack',cat:'Productivity',color:'#4A154B',initials:'Sl',popular:true,
+   logo:'icons/slack.svg',url:'https://slack.com/pricing',
+   desc:'Chat & collab cho team — channels, huddles, integrations. Slack AI (conversation summaries, search) bundle vào Business+ và Pro.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['90 days of message history','Up to 10 apps integrations','1:1 meetings (huddles)','1:1 external messages','Basic AI giới hạn']},
+     {id:'pro',label:'Pro',price:8.75,perUser:true,popular:true,note:'Rack $8.75/user/mo monthly (promo 50% off 3 months — tool dùng rack)',features:['Unlimited message history','Unlimited app integrations','Group meetings (huddles)','Group external messages','Basic AI: AI conversation summaries']},
+     {id:'business-plus',label:'Business+',price:18,perUser:true,note:'Rack $18/user/mo monthly. Best value cho team scale',features:['Unlimited history & integrations','Advanced AI (workflow generation, search, daily recaps, file summaries)','Slackbot personal AI agent (NEW)','SAML SSO + SCIM','Custom retention policies']},
+     {id:'enterprise',label:'Enterprise+',price:null,features:['Enterprise-Grade AI','Unlimited workspaces','EMM integration support','Multiple SAML configs','24/7 enterprise support']}
+   ]},
+  {id:'dropbox',name:'Dropbox',cat:'Productivity',color:'#0061FF',initials:'Db',popular:false,
+   logo:'icons/dropbox.svg',url:'https://www.dropbox.com/plans',
+   desc:'Cloud storage + sync + share file. Dropbox Dash AI (universal search) là tier riêng. Phổ biến cho designer + freelancer VN.',
+   tiers:[
+     {id:'plus',label:'Plus (Personal)',price:11.99,popular:true,note:'Monthly $11.99 · Yearly $9.99/mo. 1 user, 2TB storage',features:['2 TB of storage','Stay connected all devices','30 days file recovery','Transfer up to 50 GB','Edit PDFs + signatures']},
+     {id:'professional',label:'Professional',price:19.99,note:'Monthly $19.99 · Yearly $16.58/mo. 1 user, 3TB',features:['3 TB of storage','180 days file recovery','Transfer up to 100 GB','Edit PDFs + signatures','Brand your files to share','Password protect files']},
+     {id:'standard',label:'Standard (Team)',price:18,perUser:true,note:'Monthly $18 · Yearly $15/user/mo. Min 3 users, 5TB team',features:['3+ users','5 TB team storage','180 days file recovery','Transfer 100 GB','Team folders + manage sharing','Create groups & roles']},
+     {id:'advanced',label:'Advanced (Team)',price:30,perUser:true,note:'Monthly $30 · Yearly $24/user/mo. Min 3 users, 15TB+ starts',features:['3+ users','Starts at 15 TB team','1 year file recovery','Transfer 100 GB','Granular admin controls','Manage team sharing']}
+   ]},
   {id:'telegram',name:'Telegram Premium',cat:'Productivity',color:'#0088CC',initials:'Tg',popular:false,
    logo:'icons/telegram.svg',url:'https://telegram.org/premium',
-   desc:'Chat + community — VN gen Z + tech worker dùng cực nhiều. Premium: 4GB upload, ad-free, sticker exclusive.',
+   desc:'Chat + community — VN gen Z + tech worker dùng cực nhiều. Premium: 4GB upload, ad-free, sticker exclusive. Annual save 40% vs monthly.',
    tiers:[
      {id:'free',label:'Free',price:0,popular:true,features:['Chat đầy đủ tính năng','Group lên tới 200K member','Channel + bot','Cloud sync unlimited','2GB upload limit']},
-     {id:'premium',label:'Premium',price:4.99,features:['4GB upload','Ad-free','Exclusive emoji + sticker','Animated profile','Faster download + 4x cloud']}
+     {id:'premium',label:'Premium',price:4.99,note:'Monthly $4.99 · Annual $35.99/năm = $3/mo (save 40%). VN qua App Store theo exchange rate',features:['4GB upload','Ad-free','Exclusive emoji + sticker','Animated profile','Faster download + 4x cloud','Voice-to-text + Stories Premium','1,000 channels follow (free: 500)']}
    ]},
 
   /* ─── VN Tier 3: Mobile/Free creator tools ─── */
@@ -2724,7 +2759,8 @@ var OVERLAP_GROUPS = {
   'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']},
   'music-streaming':{label:'Music Streaming',  apps:['spotify','apple-music','youtube-premium']},
   'vn-streaming':   {label:'Streaming (VN)',   apps:['netflix','vieon','fpt-play','galaxy-play']},
-  'cloud-storage':  {label:'Cloud Storage',    apps:['icloud-plus','google-one']},
+  'cloud-storage':  {label:'Cloud Storage',    apps:['icloud-plus','google-one','dropbox']},
+  'team-chat':      {label:'Team Chat/Comms',  apps:['slack','telegram']},
   'adobe-individuals':{label:'Adobe individual apps (nên gộp CC Pro nếu nhiều)', apps:['photoshop','illustrator','indesign','after-effects','premiere','lightroom-standalone','adobe-cc']},
   'photo-edit':     {label:'Photo Editor',     apps:['photoshop','affinity','photopea','gimp','capture-one','lightroom-standalone']},
   'vector-design':  {label:'Vector Design',    apps:['illustrator','affinity','inkscape','coreldraw']}
@@ -2798,6 +2834,12 @@ var ANNUAL_DISCOUNTS = {
   'semrush/starter':          0.170,  // $199→$165.17/mo
   'semrush/pro-plus':         0.170,  // $299→$248.17/mo
   'semrush/advanced':         0.170,  // $549→$455.67/mo
+  // Communication — added 19/05/2026
+  'dropbox/plus':             0.167,  // $11.99→$9.99/mo
+  'dropbox/professional':     0.171,  // $19.99→$16.58/mo
+  'dropbox/standard':         0.167,  // $18→$15/user/mo
+  'dropbox/advanced':         0.20,   // $30→$24/user/mo
+  'telegram/premium':         0.40,   // $4.99→$3/mo ($35.99/yr). Save 40%
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
