@@ -2010,13 +2010,13 @@ var APPS = [
    }},
   {id:'framer',name:'Framer',cat:'Design',color:'#0055FF',initials:'Fr',popular:false,
    logo:'icons/framer-2.svg',url:'https://www.framer.com/pricing',
-   desc:'No-code website builder — design + publish, animation phức tạp. Pricing restructured Oct 2025.',
-   tiers:{
-     free:{label:'Free (non-commercial)',price:0,features:['framer.site domain','Unlimited prototyping','Free for personal']},
-     personal:{label:'Basic (per site)',price:10,note:'Restructured Oct 2025. Annual billing',features:['Custom domain','30 pages','1 CMS collection','100GB bandwidth']},
-     team:{label:'Pro (per site)',price:30,popular:true,features:['150 pages','10 CMS collections','10 editors','Password protection']},
-     enterprise:{label:'Scale (per site)',price:100,note:'Old "Business" tier renamed',features:['Premium CDN','A/B testing','Analytics dashboard','Unlimited pages']}
-   }},
+   desc:'No-code website builder — design + publish, animation phức tạp. Pricing restructured Oct 2025: 3 paid tier + Free. Additional editor $20-40/mo, viewer free.',
+   tiers:[
+     {id:'free',label:'Free (non-commercial)',price:0,features:['framer.site subdomain','Unlimited prototyping','Free cho personal use','Có Framer branding']},
+     {id:'basic',label:'Basic (per site)',price:10,note:'$10/mo annual · cho creative personal sites',features:['Free custom domain','Connect your own domain','AI-powered design tools','Fast secure hosting','Built-in SEO']},
+     {id:'pro',label:'Pro (per site)',price:30,popular:true,note:'$30/mo annual · growing professional sites',features:['Mọi tính năng Basic','Staging & instant rollback','Roles & permissions','Relational CMS','Site redirects','A/B testing (add-on), multi-locale (add-on)']},
+     {id:'scale',label:'Scale (per site)',price:100,note:'$100/mo annual ONLY (no monthly) + usage · high-traffic sites',features:['Mọi tính năng Pro','Custom locale regions','Events and funnels','Priority support','Premium CDN','Flexible limits + advanced hosting']}
+   ]},
   {id:'chatgpt',name:'ChatGPT',cat:'AI',color:'#10a37f',initials:'G',popular:true,
    logo:'icons/chatgpt-6.svg',url:'https://openai.com/chatgpt/pricing',
    desc:'AI chatbot mạnh nhất từ OpenAI — GPT-5.5, DALL·E, Code Interpreter, voice.',
@@ -2081,20 +2081,22 @@ var APPS = [
    }},
   {id:'vercel',name:'Vercel',cat:'Development',color:'#333',initials:'Vc',popular:false,
    logo:'icons/vercel.svg',url:'https://vercel.com/pricing',
-   desc:'Deploy và host frontend siêu nhanh — CI/CD tự động, edge network toàn cầu.',
-   tiers:{
-     personal:{label:'Pro',price:20,popular:true,features:['1TB bandwidth + Edge Functions','Preview deployment không giới hạn','Custom domain SSL','Analytics & Speed Insights cơ bản']},
-     team:{label:'Team',price:40,features:['Concurrent build x6','SSO Google/GitHub','Team collaboration & roles','Password protection cho preview']},
-     enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','99.99% SLA','DDoS mitigation cao cấp','Dedicated support & CSM']}
-   }},
+   desc:'Deploy và host frontend siêu nhanh — CI/CD tự động, edge network toàn cầu. Pay-as-you-go compute từ 2025.',
+   tiers:[
+     {id:'hobby',label:'Hobby (Free)',price:0,features:['Import repo, deploy in seconds','Automatic CI/CD','Web Application Firewall','Global CDN, Fluid compute','DDoS Mitigation','Free forever cho personal']},
+     {id:'pro',label:'Pro',price:20,popular:true,perUser:true,note:'$20/mo + additional usage. $20 included usage credit. Pay only for active compute',features:['Mọi tính năng Hobby','$20 included usage credit','Advanced spend management','Team collab + free viewer seats','Faster builds, no queues','Cold start prevention']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Guest & Team access controls','SCIM & Directory Sync','Managed WAF Rulesets','Multi-region compute & failover','99.99% SLA','Advanced support']}
+   ]},
   {id:'raycast',name:'Raycast Pro',cat:'Development',color:'#E64F3B',initials:'Rc',popular:false,
    logo:'icons/raycast.svg',url:'https://www.raycast.com/pro',
-   desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management.',
-   tiers:{
-     personal:{label:'Pro',price:10,popular:true,features:['Raycast AI (GPT-4o, Claude)','Cloud sync settings & quicklink','Unlimited clipboard history','Custom themes & icons']},
-     team:{label:'Teams',price:15,features:['Shared command, snippet, quicklink','Custom extension store nội bộ','SSO Google Workspace','Centralized billing']},
-     enterprise:{label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log đầy đủ','Custom data residency','Dedicated success manager']}
-   }},
+   desc:'Launcher macOS cực mạnh — AI, snippet, clipboard history, window management. AI providers: OpenAI, Anthropic, Perplexity, Mistral, Google, xAI.',
+   tiers:[
+     {id:'free',label:'Free',price:0,features:['Core features: Clipboard, Quicklinks, Calc','Snippets, Emoji Picker, Window Mgmt','Raycast AI 50 free messages (BYOK supported)','5 Raycast Notes','Thousands of extensions']},
+     {id:'pro',label:'Raycast Pro',price:10,popular:true,note:'Monthly $10 · Annual $8/mo ($96/yr). Save 20%',features:['Raycast AI: GPT, Claude, Perplexity, Mistral, Google, xAI','Cloud Sync settings & quicklinks','Unlimited Raycast Notes','Unlimited Clipboard History','Custom Window Management + Themes']},
+     {id:'pro-ai',label:'Pro + Advanced AI',price:20,note:'Monthly $20 · Annual $16/mo ($192/yr). Save 20%. Best models',features:['Mọi tính năng Pro','Advanced AI Models (best of all providers)','Premium model access','Multimodal capabilities','Phù hợp power user dùng AI nhiều']},
+     {id:'teams',label:'Teams',price:15,perUser:true,note:'Per user/month — verify rack hiện tại',features:['Shared command, snippet, quicklink','Custom extension store nội bộ','SSO Google Workspace','Centralized billing']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['SAML SSO + SCIM','Audit log đầy đủ','Custom data residency','Dedicated success manager']}
+   ]},
   {id:'notion',name:'Notion',cat:'Productivity',color:'#333',initials:'N',popular:false,
    logo:'icons/notion.svg',url:'https://notion.so/pricing',
    desc:'All-in-one workspace — notes, database, wiki, project management, AI tích hợp.',
@@ -2782,6 +2784,9 @@ var ANNUAL_DISCOUNTS = {
   // Zoom Workplace VN regional — added 19/05/2026
   'zoom/pro':                 0.1667, // 431.886đ→359.905đ/mo annual (save 16.67%)
   'zoom/business':            0.1667, // 558.986đ→465.822đ/mo annual (save 16.67%)
+  // Raycast — added 19/05/2026
+  'raycast/pro':              0.20,   // $10→$8/mo ($96/yr). Save 20%
+  'raycast/pro-ai':           0.20,   // $20→$16/mo ($192/yr). Save 20%
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
