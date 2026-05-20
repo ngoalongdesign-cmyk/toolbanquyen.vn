@@ -2404,6 +2404,32 @@ var APPS = [
      {id:'edu',label:'Educational',price:0,note:'1 năm miễn phí HS/SV',features:['Maxon One Edu miễn phí','Cần email .edu','Phi thương mại','Renew năm']}
    ]},
 
+  {id:'3dsmax',name:'3ds Max',cat:'Video',color:'#0696D7',initials:'3M',popular:false,
+   url:'https://www.autodesk.com/products/3ds-max/overview',
+   desc:'3D modeling, render, animation của Autodesk — chuẩn cho arch viz, game dev. Hard-surface modeling mạnh. Subscription-only, chỉ Windows.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:255,note:'$255/mo, hủy bất kỳ lúc nào',features:['Full 3ds Max + Arnold renderer','Update version + support 8x5','Cho project ngắn hạn','Chỉ Windows 10/11']},
+     {id:'annual',label:'Annual',price:167.50,popular:true,note:'$2,010/năm. Save 34% vs Monthly',features:['Cùng tính năng Monthly','Save 34% vs Monthly billing','Phù hợp dùng dài hạn','3-Year lock $2,010/năm price 3 năm']},
+     {id:'indie',label:'Indie',price:27.50,note:'$330/năm — eligibility cần verify',features:['Gross revenue <$100k/năm','Project value <$100k','Same features as full','Chỉ 1 license/user']},
+     {id:'edu',label:'Education',price:0,note:'1 năm miễn phí HS/SV/GV',features:['Full 3ds Max','Cần email .edu','Phi thương mại','Renew hàng năm']}
+   ]},
+  {id:'maya',name:'Maya',cat:'Video',color:'#37A5CC',initials:'My',popular:false,
+   url:'https://www.autodesk.com/products/maya/overview',
+   desc:'3D animation, modeling, simulation, render — chuẩn industry cho film/TV/game. Pixar, ILM, Weta đều dùng. Subscription-only, Win + Mac + Linux.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:245,note:'$245/mo, hủy bất kỳ lúc nào',features:['Full Maya + Arnold + Bifrost','Cho project ngắn hạn','Win/Mac/Linux','Support 8x5']},
+     {id:'annual',label:'Annual',price:162,popular:true,note:'$1,945/năm. Save 34% vs Monthly',features:['Cùng tính năng Monthly','Phù hợp dùng dài hạn','3-Year lock price 3 năm','Industry standard cho animation']},
+     {id:'indie',label:'Indie',price:25.42,note:'$305/năm — eligibility cần verify',features:['Gross revenue <$100k/năm','Project value <$100k','Same features as full','Chỉ 1 license/user']},
+     {id:'edu',label:'Education',price:0,note:'1 năm miễn phí HS/SV/GV',features:['Full Maya','Cần email .edu','Phi thương mại','Renew hàng năm']}
+   ]},
+  {id:'me-collection',name:'M&E Collection',cat:'Video',color:'#000000',initials:'ME',popular:false,
+   url:'https://www.autodesk.com/collections/media-entertainment/overview',
+   desc:'Autodesk Media & Entertainment Collection — bundle Maya + 3ds Max + Arnold (5 seats) + MotionBuilder + Mudbox + Golaem + Flow Studio. Save lớn nếu dùng ≥2 tool.',
+   tiers:[
+     {id:'monthly',label:'Monthly',price:345,note:'$345/mo, hủy bất kỳ lúc nào',features:['Tất cả: Maya + 3ds Max + Arnold','5 Arnold render licenses','Bifrost trên 15 máy','Golaem crowd sim cho Maya','Flow Studio AI motion capture']},
+     {id:'annual',label:'Annual',price:233,popular:true,note:'$2,800/năm. Save 32.5% vs Monthly. Rẻ hơn mua 2 app riêng',features:['Toàn bộ M&E Collection','Save vs mua Maya + 3ds Max riêng','3-Year option lock price','Bao gồm OpenUSD across tools']}
+   ]},
+
   /* ─── Design alternatives & creative ─── */
   {id:'coreldraw',name:'CorelDraw',cat:'Design',color:'#7FBA00',initials:'CD',popular:false,
    logo:'icons/coreldraw-icon.svg',url:'https://www.coreldraw.com/en/pricing/coreldraw/',
@@ -2797,7 +2823,7 @@ var OVERLAP_GROUPS = {
   'task-mgmt':    {label:'Project Mgmt',       apps:['linear','clickup']},
   'ai-code':      {label:'AI Coding',          apps:['cursor','github-copilot']},
   'no-code-web':  {label:'No-code Web',        apps:['webflow','framer']},
-  '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino']},
+  '3d-suite':     {label:'3D Software',        apps:['blender','cinema4d','rhino','3dsmax','maya','me-collection']},
   'office-suite': {label:'Office Suite',       apps:['ms365','google-workspace']},
   'music-streaming':{label:'Music Streaming',  apps:['spotify','apple-music','youtube-premium']},
   'vn-streaming':   {label:'Streaming (VN)',   apps:['netflix','vieon','fpt-play','galaxy-play']},
@@ -2993,6 +3019,9 @@ var ALTERNATIVES_MAP = {
   'notion':     [{id:'obsidian',reason:'Free local-first markdown vĩnh viễn'},{id:'logseq',reason:'Free outliner block-based'}],
   'figma':      [{id:'sketch',reason:'$12/mo, Mac-only'},{id:'framer',reason:'Free Starter, design + publish'}],
   'cinema4d':   [{id:'blender',reason:'Free, đầy đủ 3D pipeline'}],
+  '3dsmax':     [{id:'blender',reason:'Free, modeling + render Cycles'},{id:'maya',reason:'$245/mo — animation chuẩn industry'},{id:'me-collection',reason:'Bundle Maya+3ds Max+Arnold $233/mo annual'}],
+  'maya':       [{id:'blender',reason:'Free, animation + rigging đầy đủ'},{id:'3dsmax',reason:'$255/mo — modeling/arch viz mạnh hơn'},{id:'me-collection',reason:'Bundle Maya+3ds Max $233/mo annual'}],
+  'me-collection':[{id:'blender',reason:'Free, đủ thay 80% workflow'},{id:'maya',reason:'$162/mo annual nếu chỉ cần Maya'},{id:'3dsmax',reason:'$167.50/mo annual nếu chỉ cần 3ds Max'}],
   'rhino':      [{id:'blender',reason:'Free, modeling đa năng (no parametric chuẩn Rhino)'}],
   'procreate':  [{id:'krita',reason:'Free desktop, brush engine pro'},{id:'sketchbook',reason:'Free Autodesk, đa nền tảng'}],
   'clipstudio': [{id:'krita',reason:'Free, brush engine illustration'},{id:'procreate',reason:'$12.99 mua đứt iPad'}],
