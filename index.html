@@ -2853,12 +2853,12 @@ var ANNUAL_DISCOUNTS = {
   'adobe-cc/single-app':      0.13,   // $22.99→$19.99 annual prepay
   'adobe-cc/all-apps':        0.083,  // $69.99 monthly → annual prepay save ~8%
   'adobe-cc/all-apps-standard':0.083, // Same Adobe annual discount
-  'premiere/single':          0.13,   // same Adobe Single App rule
+  'premiere/personal':        0.13,   // same Adobe Single App rule. Key 'personal' khớp tier dict
   // AI
   'chatgpt/plus':             0.167,  // $20→$16.67 ($200/yr)
   'claude/pro':               0.167,  // $20→$16.67 ($200/yr)
   'cursor/pro':               0.20,   // $20→$16 ($192/yr)
-  'github-copilot/individual':0.167,  // $10→$8.33 ($100/yr)
+  'github-copilot/personal':  0.167,  // $10→$8.33 ($100/yr). Key 'personal' khớp với tier dict
   'runway/standard':          0.20,   // $15→$12 ($144/yr)
   'midjourney/personal':      0.20,   // Basic $10→$8 (Yearly 20% off)
   'midjourney/team':          0.20,   // Standard $30→$24
@@ -2966,17 +2966,29 @@ var ANNUAL_DISCOUNTS = {
   // InShot dùng pattern split-tier (annual = tier riêng), không add vào ANNUAL_DISCOUNTS
 };
 
-/* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
+/* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded.
+ * Hỗ trợ cả tiers Array (preferred) và Dict (legacy). */
 function applyAnnualDiscounts(){
   if(typeof APPS === 'undefined' || !Array.isArray(APPS)) return;
   APPS.forEach(function(app){
     if(!app.tiers) return;
-    app.tiers.forEach(function(t){
-      var key = app.id + '/' + t.id;
-      if(ANNUAL_DISCOUNTS[key]){
-        t.annualSave = ANNUAL_DISCOUNTS[key];
-      }
-    });
+    if(Array.isArray(app.tiers)){
+      // Array: t.id là tier id
+      app.tiers.forEach(function(t){
+        var key = app.id + '/' + t.id;
+        if(ANNUAL_DISCOUNTS[key]){
+          t.annualSave = ANNUAL_DISCOUNTS[key];
+        }
+      });
+    } else {
+      // Dict legacy: key chính là tier id (vd: 'personal', 'team')
+      Object.keys(app.tiers).forEach(function(tierKey){
+        var key = app.id + '/' + tierKey;
+        if(ANNUAL_DISCOUNTS[key]){
+          app.tiers[tierKey].annualSave = ANNUAL_DISCOUNTS[key];
+        }
+      });
+    }
   });
 }
 
