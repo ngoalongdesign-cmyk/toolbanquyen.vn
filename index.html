@@ -2120,7 +2120,7 @@ var APPS = [
    tiers:[
      {id:'free',label:'Free',price:0,features:['Cá nhân không giới hạn pages','Tích hợp với app khác','Lịch sử 7 ngày','Khách tối đa 10','API access cơ bản']},
      {id:'plus',label:'Plus',price:10,perUser:true,popular:true,note:'$12/seat monthly. AI bundled vào Business tier từ May 2025',features:['Unlimited file uploads','Lịch sử 30 ngày','Khách không giới hạn','Custom Notion Sites','Synced databases']},
-     {id:'business',label:'Business',price:20,perUser:true,note:'$24/seat monthly. Bao gồm Notion AI Agents + Ask',features:['Full Notion AI Agents','Ask Notion','SAML SSO','Private team space','Lịch sử 90 ngày','Bulk PDF export']},
+     {id:'business',label:'Business',price:20,perUser:true,note:'$24/seat monthly. Bao gồm Notion AI + Custom Agents ($10/1000 credits từ 5/2026)',features:['Full Notion AI Agents','Ask Notion','Custom Agents (credit-based)','SAML SSO','Private team space','Lịch sử 90 ngày','Bulk PDF export']},
      {id:'enterprise',label:'Enterprise',price:null,features:['SCIM + advanced security','Audit log đầy đủ','Workspace analytics','Customer success manager','Unlimited page history']}
    ]},
   {id:'linear',name:'Linear',cat:'Productivity',color:'#5E6AD2',initials:'Li',popular:false,
@@ -2367,11 +2367,21 @@ var APPS = [
    ]},
   {id:'enscape',name:'Enscape',cat:'Architecture',color:'#5B47FB',initials:'En',popular:false,
    logo:'icons/enscape.svg',url:'https://enscape3d.com/pricing/',
-   desc:'Plugin render real-time trong Revit/SketchUp/Rhino — không cần export ra phần mềm khác.',
+   desc:'Plugin render real-time trong Revit/SketchUp/Rhino/Archicad. Chaos restructure mid-2025: bỏ Fixed Seat/Floating, đổi sang Solo/Premium/ArchDesign Collection — subscription-only.',
    tiers:[
-     {id:'fixed-seat',label:'Fixed Seat',price:58.99,popular:true,note:'$708/năm',features:['1 máy cụ thể','Plugin Revit/SketchUp/Rhino/Archicad','VR + Panorama 360','Asset Library 3000+']},
-     {id:'floating',label:'Floating Seat',price:84.99,note:'$1,020/năm',features:['Dùng nhiều máy 1 user','Mọi tính năng Fixed','Phù hợp freelancer','License management']},
+     {id:'solo',label:'Solo',price:87.30,popular:true,note:'$87.30 monthly hoặc $574.80/năm annual',features:['Real-time render trong design tool','Named-user license','Plugin Revit/SketchUp/Rhino/Archicad','Asset Library + VR']},
+     {id:'premium',label:'Premium (Annual)',price:52.90,note:'$634.80/năm named, $994.80/năm floating. Chỉ annual',features:['Cloud collaboration','AI-enhanced image creation','Scene enrichment','Floating option cho team']},
+     {id:'archdesign',label:'ArchDesign Collection (Annual)',price:57.90,note:'$694.80/năm named, $1,138.80/năm floating. Bundle Enscape + Envision',features:['100% ray-traced real-time','Large scene assembly','Sustainability insights','LEED-friendly tooling']},
      {id:'edu',label:'Education',price:0,note:'HS/SV/GV',features:['Miễn phí cho trường','Mọi tính năng','Phi thương mại','Renew hàng năm']}
+   ]},
+
+  {id:'archicad',name:'Archicad',cat:'Architecture',color:'#1473E6',initials:'Ar',popular:false,
+   url:'https://graphisoft.com/buy/archicad',
+   desc:'BIM của Graphisoft — alternative chính của Revit, native macOS + Windows, OpenBIM workflow. Perpetual license đã bị phase out cuối 2025; từ 2026 subscription-only.',
+   tiers:[
+     {id:'studio',label:'Studio',price:345,popular:true,note:'$345 monthly hoặc $201/mo annual ($2,414/năm)',features:['BIM modeling đầy đủ','BIMx Pro presentation','AI Visualizer','Local Teamwork với BIMcloud Basic','Cho solo + small firm']},
+     {id:'collaborate',label:'Collaborate',price:400,note:'$400 monthly hoặc $237/mo annual ($2,810/năm)',features:['Tất cả tính năng Studio','BIMcloud SaaS (cloud teamwork)','Redshift rendering','Python API + PARAM-O','Library Part Maker']},
+     {id:'edu',label:'Education',price:0,note:'1 năm miễn phí HS/SV/GV',features:['Full Archicad commercial features','Cần email .edu','Watermark "Education" trên file','Phi thương mại','Renew hàng năm']}
    ]},
 
   /* ─── Filmmaking (bổ sung Video category) ─── */
@@ -2543,8 +2553,8 @@ var APPS = [
    tiers:[
      {id:'free',label:'Free',price:0,features:['Edit video cơ bản','Watermark khi export','Music library giới hạn','Ads in-app']},
      {id:'monthly',label:'Pro Monthly',price:3.99,features:['Không watermark','Music library đầy đủ','Premium effects + filter','Không ads']},
-     {id:'annual',label:'Pro Annual',price:1.25,popular:true,note:'$14.99/năm',features:['Tiết kiệm ~70% vs Monthly','Mọi tính năng Pro','Phù hợp creator daily','Cancel anytime']},
-     {id:'lifetime',label:'Lifetime',price:1.50,note:'$35.99 mua đứt',features:['Mua 1 lần dùng vĩnh viễn','Mọi tính năng Pro','Không renew','Cho creator dài hạn']}
+     {id:'annual',label:'Pro Annual',price:1.50,popular:true,note:'$17.99/năm',features:['Tiết kiệm ~62% vs Monthly','Mọi tính năng Pro','Phù hợp creator daily','Cancel anytime']},
+     {id:'lifetime',label:'Lifetime',price:1.67,note:'$39.99 mua đứt (chia 24 tháng)',features:['Mua 1 lần dùng vĩnh viễn','Mọi tính năng Pro','Không renew','Cho creator dài hạn']}
    ]},
   {id:'krita',name:'Krita',cat:'Design',color:'#3DB1FF',initials:'Kr',popular:false,
    logo:'icons/krita.svg',url:'https://krita.org/',
@@ -2567,7 +2577,7 @@ var APPS = [
    desc:'Photoshop trên trình duyệt — free, mở file PSD trực tiếp. Alternative chính cho Photoshop khi cần edit ảnh thỉnh thoảng.',
    tiers:[
      {id:'free',label:'Free',price:0,popular:true,features:['100% miễn phí trên browser','Mở/lưu PSD/AI/Sketch','Layers + masks + brushes','Có quảng cáo nhỏ']},
-     {id:'premium',label:'Premium',price:5,note:'$40/năm — bỏ quảng cáo',features:['Không quảng cáo','Bonus cloud storage','Same features as Free','Hỗ trợ project']}
+     {id:'premium',label:'Premium',price:5,note:'$50/năm — bỏ quảng cáo',features:['Không quảng cáo','Bonus cloud storage','Same features as Free','Hỗ trợ project']}
    ]},
   {id:'gimp',name:'GIMP',cat:'Design',color:'#5C5543',initials:'Gi',popular:false,
    url:'https://www.gimp.org/',
@@ -2587,8 +2597,9 @@ var APPS = [
    tiers:[
      {id:'free',label:'Free Personal',price:0,popular:true,features:['100% miễn phí cá nhân','Local files, không cloud','1000+ community plugins','Graph view + backlinks']},
      {id:'commercial',label:'Commercial',price:4.17,note:'$50/user/năm cho doanh nghiệp',features:['Same features as Free','License thương mại','Hỗ trợ ưu tiên','Phù hợp company use']},
-     {id:'sync',label:'Sync (addon)',price:4,note:'$4/mo cloud sync',features:['End-to-end encrypted sync','Đa thiết bị','Version history 12 tháng','Add-on optional']},
-     {id:'publish',label:'Publish (addon)',price:8,note:'$8/mo public site',features:['Publish notes như website','Custom domain','SEO ready','Add-on optional']}
+     {id:'sync',label:'Sync (addon)',price:4,note:'$4/mo annual hoặc $5/mo monthly',features:['End-to-end encrypted sync','Đa thiết bị','Version history','Per-user, add-on optional']},
+     {id:'publish',label:'Publish (addon)',price:8,note:'$8/mo annual hoặc $10/mo monthly — per site',features:['Publish notes như website','Custom domain','SEO ready','Per-site (không per-user)']},
+     {id:'catalyst',label:'Catalyst (one-time)',price:1.04,note:'$25 mua 1 lần (chia 24 tháng)',features:['Early access beta versions','Community badge + VIP channel','Hỗ trợ project','Lifetime, không cần renew']}
    ]},
   {id:'logseq',name:'Logseq',cat:'Productivity',color:'#002B36',initials:'Lg',popular:false,
    url:'https://logseq.com/',
@@ -2918,7 +2929,15 @@ var ANNUAL_DISCOUNTS = {
   // Capture One — added 19/05/2026
   'capture-one/pro':          0.346,  // $28.60→$18.70/mo
   'capture-one/all-in-one':   0.354,  // $39.60→$25.58/mo
-  'capture-one/studio':       0.225   // $64.90→$50.32/mo
+  'capture-one/studio':       0.225,  // $64.90→$50.32/mo
+  // Architecture/Design — added 20/05/2026 session
+  'enscape/solo':             0.451,  // $87.30 monthly → $47.90 annual. Save 45% (Chaos restructure mid-2025)
+  'archicad/studio':          0.418,  // $345 monthly → $201 annual. Save ~42%
+  'archicad/collaborate':     0.408,  // $400 monthly → $237 annual. Save ~41%
+  'obsidian/sync':            0.20,   // $5 monthly → $4 annual. Save 20%
+  'obsidian/publish':         0.20,   // $10 monthly → $8 annual. Save 20%
+  'photopea/premium':         0.167   // $5 monthly → $4.17 annual ($50/yr). Save 17%
+  // InShot dùng pattern split-tier (annual = tier riêng), không add vào ANNUAL_DISCOUNTS
 };
 
 /* Patch tier objects với annualSave từ map — chạy sau khi APPS loaded */
