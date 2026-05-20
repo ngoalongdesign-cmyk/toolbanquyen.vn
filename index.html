@@ -2182,12 +2182,14 @@ var APPS = [
    }},
   {id:'runway',name:'Runway ML',cat:'Video',color:'#222',initials:'Rw',popular:false,
    logo:'icons/runway.svg',url:'https://runwayml.com/pricing',
-   desc:'AI video generation & editing — Gen-3, inpainting, motion tracking, VFX.',
-   tiers:{
-     personal:{label:'Standard',price:12,note:'$15 monthly. Annual saves 20%',features:['625 credits/month','Gen-3 Alpha Turbo','Voice Generation','Watermark khi export']},
-     team:{label:'Pro',price:28,popular:true,note:'$35 monthly',features:['2250 credits','Stealth mode (privacy)','Không watermark','Upscale 4K','Director Mode']},
-     enterprise:{label:'Unlimited',price:76,note:'$95 monthly',features:['Explore Mode unlimited','Đầy đủ tính năng Pro','Priority queue','Pro creator support']}
-   }},
+   desc:'AI video generation & editing — Gen-4 Turbo, Aleph editing, Gemini 3 Pro, Veo 3, Sora 2 access. Annual save 20% flat across tiers.',
+   tiers:[
+     {id:'free',label:'Free',price:0,note:'$0 per editor/month, free forever',features:['125 credits (one time)','Gen-4 Turbo (Image to Video)','Gen-4 Text to Image, Gemini 3 Pro/2.5','Text to Speech, Audio Apps','3 video editor projects, 5GB storage','No Gen-4 Video access']},
+     {id:'standard',label:'Standard',price:15,popular:true,perUser:true,note:'Monthly $15 · Yearly $12/user ($144/yr). Max 5 users per workspace',features:['625 credits monthly','Everything in Free + Access to all Apps','Ability to run Workflows','Aleph (Video Editing), Gen-4.5 Text+Image to Video','Act-Two (Performance Capture), Veo 3.1, Veo 3','Access to 3rd-party models (Seedance, Kling 3.0 Pro)','Upscale resolution, all video models']},
+     {id:'pro',label:'Pro',price:35,perUser:true,note:'Monthly $35 · Yearly $28/user ($336/yr). Max 10 users',features:['2,250 credits monthly','Everything in Standard','Custom Voices for Lip Sync + Text to Speech','500GB asset storage','Phù hợp small teams scaling']},
+     {id:'unlimited',label:'Unlimited',price:95,perUser:true,note:'Monthly $95 · Yearly $76/user ($912/yr). Max 10 users',features:['2,250 credits monthly','Everything in Pro + Explore Mode','Unlimited generations (image + video) in Explore mode at relaxed rate','Phù hợp pro creator commit cao']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['All Pro features + custom credits','Single sign-on','Configurable org + team spaces','Advanced security + compliance','Enterprise-wide onboarding','Ongoing success program + priority support','Workspace Analytics']}
+   ]},
   {id:'davinci',name:'DaVinci Resolve',cat:'Video',color:'#B03A2E',initials:'DV',popular:false,
    logo:'icons/davinci-resolve-12.svg',url:'https://www.blackmagicdesign.com/products/davinciresolve',
    desc:'Professional color grading + post-production — tiêu chuẩn Hollywood. Free version đủ 95% use cases. VN order: S$412.50 (gồm VAT 10%) qua Blackmagic SEA.',
@@ -2865,6 +2867,10 @@ var ANNUAL_DISCOUNTS = {
   // SketchUp — added 19/05/2026 (Go + Pro có cả monthly và annual)
   'sketchup/go-monthly':      0.462,  // $19.99→$10.75 yearly. Save 46%
   'sketchup/pro-monthly':     0.668,  // $99.99→$33.25 yearly. Save 67%
+  // Runway ML — added 19/05/2026 (flat 20% off annual across all tiers)
+  'runway/standard':          0.20,   // $15→$12/user
+  'runway/pro':               0.20,   // $35→$28/user
+  'runway/unlimited':         0.20,   // $95→$76/user
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
