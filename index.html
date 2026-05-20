@@ -2307,13 +2307,15 @@ var APPS = [
      {id:'student',label:'Student (Edu)',price:0,note:'Email .edu / xác minh sinh viên',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew mỗi năm']}
    ]},
   {id:'revit',name:'Autodesk Revit',cat:'Architecture',color:'#0696D7',initials:'Rv',popular:false,
-   logo:'icons/revit.svg',url:'https://www.autodesk.com/products/revit/overview',
-   desc:'BIM (Building Information Modeling) — thiết kế kiến trúc, kết cấu, MEP với coordination tự động.',
+   logo:'icons/revit.svg',url:'https://www.autodesk.com/products/revit/subscribe',
+   desc:'BIM (Building Information Modeling) — thiết kế kiến trúc, kết cấu, MEP với coordination tự động. Powered by Autodesk AI.',
    tiers:[
-     {id:'monthly',label:'Monthly',price:390,features:['Revit đầy đủ Architecture/Structure/MEP','Cloud collaboration cơ bản','Dynamo for Revit','Hỗ trợ Autodesk']},
-     {id:'annual',label:'Annual',price:245,popular:true,note:'Trả năm $2,940',features:['Tiết kiệm ~37% vs Monthly','Mọi tính năng Monthly','Phù hợp studio BIM','Autodesk Drive bao gồm']},
-     {id:'aec-collection',label:'AEC Collection',price:340,note:'Bundle 8+ app — $4,085/năm',features:['Revit + AutoCAD + Civil 3D','Navisworks Manage','InfraWorks + 3ds Max','Phù hợp studio đa năng']},
-     {id:'student',label:'Student (Edu)',price:0,note:'Email .edu',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew năm']}
+     {id:'monthly',label:'Monthly',price:380,features:['Revit đầy đủ Architecture/Structure/MEP','Cloud collaboration cơ bản','Dynamo for Revit','Hỗ trợ Autodesk','Renew tháng linh hoạt']},
+     {id:'annual',label:'Annual',price:251,popular:true,note:'$3,005/năm — Best value',features:['Tiết kiệm ~34% vs Monthly','Mọi tính năng Monthly','Bao gồm Autodesk Drive','Hỗ trợ ưu tiên','Powered by Autodesk AI']},
+     {id:'3year',label:'3-Year',price:251,note:'$9,020/3-năm = $3,007/năm (giá per-year ≈ Annual, chỉ commit dài)',features:['Giá khoá trong 3 năm','Không giảm thêm vs Annual','Phù hợp studio commit dài hạn','Quản lý license tập trung']},
+     {id:'flex',label:'Flex (Pay-per-use)',price:null,note:'$300 cho 100 tokens minimum. 10 tokens/day cho Revit (so với AutoCAD 7)',features:['Pay-per-use tokens','Tối thiểu 100 tokens ($300)','Revit dùng 10 tokens/day','Phù hợp dùng thỉnh thoảng','Mua thêm = thêm tokens']},
+     {id:'aec-collection',label:'AEC Collection',price:340,note:'Bundle 8+ app — $4,085/năm. Verify giá mới nếu Autodesk tăng',features:['Revit + AutoCAD + Civil 3D','Navisworks Manage','InfraWorks + 3ds Max','Phù hợp studio đa năng']},
+     {id:'student',label:'Student (Edu)',price:0,note:'Email .edu / xác minh sinh viên',features:['Miễn phí HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Renew năm']}
    ]},
   {id:'sketchup',name:'SketchUp',cat:'Architecture',color:'#005F9E',initials:'Sk',popular:true,
    logo:'https://cdn.simpleicons.org/sketchup',url:'https://www.sketchup.com/en/plans-and-pricing/sketchup',
@@ -2332,11 +2334,14 @@ var APPS = [
    ]},
   {id:'rhino',name:'Rhinoceros 3D',cat:'Architecture',color:'#801010',initials:'Rh',popular:false,
    logo:'https://cdn.simpleicons.org/rhinoceros',url:'https://www.rhino3d.com/sales/',
-   desc:'NURBS modeling chính xác — kiến trúc parametric, công nghiệp, jewelry với Grasshopper.',
+   desc:'NURBS modeling chính xác — kiến trúc parametric, công nghiệp, jewelry với Grasshopper. PERPETUAL only (không subscription). McNeel kiên trì chống subscription model. VN reseller: DC Technologies JSC (HCMC).',
    tiers:[
-     {id:'commercial',label:'Commercial',price:30,note:'Mua đứt $995 (≈3 năm)',features:['Rhino 8 license vĩnh viễn','Grasshopper visual scripting','Windows + Mac trong 1 license','Update minor miễn phí']},
-     {id:'edu-single',label:'Educational Single',price:6,note:'Mua đứt $195',features:['HS/SV/GV','Đầy đủ tính năng','Phi thương mại','Email .edu xác minh']},
-     {id:'lab',label:'Lab License',price:30,note:'$975/30 máy/năm',features:['Cài 30 máy phòng lab','Cho trường đại học','Quản lý tập trung','Renew năm']}
+     {id:'commercial',label:'Commercial (Rhino 8)',price:82.92,popular:true,note:'Mua đứt $995 perpetual — không subscription. Includes Win + Mac trong 1 license. Update minor miễn phí',features:['Rhino 8 license vĩnh viễn','Grasshopper visual scripting built-in','Windows + Mac trong 1 license','Update minor miễn phí','Không hết hạn — dùng forever']},
+     {id:'upgrade',label:'Upgrade (từ Rhino 7→8)',price:49.58,note:'Mua đứt $595 — chỉ cho user đã có Rhino cũ',features:['Upgrade từ Rhino 7 hoặc cũ hơn','Lưu lại license cũ','Cùng tính năng Commercial','Cập nhật Rhino 9 tương lai cần upgrade riêng']},
+     {id:'edu-single',label:'Educational Single',price:16.25,note:'Mua đứt $195 perpetual — HS/SV/GV',features:['Mọi tính năng Commercial','Email .edu xác minh','Phi thương mại','Same features as Commercial']},
+     {id:'edu-upgrade',label:'Educational Upgrade',price:7.92,note:'Mua đứt $95 — Edu user upgrade từ version cũ',features:['Upgrade Edu version','Cho student đã có Rhino cũ','Same features as Edu single','Phi thương mại']},
+     {id:'lab',label:'Lab License (Edu Schools)',price:2.71,note:'$975/30-user lab/năm — cho trường ĐH',features:['Cài 30 máy phòng lab','Cho trường đại học','LAN Zoo / Cloud Zoo manage tập trung (free)','Renew năm','Edu version same as Commercial']},
+     {id:'proctor',label:'Academic Rhino Proctor',price:25,note:'$300/năm — Faculty only. NEW tier',features:['Annual membership','300 tests included','Cho giảng viên kiểm tra HS/SV','Subscription model duy nhất của Rhino']}
    ]},
   {id:'lumion',name:'Lumion',cat:'Architecture',color:'#00B5E2',initials:'Lm',popular:false,
    logo:'icons/lumion.svg',url:'https://lumion.com/product/buy',
@@ -2353,11 +2358,12 @@ var APPS = [
    ]},
   {id:'twinmotion',name:'Twinmotion',cat:'Architecture',color:'#00DB7E',initials:'Tm',popular:false,
    logo:'icons/twinmotion.svg',url:'https://www.twinmotion.com/pricing',
-   desc:'Real-time render từ Epic Games (Unreal Engine) — kiến trúc, nội thất, môi trường VR.',
+   desc:'Real-time render từ Epic Games (Unreal Engine) — kiến trúc, nội thất, môi trường VR. MAJOR change 2024: FREE up to $1M annual revenue (commercial OK). Trên $1M phải mua per-seat. Có VN regional pricing chính thức.',
    tiers:[
-     {id:'free',label:'Free',price:0,features:['Đầy đủ tính năng render','Phi thương mại','Asset library đầy đủ','Phù hợp học việc']},
-     {id:'pro',label:'Pro',price:35,popular:true,note:'$445/năm',features:['Sử dụng thương mại','Path tracing chất lượng cao','Render 8K + video 4K','LiveLink Revit/SketchUp/Rhino']},
-     {id:'cloud',label:'Cloud Render',price:null,note:'Pay-per-use',features:['Add-on render trên cloud','Tiết kiệm máy local','Phù hợp dự án lớn','Quotas theo dự án']}
+     {id:'free',label:'Free (Under $1M revenue)',price:0,popular:true,note:'Cho cá nhân/SMB có doanh thu <$1M USD/năm, education, students. INCLUDES commercial use!',features:['Đầy đủ tính năng render','All upgrades trong 1 năm','Documentation & learning materials','Community forums','Phù hợp 95% user VN — kiến trúc sư cá nhân + studio nhỏ']},
+     {id:'twinmotion-seats',label:'Twinmotion Seats (Over $1M)',price:30.33,priceVND:758338,perUser:true,note:'VN: đ9.100.062/seat/năm (~$364/yr = $30.33/mo). Per-seat subscription bắt buộc khi doanh thu >$1M USD',features:['Per-seat license/năm','Upgrades for one year','Twinmotion Cloud included','Documentation & learning','Community forums','Phải mua qua Developer Portal']},
+     {id:'unreal-bundle',label:'Unreal Subscription Bundle',price:126.18,priceVND:3153779,perUser:true,note:'VN: đ37.845.354/seat/năm (~$1,514/yr = $126.18/mo). Bundle 3 sản phẩm Epic',features:['Unreal Engine + Twinmotion + RealityScan','Per-seat subscription/năm','Twinmotion Cloud included','Epic Pro Support cho ≥10 seats (mua riêng)','Phù hợp game studio + visualization Pro']},
+     {id:'edu',label:'Education (Free)',price:0,note:'Cho trường, GV, SV — đăng ký qua Epic',features:['Đầy đủ tính năng Pro','Phi thương mại','All upgrades','Community forums','Documentation đầy đủ']}
    ]},
   {id:'enscape',name:'Enscape',cat:'Architecture',color:'#5B47FB',initials:'En',popular:false,
    logo:'icons/enscape.svg',url:'https://enscape3d.com/pricing/',
@@ -2964,7 +2970,7 @@ var ALTERNATIVES_MAP = {
   'semrush':    [{id:'ahrefs',reason:'Ahrefs Lite $129/mo, không có AI Search'}],
   'autocad':    [{id:'sketchup',reason:'Free Web tier'},{id:'blender',reason:'Free, concept arch'}],
   'revit':      [{id:'sketchup',reason:'Studio $749/yr — BIM Lite + render'},{id:'blender',reason:'Free, modeling đủ'}],
-  'lumion':     [{id:'twinmotion',reason:'Free non-commercial, Pro $445/yr rẻ hơn'},{id:'enscape',reason:'$708/yr plugin Revit/SketchUp/Rhino'}],
+  'lumion':     [{id:'twinmotion',reason:'FREE up to $1M revenue. Paid $30/mo per-seat'},{id:'enscape',reason:'$708/yr plugin Revit/SketchUp/Rhino'}],
   'loom':       [{id:'obs',reason:'Free, record + stream đầy đủ'}],
   'runway':     [{id:'kling',reason:'$8/mo basic tier'}],
   'linear':     [{id:'notion',reason:'Free, kanban + sprint built-in'},{id:'clickup',reason:'Free Forever đầy đủ PM cơ bản'}],
