@@ -2125,28 +2125,29 @@ var APPS = [
    ]},
   {id:'buffer',name:'Buffer',cat:'Marketing',color:'#2D9CDB',initials:'Bu',popular:false,
    logo:'https://cdn.simpleicons.org/buffer',url:'https://buffer.com/pricing',
-   desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X.',
-   tiers:{
-     personal:{label:'Essentials',price:6,popular:true,features:['3 channel mạng xã hội','Lên lịch & first comment','Analytics cơ bản','AI Assistant viết caption']},
-     team:{label:'Team',price:12,features:['Unlimited user / channel','Approval workflow','Draft collaboration','Engagement inbox chung']},
-     enterprise:{label:'Agency',price:120,features:['10 channel kèm white-label','Client reporting tự động','Custom access cho client','Priority support 24/7']}
-   }},
+   desc:'Lên lịch đăng bài mạng xã hội tự động — Instagram, TikTok, LinkedIn, X. Per channel pricing.',
+   tiers:[
+     {id:'free',label:'Free',price:0,note:'Forever free, 3 channels',features:['Connect up to 3 channels','10 scheduled posts/channel - refill anytime','100 ideas','1 user account','AI Assistant + Basic analytics','Community inbox']},
+     {id:'essentials',label:'Essentials (per channel)',price:6,popular:true,note:'Monthly $6 · Yearly $5/mo ($60/yr). Save 2 months annual',features:['Unlimited scheduled posts/channel','Unlimited ideas','1 user account','AI Assistant + Advanced analytics','Community inbox + Hashtag manager','First comment scheduling']},
+     {id:'team',label:'Team (per channel)',price:12,note:'Monthly $12 · Yearly $10/mo ($120/yr). Save 2 months annual',features:['Mọi tính năng Essentials','Unlimited team members','Access levels','Content approval workflows','Draft collaboration']}
+   ]},
   {id:'ahrefs',name:'Ahrefs',cat:'Marketing',color:'#E08C00',initials:'Ah',popular:false,
    logo:'icons/ahrefs.svg',url:'https://ahrefs.com/pricing',
-   desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor.',
-   tiers:{
-     personal:{label:'Lite',price:129,features:['Site Explorer cơ bản','500 credit/tháng','5 dự án theo dõi','Keyword research giới hạn']},
-     team:{label:'Standard',price:249,popular:true,features:['Backlink history 6 tháng','5000 credit/tháng','20 dự án','Content Explorer + Rank Tracker']},
-     enterprise:{label:'Advanced',price:449,features:['Backlink history full','10000 credit/tháng','100 dự án','API access (5K row/ngày)']}
-   }},
+   desc:'SEO all-in-one — keyword research, backlink checker, site audit, competitor. Save up to 17% với yearly billing.',
+   tiers:[
+     {id:'lite',label:'Lite',price:129,note:'Monthly $129 · Yearly $108/mo ($1,290/năm). Small businesses & personal projects',features:['5 projects','6 months historical data','750 tracked keywords','5 tracked prompts','100,000 crawl credits/mo','1 user (add $40/mo per extra)']},
+     {id:'standard',label:'Standard',price:249,popular:true,note:'Monthly $249 · Yearly $208/mo ($2,490/năm). Freelance SEOs & marketing consultants',features:['20 projects','2 years historical data','2,000 tracked keywords','10 tracked prompts','500,000 crawl credits/mo','Content Explorer + Rank Tracker','1 user (add $60/mo per extra)']},
+     {id:'advanced',label:'Advanced',price:449,note:'Monthly $449 · Yearly $374/mo ($4,490/năm). Lean in-house marketing teams',features:['50 projects','5 years historical data','5,000 tracked keywords','20 tracked prompts','1,500,000 crawl credits/mo','API access + Looker Studio','1 user (add $80/mo per extra)']}
+   ]},
   {id:'semrush',name:'Semrush',cat:'Marketing',color:'#FF642D',initials:'Se',popular:false,
    logo:'https://cdn.simpleicons.org/semrush',url:'https://www.semrush.com/pricing/',
-   desc:'Marketing platform — SEO, PPC, social media, content, competitor analysis.',
-   tiers:{
-     personal:{label:'Pro',price:140,popular:true,features:['5 dự án + 500 keyword','SEO, PPC & social media basic','Position tracking hàng ngày','Site Audit 100K trang']},
-     team:{label:'Guru',price:250,features:['15 dự án + 1500 keyword','Content Marketing Platform','Historical data từ 2012','Google Data Studio integration']},
-     enterprise:{label:'Business',price:500,features:['40 dự án + 5000 keyword','API access đầy đủ','PLA (Product Listing Ads)','Extended limit toàn tool']}
-   }},
+   desc:'Marketing platform — SEO, AI Search visibility, PPC, content, competitor analysis. An Adobe Company từ 2025. Pricing restructure 2026: 4 tier mới.',
+   tiers:[
+     {id:'seo',label:'SEO',price:139.95,note:'Monthly $139.95 · Annual $117.33/mo ($139 strike). Save 17%. Beginners & individual projects',features:['5 websites to monitor','500 keywords to track daily','Basic keyword research + competitor analysis','Position Tracking + Site Audit','KHÔNG có AI search features']},
+     {id:'starter',label:'Starter (SEO + AI)',price:199,note:'Monthly $199 · Annual $165.17/mo ($199 strike). Save 17%. SEO + AI Search visibility',features:['Mọi tính năng SEO','Keyword research + optimization tools','Competitors insights tools','MCP access','50 prompts to track daily (AI visibility)','300 AI visibility reports/day','AI-ready Site Audit']},
+     {id:'pro-plus',label:'Pro+ (SEO + AI)',price:299,popular:true,note:'Monthly $299 · Annual $248.17/mo ($299 strike). Save 17%. Growing brands scaling SEO',features:['15 websites to monitor','1,500 keywords to track daily','Historical SEO data','Content optimization','Keyword cannibalization analysis','Multi-location/device tracking','100 prompts to track daily']},
+     {id:'advanced',label:'Advanced (SEO + AI)',price:549,note:'Monthly $549 · Annual $455.67/mo ($549 strike). Save 17%. Max power, API access',features:['40 websites to monitor','5,000 keywords to track daily','SEO share of voice','API data integration','200 prompts to track daily','Đầy đủ AI visibility insights']}
+   ]},
   {id:'capcut',name:'CapCut Pro',cat:'Video',color:'#222',initials:'CC',popular:false,
    logo:'icons/capcut-3.svg',url:'https://www.capcut.com/pricing',
    desc:'Edit video ngắn trên mobile và desktop — AI effects, template, auto-subtitle.',
@@ -2787,6 +2788,16 @@ var ANNUAL_DISCOUNTS = {
   // Raycast — added 19/05/2026
   'raycast/pro':              0.20,   // $10→$8/mo ($96/yr). Save 20%
   'raycast/pro-ai':           0.20,   // $20→$16/mo ($192/yr). Save 20%
+  // Marketing tools — added 19/05/2026
+  'buffer/essentials':        0.167,  // $6→$5/mo. Save 2 months annual
+  'buffer/team':              0.167,  // $12→$10/mo. Save 2 months annual
+  'ahrefs/lite':              0.163,  // $129→$108/mo ($1,290/yr)
+  'ahrefs/standard':          0.165,  // $249→$208/mo ($2,490/yr)
+  'ahrefs/advanced':          0.167,  // $449→$374/mo ($4,490/yr)
+  'semrush/seo':              0.162,  // $139.95→$117.33/mo
+  'semrush/starter':          0.170,  // $199→$165.17/mo
+  'semrush/pro-plus':         0.170,  // $299→$248.17/mo
+  'semrush/advanced':         0.170,  // $549→$455.67/mo
   // Consumer
   'discord-nitro/basic':      0.164,  // $2.99→$2.50 ($29.99/yr) — verified 19/05/2026
   'discord-nitro/nitro':      0.166,  // $9.99→$8.33 ($99.99/yr) — verified 19/05/2026
@@ -2876,8 +2887,8 @@ var ALTERNATIVES_MAP = {
   'rhino':      [{id:'blender',reason:'Free, modeling đa năng (no parametric chuẩn Rhino)'}],
   'procreate':  [{id:'krita',reason:'Free desktop, brush engine pro'},{id:'sketchbook',reason:'Free Autodesk, đa nền tảng'}],
   'clipstudio': [{id:'krita',reason:'Free, brush engine illustration'},{id:'procreate',reason:'$12.99 mua đứt iPad'}],
-  'ahrefs':     [{id:'semrush',reason:'$140/mo Pro tier cạnh tranh'}],
-  'semrush':    [{id:'ahrefs',reason:'$129/mo Lite tier'}],
+  'ahrefs':     [{id:'semrush',reason:'Semrush SEO $139.95/mo, có AI Search'}],
+  'semrush':    [{id:'ahrefs',reason:'Ahrefs Lite $129/mo, không có AI Search'}],
   'autocad':    [{id:'sketchup',reason:'Free Web tier'},{id:'blender',reason:'Free, concept arch'}],
   'revit':      [{id:'sketchup',reason:'Studio $749/yr — BIM Lite + render'},{id:'blender',reason:'Free, modeling đủ'}],
   'lumion':     [{id:'twinmotion',reason:'Free non-commercial, Pro $445/yr rẻ hơn'},{id:'enscape',reason:'$708/yr plugin Revit/SketchUp/Rhino'}],
