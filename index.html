@@ -2231,11 +2231,13 @@ var APPS = [
    ]},
   {id:'kling',name:'Kling AI',cat:'Video',color:'#1a1a2e',initials:'Kl',popular:false,
    logo:'icons/kling-color.svg',url:'https://klingai.com/pricing',
-   desc:'AI video generation — tạo video từ text/ảnh, chất lượng cao, nổi tiếng tại Việt Nam.',
+   desc:'AI video generation — tạo video từ text/ảnh, chất lượng cao, nổi tiếng tại Việt Nam. Restructure 5/2026: thêm Basic free + Ultra tier.',
    tiers:{
-     personal:{label:'Standard',price:8,popular:true,features:['660 credit/tháng (~33 video 5s)','Kling 1.6 + Image-to-Video','Watermark khi export','Lip sync cơ bản']},
-     team:{label:'Pro',price:28,features:['3000 credit/tháng','Không watermark, ưu tiên queue','Kling 2.0 Master','Motion brush + camera control']},
-     enterprise:{label:'Premier',price:58,features:['8000 credit/tháng','Generation 1080p','API access (qua liên hệ)','Phù hợp creator chuyên nghiệp']}
+     free:{label:'Basic',price:0,features:['Free forever, login để nhận credit hàng tháng','Không commercial use','Element Creation Quantity: 30','Trải nghiệm tính năng subscriber']},
+     personal:{label:'Standard',price:10,popular:true,note:'Promo "Subscribe Special Offer" 12% off năm đầu',features:['660 credit/tháng (660 ảnh / 33 video 720p)','Kling 2.6 Voice Control + O1 Multi-Shot','Daily 3 Free Uses','Element Creation Quantity: 50','Commercial use OK']},
+     team:{label:'Pro',price:37,note:'Promo 12% off năm đầu',features:['3000 credit/tháng (3000 ảnh / 150 video 720p)','Element Creation Quantity: 150','Fast-track generation','1080p Video Generation','Image upscaling + Watermark removal']},
+     enterprise:{label:'Premier',price:92,note:'Promo 12% off năm đầu',features:['8000 credit/tháng (8000 ảnh / 400 video 720p)','Element Creation Quantity: 150','Priority access to new features','Brand watermark removal','Video extension']},
+     ultra:{label:'Ultra',price:180,note:'NEW tier 5/2026. Promo 11% off năm đầu',features:['26000 credit/tháng (26000 ảnh / 1300 video 720p)','Element Creation Quantity: 500','Beta test invite (if applicable)','Priority access to new features','As low as $0.62 per 100 credits']}
    }},
   {id:'elevenlabs',name:'ElevenLabs',cat:'AI',color:'#000000',initials:'EL',popular:true,
    logo:'icons/elevenlabs.svg',url:'https://elevenlabs.io/pricing',
@@ -2287,12 +2289,12 @@ var APPS = [
    ]},
   {id:'replit',name:'Replit',cat:'Development',color:'#F26207',initials:'Rp',popular:false,
    logo:'icons/replit.svg',url:'https://replit.com/pricing',
-   desc:'Vibe-coding online IDE + AI Agent. Build app full-stack từ prompt, deploy ngay trong browser.',
+   desc:'Vibe-coding online IDE + AI Agent. Build app full-stack từ prompt, deploy ngay trong browser. Feb 2026: Teams sunset, Pro plan thay thế (flat 15 builders, không per-seat).',
    tiers:[
-     {id:'starter',label:'Starter (Free)',price:0,features:['Free daily Agent credits','Built-in database','Slides/videos/animations','1 public project']},
-     {id:'core',label:'Replit Core',price:20,popular:true,note:'Annual $18/mo (save 10%)',features:['$20 monthly credits','5 collaborators','2 agents parallel','Unlimited workspaces, không Made with Replit badge']},
-     {id:'pro',label:'Replit Pro',price:100,note:'Annual $90/mo (save 10%)',features:['$100 monthly credits','15 collaborators','10 agents parallel','Database rollbacks 28 ngày, premium support']},
-     {id:'enterprise',label:'Enterprise',price:null,features:['Custom seat limits','SSO/SAML','Dedicated support','VPC peering, single-tenant']}
+     {id:'starter',label:'Starter (Free)',price:0,features:['Free daily Agent credits','Built-in database, full-stack apps','Publish 1 public project','Trial Agent (hết credit là dừng)']},
+     {id:'core',label:'Replit Core',price:25,popular:true,note:'$25 monthly hoặc $20/mo annual ($240/năm). Save 20% annual',features:['$25 monthly credits (không rollover)','5 collaborators','2 agents parallel','Unlimited workspaces, no Replit badge','Private apps + latest AI models']},
+     {id:'pro',label:'Replit Pro',price:100,note:'$100 monthly hoặc $95/mo annual. Flat cho up to 15 builders (~$6.67/người). Thay thế Teams plan',features:['$100 monthly pooled credits + tiered discount','Credit rollover 1 tháng','Up to 15 builders + 50 viewers','Up to 10 agents parallel','Priority support <24h','Database rollback 28 ngày, Turbo Mode Agent']},
+     {id:'enterprise',label:'Enterprise',price:null,features:['Custom seat + credit limits','SSO/SAML + SCIM','VPC peering, single-tenant','Dedicated support','Compliance controls']}
    ]},
 
   /* ─── Architecture ─── */
@@ -2962,7 +2964,10 @@ var ANNUAL_DISCOUNTS = {
   'archicad/collaborate':     0.408,  // $400 monthly → $237 annual. Save ~41%
   'obsidian/sync':            0.20,   // $5 monthly → $4 annual. Save 20%
   'obsidian/publish':         0.20,   // $10 monthly → $8 annual. Save 20%
-  'photopea/premium':         0.167   // $5 monthly → $4.17 annual ($50/yr). Save 17%
+  'photopea/premium':         0.167,  // $5 monthly → $4.17 annual ($50/yr). Save 17%
+  // Replit Feb 2026 restructure
+  'replit/core':              0.20,   // $25 monthly → $20 annual ($240/yr). Save 20%
+  'replit/pro':               0.05    // $100 monthly → $95 annual. Save 5%
   // InShot dùng pattern split-tier (annual = tier riêng), không add vào ANNUAL_DISCOUNTS
 };
 
@@ -3043,7 +3048,7 @@ var ALTERNATIVES_MAP = {
   'revit':      [{id:'sketchup',reason:'Studio $749/yr — BIM Lite + render'},{id:'blender',reason:'Free, modeling đủ'}],
   'lumion':     [{id:'twinmotion',reason:'FREE up to $1M revenue. Paid $30/mo per-seat'},{id:'enscape',reason:'$708/yr plugin Revit/SketchUp/Rhino'}],
   'loom':       [{id:'obs',reason:'Free, record + stream đầy đủ'}],
-  'runway':     [{id:'kling',reason:'$8/mo basic tier'}],
+  'runway':     [{id:'kling',reason:'$10/mo Standard tier (660 credit)'}],
   'linear':     [{id:'notion',reason:'Free, kanban + sprint built-in'},{id:'clickup',reason:'Free Forever đầy đủ PM cơ bản'}],
   'clickup':    [{id:'notion',reason:'Free, flexible DB'},{id:'linear',reason:'$8/mo, dev-team focus'}],
   'midjourney': [{id:'chatgpt',reason:'DALL·E trong ChatGPT Plus đủ cho most cases'},{id:'canva',reason:'Magic Media Free tier'}],
