@@ -1,10 +1,34 @@
 <!doctype html>
-<html lang="vi" data-theme="dark">
+<html lang="vi" data-theme="light">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="description" content="Tính chi phí app bản quyền theo % lương. Cảnh báo khi quá tải, gợi ý alternative rẻ hơn. 52+ app phổ biến tại Việt Nam, tỉ giá USD/VND live."/>
 <title>Lương bạn nuôi bao nhiêu app? — toolbanquyen.vn</title>
+
+<!-- PostHog Analytics -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_kwreV4qsFLLefQFFEMXcCz5ecQVybqKVCXYPDhFUUtxF', {
+  api_host: 'https://us.i.posthog.com',
+  person_profiles: 'identified_only',
+  capture_pageview: true,
+  capture_pageleave: true,
+  autocapture: true,
+  disable_session_recording: false,
+  loaded: function(ph){
+    // Set super properties for all events
+    ph.register({
+      app: 'tool-ban-quyen',
+      version: '2026-05'
+    });
+  }
+});
+// Safe wrapper — không throw nếu PostHog chưa load
+window.track = function(event, props){
+  try { if (window.posthog && posthog.capture) posthog.capture(event, props || {}); } catch(e){}
+};
+</script>
 
 <!-- Open Graph / Social sharing -->
 <meta property="og:type" content="website"/>
@@ -225,7 +249,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   height: 260px;
   z-index: 3;
   pointer-events: none;
-  background-image: url('images/calculator-dark-toolbanquyen.vn.png');
+  background-image: url('images/calculator-light-toolbanquyen.vn.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -236,7 +260,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
              calcFloat 5s ease-in-out 1s infinite;
 }
 [data-theme="light"] .hero-calc {
-  background-image: url('images/calculator-light-toolbanquyen.vn.png');
+  background-image: url('images/calculator-dark-toolbanquyen.vn.png');
   filter: drop-shadow(0 18px 36px rgba(20,60,30,.25));
 }
 @keyframes calcEntry {
@@ -272,7 +296,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     height: 110px;
     z-index: 1;
     pointer-events: none;
-    background-image: url('images/calculator-dark-toolbanquyen.vn.png');
+    background-image: url('images/calculator-light-toolbanquyen.vn.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -283,7 +307,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
                calcFloat 5s ease-in-out 1s infinite;
   }
   [data-theme="light"] .hero-calc-m {
-    background-image: url('images/calculator-light-toolbanquyen.vn.png');
+    background-image: url('images/calculator-dark-toolbanquyen.vn.png');
     filter: drop-shadow(0 6px 12px rgba(20,60,30,.2));
   }
 }
@@ -1894,13 +1918,18 @@ footer .dot-sep { margin:0 8px;opacity:.5; }
         Phương pháp & nguồn dữ liệu
       </button>
       <span class="dot-sep">·</span>
-      <span class="footer-version">v4.1</span>
+      <button type="button" class="footer-link" id="btn-legal">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+        Tài liệu pháp lý
+      </button>
+      <span class="dot-sep">·</span>
+      <span class="footer-version">v4.2</span>
     </div>
     <div class="footer-row footer-disclaimer">
       Giá tham khảo tại thời điểm cập nhật. Vui lòng kiểm tra trang chính thức trước khi mua.
     </div>
     <div class="footer-row footer-parent">
-      Một sản phẩm của <a href="https://maralabs.vn" target="_blank" rel="noopener" class="footer-link-inline footer-parent-link">MARA LABS</a>
+      Một sản phẩm của <a href="https://maralabs.vn" target="_blank" rel="noopener" class="footer-link-inline footer-parent-link" onclick="window.track('mara_labs_clicked',{source:'footer'})">MARA LABS</a>
     </div>
   </div>
 </footer>
@@ -4520,6 +4549,7 @@ function openModal(appId){
   buildModal(app);
   var ov=document.getElementById('modal-overlay');
   ov.classList.add('is-open');ov.setAttribute('aria-hidden','false');
+  window.track('app_modal_opened',{app_id:appId,app_name:app.name,in_cart:inCart});
 }
 function closeModal(){
   var ov=document.getElementById('modal-overlay');
@@ -4557,13 +4587,51 @@ function openMethodologyModal(){
 
       '<h3 class="meth-h3">5. Privacy</h3>'+
       '<p class="meth-p">Tool <strong>không lưu lương</strong> bạn nhập — số chỉ tồn tại trong session browser. URL share encode salary + cart vào hash, không gửi server.</p>'+
-      '<p class="meth-p">Tool có thu thập lượt truy cập ẩn danh qua <strong>Cloudflare Web Analytics</strong> (không cookie, không fingerprint, không PII) để biết bao nhiêu người dùng tool.</p>'+
+      '<p class="meth-p">Tool có thu thập <strong>analytics ẩn danh qua PostHog</strong> (không cookie persistent ID, không lưu thông tin cá nhân) để hiểu user dùng tính năng nào. Dữ liệu chỉ dùng để cải thiện sản phẩm.</p>'+
 
       '<h3 class="meth-h3">6. Limitation</h3>'+
       '<p class="meth-p">Tool không tính: <em>billing annual prepay discount</em> (đang trong roadmap), <em>student/edu pricing</em>, <em>regional pricing</em> (một số app có giá VN khác US), <em>tax invoice</em> cho doanh nghiệp.</p>'+
       '<p class="meth-p">Verdict là gợi ý, không phải tư vấn tài chính. Bạn tự quyết.</p>'+
 
       '<div class="meth-foot">Có app nào thiếu hoặc giá lạc hậu? Mention <strong>toolbanquyen.vn</strong> trên FB hoặc email maker (sẽ thêm vào footer sau).</div>'+
+    '</div>';
+  var ov=document.getElementById('modal-overlay');
+  ov.classList.add('is-open');ov.setAttribute('aria-hidden','false');
+}
+
+/* Legal modal — tài liệu tham khảo bản quyền & SHTT */
+function openLegalModal(){
+  document.getElementById('modal-content').innerHTML =
+    '<div class="meth-modal">'+
+      '<h2 class="meth-title">Tài liệu tham khảo về bản quyền & sở hữu trí tuệ</h2>'+
+      '<p class="meth-lede">Tool này tính giá app bản quyền — nhưng vì sao phải trả tiền cho phần mềm? Đây là tài liệu tham khảo nhanh về luật Sở hữu trí tuệ Việt Nam và quốc tế. Bạn có thể đối chứng trực tiếp với nguồn chính thức bên dưới.</p>'+
+
+      '<h3 class="meth-h3">1. Dùng app crack/lậu có vi phạm luật VN không?</h3>'+
+      '<p class="meth-p">Có. Theo <strong>Điều 28 Luật Sở hữu trí tuệ 2005</strong> (sửa đổi 2009, 2019, 2022), sao chép, phân phối hoặc sử dụng phần mềm không có giấy phép hợp pháp là hành vi xâm phạm quyền tác giả — kể cả khi dùng cá nhân, không thương mại.</p>'+
+
+      '<h3 class="meth-h3">2. Mức phạt khi dùng phần mềm lậu?</h3>'+
+      '<p class="meth-p"><strong>Cá nhân:</strong> phạt hành chính 1-500 triệu VND tuỳ mức độ (Nghị định 131/2013/NĐ-CP, sửa đổi 28/2017/NĐ-CP). <strong>Doanh nghiệp:</strong> phạt cao hơn + bồi thường thiệt hại cho chủ sở hữu quyền. Trường hợp nghiêm trọng hoặc tái phạm có thể bị truy cứu hình sự theo <strong>Điều 225 Bộ luật Hình sự 2015</strong> (sửa đổi 2017) — phạt tiền đến 1 tỷ VND hoặc phạt tù đến 3 năm.</p>'+
+
+      '<h3 class="meth-h3">3. App nước ngoài (Adobe, Microsoft, Figma...) có được bảo hộ tại VN không?</h3>'+
+      '<p class="meth-p">Có. Việt Nam là thành viên <strong>Công ước Berne</strong> (gia nhập 2004) và <strong>Hiệp định TRIPS / WTO</strong> (gia nhập 2007). Phần mềm nước ngoài được bảo hộ tự động tại VN ngay khi được tạo ra, không cần đăng ký riêng. Tức là crack Adobe ở VN vẫn vi phạm luật VN.</p>'+
+
+      '<h3 class="meth-h3">4. Open-source (GIMP, Inkscape, Blender, DaVinci Free...) có "miễn phí pháp lý" không?</h3>'+
+      '<p class="meth-p">Có, nhưng vẫn có <strong>giấy phép</strong> riêng (GPL, MIT, Apache, AGPL...). Đa số cho phép sử dụng cá nhân + thương mại tự do, nhưng một số (như AGPL) có ràng buộc khi bạn distribute lại hoặc tích hợp vào sản phẩm thương mại. <strong>Đọc license trước khi dùng cho dự án thương mại.</strong></p>'+
+
+      '<h3 class="meth-h3">5. Đăng ký bản quyền tác phẩm tại VN ở đâu?</h3>'+
+      '<p class="meth-p">Cục Bản quyền tác giả (Bộ Văn hóa, Thể thao và Du lịch). Thủ tục online tại <a href="https://cov.gov.vn" target="_blank" rel="noopener" style="color:var(--accent)">cov.gov.vn</a>. Lệ phí khoảng 100k-600k VND tuỳ loại tác phẩm.</p>'+
+
+      '<h3 class="meth-h3">6. Nguồn chính thức để đối chứng</h3>'+
+      '<ul class="meth-ul">'+
+        '<li><strong>Cục Bản quyền tác giả VN:</strong> <a href="https://cov.gov.vn" target="_blank" rel="noopener" style="color:var(--accent)">cov.gov.vn</a></li>'+
+        '<li><strong>Luật SHTT VN (tra cứu văn bản):</strong> <a href="https://vbpl.vn" target="_blank" rel="noopener" style="color:var(--accent)">vbpl.vn</a> — tìm "Luật Sở hữu trí tuệ"</li>'+
+        '<li><strong>Nghị định 17/2023/NĐ-CP</strong> hướng dẫn Luật SHTT về quyền tác giả: tra trên vbpl.vn</li>'+
+        '<li><strong>Nghị định 131/2013/NĐ-CP</strong> (sửa đổi 28/2017) về xử phạt vi phạm hành chính: tra trên vbpl.vn</li>'+
+        '<li><strong>WIPO Vietnam profile:</strong> <a href="https://www.wipo.int/members/en/details.jsp?country_id=193" target="_blank" rel="noopener" style="color:var(--accent)">wipo.int</a></li>'+
+        '<li><strong>BSA (Business Software Alliance) VN:</strong> <a href="https://www.bsa.org/country/vietnam" target="_blank" rel="noopener" style="color:var(--accent)">bsa.org/country/vietnam</a> — báo cáo phần mềm lậu, audit doanh nghiệp</li>'+
+      '</ul>'+
+
+      '<div class="meth-foot"><strong>Disclaimer:</strong> Thông tin trên là tham khảo, KHÔNG phải tư vấn pháp lý. Khi xử lý vụ việc cụ thể (tranh chấp, bị thanh tra, ký hợp đồng license enterprise...), hãy liên hệ luật sư chuyên về SHTT.</div>'+
     '</div>';
   var ov=document.getElementById('modal-overlay');
   ov.classList.add('is-open');ov.setAttribute('aria-hidden','false');
@@ -4662,6 +4730,12 @@ function buildModal(app){
     var inNow=S.cart.indexOf(app.id)!==-1;
     if(!inNow){S.cartTiers[app.id]=S.modalTier;}
     else{delete S.cartTiers[app.id];}
+    window.track(inNow?'app_removed_from_cart':'app_added_to_cart',{
+      app_id:app.id, app_name:app.name,
+      tier_idx:S.modalTier,
+      tier_label:(app.tiers && app.tiers[S.modalTier]) ? app.tiers[S.modalTier].label : null,
+      source:'modal'
+    });
     toggleCart(app.id);buildModal(app);
   });
   // Scroll affordance: fade gradient + arrow hint based on scroll position
@@ -4840,16 +4914,21 @@ function syncCurrencyToggle(){
 /* ── EVENTS ────────────────────────────────────────────────────────────── */
 document.getElementById('theme-toggle').addEventListener('click',function(){
   var cur=document.documentElement.dataset.theme;
-  document.documentElement.dataset.theme=cur==='dark'?'light':'dark';
+  var next=cur==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=next;
   saveLocalState();
+  window.track('theme_toggled',{from:cur,to:next});
 });
 
 document.getElementById('cur-toggle').querySelectorAll('button').forEach(function(btn){
   btn.addEventListener('click',function(){
     document.getElementById('cur-toggle').querySelectorAll('button').forEach(function(b){b.classList.remove('is-on');});
-    btn.classList.add('is-on');S.currency=btn.dataset.cur;
+    btn.classList.add('is-on');
+    var prev=S.currency;
+    S.currency=btn.dataset.cur;
     saveLocalState();
     renderAll();
+    if(prev!==S.currency) window.track('currency_toggled',{from:prev,to:S.currency});
   });
 });
 
@@ -4860,19 +4939,37 @@ document.getElementById('cat-tabs').querySelectorAll('.tab').forEach(function(ta
     S.filter=tab.dataset.cat;S.search='';S.showAll=false;
     document.getElementById('search-input').value='';
     renderApps();
+    window.track('category_selected',{category:tab.dataset.cat});
   });
 });
 
 
-document.getElementById('search-input').addEventListener('input',function(){S.search=this.value;renderApps();});
+document.getElementById('search-input').addEventListener('input',(function(){
+  var debounceTimer=null, lastTracked='';
+  return function(){
+    S.search=this.value;renderApps();
+    clearTimeout(debounceTimer);
+    var val=this.value;
+    debounceTimer=setTimeout(function(){
+      if(val && val.length>=2 && val!==lastTracked){
+        lastTracked=val;
+        window.track('search_performed',{query_length:val.length, has_query:true});
+      }
+    },800);
+  };
+})());
 document.addEventListener('keydown',function(e){
   if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();document.getElementById('search-input').focus();}
   if(e.key==='Escape')closeModal();
 });
 
-document.getElementById('btn-cart-clear').addEventListener('click',function(){S.cart=[];S.cartTiers={};renderAll();});
+document.getElementById('btn-cart-clear').addEventListener('click',function(){
+  window.track('cart_cleared',{item_count:S.cart.length});
+  S.cart=[];S.cartTiers={};renderAll();
+});
 document.getElementById('btn-cart-detail').addEventListener('click',function(){
   if(S.cart.length===0) return;
+  window.track('cart_detail_clicked',{item_count:S.cart.length});
   var target = document.getElementById('recs') || document.getElementById('apps');
   if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 });
@@ -4882,7 +4979,19 @@ document.getElementById('modal-overlay').addEventListener('click',function(e){if
 /* Methodology modal trigger từ footer */
 (function(){
   var btn = document.getElementById('btn-methodology');
-  if(btn) btn.addEventListener('click', openMethodologyModal);
+  if(btn) btn.addEventListener('click', function(){
+    window.track('methodology_opened');
+    openMethodologyModal();
+  });
+})();
+
+/* Legal modal trigger từ footer */
+(function(){
+  var btn = document.getElementById('btn-legal');
+  if(btn) btn.addEventListener('click', function(){
+    window.track('legal_opened');
+    openLegalModal();
+  });
 })();
 
 /* ── Cart popover toggle ───────────────────────────────────────────────── */
@@ -5216,6 +5325,7 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
   var goBtn = document.getElementById('hs-go-btn');
   if (goBtn) {
     goBtn.addEventListener('click', function(){
+      window.track('hero_cta_clicked');
       var apps = document.getElementById('apps');
       if (apps) apps.scrollIntoView({behavior:'smooth', block:'start'});
     });
