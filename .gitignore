@@ -3,3 +3,17 @@ Thumbs.db
 *.log
 node_modules/
 .vercel/
+
+# Internal docs — not for public repo
+HANDOFF-*.md
+pricing-audit-*.md
+header-redesign-brief.md
+logo-design-brief.md
+SKILL.md
+
+# Design exports & unused assets
+Dark mode.svg
+Light mode.svg
+CabinetGrotesk-Extrabold.otf
+index.zip
+.backup-*.html
